@@ -1,7 +1,27 @@
+import React from 'react';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import AppRouter from './routes/AppRouter';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 
+function App(){
+  return(
+    <>
+      <div className="app-container">
+        <Header/>
+        <main styles={{minHeight: '80vh'}}>
+          <AppRouter />
+        </main>
+        <Footer/>
+      </div>
+    </>
+  );
 
+}
+export default App
+//api 호출 예시
+/*
 function App() {
   const [message, setMessage] = useState("");
 
@@ -22,3 +42,4 @@ function App() {
 }
 
 export default App
+*/
