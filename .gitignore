@@ -35,5 +35,16 @@ build/
 # 환경 설정 파일
 setting.env
 
-# vite 넣어도 되겠지..?..
-.vite/deps
+# dependencies
+node_modules/
+
+# production
+dist/
+build/
+
+# vite
+.vite/
+
+# system
+.DS_Store
+.env
