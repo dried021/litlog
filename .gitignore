@@ -48,3 +48,6 @@ build/
 # system
 .DS_Store
 .env
+
+#캐시
+_metadata.json
