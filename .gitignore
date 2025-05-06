@@ -35,5 +35,16 @@ build/
 # 환경 설정 파일
 setting.env
 
+# dependencies
+node_modules/
+
+# production
+dist/
+build/
+
 # vite
 .vite/
+
+# system
+.DS_Store
+.env

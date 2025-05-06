@@ -12,6 +12,8 @@ public class Main {
 
     @GetMapping("/message")
     public String hello() {
+
+        
         return "Hello from Spring Boot!";
     }
 }
