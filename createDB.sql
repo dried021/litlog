@@ -54,6 +54,7 @@ CREATE TABLE user(
     pwd_reset_at TIMESTAMP NULL DEFAULT NULL,
     email VARCHAR(100) NOT NULL,
     reg_date TIMESTAMP DEFAULT (CURRENT_TIMESTAMP),
+    bio TEXT,
 
     user_type INT, 
     user_status INT,
