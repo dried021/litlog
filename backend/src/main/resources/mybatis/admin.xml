@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bookfox.repository.AdminMapper">
+    <select id="countAll" resultType="int">
+        SELECT COUNT(*) FROM user
+    </select>
+
+    <select id="countByName" parameterType="String" resultType="int">
+        SELECT COUNT(*) 
+        FROM user
+        WHERE name LIKE CONCAT('%', #{searchName}, '%')
+    </select>
+
+    <select id="getUsers" resultType="com.bookfox.model.UserDto" parameterType="map">
+        SELECT *
+        FROM user
+        <where>
+            <if test="searchName != null and searchName != ''">
+                name LIKE CONCAT('%', #{searchName}, '%')
+            </if>
+        </where>
+        LIMIT #{pageSize} OFFSET #{start};
+    </select>
+</mapper>
