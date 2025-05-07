@@ -6,7 +6,7 @@ import Pagination from '../../components/Pagination/Pagination';
 
 const AdminMain = () => {
   const [data, setData] = useState({
-    memberDtos: [],
+    userDtos: [],
     pageNum: 1,
     currentPage: 1,
     startPage: 1,
@@ -28,11 +28,11 @@ const AdminMain = () => {
       .catch((err) => console.error(err));
   }, [pageNum, searchName]);
 
-  const toggleMemberType = (index) => {
+  const toggleUserType = (index) => {
     setData((prev) => ({
       ...prev,
-      memberDtos: prev.memberDtos.map((member, i) =>
-        i === index ? { ...member, memberType: member.memberType === 1 ? 2 : 1 } : member
+      userDtos: prev.userDtos.map((user, i) =>
+        i === index ? { ...user, userType: user.userType === 1 ? 2 : 1 } : user
       ),
     }));
   };
@@ -45,7 +45,7 @@ const AdminMain = () => {
         </Col>
       </Row>
 
-      {data.memberDtos.length === 0 ? (
+      {data.userDtos.length === 0 ? (
         <Alert variant="warning">등록된 회원이 없습니다.</Alert>
       ) : (
         <Table striped bordered hover responsive>
@@ -61,24 +61,24 @@ const AdminMain = () => {
             </tr>
           </thead>
           <tbody>
-            {data.memberDtos.map((member, index) => (
-              <tr key={member.id}>
+            {data.userDtos.map((user, index) => (
+              <tr key={user.id}>
                 <td>{index + 1}</td>
-                <td>{member.id}</td>
-                <td>{member.nickname}</td>
-                <td>{member.name}</td>
-                <td>{member.email}</td>
-                <td>{member.tel}</td>
+                <td>{user.id}</td>
+                <td>{user.nickname}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.tel}</td>
                 <td>
                   <Button
-                    variant={member.memberType === 1 ? 'outline-primary' : 'outline-danger'}
+                    variant={user.userType === 1 ? 'outline-primary' : 'outline-danger'}
                     size="sm"
                     onClick={(e) => {
                       e.stopPropagation();
-                      toggleMemberType(index);
+                      toggleUserType(index);
                     }}
                   >
-                    {member.memberType === 1 ? '일반 회원' : '관리자'}
+                    {user.userType === 1 ? '일반 회원' : '관리자'}
                   </Button>
                 </td>
               </tr>
