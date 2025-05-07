@@ -2,7 +2,6 @@ setting.env / createDBSample.sql
 -> 세팅: 원래 보안 문제로 인해 깃 업로드는 막아둠
 -> createDBSample: 본인 맡은 부분에 맞게 수정하세요 충돌 방지하려고 막아둠
 
-##
 링크 모음
 회원가입    /sign-up
 아이디 중복 체크    /sign-up/check-id
