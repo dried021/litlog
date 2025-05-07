@@ -51,3 +51,6 @@ build/
 
 #캐시
 _metadata.json
+
+#DB
+createDBSample.sql
