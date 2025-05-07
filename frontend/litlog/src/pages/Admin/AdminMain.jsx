@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
+import { Container, Table, Button, Row, Col, Alert } from 'react-bootstrap';
 import Pagination from '../../components/Pagination/Pagination';
 
 const AdminMain = () => {
@@ -37,27 +38,31 @@ const AdminMain = () => {
   };
 
   return (
-    <>
-      <table className="table table-bordered table-hover mt-4">
-        <thead className="table-light">
-          <tr>
-            <th style={{ width: '5%' }}>No</th>
-            <th style={{ width: '10%' }}>ID</th>
-            <th style={{ width: '10%' }}>Nickname</th>
-            <th style={{ width: '15%' }}>Name</th>
-            <th style={{ width: '18%' }}>Email</th>
-            <th style={{ width: '12%' }}>Tel</th>
-            <th style={{ width: '20%' }}>User Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.memberDtos.length === 0 ? (
+    <Container className="mt-4">
+      <Row>
+        <Col>
+          <h3 className="mb-4">회원 관리</h3>
+        </Col>
+      </Row>
+
+      {data.memberDtos.length === 0 ? (
+        <Alert variant="warning">등록된 회원이 없습니다.</Alert>
+      ) : (
+        <Table striped bordered hover responsive>
+          <thead className="table-light">
             <tr>
-              <td colSpan="7">등록된 회원이 없습니다.</td>
+              <th style={{ width: '5%' }}>No</th>
+              <th style={{ width: '10%' }}>ID</th>
+              <th style={{ width: '10%' }}>Nickname</th>
+              <th style={{ width: '15%' }}>Name</th>
+              <th style={{ width: '18%' }}>Email</th>
+              <th style={{ width: '12%' }}>Tel</th>
+              <th style={{ width: '20%' }}>User Type</th>
             </tr>
-          ) : (
-            data.memberDtos.map((member, index) => (
-              <tr key={member.id} style={{ cursor: 'pointer' }}>
+          </thead>
+          <tbody>
+            {data.memberDtos.map((member, index) => (
+              <tr key={member.id}>
                 <td>{index + 1}</td>
                 <td>{member.id}</td>
                 <td>{member.nickname}</td>
@@ -65,34 +70,39 @@ const AdminMain = () => {
                 <td>{member.email}</td>
                 <td>{member.tel}</td>
                 <td>
-                  <button
-                    className="btn btn-sm btn-outline-primary"
+                  <Button
+                    variant={member.memberType === 1 ? 'outline-primary' : 'outline-danger'}
+                    size="sm"
                     onClick={(e) => {
                       e.stopPropagation();
                       toggleMemberType(index);
                     }}
                   >
                     {member.memberType === 1 ? '일반 회원' : '관리자'}
-                  </button>
+                  </Button>
                 </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ))}
+          </tbody>
+        </Table>
+      )}
 
-      <Pagination
-        currentPage={data.currentPage}
-        startPage={data.startPage}
-        endPage={data.endPage}
-        pageBlock={data.pageBlock}
-        pageCount={data.pageCount}
-        count={data.count}
-        onPageChange={(pageNum) => {
-          navigate(`/admin?pageNum=${pageNum}&searchName=${searchName}`);
-        }}
-      />
-    </>
+      <Row>
+        <Col className="d-flex justify-content-center">
+          <Pagination
+            currentPage={data.currentPage}
+            startPage={data.startPage}
+            endPage={data.endPage}
+            pageBlock={data.pageBlock}
+            pageCount={data.pageCount}
+            count={data.count}
+            onPageChange={(pageNum) => {
+              navigate(`/admin?pageNum=${pageNum}&searchName=${searchName}`);
+            }}
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

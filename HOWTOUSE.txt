@@ -1,0 +1,33 @@
+setting.env / createDBSample.sql
+-> 세팅: 원래 보안 문제로 인해 깃 업로드는 막아둠
+-> createDBSample: 본인 맡은 부분에 맞게 수정하세요 충돌 방지하려고 막아둠
+
+링크 모음
+회원가입    /sign-up
+아이디 중복 체크    /sign-up/check-id
+이메일 중복 확인    /sign-up/check-email
+이메일 인증    /sign-up/verify-email
+회원가입 결과 페이지    /sign-up
+로그인 페이지    /sign-in
+아이디 찾기    /find-id
+비밀번호 찾기    /find-password
+메인 화면    /
+Books 메인    /books
+Books 검색 결과    /books/search
+도서 상세 페이지    /books/{bookId}
+컬렉션 메인    /collections
+컬렉션 상세 페이지    /collections/detail
+컬렉션 생성 페이지    /collections/new
+랭킹 (유저들)    /readers
+회원 프로필 정보    /{userId}
+책장    /{userId}/bookshelf
+리뷰 타임라인    /{userId}/reviews/{year}
+리뷰 디테일    /{userId}/reviews/detail
+컬렉션 메인    /{userId}/collections
+회원 정보 수정    /settings
+회원 탈퇴    /withdraw
+탈퇴 결과 페이지    /withdraw
+관리자 메인    /admin
+회원 관리    /admin/members
+리뷰 관리    /admin/contents/reviews
+댓글 관리    /admin/contents/comment
