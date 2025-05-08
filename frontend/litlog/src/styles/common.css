@@ -1,11 +1,15 @@
 /* src/styles/common.css */
 .main-container {
-    align-items: center;
-    min-width: 1200px;
+    width: 100%;
     max-width: 1400px;
     min-height: 700px;
-    padding-right: 30px;
-    padding-left: 30px;
+    padding: 30px;
+    margin: 0 auto;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;       /* 자식(.book-slider) 가로 중앙 정렬 */
+    box-sizing: border-box;
   }
   
   .app-container {
