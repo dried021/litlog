@@ -2,6 +2,7 @@
 .main-container {
     width: 100%;
     max-width: 1400px;
+    min-width: 320px;  /* 최소 너비 */
     min-height: 700px;
     padding: 30px;
     margin: 0 auto;
@@ -13,8 +14,7 @@
   }
   
   .app-container {
-    display: flex;
-    flex-direction: column;
+
     min-height: 100vh;
   }
   
@@ -32,4 +32,10 @@
     justify-content: center; /* 가로 중앙 정렬 */
     padding: 10px;
     height: 100px;           /* 필요 시 높이를 설정 */
+  }
+
+  .title{
+    margin: 16px 0 35px;
+    font-weight: bold;
+    text-align: center;
   }

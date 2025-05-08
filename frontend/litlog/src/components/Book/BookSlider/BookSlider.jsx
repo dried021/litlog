@@ -45,8 +45,8 @@ function NextArrow(props) {
   function BookSlider({
     title,
     books,
-    slidesToShow = 5,
-    slidesToScroll = 4
+    slidesToShow = 4,
+    slidesToScroll = 3
   }) {
     const settings = {
       dots: false,
