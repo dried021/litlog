@@ -31,7 +31,7 @@ CREATE TABLE common_code (
     common_code_id INT AUTO_INCREMENT PRIMARY KEY,
     common_code VARCHAR(50) NOT NULL, -- common 테이블의 common_code를 참조
     common_name VARCHAR(100) NOT NULL,
-    common_value INT NOT NULL,
+    common_value INT NOT NULL UNIQUE,
     creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     common_id INT,
     FOREIGN KEY (common_code) REFERENCES common(common_code) ON DELETE CASCADE,
