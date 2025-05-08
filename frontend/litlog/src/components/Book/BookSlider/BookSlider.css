@@ -1,0 +1,28 @@
+.book-slider {
+    padding: 20px;
+    background-color: #fff;
+    color: #121212;
+  }
+  
+  .book-card {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .book-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+  
+  .book-image:hover {
+    transform: scale(1.05);
+  }
+  
+  .book-stats {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-top: 5px;
+  }
+  

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import axios from "axios";
 
-function Book(){
+function BookSearch(){
     const [keyword, setKeyword] = useState("");
     const [books, setBooks] = useState([]);
 
@@ -44,4 +44,4 @@ function Book(){
         </div>
     );
 }
-export default Book;
+export default BookSearch;
