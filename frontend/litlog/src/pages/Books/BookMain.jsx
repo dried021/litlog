@@ -1,56 +1,52 @@
-import React from 'react';
-import BookSearch from "../../components/Book/BookSearch/BookSearch";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BookSlider from "../../components/Book/BookSlider/BookSlider";
+import SearchBar from '../../components/SearchBar/SearchBar';
 
 const BookMain = () => {
+    const navigate = useNavigate();
+    const [keyword, setKeyword] = useState("");
 
-    //테스트용
-    const books = [
+    // 더미 데이터
+    const booklist = [
         {
-        id: 1,
-        title: 'THUNDERBOLTS',
-        image: '/images/cat.jpg',
-        link: '/books/thunderbolts',
-        views: '473K',
-        likes: '118K',
-        hearts: '205K',
+            id: 1,
+            title: 'THUNDERBOLTS',
+            image: '/images/cat.jpg',
+            link: '/books/thunderbolts',
+            views: '473K',
+            likes: '118K',
+            hearts: '205K',
         },
         {
-        id: 2,
-        title: 'SINNERS',
-        image: '/images/cat.jpg',
-        link: '/books/sinners',
-        views: '994K',
-        likes: '169K',
-        hearts: '468K',
-        },
-        {
-        id: 3,
-        title: 'CONCLAVE',
-        image: '/images/cat.jpg',
-        link: '/books/conclave',
-        views: '1.5M',
-        likes: '241K',
-        hearts: '498K',
-        },
-        {
-        id: 4,
-        title: 'ANOTHER SIMPLE FAVOR',
-        image: '/images/cat.jpg',
-        link: '/books/another',
-        views: '67K',
-        likes: '9.2K',
-        hearts: '9.4K',
-        },
-        // 필요한 만큼 추가 가능
+            id: 2,
+            title: 'SINNERS',
+            image: '/images/cat.jpg',
+            link: '/books/sinners',
+            views: '994K',
+            likes: '169K',
+            hearts: '468K',
+        }
     ];
 
-    return(
+    const handleSearch = (searchKeyword) => {
+        if (searchKeyword.trim()) {
+            navigate(`/books/search?keyword=${encodeURIComponent(searchKeyword)}`);
+        }
+    };
+
+    return (
         <div>
-            <h2> Books 메인 페이지 </h2>
-            <BookSearch/>
-            <BookSlider title="Popular Books This Week" books={books} />
-            <BookSlider title="Just Reviewed Books" books={books} />
+            <h2 className="title">Books Main Page</h2>
+            <SearchBar 
+                handleSearch={handleSearch} 
+                value={keyword} 
+                onChange={(e) => setKeyword(e.target.value)} 
+                placeholder="Search books..."
+            />
+
+            <BookSlider title="Popular Books This Week" books={booklist} />
+            <BookSlider title="Just Reviewed Books" books={booklist} />
         </div>
     );
 };
