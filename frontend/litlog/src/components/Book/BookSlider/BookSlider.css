@@ -1,7 +1,7 @@
 .book-slider {
-    width: 100%;                /* 부모 안에서 꽉 차도록 */
-    max-width: 1200px;          /* 내용 최대 너비 제한 */
-    padding: 50px 20px;         /* 좌우 여백 포함 */
+    width: 100%;              
+    max-width: 1200px;      
+    padding: 30px 20px;        
     background-color: #fff;
     color: #121212;
     box-sizing: border-box;
