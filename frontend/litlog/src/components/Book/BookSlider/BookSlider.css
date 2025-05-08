@@ -1,11 +1,12 @@
 .book-slider {
-    max-width: 1200px;       /* 내용 최대 너비 제한 */
-    margin: 0 auto;          /* 좌우 가운데 정렬 */
-    padding: 50px 20px;      /* 상하 여백 넉넉히, 좌우 여백도 주기 */
+    width: 100%;                /* 부모 안에서 꽉 차도록 */
+    max-width: 1200px;          /* 내용 최대 너비 제한 */
+    padding: 50px 20px;         /* 좌우 여백 포함 */
     background-color: #fff;
     color: #121212;
-    box-sizing: border-box;  /* padding 포함해서 너비 계산 */
+    box-sizing: border-box;
   }
+
   
   .book-card {
     padding: 10px;
@@ -25,7 +26,16 @@
   
   .book-stats {
     font-size: 0.9rem;
-    color: #ccc;
+    color: #ccc;  
     margin-top: 5px;
   }
   
+  .book-slider a {
+    text-decoration: none;   /* 밑줄 제거 */
+    color: inherit;          /* 부모 요소 글씨 색상 따라가기 */
+  }
+
+  .slick-prev::before,
+  .slick-next::before {
+    display: none !important;
+  }
