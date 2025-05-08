@@ -56,8 +56,8 @@ CREATE TABLE user(
     reg_date TIMESTAMP DEFAULT (CURRENT_TIMESTAMP),
     bio TEXT,
 
-    user_type INT, 
-    user_status INT,
+    user_type INT null, 
+    user_status INT null,
 	FOREIGN KEY (user_type) 
         REFERENCES common_code(common_value) ON DELETE SET NULL, 
     FOREIGN KEY (user_status) 
@@ -88,7 +88,7 @@ CREATE TABLE book (
     page_count INT,                                       -- 페이지 수
     categories TEXT,                                     -- 카테고리 리스트
 
-    book_category INT,
+    book_category INT null,
     FOREIGN KEY (book_category) REFERENCES common_code(common_value) ON DELETE SET NULL
 );
 
@@ -117,7 +117,7 @@ CREATE TABLE book_shelf(
 	id INT AUTO_INCREMENT PRIMARY KEY,
     book_id VARCHAR(255),
     user_id VARCHAR(50), 
-    shelf_type INT,
+    shelf_type INT null,
     creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     progress INT NOT NULL CHECK (progress BETWEEN 1 AND 100),		-- 진도
 	FOREIGN KEY (shelf_type) REFERENCES common_code(common_value) ON DELETE SET NULL,
@@ -177,8 +177,5 @@ CREATE TABLE book_collection_comment(
     FOREIGN KEY (collection_id) REFERENCES book_collection(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
-
-
-
 
 
