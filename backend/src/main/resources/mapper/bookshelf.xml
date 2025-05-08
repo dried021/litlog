@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bookfox.repository.AdminMapper">
+    <select id="getCurrentlyReadingBooks" resultType="com.bookfox.model.BookshelfDto" parameterType="String">
+        SELECT bs.*,
+            CASE 
+                WHEN ll.id IS NOT NULL THEN 1
+                ELSE 0
+            END AS like_status,
+            bi.thumbnail AS thumbnail
+        FROM book_shelf bs
+        LEFT JOIN like_list ll 
+            ON bs.book_id = ll.target_id 
+            AND ll.user_id = #{userId} 
+            AND ll.like_type = 2
+        LEFT JOIN book_images bi 
+            ON bs.book_id = bi.id
+        WHERE bs.user_id = #{userId}
+            AND bs.shelf_type = 2
+    </select>
+    <select id="getReadBooks" resultType="com.bookfox.model.BookshelfDto" parameterType="String">
+        SELECT bs.*,
+            CASE 
+                WHEN ll.id IS NOT NULL THEN 1
+                ELSE 0
+            END AS like_status,
+            bi.thumbnail AS thumbnail
+        FROM book_shelf bs
+        LEFT JOIN like_list ll 
+            ON bs.book_id = ll.target_id 
+            AND ll.user_id = #{userId} 
+            AND ll.like_type = 2
+        LEFT JOIN book_images bi 
+            ON bs.book_id = bi.id
+        WHERE bs.user_id = #{userId}
+            AND bs.shelf_type = 3
+    </select>
+    <select id="getToReadBooks" resultType="com.bookfox.model.BookshelfDto" parameterType="String">
+        SELECT bs.*,
+            CASE 
+                WHEN ll.id IS NOT NULL THEN 1
+                ELSE 0
+            END AS like_status,
+            bi.thumbnail AS thumbnail
+        FROM book_shelf bs
+        LEFT JOIN like_list ll
+            ON bs.book_id = ll.target_id 
+            AND ll.user_id = #{userId} 
+            AND ll.like_type = 2
+        LEFT JOIN book_images bi 
+            ON bs.book_id = bi.id
+        WHERE bs.user_id = #{userId}
+            AND bs.shelf_type = 1
+    </select>
+</mapper>
