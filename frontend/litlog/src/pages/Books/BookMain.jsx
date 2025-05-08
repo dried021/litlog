@@ -1,11 +1,14 @@
 import React from 'react';
-import Book from "../../components/Book/Book";
+import BookSearch from "../../components/Book/BookSearch/BookSearch";
+import BookSlider from "../../components/Book/BookSlider/BookSlider";
 
 const BookMain = () => {
     return(
         <div>
             <h2> Books 메인 페이지 </h2>
-            <Book/>
+
+            <BookSlider/>
+            <BookSearch/>
         </div>
     );
 };
