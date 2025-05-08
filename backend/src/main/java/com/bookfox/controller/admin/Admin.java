@@ -21,7 +21,7 @@ public class Admin {
 
 
     @GetMapping("/admin")
-    public ResponseEntity<Map<String, Object>> getAdminMembers(
+    public ResponseEntity<Map<String, Object>> getAdminUsers(
             @RequestParam(defaultValue = "1") int pageNum,
             @RequestParam(defaultValue = "") String searchName
     ) {
@@ -39,14 +39,14 @@ public class Admin {
             map.put("pageSize", pageSize);
             map.put("searchName", searchName);
 
-            List<UserDto> memberDtos = adminService.getUsers(map);
+            List<UserDto> userDtos = adminService.getUsers(map);
 
             int pageCount = (int) Math.ceil((double) count / pageSize);
             int pageBlock = 5;
             int startPage = ((currentPage - 1) / pageBlock) * pageBlock + 1;
             int endPage = Math.min(startPage + pageBlock - 1, pageCount);
 
-            response.put("memberDtos", memberDtos);
+            response.put("userDtos", userDtos);
             response.put("pageNum", pageNum);
             response.put("currentPage", currentPage);
             response.put("pageBlock", pageBlock);
