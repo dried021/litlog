@@ -1,4 +1,4 @@
-.profile-summary {
+.profileSummary {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,13 +9,13 @@
     width: 960px;
 }
 
-.profile-left {
+.profileLeft {
     display: flex;
     align-items: center;
     margin-right: 35px;
 }
 
-.nickname-row {
+.nicknameRow {
     display: flex;
     align-items: center;
     gap: 13px; /* nickname and button spacing */
@@ -27,7 +27,7 @@
     font-size: 24px;
 }
 
-.edit-button {
+.editButton {
     padding: 6px 12px;
     font-size: 12px;
     border: none;
@@ -37,11 +37,11 @@
     cursor: pointer;
 }
 
-.edit-button:hover {
+.editButton:hover {
     background-color: #BAC095;
 }
 
-.profile-image {
+.profileImage {
     width: 100px;
     height: 100px;
     border: 1px solid #ccc;
@@ -50,13 +50,13 @@
     margin-right: 20px;
 }
 
-.profile-img {
+.profileImg {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.profile-info {
+.profileInfo {
     display: flex;
     flex-direction: column;
 }
@@ -73,23 +73,23 @@
     margin: 4px 0 0;
 }
 
-.profile-stats {
+.profileStats {
     display: flex;
     gap: 15px;
 }
 
-.stat-block {
+.statBlock {
     text-align: center;
     width: 60px;
 }
 
-.stat-number {
+.statNumber {
     font-size: 18px;
     font-weight: bold;
     display: block;
 }
 
-.stat-label {
+.statLabel {
     font-size: 11px;
     color: #666;
 }
