@@ -2,7 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { FaRegHeart, FaPlus, FaBars } from 'react-icons/fa';
 import styles from './BookDetail.module.css';
+import { removeTags } from "../../libs/text/removeTag";
 import axios from 'axios';
+
 
 const BookDetail = () => {
     const {bookId} = useParams();
@@ -27,8 +29,21 @@ const BookDetail = () => {
     };
     
     useEffect(() => {
-        console.log("Book data updated:", book);
-    }, [book]);
+        if (book?.volumeInfo?.description) {
+          const cleanDescription = removeTags(book.volumeInfo.description);
+          
+          if (book.volumeInfo.description !== cleanDescription) {
+            setBook((prevBook) => ({
+              ...prevBook,
+              volumeInfo: {
+                ...prevBook.volumeInfo,
+                description: cleanDescription,
+              },
+            }));
+          }
+          console.log(cleanDescription)
+        }
+      }, [book]);
 
     return(
         <div>
@@ -55,7 +70,13 @@ const BookDetail = () => {
                         <p className={styles['publisher']}>
                         {book.volumeInfo.publisher} | {book.volumeInfo.publishedDate}
                         </p>
-                        {book.volumeInfo.description && <p className={styles['description']}>{book.volumeInfo.description}</p>}
+                        {book.volumeInfo.description && <div className={styles['description']}>
+                            {book.volumeInfo.description.split("\n").map((line, index) => (
+                                <React.Fragment key={index}>
+                                    {line}
+                                    <br />
+                                </React.Fragment>
+                            ))}</div>}
                         
                         <div className={styles.buttons}>
                             <button className={styles['bookshelf-button']}>
