@@ -1,0 +1,78 @@
+.review-entry {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  margin-bottom: 24px;
+  gap: 16px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 16px;
+}
+
+
+.review-date {
+  width: 60px;
+  text-align: center;
+  font-weight: 600;
+  color: #555;
+}
+
+.review-date .month {
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #888;
+}
+
+.review-date .day {
+  font-size: 20px;
+  color: #222;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.review-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 4px;
+}
+
+.book-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 6px;
+}
+
+.rating {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 8px;
+}
+
+.rating img {
+  width: 16px;
+  height: 16px;
+}
+
+.icons {
+  display: flex;
+  gap: 8px;
+}
+
+.icons img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.icons img:hover {
+  opacity: 1;
+}
