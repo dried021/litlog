@@ -11,6 +11,10 @@ public class UserService {
 
     private final UserMapper userMapper;
 
+    public UserDto findById(String id) {
+        return userMapper.selectUserById(id);
+    }
+
     public boolean isIdDuplicate(String id) {
         return userMapper.selectUserById(id) != null;
     }
