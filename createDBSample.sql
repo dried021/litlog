@@ -41,26 +41,20 @@ VALUES
 -- 5. 책 (book)
 INSERT INTO book(id, title, subtitle, authors, publisher, published_date, description, page_count, categories, book_category)
 VALUES 
-('book001', '나미야 잡화점의 기적', '기적 같은 이야기', '히가시노 게이고', '현대문학', '2012-01-01', '밤에만 열리는 신비한 가게', 320, 'FICTION', 1),
-('book002', '코스모스', '우주의 신비', '칼 세이건', '사이언스북스', '1980-06-01', '우주를 탐사한 명저', 500, 'SCIENCE', 10);
-
--- 6. 책 이미지 (book_images)
-INSERT INTO book_images(id, thumbnail, small, medium, large, extra_large)
-VALUES 
-('book001', 'thumb1.jpg', 'small1.jpg', 'med1.jpg', 'large1.jpg', 'xl1.jpg'),
-('book002', 'thumb2.jpg', 'small2.jpg', 'med2.jpg', 'large2.jpg', 'xl2.jpg');
+(1, '나미야 잡화점의 기적', '기적 같은 이야기', '히가시노 게이고', '현대문학', '2012-01-01', '밤에만 열리는 신비한 가게', 320, 'FICTION', 1),
+(2, '코스모스', '우주의 신비', '칼 세이건', '사이언스북스', '1980-06-01', '우주를 탐사한 명저', 500, 'SCIENCE', 10);
 
 -- 7. 책 리뷰 (book_review)
 INSERT INTO book_review(id, user_id, book_id, title, content, rating)
 VALUES 
-('review001', 'user01', 'book001', '인상 깊은 책', '너무 감동적이었어요.', 5),
-('review002', 'admin01', 'book002', '우주를 느끼다', '과학에 대한 흥미가 생겼어요.', 4);
+(1, 'user01', 1, '인상 깊은 책', '너무 감동적이었어요.', 5),
+(2, 'admin01', 2, '우주를 느끼다', '과학에 대한 흥미가 생겼어요.', 4);
 
 -- 8. 책장 (book_shelf)
 INSERT INTO book_shelf(book_id, user_id, shelf_type, progress)
 VALUES 
-('book001', 'user01', 2, 30),
-('book002', 'admin01', 3, 100);
+(1, 'user01', 2, 30),
+(2, 'admin01', 3, 100);
 
 -- 9. 팔로우 (follow_list)
 INSERT INTO follow_list(user_id, follow_user_id)
@@ -80,7 +74,7 @@ VALUES
 -- 12. 책 콜렉션에 책 추가 (book_collection_book)
 INSERT INTO book_collection_book(collection_id, book_id, thumbnail)
 VALUES 
-(1, 'book001', 'thumb1.jpg');
+(1, 1, 'thumb1.jpg');
 
 -- 13. 책 콜렉션 댓글 (book_collection_comment)
 INSERT INTO book_collection_comment(user_id, collection_id, content)
