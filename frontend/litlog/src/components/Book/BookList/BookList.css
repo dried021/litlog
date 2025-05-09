@@ -1,0 +1,58 @@
+.book-list {
+    padding: 1rem;
+  }
+  
+  .book-item {
+    display: flex;
+    padding: 1rem 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .index-box {
+    margin-right: 1rem;
+  }
+
+  .index-box-p{
+    font-weight: 500;
+  }
+  
+  .thumbnail {
+    width: 80px;
+    height: 120px;
+    overflow: hidden;
+    margin-right: 1rem;
+  }
+  
+  .thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .book-info {
+    flex-grow: 1;
+  }
+  
+  .title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+  
+  .subtitle {
+    font-size: 0.875rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+  }
+  
+  .authors {
+    font-size: 0.875rem;
+    color: #777;
+    margin-bottom: 0.5rem;
+  }
+  
+  .publisher {
+    font-size: 0.875rem;
+    color: #777;
+  }
+  
