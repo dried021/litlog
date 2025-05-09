@@ -3,10 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import BookList from '../../components/Book/BookList/BookList';
-import Pagination from '../../components/Pagination/Pagination';
+import ViewMoreButton from '../../components/Button/ViewMoreButton';
+import TopButton from '../../components/Button/TopButton';
 import { Row, Col } from 'react-bootstrap';
-
 import './Book.css';
+
 
 const SearchResult = () => {
     const navigate = useNavigate();
@@ -14,12 +15,11 @@ const SearchResult = () => {
     const [books, setBooks] = useState([]);
     const [keyword, setKeyword] = useState('');
     const [loading, setLoading] = useState(false);
-    const [isRelevance, setIsRelevance] = useState(true);
     const [totalItems, setTotalItems] = useState(0);
+    const [loadedItems, setLoadedItems] = useState(0);
     const isFirstLoad = useRef(true);
 
     const queryParams = new URLSearchParams(location.search);
-    const pageNum = parseInt(queryParams.get('pageNum')) || 1;
     const searchParam = queryParams.get('keyword') || '';
 
     const itemsPerPage = 10;
@@ -28,15 +28,11 @@ const SearchResult = () => {
         if (isFirstLoad.current && searchParam) {
             isFirstLoad.current = false;
             setKeyword(searchParam);
-            handleSearch(searchParam, pageNum);
+            handleSearch(searchParam, 0);
         }
-    }, [pageNum, searchParam]);
+    }, [searchParam]);
 
-    const handleOptionClick = (option) => {
-        setIsRelevance(option === "relevance");
-    };
-
-    const handleSearch = async (searchKeyword, pageNum) => {
+    const handleSearch = async (searchKeyword, startIndex) => {
         const trimmedKeyword = searchKeyword.trim();
         if (trimmedKeyword) {
             setLoading(true);
@@ -45,25 +41,33 @@ const SearchResult = () => {
                 const response = await axios.get(`http://localhost:9090/books/search`, {
                     params: {
                         keyword: trimmedKeyword,
-                        startIndex: (pageNum - 1) * itemsPerPage,
-                        maxResults: itemsPerPage
+                        startIndex: startIndex,
+                        maxResults: itemsPerPage,
                     },
                 });
 
                 const { items, totalItems } = response.data;
-                setBooks(items || []);
-                setTotalItems(totalItems || 0);
 
-                console.log(totalItems);
+                if (startIndex === 0) {
+                    setBooks(items || []);
+                } else {
+                    setBooks((prevBooks) => [...prevBooks, ...(items || [])]);
+                }
+
+                setTotalItems(totalItems || 0);
+                setLoadedItems(startIndex + itemsPerPage);
+
                 if (!items){
-                    alert("api 호출 오류");
+                    alert("마지막 결과 페이지입니다.");
+                    shouldReload.current = true;
                     navigate(-1);
                 }
 
             } catch (error) {
                 console.error("Fail to search:", error);
-                setBooks([]);
-                setTotalItems(0);
+                if (startIndex === 0) {
+                    setBooks([]);
+                }
             } finally {
                 setTimeout(() => {
                     setLoading(false);
@@ -72,30 +76,24 @@ const SearchResult = () => {
         }
     };
 
+    const handleLoadMore = () => {
+        handleSearch(keyword, loadedItems);
+    };
+
+    const handleItemClick = (bookId) => {
+        navigate(`/books/detail/${bookId}`);
+    };
+    
     return (
         <div>
             <h2 className="title">Search Result</h2>
 
-            <div className="options-container">
-                <p 
-                    className={`option ${isRelevance ? "active" : ""}`} 
-                    onClick={() => handleOptionClick("relevance")}
-                >
-                    Relevance
-                </p>
-                <p 
-                    className={`option ${!isRelevance ? "active" : ""}`} 
-                    onClick={() => handleOptionClick("newest")}
-                >
-                    Newest
-                </p>
-            </div>
-            
             <SearchBar 
                 handleSearch={(searchKeyword)=>{
                     if (searchKeyword.trim()) {
                         navigate(`/books/search?keyword=${encodeURIComponent(searchKeyword)}`);
-                        handleSearch(searchKeyword.trim(), 1);
+                        setLoadedItems(0);
+                        handleSearch(searchKeyword.trim(), 0);
                     }
                 }} 
                 value={keyword} 
@@ -104,10 +102,10 @@ const SearchResult = () => {
             />
 
             <div className="search-result">
-                {loading ? (
-                    <p className="search">Searching...</p>
+                {loading && loadedItems === 0 ? (
+                    <p className="search">Loading...</p>
                 ) : books.length > 0 ? (
-                    <BookList books={books}/>
+                    <BookList books={books} onItemClick={handleItemClick}/>
                 ) : (
                     keyword && <p className="search">No search results found.</p>
                 )}
@@ -115,19 +113,15 @@ const SearchResult = () => {
 
             <Row>
                 <Col className="d-flex justify-content-center">
-                    <Pagination
-                        currentPage={pageNum}
-                        pageBlock={5}
-                        pageCount={Math.max(1, Math.ceil(totalItems / itemsPerPage))}
-                        onPageChange={(newPageNum) => {
-                            handleSearch(keyword, newPageNum);
-                            navigate(`/books/search?keyword=${encodeURIComponent(keyword)}&pageNum=${newPageNum}`);
-                        }}
-                    />
+                    {(loadedItems < totalItems && !loading)&& (
+                        <div>
+                            <ViewMoreButton handleLoadMore={handleLoadMore}/>
+                            <TopButton />
+                        </div>
+                    )}
                 </Col>
             </Row>
         </div>
     );
 };
-
 export default SearchResult;
