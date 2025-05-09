@@ -1,0 +1,16 @@
+package com.bookfox.repository;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.bookfox.model.BookshelfDto;
+import com.bookfox.model.ProfileDto;
+
+@Mapper
+public interface ProfileMapper {
+    public ProfileDto getProfile(String userId);
+    public List<BookshelfDto> getFavoriteBooks(Map<String, Object> map);
+    public List<BookshelfDto> getRecentlyReadBooks(Map<String, Object> map);
+}
