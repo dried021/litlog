@@ -1,44 +1,75 @@
-INSERT INTO book (
-  id, title, subtitle, authors, publisher, published_date,
-  description, page_count, categories, thumbnail, book_category
-) VALUES
-(101, '어둠의 왼손', NULL, '어슐러 르 귄', '황금가지', '2021-01-10', 'SF 고전 명작', 312, 'SF', 'https://books.google.com/books/content?id=abc123&printsec=frontcover&img=1&zoom=1', NULL),
-(102, '나미야 잡화점의 기적', NULL, '히가시노 게이고', '현대문학', '2020-03-15', '감동적인 이야기', 295, '소설', '', NULL),
-(103, '해리 포터와 마법사의 돌', NULL, 'J.K. 롤링', '문학수첩', '2000-07-08', '마법세계의 시작', 320, '판타지', 'https://books.google.com/books/content?id=def456&printsec=frontcover&img=1&zoom=1', NULL),
-(104, '지구 끝의 온실', NULL, '김초엽', '자이언트북스', '2022-10-01', '디스토피아적 미래', 275, 'SF', NULL, NULL),
-(105, '총 균 쇠', NULL, '재레드 다이아몬드', '문학사상사', '2005-06-22', '인류 문명사 통찰', 500, '역사', 'https://books.google.com/books/content?id=ghi789&printsec=frontcover&img=1&zoom=1', NULL),
-(106, '82년생 김지영', NULL, '조남주', '민음사', '2016-10-10', '페미니즘 소설', 192, '사회', '', NULL),
-(107, '연금술사', NULL, '파울로 코엘료', '문학동네', '1998-02-12', '삶의 여정에 대한 은유', 210, '자기계발', 'https://books.google.com/books/content?id=jkl012&printsec=frontcover&img=1&zoom=1', NULL),
-(108, '데미안', NULL, '헤르만 헤세', '민음사', '1995-08-30', '성장소설의 고전', 243, '문학', NULL, NULL),
-(109, '죽음에 관하여', NULL, '엘리자베스 퀴블러 로스', '한문화', '2019-11-02', '삶과 죽음에 대한 성찰', 310, '인문', 'https://books.google.com/books/content?id=mno345&printsec=frontcover&img=1&zoom=1', NULL),
-(110, '종의 기원', NULL, '정유정', '은행나무', '2018-05-15', '심리 스릴러', 350, '스릴러', NULL, NULL);
+INSERT INTO book (id, title, subtitle, authors, publisher, published_date, description, page_count, categories, thumbnail, book_category)
+VALUES
+(301, '사피엔스', '유인원에서 사이보그까지', '유발 하라리', '김영사', '2015-11-23', '인간의 역사에 대한 새로운 관점', 560, '역사', 'https://books.google.com/books/content?id=SAPIENS01&printsec=frontcover&img=1&zoom=1', NULL),
+(302, '총, 균, 쇠', '무기, 병균, 금속은 인류의 운명을 어떻게 바꿨는가', '재레드 다이아몬드', '문학사상사', '2005-08-10', '인류 문명의 기원과 발전을 탐구한 베스트셀러', 684, '인문학', 'https://books.google.com/books/content?id=GGS01&printsec=frontcover&img=1&zoom=1', NULL),
+(303, '1984', NULL, '조지 오웰', '민음사', '2003-06-25', '전체주의 사회의 미래를 경고하는 디스토피아 소설', 424, '소설', 'https://books.google.com/books/content?id=ORWELL84&printsec=frontcover&img=1&zoom=1', NULL),
+(304, '죽음에 관하여', NULL, '엘리자베스 퀴블러 로스', '청미래', '2009-02-02', '죽음을 맞이하는 이들과의 대화를 통해 삶을 돌아보다', 312, '심리학', 'https://books.google.com/books/content?id=DEATH01&printsec=frontcover&img=1&zoom=1', NULL),
+(305, '미움받을 용기', NULL, '기시미 이치로, 고가 후미타케', '인플루엔셜', '2014-11-17', '아들러 심리학을 통해 자유롭고 행복한 삶으로 나아가는 길', 328, '자기계발', 'https://books.google.com/books/content?id=COURAGE01&printsec=frontcover&img=1&zoom=1', NULL),
+(306, '노르웨이의 숲', NULL, '무라카미 하루키', '문학사상사', '2000-03-01', '사랑과 상실에 대한 청춘의 이야기', 384, '소설', 'https://books.google.com/books/content?id=NORWAY01&printsec=frontcover&img=1&zoom=1', NULL),
+(307, '연금술사', NULL, '파울로 코엘료', '문학동네', '2001-11-20', '꿈을 찾아 떠나는 소년의 여정', 320, '소설', 'https://books.google.com/books/content?id=ALCHEMIST01&printsec=frontcover&img=1&zoom=1', NULL),
+(308, '멋진 신세계', NULL, '올더스 헉슬리', '민음사', '2008-06-10', '유토피아와 디스토피아가 공존하는 미래 세계', 456, '소설', 'https://books.google.com/books/content?id=BRAVE01&printsec=frontcover&img=1&zoom=1', NULL),
+(309, '코스모스', NULL, '칼 세이건', '사이언스북스', '2006-04-03', '우주에 대한 과학적이고 철학적인 탐구', 520, '과학', 'https://books.google.com/books/content?id=COSMOS01&printsec=frontcover&img=1&zoom=1', NULL),
+(310, '자기 앞의 생', NULL, '에밀 아자르', '청년사', '2007-09-17', '노년과 아동이 주고받는 따뜻한 위로', 284, '소설', 'https://books.google.com/books/content?id=VIEDEVANT01&printsec=frontcover&img=1&zoom=1', NULL),
+(311, '인간 실격', NULL, '다자이 오사무', '민음사', '2005-12-01', '절망과 자아 상실을 그린 일본 현대문학의 걸작', 210, '소설', '', NULL),
+(312, '월든', NULL, '헨리 데이비드 소로', '동서문화사', '2003-04-18', '자연 속 자급자족 삶의 철학', 368, '철학', 'https://books.google.com/books/content?id=WALDEN01&printsec=frontcover&img=1&zoom=1', NULL),
+(313, '해리 포터와 마법사의 돌', NULL, 'J.K. 롤링', '문학수첩', '2001-12-05', '소년 마법사의 첫 번째 이야기', 336, '판타지', 'https://books.google.com/books/content?id=HPSTONE01&printsec=frontcover&img=1&zoom=1', NULL),
+(314, '채식주의자', NULL, '한강', '창비', '2007-10-28', '육체 거부를 통해 인간 존재를 되묻는 이야기', 240, '문학', 'https://books.google.com/books/content?id=VEGAN01&printsec=frontcover&img=1&zoom=1', NULL),
+(315, '데미안', NULL, '헤르만 헤세', '민음사', '2004-01-25', '자기 내면을 찾아가는 성장소설', 232, '고전', 'https://books.google.com/books/content?id=DEMIAN01&printsec=frontcover&img=1&zoom=1', NULL),
+(316, '이기적 유전자', NULL, '리처드 도킨스', '을유문화사', '2002-02-11', '유전자 중심의 진화론 해설서', 472, '과학', '', NULL),
+(317, '나미야 잡화점의 기적', NULL, '히가시노 게이고', '현대문학', '2014-05-13', '편지를 통한 위로와 미스터리', 420, '소설', 'https://books.google.com/books/content?id=NAMIYA01&printsec=frontcover&img=1&zoom=1', NULL),
+(318, '셜록 홈즈 단편선', NULL, '아서 코난 도일', '문예출판사', '2009-08-10', '셜록 홈즈의 명쾌한 추리극 모음집', 520, '추리', 'https://books.google.com/books/content?id=SHERLOCK01&printsec=frontcover&img=1&zoom=1', NULL),
+(319, '우리는 언젠가 죽는다', NULL, '데이비드 실즈', '복복서가', '2021-02-01', '죽음에 대해 사색하는 에세이', 288, '에세이', 'https://books.google.com/books/content?id=DYING01&printsec=frontcover&img=1&zoom=1', NULL),
+(320, '상실의 시대', NULL, '무라카미 하루키', '문학사상사', '2006-03-15', '청춘의 사랑과 상처를 그린 소설', 392, '소설', '', NULL),
+(321, '호밀밭의 파수꾼', NULL, 'J.D. 샐린저', '민음사', '2005-09-20', '방황하는 청춘 홀든의 이야기', 288, '소설', 'https://books.google.com/books/content?id=CATCHER01&printsec=frontcover&img=1&zoom=1', NULL),
+(322, '자존감 수업', NULL, '윤홍균', '심플라이프', '2016-08-25', '마음 건강을 위한 심리 수업', 296, '자기계발', 'https://books.google.com/books/content?id=SELFESTEEM01&printsec=frontcover&img=1&zoom=1', NULL),
+(323, '죽고 싶지만 떡볶이는 먹고 싶어', NULL, '백세희', '흔', '2018-06-20', '우울과 공존하며 살아가는 일상 에세이', 268, '에세이', 'https://books.google.com/books/content?id=DDP01&printsec=frontcover&img=1&zoom=1', NULL),
+(324, '왜 나는 너를 사랑하는가', NULL, '알랭 드 보통', '청미래', '2009-03-13', '사랑의 본질을 철학적으로 탐구', 320, '에세이', '', NULL),
+(325, '살아온 기적 살아갈 기적', NULL, '장영희', '샘터사', '2007-11-27', '삶의 소중함과 희망을 담은 에세이', 304, '에세이', 'https://books.google.com/books/content?id=MIRACLE01&printsec=frontcover&img=1&zoom=1', NULL);
 
-INSERT INTO book_review (
-  id, user_id, book_id, title, content, rating, creation_date
-) VALUES
-(1, 'user01', 101, '감동적인 이야기', '훌륭한 SF 소설', 5, '2025-01-15'),
-(2, 'user01', 102, '잊을 수 없는 감정', '', 4, '2025-02-02'),
-(3, 'user01', 103, '해리포터 재밌음', '초반 설정이 흥미로움', 5, '2025-03-10'),
-(4, 'user01', 104, '지구 끝 느낌 뭔가 오묘함', '', 3, '2025-03-22'),
-(5, 'user01', 105, '역사서치 강추', '인류학적 통찰이 돋보인다', 4, '2025-04-05'),
-(6, 'user01', 106, '사회 문제에 대한 통찰', '', 5, '2025-04-12'),
-(7, 'user01', 107, '연금술사 나만 별로였나', '기대만큼은 아니었다', 2, '2025-04-25'),
-(8, 'user01', 108, '문장 너무 아름답다', '', 5, '2025-05-01'),
-(9, 'user01', 109, '죽음에 대해 생각하게 됨', '추천', 4, '2025-05-03'),
-(10, 'user01', 110, '재미있지만 집중이 안 됨', '', 3, '2025-05-05');
+INSERT INTO book_review (id, user_id, book_id, title, content, rating, creation_date)
+VALUES
+(101, 'user01', 301, '생각이 많아지는 책', '역사에 대한 시각이 바뀌었어요. 인류가 이렇게 흘러왔다는 게 신기합니다.', 5, '2025-01-15'),
+(102, 'user01', 302, '한 줄기 충격', '역사 책이 이렇게 재밌을 줄이야. 특히 문명 발달과 환경 이야기가 기억에 남아요.', 4, '2024-10-03'),
+(103, 'user01', 303, '디스토피아의 정석', '', 5, '2023-07-21'),
+(104, 'user01', 304, '인생을 돌아보게 합니다', '죽음을 생각하며 삶의 가치도 다시 보게 되었습니다.', 3, '2024-03-10'),
+(105, 'user01', 305, '자기계발의 신세계', '', 4, '2025-04-02'),
+(106, 'user01', 306, '이 책에서 빠져나올 수 없었어요', '', 5, '2023-09-12'),
+(107, 'user01', 307, '연금술사라는 제목에 딱 맞는 이야기', '삶의 방향성을 고민하게 됩니다.', 4, '2022-03-05'),
+(108, 'user01', 308, '디스토피아 좋아한다면 추천', '', 3, '2021-12-11'),
+(109, 'user01', 309, '우주에 대한 경이로움', '과학이 이렇게 흥미로울 수 있다니!', 5, '2020-07-25'),
+(110, 'user01', 310, '짧지만 강렬한 위로', '', 4, '2022-08-19'),
+(111, 'user01', 311, '인간 실격은 너무 무거웠어요', '마음이 힘들 때 읽기엔 조금 과했어요.', 2, '2023-01-30'),
+(112, 'user01', 312, '자연 속 사색', '', 5, '2021-05-14'),
+(113, 'user01', 313, '해리포터는 역시 레전드', '다시 읽어도 재밌어요.', 5, '2022-11-03'),
+(114, 'user01', 314, '문체가 독특한 작품', '', 3, '2024-02-27'),
+(115, 'user01', 315, '헤르만 헤세는 진짜 철학적이다', '', 4, '2023-06-09'),
+(116, 'user01', 316, '어려웠지만 흥미로운 내용', '진화론에 대해 다시 생각해봤어요.', 4, '2022-04-14'),
+(117, 'user01', 317, '눈물 나는 이야기', '히가시노 게이고의 색다른 감성', 5, '2023-11-18'),
+(118, 'user01', 318, '셜록 홈즈 최고', '', 5, '2021-10-22'),
+(119, 'user01', 319, '죽음이란 주제를 이렇게 풀다니', '', 4, '2024-01-01'),
+(120, 'user01', 320, '하루키는 진짜 어렵지만 끌린다', '묘한 감정이 남는 소설', 4, '2023-08-28'),
+(121, 'user01', 321, '10대 때 읽고 또 읽음', '', 4, '2022-02-11'),
+(122, 'user01', 322, '심리학 책 중 추천할 만함', '나를 돌아보는 계기가 되었어요.', 5, '2023-12-13'),
+(123, 'user01', 323, '짧지만 공감 가득', '', 4, '2024-04-10'),
+(124, 'user01', 324, '연애도 결국 철학', '보통 특유의 문체가 좋아요.', 3, '2024-03-03'),
+(125, 'user01', 325, '희망을 주는 글들', '', 5, '2024-05-01');
 
-INSERT INTO like_list (
-  user_id, target_id, like_type, creation_date
-) VALUES
-('user01', 1, 1, NOW()),
-('user01', 3, 1, NOW()),
-('user01', 7, 1, NOW());
+INSERT INTO like_list (user_id, target_id, like_type, creation_date)
+VALUES
+('user01', 101, 1, NOW()),
+('user01', 102, 1, NOW()),
+('user01', 105, 1, NOW()),
+('user01', 106, 1, NOW()),
+('user01', 109, 1, NOW()),
+('user01', 113, 1, NOW()),
+('user01', 117, 1, NOW()),
+('user01', 122, 1, NOW());
 
 INSERT INTO user (
   id, name, tel, nickname, profile_image, profile_image_origin,
   pwd, email, reg_date, bio, user_type, user_status
 ) VALUES (
   'user01', '나나', '010-1234-5678', '나나나', NULL, NULL,
-  'encryptedPwd123!', 'nahye@example.com', NOW(), '책을 좋아합니다.',
+  'encryptedPwd123!', 'na@example.com', NOW(), '책을 좋아합니다.',
   2, 1
 );
