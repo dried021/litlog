@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class TimelineDto {
     private String id;            
-    private String bookId;        
+    private int bookId;        
     private String title;        
     private String thumbnail;    
     private int rating;           

@@ -136,7 +136,7 @@ CREATE TABLE book (
     page_count INT,                                       -- 페이지 수
     categories TEXT,                                     -- 카테고리 리스트
 
-    thumnail VARCHAR(255),
+    thumbnail VARCHAR(255),
     book_category INT null,
     FOREIGN KEY (book_category) REFERENCES book_category(value) ON DELETE SET NULL
 );
