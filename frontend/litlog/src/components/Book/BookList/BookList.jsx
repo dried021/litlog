@@ -1,13 +1,14 @@
 import React from 'react';
 import './BookList.css';
 
-function BookList({ books }) {
+function BookList({ books, onItemClick }) {
   return (
     <div className="book-list">
       {books.map((book, index) => {
         const thumbnail = book.volumeInfo.imageLinks?.thumbnail || '/images/covernotavailable.png';
         return (
-          <div key={book.id || book.volumeInfo.industryIdentifiers?.[0]?.identifier} className="book-item">
+          <div key={book.id || book.volumeInfo.industryIdentifiers?.[0]?.identifier} 
+            className="book-item" onClick={()=>onItemClick(book.id)}>
             <div className="index-box">
               <p className="index-box-p">{index+1}</p>
             </div>

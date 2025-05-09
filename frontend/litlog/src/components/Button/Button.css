@@ -1,0 +1,32 @@
+
+  /* 공통 버튼 스타일 */
+  .button-common {
+    height: 40px;  /* 높이 */
+    font-size: 1.0rem;
+    margin: 5px;
+    background-color: transparent;
+    color: #000000;
+    border: 0px;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .button-common:hover {
+    background-color: #9f9f9f;
+    color: #fff;
+  }
+  
+  /* 개별 버튼 스타일 */
+  .pagination-button {
+    width: 35px;  /* 페이지네이션 버튼만 크기 조정 */
+  }
+  
+  .moreview-button {
+    width: 110px;  /* 'More View' 버튼은 더 넓게 */
+  }
+  
+  .top-button {
+    width: 60px;  /* 'Top' 버튼은 기본 사이즈 유지 */
+  }
+  
