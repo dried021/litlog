@@ -23,9 +23,16 @@ public class Books {
 
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(url, String.class);
-        System.out.println("url"+url);
-        System.out.println("start index"+startIndex);
-        System.out.println("result.length:"+result);
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/detail")
+    public ResponseEntity<String> detailBooks(@RequestParam String bookId){
+        String url = "https://www.googleapis.com/books/v1/volumes?q=" + bookId + "&key=" + apiKey;
+
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject(url, String.class);
+        return ResponseEntity.ok(result);
+    }
+
 }
