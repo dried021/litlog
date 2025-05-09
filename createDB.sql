@@ -13,32 +13,80 @@ DROP TABLE IF EXISTS book;
 DROP TABLE IF EXISTS term;
 DROP TABLE IF EXISTS email_veri;
 DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS common_code;
-DROP TABLE IF EXISTS common;
+DROP TABLE IF EXISTS like_type;
+DROP TABLE IF EXISTS shelf_type;
+DROP TABLE IF EXISTS book_category;
+DROP TABLE IF EXISTS user_status;
+DROP TABLE IF EXISTS user_type;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
--- 공통 코드 테이블 생성
-CREATE TABLE common (
-    common_id INT AUTO_INCREMENT PRIMARY KEY,
-    common_code VARCHAR(50) UNIQUE NOT NULL,
-    common_code_creation_date DATETIME DEFAULT CURRENT_TIMESTAMP
+
+CREATE TABLE user_type (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    value INT NOT NULL UNIQUE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+INSERT INTO user_type (name, value) VALUES
+('ADMIN', 1),
+('USER', 2);
 
--- 공통 코드 상세 테이블 생성
-CREATE TABLE common_code (
-    common_code_id INT AUTO_INCREMENT PRIMARY KEY,
-    common_code VARCHAR(50) NOT NULL, -- common 테이블의 common_code를 참조
-    common_name VARCHAR(100) NOT NULL,
-    common_value INT NOT NULL UNIQUE ,
-    creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    common_id INT,
-    FOREIGN KEY (common_code) REFERENCES common(common_code) ON DELETE CASCADE,
-    FOREIGN KEY (common_id) REFERENCES common(common_id) ON DELETE CASCADE,
-    KEY unique_common_code_value (common_code, common_value), -- 복합 인덱스 추가
-    KEY idx_common_value (common_value) -- 단독 인덱스 추가
+CREATE TABLE user_status (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    value INT NOT NULL UNIQUE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO user_status (name, value) VALUES
+('ACTIVE', 1),
+('BANNED', 2),
+('WITHDRAWN', 3);
+
+CREATE TABLE book_category (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    value INT NOT NULL UNIQUE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO book_category (name, value) VALUES
+('FICTION', 1),
+('NONFICTION', 2),
+('CHILDRENS BOOKS', 3),
+('HEALTH&FITNESS', 4),
+('COOKING FOOD&WINE', 5),
+('ART&PHOTOGRAPHY', 6),
+('MUSIC', 7),
+('RELIGION&SPIRITUALITY', 8),
+('TRAVEL', 9),
+('SCIENCE', 10);
+
+CREATE TABLE shelf_type (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    value INT NOT NULL UNIQUE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO shelf_type (name, value) VALUES
+('WISH_BOOK', 1),
+('READING_BOOK', 2),
+('READ_BOOK', 3);
+
+CREATE TABLE like_type (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    value INT NOT NULL UNIQUE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO like_type (name, value) VALUES
+('REVIEW', 1),
+('BOOK', 2),
+('BOOK_COLLECTION', 3);
 
 
 CREATE TABLE user(
@@ -59,9 +107,9 @@ CREATE TABLE user(
     user_type INT null, 
     user_status INT null,
 	FOREIGN KEY (user_type) 
-        REFERENCES common_code(common_value) ON DELETE SET NULL, 
+        REFERENCES user_type(value) ON DELETE SET NULL, 
     FOREIGN KEY (user_status) 
-        REFERENCES common_code(common_value) ON DELETE SET NULL
+        REFERENCES user_status(value) ON DELETE SET NULL
 );
 
 CREATE TABLE email_veri (
@@ -89,7 +137,7 @@ CREATE TABLE book (
     categories TEXT,                                     -- 카테고리 리스트
 
     book_category INT null,
-    FOREIGN KEY (book_category) REFERENCES common_code(common_value) ON DELETE SET NULL
+    FOREIGN KEY (book_category) REFERENCES book_category(value) ON DELETE SET NULL
 );
 
 CREATE TABLE book_images (
@@ -120,7 +168,7 @@ CREATE TABLE book_shelf(
     shelf_type INT null,
     creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     progress INT NOT NULL CHECK (progress BETWEEN 1 AND 100),		-- 진도
-	FOREIGN KEY (shelf_type) REFERENCES common_code(common_value) ON DELETE SET NULL,
+	FOREIGN KEY (shelf_type) REFERENCES shelf_type(value) ON DELETE SET NULL,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE SET NULL,
     FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE,
 	UNIQUE KEY unique_book_shelf (id, book_id)
