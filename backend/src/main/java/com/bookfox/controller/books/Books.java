@@ -27,11 +27,12 @@ public class Books {
     }
 
     @GetMapping("/detail")
-    public ResponseEntity<String> detailBooks(@RequestParam String bookId){
-        String url = "https://www.googleapis.com/books/v1/volumes?q=" + bookId + "&key=" + apiKey;
+    public ResponseEntity<String> detailBooks(@RequestParam String keyword) {
+        String url = "https://www.googleapis.com/books/v1/volumes/" + keyword + "?key=" + apiKey;
 
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(url, String.class);
+        System.out.println("url"+url);
         return ResponseEntity.ok(result);
     }
 

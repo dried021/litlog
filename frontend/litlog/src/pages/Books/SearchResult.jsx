@@ -81,7 +81,7 @@ const SearchResult = () => {
     };
 
     const handleItemClick = (bookId) => {
-        navigate(`/books/detail/${bookId}`);
+        navigate(`/books/${bookId}`);
     };
     
     return (
