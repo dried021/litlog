@@ -80,7 +80,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/sign-up") // 👈 프론트 요청과 정확히 일치
+    @PostMapping
     public ResponseEntity<?> register(@RequestBody UserDto user) {
         if (userService.isIdDuplicate(user.getId())) {
             return ResponseEntity.badRequest().body("이미 존재하는 아이디입니다.");
