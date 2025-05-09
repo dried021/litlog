@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import './profileSummary.css';
+import styles from './ProfileSummary.module.css';
 import defaultProfile from './default_profile.png';
 
 
@@ -22,41 +22,41 @@ export default function ProfileSummary() {
     if (!profile) return <div>Loading...</div>
 
     return(
-        <div className="profile-summary">
-            <div className="profile-left">
-                <div className="profile-image">
+        <div className={styles.profileSummary}>
+            <div className={styles.profileLeft}>
+                <div className={styles.profileImage}>
                     <img 
                         src={profile.profileImage ? profile.profileImage : defaultProfile}
                         alt="profile"
-                        className="profile-img"
+                        className={styles.profileImg}
                     />
                 </div>
-                <div className="profile-info">
-                    <div className="nickname-row">
-                        <h2 className="nickname">{profile.nickname}</h2>
-                        <button className="edit-button">EDIT PROFILE</button>
+                <div className={styles.profileInfo}>
+                    <div className={styles.nicknameRow}>
+                        <h2 className={styles.nickname}>{profile.nickname}</h2>
+                        <button className={styles.editButton}>EDIT PROFILE</button>
                     </div>
-                    <p className="bio">{profile.bio}</p>
+                    <p className={styles.bio}>{profile.bio}</p>
                     
                 </div>
                 
             </div>
-            <div className="profile-stats">
-                <div className="stat-block">
-                    <span className="stat-number">{profile.totalBooksReadCount}</span>
-                    <span className="stat-label">BOOKS</span>
+            <div className={styles.profileStats}>
+                <div className={styles.statBlock}>
+                    <span className={styles.statNumber}>{profile.totalBooksReadCount}</span>
+                    <span className={styles.statLabel}>BOOKS</span>
                 </div>
-                <div className="stat-block">
-                    <span className="stat-number">{profile.annualBooksReadCount}</span>
-                    <span className="stat-label">THIS YEAR</span>
+                <div className={styles.statBlock}>
+                    <span className={styles.statNumber}>{profile.annualBooksReadCount}</span>
+                    <span className={styles.statLabel}>THIS YEAR</span>
                 </div>
-                <div className="stat-block">
-                    <span className="stat-number">{profile.userFollowingCount}</span>
-                    <span className="stat-label">FOLLOWING</span>
+                <div className={styles.statBlock}>
+                    <span className={styles.statNumber}>{profile.userFollowingCount}</span>
+                    <span className={styles.statLabel}>FOLLOWING</span>
                 </div>
-                <div className="stat-block">
-                    <span className="stat-number">{profile.userFollowersCount}</span>
-                    <span className="stat-label">FOLLOWERS</span>
+                <div className={styles.statBlock}>
+                    <span className={styles.statNumber}>{profile.userFollowersCount}</span>
+                    <span className={styles.statLabel}>FOLLOWERS</span>
                 </div>
             </div>
         </div>
