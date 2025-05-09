@@ -3,6 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import BookList from '../../components/Book/BookList/BookList';
+import Pagination from '../../components/Pagination/Pagination';
+import { Row, Col } from 'react-bootstrap';
+
 import './Book.css';
 
 const SearchResult = () => {
@@ -15,7 +18,10 @@ const SearchResult = () => {
     const isFirstLoad = useRef(true); 
 
     const queryParams = new URLSearchParams(location.search);
+    const pageNum = parseInt(queryParams.get('pageNum')) || 1;
     const searchParam = queryParams.get('keyword') || '';
+
+    let count = 1;
 
     useEffect(() => {
         if (isFirstLoad.current && searchParam) {
@@ -23,13 +29,13 @@ const SearchResult = () => {
             setKeyword(searchParam);
             handleSearch(searchParam);
         }
-    }, [searchParam]);
+    }, [pageNum, searchParam]);
 
     const handleOptionClick = (option) => {
         setIsRelevance(option === "relevance");
     };
 
-    const handleSearch = async (searchKeyword) => {
+    const handleSearch = async (searchKeyword, pageNum) => {
         const trimmedKeyword = searchKeyword.trim();
         if (trimmedKeyword) {
             navigate(`/books/search?keyword=${encodeURIComponent(trimmedKeyword)}`);
@@ -37,9 +43,11 @@ const SearchResult = () => {
 
             try {
                 const response = await axios.get(`http://localhost:9090/books/search`, {
-                    params: { keyword: trimmedKeyword },
+                    params: { keyword: trimmedKeyword, pageNum },
                 });
                 setBooks(response.data.items || []);
+                console.log(response.data);
+                if (books.length < 1) count = 0;
             } catch (error) {
                 console.error("fail to search : ", error);
                 setBooks([]);
@@ -86,6 +94,18 @@ const SearchResult = () => {
                     keyword && <p className="search">No search results found.</p>
                 )}
             </div>
+            <Row>
+                <Col className="d-flex justify-content-center">
+                    <Pagination
+                        currentPage={pageNum}
+                        onPageChange={(newPageNum) => {
+                            handleSearch(keyword, newPageNum);
+                            navigate(`/books/search?keyword=${encodeURIComponent(keyword)}&pageNum=${newPageNum}`);
+                        }}
+                        count={count}
+                    />
+            </Col>
+            </Row>
         </div>
     );
 };
