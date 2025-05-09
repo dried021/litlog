@@ -1,7 +1,17 @@
 import React from 'react';
+import './Pagination.css';
 
-const Pagination = ({ currentPage, startPage, endPage, pageBlock, pageCount, count, onPageChange }) => {
-  if (count === 0) return null;
+const Pagination = ({
+    currentPage = 1,
+    startPage = 1,  
+    endPage = 5,
+    pageBlock = 5,
+    pageCount = 100,
+    count = 0,
+    onPageChange = () => {}
+  }) => {
+    
+  if (count == 0) return null;
 
   const handlePageChange = (pageNum) => {
     if (pageNum !== currentPage) {
@@ -10,32 +20,32 @@ const Pagination = ({ currentPage, startPage, endPage, pageBlock, pageCount, cou
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center gap-3 mt-1">
+    <div className="pagination-container">
       {startPage > pageBlock && (
-        <button className="btn btn-sm" onClick={() => handlePageChange(startPage - 1)}>
-          <i className="bi bi-chevron-left"></i>
+        <button
+          className="pagination-button"
+          onClick={() => handlePageChange(startPage - 1)}
+        >
+          <i className="bi bi-chevron-left pagination-chevron"></i>
         </button>
       )}
 
-      {Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i).map((pageNum) =>
-        pageNum === currentPage ? (
-          <span key={pageNum} className="badge bg-primary" style={{ fontSize: '1rem' }}>
-            {pageNum}
-          </span>
-        ) : (
-          <button
-            key={pageNum}
-            className="btn btn-sm text-decoration-none"
-            onClick={() => handlePageChange(pageNum)}
-          >
-            {pageNum}
-          </button>
-        )
-      )}
+      {Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i).map((pageNum) => (
+        <button
+          key={pageNum}
+          className={`pagination-button ${pageNum === currentPage ? 'active' : ''}`}
+          onClick={() => handlePageChange(pageNum)}
+        >
+          {pageNum}
+        </button>
+      ))}
 
       {pageCount > endPage && (
-        <button className="btn btn-sm" onClick={() => handlePageChange(startPage + pageBlock)}>
-          <i className="bi bi-chevron-right"></i>
+        <button
+          className="pagination-button"
+          onClick={() => handlePageChange(startPage + pageBlock)}
+        >
+          <i className="bi bi-chevron-right pagination-chevron"></i>
         </button>
       )}
     </div>
