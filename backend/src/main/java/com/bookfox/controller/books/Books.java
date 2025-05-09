@@ -17,13 +17,15 @@ public class Books {
 
     @GetMapping("/search")
     public ResponseEntity<String> searchResults(@RequestParam String keyword,
-        @RequestParam(defaultValue = "1") int pageNum) {
-        int startIndex = (pageNum-1)*10;
-        String url = "https://www.googleapis.com/books/v1/volumes?q=" + keyword + "&startIndex=" + startIndex + "&maxResults=10&key=" + apiKey;
+        @RequestParam(defaultValue = "1") int startIndex,
+        @RequestParam(defaultValue = "1") int maxResults) {
+        String url = "https://www.googleapis.com/books/v1/volumes?q=" + keyword + "&startIndex=" + startIndex + "&maxResults="+ maxResults + "&key=" + apiKey;
 
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(url, String.class);
         System.out.println("url"+url);
+        System.out.println("start index"+startIndex);
+        System.out.println("result.length:"+result);
         return ResponseEntity.ok(result);
     }
 }
