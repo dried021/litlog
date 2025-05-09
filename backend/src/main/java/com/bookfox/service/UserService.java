@@ -22,5 +22,9 @@ public class UserService {
     public boolean isNicknameDuplicate(String nickname){
         return userMapper.selectUserByNickname(nickname) != null;
     }
+
+    public boolean isEmailDuplicate(String email) {
+        return userMapper.selectUserByEmail(email) != null;
+    }
      
 }

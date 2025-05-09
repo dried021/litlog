@@ -1,4 +1,4 @@
-export function idUtils(id) { // 아이디 유효성 검사
+export function validateIdFormat(id) { // 아이디 유효성 검사
     const trimmed = id.trim();
   
     if (trimmed.length < 4) {
@@ -12,7 +12,7 @@ export function idUtils(id) { // 아이디 유효성 검사
     return { valid: true };
   }
 
-  export function nicknameUtils(nickname) { // 닉네임 유효성 검사
+  export function validateNicknameFormat(nickname) { // 닉네임 유효성 검사
     const trimmed = nickname.trim();
   
     if (trimmed.length < 2) {
@@ -43,7 +43,8 @@ export function idUtils(id) { // 아이디 유효성 검사
 export function validateEmailFormat(email) { // 이메일 유효성 검사
   const trimmed = email.trim();
 
-  if (!/\S+@\S+\.\S+/.test(trimmed)) return { valid: false, message: "유효한 이메일 형식이 아닙니다." };
-  
+  if (!/\S+@\S+\.\S+/.test(trimmed)) 
+    return { valid: false, message: "유효한 이메일 형식이 아닙니다." };
+
   return { valid: true };
 }

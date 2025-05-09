@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSignUpHandlers_id, useSignUpHandlers_nickname } from '../../libs/useSignUpHandlers.js';
+import { useSignUpHandlers_id, useSignUpHandlers_nickname, useSignUpHandlers_email } from '../../libs/useSignUpHandlers.js';
 import '../../styles/SignUp.css';
 import { useSignUpSubmit } from '../../libs/useSignUpSubmit';
 
@@ -7,10 +7,10 @@ function SignUp() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [email, setEmail] = useState('');
   const [tel1, setTel1] = useState('');
   const [tel2, setTel2] = useState('');
   const [tel3, setTel3] = useState('');
+  
   
   const {
     id,
@@ -28,12 +28,29 @@ function SignUp() {
     checkNicknameDuplicate
   } = useSignUpHandlers_nickname();
 
+  const {
+    email,
+    emailCode,
+    emailChecked,
+    emailAvailable,
+    emailVerified,         
+    handleEmailChange,
+    checkEmailDuplicate,
+    setEmailCode,
+    verifyEmailCode
+  } = useSignUpHandlers_email();
+
   const { handleSubmit } = useSignUpSubmit({
     id, idChecked, idAvailable,
     nickname, nicknameChecked, nicknameAvailable,
     name, password, confirmPassword,
-    email, tel1, tel2, tel3
+    email,
+    emailVerified,     
+    emailAvailable,   
+    emailChecked,
+    tel1, tel2, tel3
   });
+
 
     return (
         <div className="signup-wrapper">
@@ -79,9 +96,25 @@ function SignUp() {
       
               <div className="form-group">
                 <label>Email</label>
-                <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                <button type="button">인증하기</button>
+                <input type="email" name="email" value={email} onChange={handleEmailChange} />
+                <button type="button" onClick={checkEmailDuplicate}>인증하기</button>
+                {emailAvailable === true && <span className="valid">✔ 인증코드 전송됨</span>}
+                {emailAvailable === false && <span className="invalid">✖ 이미 사용 중</span>}
               </div>
+
+              {emailAvailable && (
+                <div className="form-group">
+                  <label>인증코드 입력</label>
+                  <input
+                    type="text"
+                    value={emailCode}
+                    onChange={(e) => setEmailCode(e.target.value)}
+                  />
+                  <button type="button" onClick={verifyEmailCode}>인증 확인</button>
+                  {emailVerified && <span className="valid">✔ 인증 완료</span>}
+                </div>
+              )}
+
 
               <div className="form-group">
                 <label>Phone</label>

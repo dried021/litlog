@@ -20,5 +20,9 @@
       #{id}, #{name}, #{tel}, #{nickname}, #{pwd}, #{email}, NOW()
     )
   </insert>
+
+  <select id="selectUserByEmail" resultType="com.bookfox.model.UserDto">
+    SELECT * FROM user WHERE email = #{email}
+  </select>
  
 </mapper>
