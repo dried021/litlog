@@ -15,7 +15,7 @@ function BookList({ books }) {
               <img src={thumbnail} alt={book.volumeInfo.title} />
             </div>
             <div className="book-info">
-              <h3 className="title">{book.volumeInfo.title}</h3>
+              <h3 className="book-title">{book.volumeInfo.title}</h3>
               {book.volumeInfo.subtitle && <p className="subtitle">{book.volumeInfo.subtitle}</p>}
               <p className="authors">{book.volumeInfo.authors?.join(', ')}</p>
               <p className="publisher">

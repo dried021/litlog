@@ -16,8 +16,10 @@ public class Books {
     private String apiKey;
 
     @GetMapping("/search")
-    public ResponseEntity<String> searchResults(@RequestParam String keyword) {
-        String url = "https://www.googleapis.com/books/v1/volumes?q=" + keyword + "&key=" + apiKey;
+    public ResponseEntity<String> searchResults(@RequestParam String keyword,
+        @RequestParam(defaultValue = "1") int pageNum) {
+        int startIndex = (pageNum-1)*10;
+        String url = "https://www.googleapis.com/books/v1/volumes?q=" + keyword + "&startIndex=" + startIndex + "&maxResults=10&key=" + apiKey;
 
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(url, String.class);
