@@ -64,7 +64,9 @@
     color: #777;
   }
   
-
+  .description {
+    white-space: pre-wrap; 
+  }
   
   .reviews-section {
     grid-column: 1 / 3;
