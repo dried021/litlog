@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSignUpHandlers_id, useSignUpHandlers_nickname, useSignUpHandlers_email } from '../../libs/useSignUpHandlers.js';
-import '../../styles/SignUp.css';
+import '../../styles/signUp.css';
 import { useSignUpSubmit } from '../../libs/useSignUpSubmit';
 
 function SignUp() {
@@ -33,10 +33,13 @@ function SignUp() {
     emailCode,
     emailChecked,
     emailAvailable,
-    emailVerified,         
-    handleEmailChange,
-    checkEmailDuplicate,
+    emailVerified,
+    timeLeft,
+    timerRunning,
+    formatTime,
     setEmailCode,
+    handleEmailChange,
+    sendEmailCode,
     verifyEmailCode
   } = useSignUpHandlers_email();
 
@@ -96,11 +99,39 @@ function SignUp() {
       
               <div className="form-group">
                 <label>Email</label>
-                <input type="email" name="email" value={email} onChange={handleEmailChange} />
-                <button type="button" onClick={checkEmailDuplicate}>인증하기</button>
-                {emailAvailable === true && <span className="valid">✔ 인증코드 전송됨</span>}
-                {emailAvailable === false && <span className="invalid">✖ 이미 사용 중</span>}
+                <input
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={handleEmailChange}
+                />
+
+                <button type="button" onClick={sendEmailCode} disabled={timerRunning}>
+                  인증하기
+                </button>
+
+                {/* 남은 시간 표시 */}
+                {timerRunning && <span>{formatTime(timeLeft)} 남음</span>}
+
+                {/* ✅ 인증코드 전송 이후에만 보이도록 */}
+                {emailAvailable && (
+                  <button
+                    type="button"
+                    onClick={sendEmailCode}
+                    disabled={timerRunning}
+                  >
+                    인증코드 다시 보내기
+                  </button>
+                )}
+
+                {emailAvailable === true && (
+                  <span className="valid">✔ 인증코드 전송됨</span>
+                )}
+                {emailAvailable === false && (
+                  <span className="invalid">✖ 이미 사용 중</span>
+                )}
               </div>
+
 
               {emailAvailable && (
                 <div className="form-group">
@@ -132,7 +163,7 @@ function SignUp() {
         </div>
 
         <div className="form-footer">
-            Already have an account? <a href="/login">Sign In</a>
+            Already have an account? <a href="/sign-in">Sign In</a>
         </div>
         <div>
             <a href="/">HOME</a>
