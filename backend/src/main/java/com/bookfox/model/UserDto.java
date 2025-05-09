@@ -1,7 +1,6 @@
 package com.bookfox.model;
 
-import java.security.Timestamp;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +20,8 @@ public class UserDto {
     private Timestamp pwdResetAt;
     private String email;
     private Timestamp regDate;
-    private int userType;
-    private int userStatus;
-    private Date sessionExpiryTime;
+    private String bio;
+
+    private Integer userType;
+    private Integer userStatus;
 }
