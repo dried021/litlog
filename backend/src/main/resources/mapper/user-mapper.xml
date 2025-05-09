@@ -20,5 +20,5 @@
       #{id}, #{name}, #{tel}, #{nickname}, #{pwd}, #{email}, NOW()
     )
   </insert>
-
+ 
 </mapper>

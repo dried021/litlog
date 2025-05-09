@@ -19,7 +19,7 @@ export function useSignUpHandlers_nickname() {
         alert(message);
         return;
     }
-
+ 
     try {
         const res = await axios.post('http://localhost:9090/sign-up/check-nickname', { nickname });
         if (res.data.available) {

@@ -23,5 +23,5 @@ public class UserDto {
     private String bio;
 
     private Integer userType;
-    private Integer userStatus;
+    private Integer userStatus; 
 }
