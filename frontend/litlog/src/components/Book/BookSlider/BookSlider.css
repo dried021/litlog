@@ -1,0 +1,41 @@
+.book-slider {
+    width: 100%;              
+    max-width: 1200px;      
+    padding: 30px 20px;        
+    background-color: #fff;
+    color: #121212;
+    box-sizing: border-box;
+  }
+
+  
+  .book-card {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .book-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+  
+  .book-image:hover {
+    transform: scale(1.05);
+  }
+  
+  .book-stats {
+    font-size: 0.9rem;
+    color: #ccc;  
+    margin-top: 5px;
+  }
+  
+  .book-slider a {
+    text-decoration: none;   /* 밑줄 제거 */
+    color: inherit;          /* 부모 요소 글씨 색상 따라가기 */
+  }
+
+  .slick-prev::before,
+  .slick-next::before {
+    display: none !important;
+  }
