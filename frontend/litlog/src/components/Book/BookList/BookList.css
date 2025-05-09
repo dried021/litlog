@@ -4,18 +4,21 @@
   
   .book-item {
     display: flex;
-    padding: 1rem 0;
+    padding: 1rem 1rem;
     border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .book-item:hover {
+    background-color: #e1e1e1;
+    transform: scale(1.05);  /* 5% 확대 */
   }
   
   .index-box {
     margin-right: 1rem;
   }
 
-  .index-box-p{
-    font-weight: 500;
-  }
-  
   .thumbnail {
     width: 100px;
     height: 150px;
