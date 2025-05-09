@@ -19,7 +19,7 @@ export function useSignUpHandlers_id() {
       alert(message);
       return;
     }
-
+ 
     try {
       const res = await axios.post('http://localhost:9090/sign-up/check-id', { id });
       if (res.data.available) {
