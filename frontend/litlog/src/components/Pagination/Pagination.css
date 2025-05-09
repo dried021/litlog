@@ -44,5 +44,7 @@
   
   .pagination-chevron {
     font-size: 1.25rem;
+    color: black !important;
+    opacity: 1;
   }
   
