@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import ReviewEntry from "../../pages/Mypage/ReviewEntry";
 import TabMenu from "../../components/Mypage/TabMenu";
+import './ReviewTimeline.css';
 
 const ReviewTimeline = () => {
   const { userId, year } = useParams();
