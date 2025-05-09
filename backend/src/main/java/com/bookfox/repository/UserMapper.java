@@ -8,4 +8,5 @@ public interface UserMapper {
     UserDto selectUserById(String id);
     void insertUser(UserDto user);
     UserDto selectUserByNickname(String nickname); 
+    UserDto selectUserByEmail(String email);
 }

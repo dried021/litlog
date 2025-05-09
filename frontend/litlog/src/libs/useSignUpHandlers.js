@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { idUtils, nicknameUtils } from './validation';
+import { validateIdFormat, validateNameFormat, validateEmailFormat } from './validation';
 
 export function useSignUpHandlers_id() { // 아이디 중복 확인 및 유효성 검사
   const [id, setId] = useState('');
@@ -14,7 +14,7 @@ export function useSignUpHandlers_id() { // 아이디 중복 확인 및 유효�
   };
 
   const checkIdDuplicate = async () => {
-    const { valid, message } = idUtils(id);
+    const { valid, message } = validateIdFormat(id);
     if (!valid) {
       alert(message);
       return;
@@ -57,7 +57,7 @@ export function useSignUpHandlers_nickname() { // 닉네임 중복 확인 및 �
     };
 
     const checkNicknameDuplicate = async () => {
-    const { valid, message } = nicknameUtils(nickname);
+    const { valid, message } = validateNameFormat(nickname);
     if (!valid) {
         alert(message);
         return;
@@ -86,3 +86,71 @@ export function useSignUpHandlers_nickname() { // 닉네임 중복 확인 및 �
         checkNicknameDuplicate
       };
   }
+
+  export function useSignUpHandlers_email() {
+  const [email, setEmail] = useState('');
+  const [emailChecked, setEmailChecked] = useState(false);
+  const [emailAvailable, setEmailAvailable] = useState(null);
+  const [emailVerified, setEmailVerified] = useState(false); // 인증 확인 여부
+  const [emailCode, setEmailCode] = useState('');             // 입력한 인증 코드
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setEmailChecked(false);
+    setEmailAvailable(null);
+    setEmailVerified(false);
+  };
+
+  const checkEmailDuplicate = async () => {
+    const { valid, message } = validateEmailFormat(email);
+    if (!valid) {
+      alert(message);
+      return;
+    }
+
+    try {
+      const res = await axios.post('http://localhost:9090/sign-up/check-email', { email });
+      if (res.data.available) {
+        // 이메일 사용 가능하므로 인증코드 보내기
+        await axios.post('http://localhost:9090/sign-up/send-code', { email }, { withCredentials: true });
+        alert('인증코드가 이메일로 전송되었습니다.');
+        setEmailAvailable(true);
+      } else {
+        alert('이미 사용 중인 이메일입니다.');
+        setEmailAvailable(false);
+      }
+      setEmailChecked(true);
+    } catch (err) {
+      alert('서버 오류: 이메일 중복 확인 실패');
+      console.error(err);
+    }
+  };
+
+  const verifyEmailCode = async () => {
+    try {
+      const res = await axios.post('http://localhost:9090/sign-up/verify-email', { code: emailCode }, { withCredentials: true });
+      if (res.data.verified) {
+        alert('이메일 인증 완료!');
+        setEmailVerified(true);
+      } else {
+        alert('인증코드가 틀렸습니다.');
+        setEmailVerified(false);
+      }
+    } catch (err) {
+      alert('서버 오류: 인증 실패');
+      console.error(err);
+    }
+  };
+
+  return {
+    email,
+    emailCode,
+    emailChecked,
+    emailAvailable,
+    emailVerified,
+    setEmailCode,
+    handleEmailChange,
+    checkEmailDuplicate,
+    verifyEmailCode
+  };
+}
