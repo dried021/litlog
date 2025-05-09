@@ -217,5 +217,3 @@ CREATE TABLE book_collection_comment(
     FOREIGN KEY (collection_id) REFERENCES book_collection(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
-
-

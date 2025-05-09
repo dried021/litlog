@@ -15,5 +15,6 @@ public class BookshelfDto {
     private Timestamp creationDate;
     private int progress;
     private boolean likeStatus;
+    private int rating;
     private String thumbnail;
 }
