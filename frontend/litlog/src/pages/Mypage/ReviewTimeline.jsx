@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import ReviewEntry from "../../pages/Mypage/ReviewEntry";
+import ReviewEntry from "./ReviewEntry";
 import TabMenu from "../../components/Mypage/TabMenu";
-import './ReviewTimeline.css';
+import "./ReviewTimeline.css";
 
 const ReviewTimeline = () => {
   const { userId, year } = useParams();
@@ -15,11 +15,10 @@ const ReviewTimeline = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // 연도 목록 (최근 10년)
   const years = Array.from({ length: 10 }, (_, i) => currentYear - i);
 
   useEffect(() => {
-    setSelectedYear(year || currentYear); // URL로 변경되었을 때 동기화
+    setSelectedYear(year || currentYear);
     setLoading(true);
     axios
       .get(
@@ -47,25 +46,47 @@ const ReviewTimeline = () => {
       <TabMenu userId={userId} />
 
       <div className="timeline-header">
-        <h2>{selectedYear}년 리뷰 타임라인</h2>
         <select value={selectedYear} onChange={handleYearChange}>
           {years.map((y) => (
             <option key={y} value={y}>
-              {y}년
+              {y}
             </option>
           ))}
         </select>
+        <p className="summary-text">
+          {reviews.length > 0 &&
+            `${userId} has logged ${reviews.length} entries in ${selectedYear}.`}
+        </p>
       </div>
 
-      {loading ? (
-        <p>로딩 중...</p>
-      ) : error ? (
-        <p className="error">{error}</p>
-      ) : reviews.length === 0 ? (
-        <p>작성한 리뷰가 없습니다.</p>
-      ) : (
-        reviews.map((review) => <ReviewEntry key={review.id} review={review} />)
-      )}
+      <div className="review-table">
+        <div className="table-header">
+          <div>MONTH</div>
+          <div>DAY</div>
+          <div className="book-header">BOOK</div>
+          <div className="rating-header">RATING</div>
+          <div>LIKE</div>
+          <div>REVIEW</div>
+        </div>
+        {reviews.length === 0 ? (
+          <p>No reviews yet. Share your first review!</p>
+        ) : (
+          reviews.map((review, idx) => {
+            const prev = reviews[idx - 1];
+            const prevMonth = prev && new Date(prev.creationDate).getMonth();
+            const currMonth = new Date(review.creationDate).getMonth();
+            const showMonth = !prev || prevMonth !== currMonth;
+
+            return (
+              <ReviewEntry
+                key={review.id}
+                review={review}
+                showMonth={showMonth}
+              />
+            );
+          })
+        )}
+      </div>
     </div>
   );
 };

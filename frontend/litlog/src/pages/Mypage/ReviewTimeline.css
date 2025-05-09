@@ -1,78 +1,166 @@
-.review-entry {
-  width: 100%;
-  max-width: 1200px;
+.review-timeline {
+  width: 960px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+/* 연도 선택 */
+.timeline-header {
   display: flex;
-  margin-bottom: 24px;
-  gap: 16px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 16px;
-}
-
-
-.review-date {
-  width: 60px;
-  text-align: center;
-  font-weight: 600;
-  color: #555;
-}
-
-.review-date .month {
-  font-size: 13px;
-  text-transform: uppercase;
-  color: #888;
-}
-
-.review-date .day {
-  font-size: 20px;
-  color: #222;
-}
-
-.thumbnail {
-  width: 80px;
-  height: 110px;
-  object-fit: cover;
-  border-radius: 6px;
-  flex-shrink: 0;
-}
-
-.review-info {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  padding-top: 4px;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom:20px;
+  gap: 12px;
+}
+
+.timeline-header .summary-text {
+  font-size: 15px;
+  color: #444;
+  margin-top: 20px;
+  margin-bottom:20px;
+}
+
+.timeline-header select {
+  padding: 6px 12px;
+  font-size: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* 테이블 헤더 */
+.table-header {
+  display: grid;
+  grid-template-columns: 60px 100px 1fr 130px 80px 80px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 2px solid #ccc;
+  padding: 12px 0;
+}
+
+.table-header > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* BOOK만 왼쪽 정렬 */
+.table-header .book-header {
+  justify-content: flex-start;
+}
+
+.table-header > .rating-header {
+  justify-content: flex-start;
+}
+
+/* 리뷰 한 줄 */
+.review-entry {
+  display: grid;
+  grid-template-columns: 60px 100px 1fr 130px 80px 80px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.review-entry > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* BOOK만 왼쪽 정렬 */
+.review-entry .book-info {
+  justify-content: flex-start;
+}
+
+/* 달/연도 박스 */
+.entry-month {
+  flex-direction: column;
+}
+
+.month-box {
+  background: #e9ecef;
+  padding: 5px 10px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.month-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+}
+
+.year-label {
+  font-size: 11px;
+  color: #666;
+  margin-top: 2px;
+}
+
+/* 일자 */
+.day-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  text-align: center;
+}
+
+/* 도서 정보 */
+.book-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.book-thumbnail {
+  width: 48px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 4px;
+  background-color: #f2f2f2;
 }
 
 .book-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
-  color: #222;
-  margin-bottom: 6px;
+  color: #111;
 }
 
-.rating {
+/* 별점 */
+.entry-rating {
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
   gap: 3px;
-  margin-bottom: 8px;
 }
 
-.rating img {
-  width: 16px;
-  height: 16px;
+.review-entry > .entry-rating {
+  justify-content: flex-start !important;
 }
 
-.icons {
-  display: flex;
-  gap: 8px;
+.entry-rating img {
+  width: 18px;
+  height: 18px;
 }
 
-.icons img {
-  width: 20px;
-  height: 20px;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
+/* 아이콘들 */
+.entry-like, .entry-review {
+  justify-content: center;
+  align-items: center;
 }
 
-.icons img:hover {
+.entry-like img,
+.entry-review img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.entry-like img:hover,
+.entry-review img:hover {
   opacity: 1;
 }

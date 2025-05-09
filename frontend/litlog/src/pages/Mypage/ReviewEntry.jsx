@@ -1,12 +1,11 @@
 import React from "react";
 
-const ReviewEntry = ({ review }) => {
-  console.log("리뷰 데이터 확인:", review);
+const ReviewEntry = ({ review, showMonth }) => {
   const date = new Date(review.creationDate);
-  const year = date.getFullYear();
   const month = date.toLocaleString("en-US", { month: "short" }).toUpperCase();
+  const year = date.getFullYear();
   const day = String(date.getDate()).padStart(2, "0");
-  const thumbnailSrc = review.thumbnail || "/images/covernotavailable.png";
+  const thumbnail = review.thumbnail || "/images/covernotavailable.png";
 
   const renderStars = (rating) => {
     return Array.from({ length: rating }, (_, i) => (
@@ -16,34 +15,32 @@ const ReviewEntry = ({ review }) => {
 
   return (
     <div className="review-entry">
-      <div className="review-date">
-        <div className="month">{month}</div>
-        <div className="day">{day}</div>
+      <div className="entry-month">
+        {showMonth && (
+          <div className="month-box">
+            <div className="month-label">{month}</div>
+            <div className="year-label">{year}</div>
+          </div>
+        )}
       </div>
-
-      <img
-        className="thumbnail"
-        src={thumbnailSrc}
-        alt="표지 이미지"
-      />
-
-      <div className="review-info">
-        <p className="book-title">{review.title}</p>
-        <div className="rating">{renderStars(review.rating)}</div>
-        <div className="icons">
-          <img
-            src={
-              review.liked
-                ? "/icons/heart_filled.svg"
-                : "/icons/heart_outline.svg"
-            }
-            alt={review.liked ? "좋아요 O" : "좋아요 X"}
-          />
-
-          {review.content && (
-            <img src="/icons/review.svg" alt="리뷰 O"/>
-          )}
-        </div>
+      <div className="day-label">{day}</div>
+      <div className="book-info">
+        <img className="book-thumbnail" src={thumbnail} alt="표지 이미지"/>
+        <span className="book-title">{review.title}</span>
+      </div>
+      <div className="entry-rating">{renderStars(review.rating)}</div>
+      <div className="entry-like">
+        <img
+          src={
+            review.liked
+              ? "/icons/heart_filled.svg"
+              : "/icons/heart_outline.svg"
+          }
+          alt="좋아요"
+        />
+      </div>
+      <div className="entry-review">
+        {review.content && <img src="/icons/review.svg" alt="리뷰"/>}
       </div>
     </div>
   );
