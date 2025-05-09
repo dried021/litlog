@@ -126,7 +126,7 @@ CREATE TABLE term (
 );
 
 CREATE TABLE book (
-    id VARCHAR(255) PRIMARY KEY,                        -- 책 고유 ID
+    id INT PRIMARY KEY AUTO_INCREMENT,                        -- 책 고유 ID
     title VARCHAR(255),                                  -- 책 제목
     subtitle VARCHAR(255),                               -- 책 자막
     authors TEXT,                                        -- 저자 리스트
@@ -151,7 +151,7 @@ CREATE TABLE book_images (
 );
 
 CREATE TABLE book_review(
-	id VARCHAR (50) PRIMARY KEY,
+	id int PRIMARY KEY AUTO_INCREMENT,
     user_id VARCHAR (50),
     book_id VARCHAR(255),
 	title VARCHAR(255),
