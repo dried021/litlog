@@ -10,7 +10,7 @@ const ReviewEntry = ({ review }) => {
 
   const renderStars = (rating) => {
     return Array.from({ length: rating }, (_, i) => (
-      <img key={i} src="/icons/star.svg" alt="별점" width={16} />
+      <img key={i} src="/icons/star.svg" alt="별점"/>
     ));
   };
 
@@ -19,15 +19,12 @@ const ReviewEntry = ({ review }) => {
       <div className="review-date">
         <div className="month">{month}</div>
         <div className="day">{day}</div>
-        <div className="year">{year}</div>
       </div>
 
       <img
         className="thumbnail"
         src={thumbnailSrc}
         alt="표지 이미지"
-        width={100}
-        height={140}
       />
 
       <div className="review-info">
@@ -41,11 +38,10 @@ const ReviewEntry = ({ review }) => {
                 : "/icons/heart_outline.svg"
             }
             alt={review.liked ? "좋아요 O" : "좋아요 X"}
-            width={20}
           />
 
           {review.content && (
-            <img src="/icons/review.svg" alt="리뷰 O" width={20} />
+            <img src="/icons/review.svg" alt="리뷰 O"/>
           )}
         </div>
       </div>
