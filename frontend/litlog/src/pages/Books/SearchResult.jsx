@@ -51,10 +51,6 @@ const SearchResult = () => {
         }
     };
 
-    const handleClick = () => {
-
-    };
-
     return (
         <div>
             <h2 className="title">Search Result</h2>
@@ -85,11 +81,7 @@ const SearchResult = () => {
                 {loading ? (
                     <p className="search">searching...</p>
                 ) : books.length > 0 ? (
-                    books.map((book) => (
-                        <>
-                        <BookList key={book.id} book={book}/>
-                        </>
-                    ))
+                    <BookList books={books}/>
                 ) : (
                     keyword && <p className="search">No search results found.</p>
                 )}
@@ -97,7 +89,5 @@ const SearchResult = () => {
         </div>
     );
 };
-
-
 
 export default SearchResult;
