@@ -53,10 +53,14 @@ const ReviewTimeline = () => {
             </option>
           ))}
         </select>
-        <p className="summary-text">
-          {reviews.length > 0 &&
-            `${userId} has logged ${reviews.length} entries in ${selectedYear}.`}
-        </p>
+
+        {reviews.length > 0 && (
+          <p className="summary-text">
+            {reviews[0].nickname}, you left reviews for {reviews.length} books during {selectedYear}.
+            <br/>
+            Keep sharing your thoughts — we love hearing them!
+          </p>
+        )}
       </div>
 
       <div className="review-table">
@@ -69,7 +73,7 @@ const ReviewTimeline = () => {
           <div>REVIEW</div>
         </div>
         {reviews.length === 0 ? (
-          <p>No reviews yet. Share your first review!</p>
+          <p className="no-reviews">No reviews yet. Share your first review!</p>
         ) : (
           reviews.map((review, idx) => {
             const prev = reviews[idx - 1];
