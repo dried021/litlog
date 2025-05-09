@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import '../../styles/profileSummary.css';
+import './profileSummary.css';
 import defaultProfile from './default_profile.png';
 
 
