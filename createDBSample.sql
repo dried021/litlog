@@ -61,10 +61,15 @@ INSERT INTO follow_list(user_id, follow_user_id)
 VALUES 
 ('user01', 'admin01');
 
+
 -- 10. 좋아요 (like_list)
+-- ('REVIEW', 1),
+-- ('BOOK', 2),
+-- ('BOOK_COLLECTION', 3)
 INSERT INTO like_list(user_id, target_id, like_type)
 VALUES 
-('user01', 1, 1);  -- review001에 좋아요
+('user01', 1, 1),  -- review001에 좋아요
+('user01', 1, 2); -- id가 1인 책(like_type가 2)에 좋아요
 
 -- 11. 책 콜렉션 (book_collection)
 INSERT INTO book_collection(id, user_id, title, content, thumbnail)

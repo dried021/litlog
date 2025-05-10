@@ -183,13 +183,13 @@ CREATE TABLE like_list(
     target_id INT NOT NULL, 				-- 대상 ID 책이면 book.id review.id comment.id
     like_type INT NOT NULL, 
     creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-	FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+	FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY (like_type) REFERENCES like_type(value)
 );
--- 사용 예시: 리뷰 좋아요
--- SELECT *
--- FROM `like` l
--- JOIN review r ON l.target_id = r.review_id
--- WHERE l.like_type_code = 'REVIEW';
+
+-- ('REVIEW', 1),
+-- ('BOOK', 2),
+-- ('BOOK_COLLECTION', 3)
 
 CREATE TABLE book_collection(
 	id INT AUTO_INCREMENT PRIMARY KEY,			-- 이건 프리메리

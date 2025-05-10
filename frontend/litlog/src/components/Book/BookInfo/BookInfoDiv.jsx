@@ -1,54 +1,44 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './BookInfoDiv.module.css';
+import { exists } from "../../libs/book/exists";
 
-function BookInfoDiv({bookAPIId, exists}) {
+function BookInfoDiv({bookApiId}) {
+  const [bookshelfCount, setBookshelfcount] = useState(0);
+  const [likeCount, setLikeCount] = useState(0);
 
-  const queryDB = async (bookAPIId) => {
-    if (bookAPIId) {
-        try {
-            const response = await axios.get(`http://localhost:9090/books/query`, {
-                params: {
-                  bookAPIId
-                },
-            });
-
-            const { exists, bookshelf_count, like_count } = response.data;
-
-            if (startIndex === 0) {
-                setBooks(items || []);
-            } else {
-                setBooks((prevBooks) => [...prevBooks, ...(items || [])]);
-            }
-
-            setTotalItems(totalItems || 0);
-            setLoadedItems(startIndex + itemsPerPage);
-
-            if (!items){
-                alert("마지막 결과 페이지입니다.");
-                shouldReload.current = true;
-                navigate(-1);
-            }
-
-        } catch (error) {
-            console.error("Fail to search:", error);
-            if (startIndex === 0) {
-                setBooks([]);
-            }
-        } finally {
-            setTimeout(() => {
-                setLoading(false);
-            }, 500);
-        }
+  useEffect(() => {
+    if (bookApiId) {
+      if (exists(bookApiId)){
+        getCounts(bookApiId);
+      }else{
+        setBookshelfcount(0);
+        setLikeCount(0);
+      }
     }
-};
+  }, []);
+
+  const getCounts = async (bookApiId) => {
+    try {
+      const response = await axios.get(`http://localhost:9090/books/counts`, {
+        params: { bookApiId },
+      });
+
+      const { bookshelfCount, likeCount } = response.data;
+      setBookshelfcount(bookshelfCount);
+      setLikeCount(likeCount);
+
+    } catch (error) {
+      console.error("Fail to search:", error);
+    }
+  }
 
 
   return (
         <div className="bookInfoDiv">
             <img src="/icons/bookshelf.svg"/>
-            {" "+bookshelf_count+" "}
+            {" "+bookshelfCount+" "}
             <img src="/icons/heart_filled.svg"/>
-            {" "+like_count}
+            {" "+likeCount}
         </div>
   );
 }

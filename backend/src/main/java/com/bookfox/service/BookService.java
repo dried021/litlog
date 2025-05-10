@@ -12,5 +12,17 @@ public class BookService {
     public Boolean exists(String bookApiId){
         Boolean exists = bookMapper.exists(bookApiId);
         return exists != null && exists; 
-    };
+    }
+
+    public int getIdByBookApiId(String bookApiId){
+        return bookMapper.getIdByBookApiId(bookApiId);
+    }
+
+    public int getBookshelfCount(int id){
+        return bookMapper.getBookshelfCount(id);
+    }
+
+    public int getLikeCount(int id){
+        return bookMapper.getLikeCount(id);
+    }
 }

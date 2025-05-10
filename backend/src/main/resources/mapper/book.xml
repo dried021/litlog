@@ -12,4 +12,21 @@
             END AS is_book_exists
     </select>
 
+    <select id="getIdByBookApiId" parameterType="String" resultType="int">
+        SELECT id 
+        FROM book
+        WHERE book_api_id = #{bookApiId}
+    </select>
+
+    <select id="getBookshelfCount" parameterType="int" resultType="int">
+        SELECT COUNT(*) 
+        FROM book_shelf 
+        WHERE book_id = #{id}
+    </select>
+
+    <select id="getLikeCount" parameterType="int" resultType="int">
+        SELECT COUNT(*) 
+        FROM like_list 
+        WHERE target_id = #{id} AND like_type = 2
+    </select>
 </mapper>
