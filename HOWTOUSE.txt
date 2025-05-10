@@ -26,7 +26,7 @@ taskkill /PID (여기에 겹치는 포트) /F
 
 
 
-링크 모음
+API !!!! 링크 모음
 회원가입    /sign-up
 아이디 중복 체크    /sign-up/check-id
 이메일 중복 확인    /sign-up/check-email
@@ -36,9 +36,12 @@ taskkill /PID (여기에 겹치는 포트) /F
 아이디 찾기    /find-id
 비밀번호 찾기    /find-password
 메인 화면    /
-Books 메인    /books
-Books 검색 결과    /books/search
-도서 상세 페이지    /books/{bookId}
+
+Books 검색 결과    /books/search/{bookId}
+도서 상세 페이지    /books/detail/{bookId}
+도서 DB 존재 여부 검사 /books/query/{bookApiId}
+
+
 컬렉션 메인    /collections
 컬렉션 상세 페이지    /collections/detail
 컬렉션 생성 페이지    /collections/new

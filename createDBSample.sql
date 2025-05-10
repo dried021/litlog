@@ -39,10 +39,10 @@ VALUES
 ('개인정보 처리방침', '귀하의 개인정보는 ...');
 
 -- 5. 책 (book)
-INSERT INTO book(id, title, subtitle, authors, publisher, published_date, description, page_count, categories, book_category)
+INSERT INTO book(id, book_api_id, title, subtitle, authors, publisher, published_date, description, page_count, book_category)
 VALUES 
-(1, '나미야 잡화점의 기적', '기적 같은 이야기', '히가시노 게이고', '현대문학', '2012-01-01', '밤에만 열리는 신비한 가게', 320, 'FICTION', 1),
-(2, '코스모스', '우주의 신비', '칼 세이건', '사이언스북스', '1980-06-01', '우주를 탐사한 명저', 500, 'SCIENCE', 10);
+(1, 1, '나미야 잡화점의 기적', '기적 같은 이야기', '히가시노 게이고', '현대문학', '2012-01-01', '밤에만 열리는 신비한 가게', 320, 1),
+(2, 2, '코스모스', '우주의 신비', '칼 세이건', '사이언스북스', '1980-06-01', '우주를 탐사한 명저', 500, 10);
 
 -- 7. 책 리뷰 (book_review)
 INSERT INTO book_review(id, user_id, book_id, title, content, rating)
