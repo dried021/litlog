@@ -10,9 +10,11 @@ import lombok.Setter;
 public class BookReviewDto {
     private int id;
     private String userId;
+    private String userProfile;
     private int bookId;
     private String title;
     private String content;
     private int rating;
     private Timestamp creationDate;
+    private int likeCount;
 }

@@ -61,10 +61,21 @@ VALUES
 (3, "-9F9WaXUhRYC", 'The Night Circus', 'A Novel', 'Erin Morgenstern', 'Knopf Doubleday Publishing Group', '2011-09-13', 'NEW YORK TIMES BESTSELLER • Two starcrossed magicians engage in a deadly game of cunning in the spellbinding novel that captured the worlds imagination. • "Part love story, part fable ... defies both genres and expectations." —The Boston Globe  The circus arrives without warning. No announcements precede it. It is simply there, when yesterday it was not. Within the black-and-white striped canvas tents is an utterly unique experience full of breathtaking amazements. It is called Le Cirque des Rêves, and it is only open at night.   But behind the scenes, a fierce competition is underway: a duel between two young magicians, Celia and Marco, who have been trained since childhood expressly for this purpose by their mercurial instructors. Unbeknownst to them both, this is a game in which only one can be left standing. Despite the high stakes, Celia and Marco soon tumble headfirst into love, setting off a domino effect of dangerous consequences, and leaving the lives of everyone, from the performers to the patrons, hanging in the balance.', 500, 1);
 
 -- 7. 책 리뷰 (book_review)
-INSERT INTO book_review(id, user_id, book_id, title, content, rating)
+INSERT INTO book_review(id, user_id, book_id, content, rating)
 VALUES 
-(1, 'user01', 1, '인상 깊은 책', '너무 감동적이었어요.', 5),
-(2, 'admin01', 2, '우주를 느끼다', '과학에 대한 흥미가 생겼어요.', 4);
+(1, 'user01', 3, '너무 감동적이었어요.', 5),
+(2, 'admin01', 3, '과학에 대한 흥미가 생겼어요.', 4),
+(3, 'user01', 3, '리뷰 테스트3', 3),
+(4, 'user01', 3, '리뷰 테스트4', 2),
+(5, 'user01', 3, '리뷰 테스트5', 1),
+(6, 'user01', 3, '리뷰 테스트6', 3),
+(7, 'user01', 3, '리뷰 테스트7', 4),
+(8, 'user01', 3, '리뷰 테스트8', 5),
+(9, 'user01', 3, '리뷰 테스트9', 3),
+(10, 'user01', 3, '리뷰 테스트10', 2),
+(11, 'user01', 3, '리뷰 테스트11', 5),
+(12, 'user01', 3, '리뷰 테스트12', 3),
+(13, 'user01', 3, '리뷰 테스트13', 2);
 
 -- 8. 책장 (book_shelf)
 INSERT INTO book_shelf(book_id, user_id, shelf_type, progress)
