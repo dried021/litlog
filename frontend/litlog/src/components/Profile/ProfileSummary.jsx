@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from './ProfileSummary.module.css';
-import defaultProfile from './default_profile.png';
+import defaultProfile from '../../assets/default_profile.png';
 
 
 export default function ProfileSummary() {
@@ -11,9 +11,8 @@ export default function ProfileSummary() {
 
     useEffect(() => {
         // fetch(`/members/profile-summary/${userId}`) // actual URL
-        // fetch(`http://localhost:9090/members/profile-summary/${userId}`) // port 9090
-        fetch(`https://ee6f455d-9dd2-463d-9e5f-2752da892af8.mock.pstmn.io/members/bbb`) // mock server
-        // fetch(`http://localhost:9090/members/profile-summary/${userId}`)
+        fetch(`http://localhost:9090/members/profile-summary/${userId}`) // port 9090
+        //fetch(`https://ee6f455d-9dd2-463d-9e5f-2752da892af8.mock.pstmn.io/members/bbb`) // mock server
             .then(res => res.json())
             .then(data => setProfile(data))
             .catch(error => console.error(error));
