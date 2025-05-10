@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './BookInfoDiv.module.css';
-import { exists } from "../../libs/book/exists";
+import { exists } from "../../../libs/book/exists";
 
 function BookInfoDiv({bookApiId}) {
   const [bookshelfCount, setBookshelfcount] = useState(0);
