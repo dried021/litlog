@@ -40,12 +40,12 @@ const BookDetail = () => {
   }, [book.volumeInfo?.description]);
 
   const isMoreViewRequired = useMemo(() => {
-    return cleanDescription.length > 500;
+    return cleanDescription.length > 800;
   }, [cleanDescription]);
 
   const displayedDescription = useMemo(() => {
     if (isMoreViewRequired && isClose) {
-      return cleanDescription.slice(0, 500).concat(" ...");
+      return cleanDescription.slice(0, 800).concat(" ...");
     }
     return cleanDescription;
   }, [cleanDescription, isMoreViewRequired, isClose]);
@@ -81,7 +81,7 @@ const BookDetail = () => {
 
           <div className={styles["description-section"]}>
             <div className={styles["info-section"]}>
-              <h3 className={styles["book-title"]}>{book.volumeInfo.title}</h3>
+              <h1 className={styles["book-title"]}>{book.volumeInfo.title}</h1>
 
               {book.volumeInfo.subtitle && (
                 <p className={styles["subtitle"]}>{book.volumeInfo.subtitle}</p>
@@ -116,14 +116,7 @@ const BookDetail = () => {
                 
               )}
 
-              <div className={styles.buttons}>
-                <button className={styles["bookshelf-button"]}>
-                  <FaBars /> Add to Bookshelf
-                </button>
-                <button className={styles["like-button"]}>
-                  <FaRegHeart /> Add Like
-                </button>
-              </div>
+              
             </div>
           </div>
 

@@ -1,0 +1,42 @@
+.bookInfoDiv {
+    height: 40px;  /* 높이 */
+    font-size: 1.0rem;
+    margin: 5px;
+    display: flex;
+    width: 100%; 
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+  }
+  
+  .heart{
+    margin-left: 20px;
+  }
+
+  .bookInfoDiv img {
+    width: 24px;
+    height: 24px;
+    margin-right: 4px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .bookInfoDiv img:hover {
+    transform: scale(1.1);
+  }
+  
+  .bookInfoDiv span {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .bookInfoDiv .bookshelfCount,
+  .bookInfoDiv .likeCount {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
