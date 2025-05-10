@@ -11,6 +11,7 @@ const Header = () => {
                 <Link to="/readers">Readers</Link>
                 <Link to="/sign-in">Sign in</Link>
                 <Link to="/:userId">Profile</Link>
+                <Link to="/books/-9F9WaXUhRYC"> 테스트용 </Link>
             </nav>
         </header>
     )

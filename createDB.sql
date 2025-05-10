@@ -62,7 +62,8 @@ INSERT INTO book_category (name, value) VALUES
 ('MUSIC', 7),
 ('RELIGION&SPIRITUALITY', 8),
 ('TRAVEL', 9),
-('SCIENCE', 10);
+('SCIENCE', 10),
+('etc', 11);
 
 CREATE TABLE shelf_type (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -130,13 +131,13 @@ CREATE TABLE book (
     book_api_id VARCHAR(255),
     title VARCHAR(255),                                  -- 책 제목
     subtitle VARCHAR(255),                               -- 책 자막
-    authors TEXT,                                        -- 저자 리스트
+    authors VARCHAR(255),                                       -- 저자 리스트
     publisher VARCHAR(255),                              -- 게시자
     published_date DATE,                                  -- 게시일
     description TEXT,                                    -- 책 설명
     page_count INT,                                       -- 페이지 수
 
-    thumbnail VARCHAR(255),
+    thumbnail TEXT,
     book_category INT null,
     FOREIGN KEY (book_category) REFERENCES book_category(value) ON DELETE SET NULL,
 

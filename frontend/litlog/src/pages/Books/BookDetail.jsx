@@ -7,6 +7,8 @@ import axios from "axios";
 import ReadMoreButton from "../../components/Button/ReadMoreButton";
 import AddLikeButton from "../../components/Button/AddLikeButton";
 import AddToBookshelfButton from "../../components/Button/AddToBookshelfButton";
+import BookInfoDiv from "../../components/Book/BookInfo/BookInfoDiv";
+
 
 const BookDetail = () => {
   const { bookId } = useParams();
@@ -71,6 +73,7 @@ const BookDetail = () => {
               alt={book.volumeInfo.title}
             />
             <div className={styles["add-buttons"]}>
+                <BookInfoDiv bookApiId={bookId}/>
                 <AddToBookshelfButton isAdded={false} handleClick={handleAddToBookShelfButton}/>
                 <AddLikeButton isLiked={false} handleClick={handleAddLikeButton}/>
             </div>
@@ -83,9 +86,13 @@ const BookDetail = () => {
               {book.volumeInfo.subtitle && (
                 <p className={styles["subtitle"]}>{book.volumeInfo.subtitle}</p>
               )}
-              <p className={styles["authors"]}>
-                {book.volumeInfo.authors?.join(", ")}
-              </p>
+
+              {book.volumeInfo.authors && (
+                <p className={styles["authors"]}>
+                  {book.volumeInfo.authors}
+                </p>)
+              }
+              
               <p className={styles["publisher"]}>
                 {book.volumeInfo.publisher} | {book.volumeInfo.publishedDate}
               </p>

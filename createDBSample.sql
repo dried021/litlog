@@ -1,3 +1,18 @@
+SET FOREIGN_KEY_CHECKS = 0;
+DELETE FROM book_collection_comment where not id = -1;
+DELETE FROM book_collection_book where not id = -1;
+DELETE FROM book_collection where not id = -1;
+DELETE FROM like_list where not id = -1;
+DELETE FROM follow_list where not id = -1;
+DELETE FROM book_shelf where not id = -1;
+DELETE FROM book_review where not id = -1;
+DELETE FROM book where not id = -1;
+DELETE FROM term where not id = -1;
+DELETE FROM email_veri where not email = "litlog 화이팅";
+DELETE FROM user where not id = "litlog 화이팅";
+SET FOREIGN_KEY_CHECKS = 1;
+
+
 
 -- 1. 공통 코드 (common)
 
@@ -42,7 +57,8 @@ VALUES
 INSERT INTO book(id, book_api_id, title, subtitle, authors, publisher, published_date, description, page_count, book_category)
 VALUES 
 (1, 1, '나미야 잡화점의 기적', '기적 같은 이야기', '히가시노 게이고', '현대문학', '2012-01-01', '밤에만 열리는 신비한 가게', 320, 1),
-(2, 2, '코스모스', '우주의 신비', '칼 세이건', '사이언스북스', '1980-06-01', '우주를 탐사한 명저', 500, 10);
+(2, 2, '코스모스', '우주의 신비', '칼 세이건', '사이언스북스', '1980-06-01', '우주를 탐사한 명저', 500, 10),
+(3, -9F9WaXUhRYC, 'The Night Circus', 'A Novel', 'Erin Morgenstern', 'Knopf Doubleday Publishing Group', '2011-09-13', 'NEW YORK TIMES BESTSELLER • Two starcrossed magicians engage in a deadly game of cunning in the spellbinding novel that captured the worlds imagination. • "Part love story, part fable ... defies both genres and expectations." —The Boston Globe  The circus arrives without warning. No announcements precede it. It is simply there, when yesterday it was not. Within the black-and-white striped canvas tents is an utterly unique experience full of breathtaking amazements. It is called Le Cirque des Rêves, and it is only open at night.   But behind the scenes, a fierce competition is underway: a duel between two young magicians, Celia and Marco, who have been trained since childhood expressly for this purpose by their mercurial instructors. Unbeknownst to them both, this is a game in which only one can be left standing. Despite the high stakes, Celia and Marco soon tumble headfirst into love, setting off a domino effect of dangerous consequences, and leaving the lives of everyone, from the performers to the patrons, hanging in the balance.', 500, 1);
 
 -- 7. 책 리뷰 (book_review)
 INSERT INTO book_review(id, user_id, book_id, title, content, rating)
@@ -86,16 +102,3 @@ INSERT INTO book_collection_comment(user_id, collection_id, content)
 VALUES 
 ('admin01', 1, '좋은 책 모음이네요!');
 
-
-
-select * from common;
-select * from common_code;
-
-
-SELECT user();
-select database();
-
-show create table common_code;
-show create table user;
-
-select version();

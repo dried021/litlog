@@ -19,7 +19,7 @@ function BookList({ books, onItemClick }) {
             <div className={styles['book-info']}>
               <h3 className={styles['book-title']}>{book.volumeInfo.title}</h3>
               {book.volumeInfo.subtitle && <p className={styles['subtitle']}>{book.volumeInfo.subtitle}</p>}
-              <p className={styles['authors']}>{book.volumeInfo.authors?.join(', ')}</p>
+              {book.volumeInfo.authors && <p className={styles['authors']}>{book.volumeInfo.authors}</p>}
               <p className={styles['publisher']}>
                 {book.volumeInfo.publisher} | {book.volumeInfo.publishedDate}
               </p>
