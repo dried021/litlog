@@ -4,6 +4,7 @@ import styles from "./BookDetail.module.css";
 import { removeTags } from "../../libs/text/removeTag";
 import axios from "axios";
 import ReadMoreButton from "../../components/Button/ReadMoreButton";
+import Reviews from "../../components/Review/Reviews";
 import AddLikeButton from "../../components/Button/AddLikeButton";
 import AddToBookshelfButton from "../../components/Button/AddToBookshelfButton";
 import BookInfoDiv from "../../components/Book/BookInfo/BookInfoDiv";
@@ -122,12 +123,8 @@ const BookDetail = () => {
           <div className={styles["reviews-section"]}>
             <div className={styles["reviews-header"]}>
               <h3>Reviews</h3>
-              <button className={styles["add-review"]}>Add Review</button>
             </div>
-            <div className={styles["review-options"]}>
-              <button className={styles["option-button"]}>인기순 (Default)</button>
-              <button className={styles["option-button"]}>최근등록순</button>
-            </div>
+
             <Reviews bookApiId={bookId}/>
           </div>
         </div>

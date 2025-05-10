@@ -1,0 +1,138 @@
+.optionsContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+  }
+  
+  .leftContainer {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .rightContainer {
+    display: flex;
+  }
+  
+  .option {
+    cursor: pointer;
+    padding: 8px 12px;
+    font-size: 15px;
+    color: #555;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 8px;
+  }
+  
+  .optionActive {
+    color: #000;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
+  .option:hover {
+    background-color: #9a9a9a;
+    color: #fff;
+  }
+  
+  .addReviewButton {
+    cursor: pointer;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+  }
+  
+  .addReviewButton:hover {
+    background-color: #0056b3;
+  }
+  
+  
+
+  
+
+.review-section {
+    padding: 1rem;
+  }
+
+  .review-item{
+    display:flex;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .review-item-last{
+    display:flex;
+    padding: 1rem 1rem;
+  }
+  
+  .index-box {
+    margin-right: 1rem;
+  }
+  
+  .user-profile {
+    flex-grow: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .user-profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .review-content {
+    flex-grow: 1;
+  }
+  
+  .user-id {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .star{
+    width: 25px;
+    margin-right: 2px;
+  }
+  
+  .rating {
+    margin-bottom: 0.6rem;
+  }
+  
+  .content {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .review-like {
+    flex-grow: 0;
+    margin-left: auto;
+    justify-content: center;
+    width: 70px;
+    display: flex;
+    flex-direction: column; /* 세로 배열 */
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .review-like img {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .review-like-count {
+    font-size: 14px;
+    justify-content: center;
+  }
+  
+  

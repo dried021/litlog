@@ -1,6 +1,7 @@
 package com.bookfox.controller.books;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.bookfox.model.BookReviewDto;
 import com.bookfox.service.BookService;
 
 import jakarta.annotation.Resource;
@@ -60,6 +62,29 @@ public class Books {
         Map<String, Integer> response = new HashMap<>();
         response.put("bookshelfCount", bookshelfCount);
         response.put("likeCount", likeCount);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/reviews")
+    public ResponseEntity<Map<String, Object>> getReviews(@RequestParam String bookApiId,
+                    @RequestParam int currentPage) {
+        //session에서 user 가져오기
+        String userId = "user01";
+
+        boolean exists = bookService.exists(bookApiId);
+
+        Map<String, Object> response = new HashMap<>();
+        if (exists) {
+            int bookId = bookService.getIdByBookApiId(bookApiId);
+            List<BookReviewDto> reviews = bookService.getReviews(bookId, currentPage);
+            int reviewsCount = bookService.getReviewCount(bookId);
+            response.put("reviews", reviews);
+            response.put("reviewsCount", reviewsCount);
+        } else {
+            response.put("reviews", null);
+            response.put("reviewsCount", 0);
+        }
+
         return ResponseEntity.ok(response);
     }
 }

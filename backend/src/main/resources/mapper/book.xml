@@ -29,4 +29,17 @@
         FROM like_list 
         WHERE target_id = #{id} AND like_type = 2
     </select>
+
+    <select id="getReviewCount" parameterType="int" resultType="int">
+        SELECT COUNT(*) 
+        FROM book_review
+        WHERE book_id = #{id}
+    </select>
+
+    <select id="getReviews" parameterType="map" resultType="com.bookfox.model.BookReviewDto">
+        SELECT * 
+        FROM book_review
+        WHERE book_id = #{id}
+        LIMIT #{offset}, 5
+    </select>
 </mapper>

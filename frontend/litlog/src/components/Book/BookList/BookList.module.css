@@ -23,7 +23,7 @@
     width: 100px;
     height: 150px;
     overflow: hidden;
-    margin-right: 1rem;
+    justify-content: center;
   }
   
   .thumbnail img {
