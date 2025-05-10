@@ -16,7 +16,10 @@ pip install -r requirements.txt
 pip list
 깔려 있어야 하는 것:  requests, xmltodict, python-dotenv requests, mysql-connector-python, python-dotenv
 
-litlog/forsampels에서
+litlog/forsamples에서
 python main.py 실행
 
 output 폴더에서 json / xml 파일 확인 가능
+
+litlog/forsamples에서
+python insert_books.py 실행
