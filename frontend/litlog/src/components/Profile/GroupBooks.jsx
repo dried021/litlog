@@ -1,6 +1,8 @@
 import React from "react";
 import styles from './GroupBooks.module.css';
-import defaultThumbnail from "./default_thumbnail.png";
+import defaultThumbnail from "../../assets/default_thumbnail.png";
+import heart from "../../assets/heart.svg";
+import star from "../../assets/star.svg";
 
 export default function GroupBooks({groupLabel, group, msg}) {
     return (
@@ -20,6 +22,9 @@ export default function GroupBooks({groupLabel, group, msg}) {
                                 <div className={styles.bookInfo}>
                                     {book.rating > 0 && (
                                         <div className={styles.bookRating}>
+                                            {/*[...Array(5)].map((_, index) => index < book.rating && (
+                                                <img src={star} className={styles.icon}/>
+                                            ))*/}
                                             {[...Array(5)].map((_, index) => (
                                                 <span 
                                                     key={index}
@@ -27,6 +32,7 @@ export default function GroupBooks({groupLabel, group, msg}) {
                                                 >★
                                                 </span>
                                             ))}
+                                            {book.likeStatus && (<img src={heart} className={styles.icon}/>)}
                                         </div>
                                     )}
                                 </div>

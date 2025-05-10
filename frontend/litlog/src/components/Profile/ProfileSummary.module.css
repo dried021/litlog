@@ -3,9 +3,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    border: 1px solid #ddd;
     margin-bottom: 20px;
-    background-color: #fdfdfd;
+    background-color: #F3F3F3;
+    border-radius: 10px;
     width: 960px;
 }
 

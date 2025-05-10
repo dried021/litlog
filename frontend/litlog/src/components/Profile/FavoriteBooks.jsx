@@ -11,14 +11,14 @@ export default function FavoriteBooks() {
     }));
 
     useEffect(()=>{
-        fetch(`https://ee6f455d-9dd2-463d-9e5f-2752da892af8.mock.pstmn.io/members/bbb/books/favorite`)
-        //fetch(`http://localhost:9090/members/${userId}/books/favorite`)
+        //fetch(`https://ee6f455d-9dd2-463d-9e5f-2752da892af8.mock.pstmn.io/members/bbb/books/favorite`)
+        fetch(`http://localhost:9090/members/${userId}/books/favorite`)
             .then(res => res.json())
             .then(data => setFavoriteBooks(data))
             .catch(error => console.error(error))
     }, [userId]);
     
     return (
-        <GroupBooks groupLabel="FAVORITE BOOKS" group={favoriteBooks} msg="No favorite books added"/>
+        <GroupBooks groupLabel="FAVORITE BOOKS" group={favoriteBooks} msg="No books to show"/>
     );
 }

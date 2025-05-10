@@ -11,6 +11,10 @@
     color: #333;
 }
 
+.solid {
+    border: 1px solid #636B2F;
+}
+
 .bookList {
     display: flex;
     list-style-type: none;
@@ -37,8 +41,7 @@
 }
 
 .bookInfo {
-    padding: 12px;
-    text-align: center;
+    text-align: left;
 }
 
 .bookInfo p {
@@ -50,16 +53,22 @@
 
 /* RATING */
 .bookRating {
-    margin-top: 5px;
+    margin-top: 0px;
 }
 
 .star {
-    color: #ccc;
-    font-size: 15px;
+    color: transparent;
+    font-size: 14px;
     margin-right: 2px;
 }
 
 .star.filled {
     color: #2e2d2b;
 }
-  
+
+.icon {
+    width: 16px;
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+}
