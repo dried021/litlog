@@ -56,8 +56,8 @@ VALUES
 -- 5. 책 (book)
 INSERT INTO book(id, book_api_id, title, subtitle, authors, publisher, published_date, description, page_count, book_category)
 VALUES 
-(1, 1, '나미야 잡화점의 기적', '기적 같은 이야기', '히가시노 게이고', '현대문학', '2012-01-01', '밤에만 열리는 신비한 가게', 320, 1),
-(2, 2, '코스모스', '우주의 신비', '칼 세이건', '사이언스북스', '1980-06-01', '우주를 탐사한 명저', 500, 10),
+(1, "1", '나미야 잡화점의 기적', '기적 같은 이야기', '히가시노 게이고', '현대문학', '2012-01-01', '밤에만 열리는 신비한 가게', 320, 1),
+(2, "2", '코스모스', '우주의 신비', '칼 세이건', '사이언스북스', '1980-06-01', '우주를 탐사한 명저', 500, 10),
 (3, "-9F9WaXUhRYC", 'The Night Circus', 'A Novel', 'Erin Morgenstern', 'Knopf Doubleday Publishing Group', '2011-09-13', 'NEW YORK TIMES BESTSELLER • Two starcrossed magicians engage in a deadly game of cunning in the spellbinding novel that captured the worlds imagination. • "Part love story, part fable ... defies both genres and expectations." —The Boston Globe  The circus arrives without warning. No announcements precede it. It is simply there, when yesterday it was not. Within the black-and-white striped canvas tents is an utterly unique experience full of breathtaking amazements. It is called Le Cirque des Rêves, and it is only open at night.   But behind the scenes, a fierce competition is underway: a duel between two young magicians, Celia and Marco, who have been trained since childhood expressly for this purpose by their mercurial instructors. Unbeknownst to them both, this is a game in which only one can be left standing. Despite the high stakes, Celia and Marco soon tumble headfirst into love, setting off a domino effect of dangerous consequences, and leaving the lives of everyone, from the performers to the patrons, hanging in the balance.', 500, 1);
 
 -- 7. 책 리뷰 (book_review)
@@ -70,7 +70,8 @@ VALUES
 INSERT INTO book_shelf(book_id, user_id, shelf_type, progress)
 VALUES 
 (1, 'user01', 2, 30),
-(2, 'admin01', 3, 100);
+(2, 'admin01', 3, 100),
+(3, 'user01', 2, 30);
 
 -- 9. 팔로우 (follow_list)
 INSERT INTO follow_list(user_id, follow_user_id)
@@ -85,7 +86,7 @@ VALUES
 INSERT INTO like_list(user_id, target_id, like_type)
 VALUES 
 ('user01', 1, 1),  -- review001에 좋아요
-('user01', 1, 2); -- id가 1인 책(like_type가 2)에 좋아요
+('user01', 3, 2); -- id가 3인 책(like_type가 2)에 좋아요
 
 -- 11. 책 콜렉션 (book_collection)
 INSERT INTO book_collection(id, user_id, title, content, thumbnail)
@@ -95,7 +96,7 @@ VALUES
 -- 12. 책 콜렉션에 책 추가 (book_collection_book)
 INSERT INTO book_collection_book(collection_id, book_id, thumbnail)
 VALUES 
-(1, 1, 'thumb1.jpg');
+(1, 3, 'thumb1.jpg');
 
 -- 13. 책 콜렉션 댓글 (book_collection_comment)
 INSERT INTO book_collection_comment(user_id, collection_id, content)
