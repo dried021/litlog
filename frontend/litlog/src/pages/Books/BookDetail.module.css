@@ -34,6 +34,14 @@
     
   }
 
+  .add-buttons{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 100%
+  }
+
   .info-section {
     flex-grow: 1;
     padding-top: 10px;

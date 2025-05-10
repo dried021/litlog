@@ -5,6 +5,8 @@ import styles from "./BookDetail.module.css";
 import { removeTags } from "../../libs/text/removeTag";
 import axios from "axios";
 import ReadMoreButton from "../../components/Button/ReadMoreButton";
+import AddLikeButton from "../../components/Button/AddLikeButton";
+import AddToBookshelfButton from "../../components/Button/AddToBookshelfButton";
 
 const BookDetail = () => {
   const { bookId } = useParams();
@@ -50,6 +52,10 @@ const BookDetail = () => {
     setIsClose(!isClose);
   };
 
+  //백 작업: 세션에서 꺼내올 수 있을 때 작업...
+  const handleAddToBookShelfButton = () => {};
+  const handleAddLikeButton = () => {};
+
   return (
     <div>
       <h2 className="title">Book Detail page</h2>
@@ -64,6 +70,10 @@ const BookDetail = () => {
               }
               alt={book.volumeInfo.title}
             />
+            <div className={styles["add-buttons"]}>
+                <AddToBookshelfButton isAdded={false} handleClick={handleAddToBookShelfButton}/>
+                <AddLikeButton isLiked={false} handleClick={handleAddLikeButton}/>
+            </div>
           </div>
 
           <div className={styles["description-section"]}>
