@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bookfox.model.BookshelfDto;
 import com.bookfox.model.ProfileDto;
+import com.bookfox.model.ProfileReviewDto;
 import com.bookfox.repository.ProfileMapper;
 
 @Service
@@ -30,5 +31,17 @@ public class ProfileService {
         map.put("userId", userId);
         map.put("count", count);
         return profileMapper.getRecentlyReadBooks(map);
+    }
+    public List<ProfileReviewDto> getRecentReviews(String userId, int count) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("count", count);
+        return profileMapper.getRecentReviews(map);
+    }
+    public List<ProfileReviewDto> getPopularReviews(String userId, int count) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("count", count);
+        return profileMapper.getPopularReviews(map);
     }
 }

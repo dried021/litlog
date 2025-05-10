@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookfox.model.ProfileDto;
+import com.bookfox.model.ProfileReviewDto;
 import com.bookfox.service.ProfileService;
 import com.bookfox.model.BookshelfDto;
 
@@ -24,6 +25,7 @@ public class ProfileController {
 
     @GetMapping("/profile-summary/{userId}")
     public ProfileDto getProfile(@PathVariable String userId) {
+        // TODO: get logged in user from session and pass in response
         return profileService.getProfileDto(userId);
     }
 
@@ -42,6 +44,24 @@ public class ProfileController {
         List<BookshelfDto> books = profileService.getRecentlyReadBooks(userId, 4);
         response.put("totalCount", books.size());
         response.put("books", books);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{userId}/reviews/recent")
+    public ResponseEntity<Map<String, Object>> getRecentReviews(@PathVariable String userId) {
+        Map<String, Object> response = new HashMap<>();
+        List<ProfileReviewDto> reviews = profileService.getRecentReviews(userId, 3);
+        response.put("totalCount", reviews.size());
+        response.put("reviews", reviews);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{userId}/reviews/popular")
+    public ResponseEntity<Map<String,Object>> getPopularReviews(@PathVariable String userId) {
+        Map<String, Object> response = new HashMap<>();
+        List<ProfileReviewDto> reviews = profileService.getPopularReviews(userId, 3);
+        response.put("totalCount", reviews.size());
+        response.put("reviews", reviews);
         return ResponseEntity.ok(response);
     }
 }

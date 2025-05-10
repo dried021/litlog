@@ -20,7 +20,7 @@
             CASE
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0
-            END AS like_status
+            END AS likeStatus
         FROM book b
         JOIN like_list ll ON b.id = ll.target_id
         WHERE ll.user_id = #{userId}
@@ -29,11 +29,12 @@
         LIMIT #{count}
     </select>
     <select id="getRecentlyReadBooks" resultType="com.bookfox.model.BookshelfDto" parameterType="map">
-        SELECT bs.*,
+        SELECT 
+            bs.*,
             CASE 
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0
-            END AS like_status,
+            END AS likeStatus,
             b.thumbnail AS thumbnail,
             br.rating AS rating
         FROM book_shelf bs
@@ -43,12 +44,71 @@
             AND ll.like_type = 2
         LEFT JOIN book b
             ON bs.book_id = b.id
-        LEFT JOIN book_review br
-            ON bs.book_id = br.book_id
-            AND br.user_id = #{userId}
+        LEFT JOIN (
+            SELECT book_id, user_id, MAX(rating) AS rating
+            FROM book_review
+            GROUP BY book_id, user_id
+        ) br ON bs.book_id = br.book_id AND br.user_id = #{userId}
         WHERE bs.user_id = #{userId}
             AND bs.shelf_type = 3
         ORDER BY bs.creation_date DESC
         LIMIT #{count}
     </select>
+    <select id="getRecentReviews" parameterType="map" resultType="com.bookfox.model.ProfileReviewDto">
+        SELECT 
+            br.id,
+            br.user_id AS userId,
+            br.book_id AS bookId,
+            br.title,
+            br.content,
+            br.rating,
+            br.creation_date AS creationDate,
+            b.thumbnail,
+            (
+                SELECT COUNT(*) 
+                FROM like_list 
+                WHERE target_id = br.id AND like_type = 1
+            ) AS likeCount,
+            (
+                SELECT COUNT(*)
+                FROM like_list
+                WHERE target_id = br.book_id
+                    AND like_type = 2
+                    AND user_id = #{userId}
+            ) AS likeStatus
+        FROM book_review br
+        JOIN book b ON br.book_id = b.id
+        WHERE br.user_id = #{userId}
+        ORDER BY br.creation_date DESC
+        LIMIT #{count}
+    </select>
+    <select id="getPopularReviews" parameterType="map" resultType="com.bookfox.model.ProfileReviewDto">
+        SELECT 
+            br.id,
+            br.user_id AS userId,
+            br.book_id AS bookId,
+            br.title,
+            br.content,
+            br.rating,
+            br.creation_date AS creationDate,
+            b.thumbnail,
+            (
+                SELECT COUNT(*) 
+                FROM like_list 
+                WHERE target_id = br.id AND like_type = 1
+            ) AS likeCount,
+            (
+                SELECT COUNT(*)
+                FROM like_list
+                WHERE target_id = br.book_id
+                    AND like_type = 2
+                    AND user_id = #{userId}
+            ) AS likeStatus
+        FROM book_review br
+        JOIN book b ON br.book_id = b.id
+        WHERE br.user_id = #{userId}
+        ORDER BY likeCount DESC, br.creation_date DESC
+        LIMIT #{count}
+    </select>
+
 </mapper>

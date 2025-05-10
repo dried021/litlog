@@ -7,10 +7,13 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.bookfox.model.BookshelfDto;
 import com.bookfox.model.ProfileDto;
+import com.bookfox.model.ProfileReviewDto;
 
 @Mapper
 public interface ProfileMapper {
     public ProfileDto getProfile(String userId);
     public List<BookshelfDto> getFavoriteBooks(Map<String, Object> map);
     public List<BookshelfDto> getRecentlyReadBooks(Map<String, Object> map);
+    public List<ProfileReviewDto> getRecentReviews(Map<String, Object> map);
+    public List<ProfileReviewDto> getPopularReviews(Map<String, Object> map);
 }

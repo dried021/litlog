@@ -7,14 +7,16 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BookshelfDto {
+public class ProfileReviewDto {
     private int id;
-    private String bookId;
     private String userId;
-    private int shelfType;
-    private Timestamp creationDate;
-    private int progress;
-    private boolean likeStatus;
+    private int bookId;
+    private String title;
+    private String content;
     private int rating;
+    private Timestamp creationDate;
+
+    private int likeStatus;
+    private int likeCount;
     private String thumbnail;
 }
