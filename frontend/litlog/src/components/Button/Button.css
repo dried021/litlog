@@ -25,8 +25,12 @@
   .moreview-button {
     width: 110px;  /* 'More View' 버튼은 더 넓게 */
   }
+
+  .readmore-button{
+    width: 110px;
+    text-decoration: underline;
+  }
   
   .top-button {
     width: 60px;  /* 'Top' 버튼은 기본 사이즈 유지 */
   }
-  
