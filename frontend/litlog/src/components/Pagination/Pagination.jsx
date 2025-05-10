@@ -15,7 +15,7 @@ const Pagination = ({
   const endPage = Math.min(startPage + pageBlock - 1, pageCount);
 
   const handlePageChange = (pageNum) => {
-    if (pageNum !== currentPage) {
+    if (pageNum !== currentPage && pageNum > 0 && pageNum <= pageCount) {
       onPageChange(pageNum);
     }
   };
