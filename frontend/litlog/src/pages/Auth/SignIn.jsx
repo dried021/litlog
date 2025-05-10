@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import '../../styles/signIn.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { UserContext } from '../../libs/UserContext';
 
 const SignIn = () => {
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+  const location = useLocation();
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+
+  const redirectTo = new URLSearchParams(location.search).get('redirect') || '/';
+
+  useEffect(() => {
+    if (user) {
+      navigate(redirectTo, { replace: true });
+    }
+  }, [user]);
+
+  if (user === undefined) return <div>세션 확인 중...</div>; // 세션 체크 중
+  if (user) return null; // 로그인된 상태면 이동 중
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,8 +37,14 @@ const SignIn = () => {
 
       const { status, message } = res.data;
       if (status === '성공') {
-        alert('로그인 성공!');
-        navigate('/');
+        // 세션 재확인 후 setUser
+        const sessionRes = await axios.get('http://localhost:9090/session-check', { withCredentials: true });
+        if (sessionRes.data.loggedIn) {
+          setUser(sessionRes.data.id);
+          navigate(redirectTo, { replace: true });
+        } else {
+          alert('세션 설정에 실패했습니다.');
+        }
       } else {
         alert(message);
       }
