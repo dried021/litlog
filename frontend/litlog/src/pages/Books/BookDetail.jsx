@@ -1,114 +1,131 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { FaRegHeart, FaPlus, FaBars } from 'react-icons/fa';
-import styles from './BookDetail.module.css';
+import React, { useEffect, useState, useMemo } from "react";
+import { useParams } from "react-router-dom";
+import { FaRegHeart, FaBars } from "react-icons/fa";
+import styles from "./BookDetail.module.css";
 import { removeTags } from "../../libs/text/removeTag";
-import axios from 'axios';
-
+import axios from "axios";
+import ReadMoreButton from "../../components/Button/ReadMoreButton";
 
 const BookDetail = () => {
-    const {bookId} = useParams();
-    const [book, setBook] = useState({});
+  const { bookId } = useParams();
+  const [book, setBook] = useState({});
+  const [isClose, setIsClose] = useState(true);
 
-    console.log(bookId);
-    useEffect(() => {
-        loadBook(bookId);
-    }, [bookId]);
+  useEffect(() => {
+    if (bookId) {
+      loadBook(bookId);
+    }
+  }, [bookId]);
 
-    const loadBook = async (bookId) => {
-        try {
-            const response = await axios.get(`http://localhost:9090/books/detail`, {
-                params: {
-                    keyword: bookId,
-                },
-            });
-            setBook(response.data);
-        } catch (error) {
-            console.error("Fail to search:", error);
-        }
-    };
-    
-    useEffect(() => {
-        if (book?.volumeInfo?.description) {
-          const cleanDescription = removeTags(book.volumeInfo.description);
-          
-          if (book.volumeInfo.description !== cleanDescription) {
-            setBook((prevBook) => ({
-              ...prevBook,
-              volumeInfo: {
-                ...prevBook.volumeInfo,
-                description: cleanDescription,
-              },
-            }));
-          }
-          console.log(cleanDescription)
-        }
-      }, [book]);
+  const loadBook = async (bookId) => {
+    try {
+      const response = await axios.get(`http://localhost:9090/books/detail`, {
+        params: { keyword: bookId },
+      });
+      setBook(response.data);
+    } catch (error) {
+      console.error("Fail to search:", error);
+    }
+  };
 
-    return(
-        <div>
-            <h2 className="title">Book Detail page</h2>
-            {book.volumeInfo ? (
-                <div className={styles.container}>
+  const cleanDescription = useMemo(() => {
+    if (book?.volumeInfo?.description) {
+      return removeTags(book.volumeInfo.description);
+    }
+    return "";
+  }, [book.volumeInfo?.description]);
 
-                <div className={styles['book-section']}>
-                    <div >
-                        <img className={styles['thumbnail']} src={book.volumeInfo.imageLinks?.thumbnail || '/images/covernotavailable.png'} alt={book.volumeInfo.title}/>
-                    </div>
+  const isMoreViewRequired = useMemo(() => {
+    return cleanDescription.length > 500;
+  }, [cleanDescription]);
 
-                    
-                </div>
+  const displayedDescription = useMemo(() => {
+    if (isMoreViewRequired && isClose) {
+      return cleanDescription.slice(0, 500).concat(" ...");
+    }
+    return cleanDescription;
+  }, [cleanDescription, isMoreViewRequired, isClose]);
 
-                <div className={styles['description-section']}>
-                    <div className={styles['info-section']}>
-                        <h3 className={styles['book-title']}>
-                            {book.volumeInfo.title}
-                        </h3>
+  const handleReadMore = () => {
+    setIsClose(!isClose);
+  };
 
-                        {book.volumeInfo.subtitle && <p className={styles['subtitle']}>{book.volumeInfo.subtitle}</p>}
-                        <p className={styles['authors']}>{book.volumeInfo.authors?.join(', ')}</p>
-                        <p className={styles['publisher']}>
-                        {book.volumeInfo.publisher} | {book.volumeInfo.publishedDate}
-                        </p>
-                        {book.volumeInfo.description && <div className={styles['description']}>
-                            {book.volumeInfo.description.split("\n").map((line, index) => (
-                                <React.Fragment key={index}>
-                                    {line}
-                                    <br />
-                                </React.Fragment>
-                            ))}</div>}
-                        
-                        <div className={styles.buttons}>
-                            <button className={styles['bookshelf-button']}>
-                            <FaBars /> Add to Bookshelf
-                            </button>
-                            <button className={styles['like-button']}>
-                            <FaRegHeart /> Add Like
-                            </button>
-                        </div>
-                    </div>
-                    <p>{book?.description}</p>
+  return (
+    <div>
+      <h2 className="title">Book Detail page</h2>
+      {book.volumeInfo ? (
+        <div className={styles.container}>
+          <div className={styles["book-section"]}>
+            <img
+              className={styles["thumbnail"]}
+              src={
+                book.volumeInfo.imageLinks?.thumbnail ||
+                "/images/covernotavailable.png"
+              }
+              alt={book.volumeInfo.title}
+            />
+          </div>
 
-                </div>
+          <div className={styles["description-section"]}>
+            <div className={styles["info-section"]}>
+              <h3 className={styles["book-title"]}>{book.volumeInfo.title}</h3>
 
-                <div className={styles['reviews-section']}>
-                    <div className={styles['reviews-header']}>
-                    <h3>Reviews</h3>
-                    <button className={styles['add-review']}>Add Review</button>
-                    </div>
-                    <div className={styles['review-options']}>
-                    <button className={styles['option-button']}>인기순 (Default)</button>
-                    <button className={styles['option-button']}>최근등록순</button>
-                    </div>
-                </div>
-
-                </div>
-            ) : (
-                <p>Loading book information...</p>
+              {book.volumeInfo.subtitle && (
+                <p className={styles["subtitle"]}>{book.volumeInfo.subtitle}</p>
               )}
-        </div>
+              <p className={styles["authors"]}>
+                {book.volumeInfo.authors?.join(", ")}
+              </p>
+              <p className={styles["publisher"]}>
+                {book.volumeInfo.publisher} | {book.volumeInfo.publishedDate}
+              </p>
 
-    );
+              {displayedDescription && (
+                <div className={styles["description"]}>
+                  {displayedDescription.split("\n").map((line, index) => (
+                    <React.Fragment key={index}>
+                      {line}
+                      <br />
+                    </React.Fragment>
+                  ))}
+                </div>
+              )}
+
+              {isMoreViewRequired && (
+                <div className={styles["readmore-button"]}>
+                    <ReadMoreButton isOpen={!isClose} handleReadMore={handleReadMore} />
+                </div>
+
+                
+              )}
+
+              <div className={styles.buttons}>
+                <button className={styles["bookshelf-button"]}>
+                  <FaBars /> Add to Bookshelf
+                </button>
+                <button className={styles["like-button"]}>
+                  <FaRegHeart /> Add Like
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles["reviews-section"]}>
+            <div className={styles["reviews-header"]}>
+              <h3>Reviews</h3>
+              <button className={styles["add-review"]}>Add Review</button>
+            </div>
+            <div className={styles["review-options"]}>
+              <button className={styles["option-button"]}>인기순 (Default)</button>
+              <button className={styles["option-button"]}>최근등록순</button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <p>Loading book information...</p>
+      )}
+    </div>
+  );
 };
 
 export default BookDetail;

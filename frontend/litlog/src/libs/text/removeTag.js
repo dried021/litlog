@@ -7,6 +7,9 @@ export const removeTags = (description) => {
   // &nbsp; 제거
   textContent = textContent.replace(/\u00a0/g, " ").replace(/&nbsp;/g, " ");
 
+  //<br> 제거 
+  textContent = textContent.replace(/<br>/g, " ").replace(/&nbsp;/g, "\n");
+
   // <p> 태그를 줄바꿈으로 변환
   textContent = textContent.replace(/<p>/g, "").replace(/<\/p>/g, "\n");
   
