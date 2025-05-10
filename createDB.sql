@@ -127,6 +127,7 @@ CREATE TABLE term (
 
 CREATE TABLE book (
     id INT PRIMARY KEY AUTO_INCREMENT,                        -- 책 고유 ID
+    book_api_id VARCHAR(255),
     title VARCHAR(255),                                  -- 책 제목
     subtitle VARCHAR(255),                               -- 책 자막
     authors TEXT,                                        -- 저자 리스트
@@ -134,11 +135,12 @@ CREATE TABLE book (
     published_date DATE,                                  -- 게시일
     description TEXT,                                    -- 책 설명
     page_count INT,                                       -- 페이지 수
-    categories TEXT,                                     -- 카테고리 리스트
 
     thumbnail VARCHAR(255),
     book_category INT null,
-    FOREIGN KEY (book_category) REFERENCES book_category(value) ON DELETE SET NULL
+    FOREIGN KEY (book_category) REFERENCES book_category(value) ON DELETE SET NULL,
+
+    CONSTRAINT unique_book_api_id UNIQUE (book_api_id)
 );
 
 CREATE TABLE book_review(

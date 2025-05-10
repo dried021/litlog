@@ -8,9 +8,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.bookfox.service.BookService;
+
+import jakarta.annotation.Resource;
+
 @RestController
 @RequestMapping("/books")
 public class Books {
+    @Resource
+    private BookService bookService;
 
     @Value("${google.books.api.key}")
     private String apiKey;
@@ -36,4 +42,9 @@ public class Books {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping("/query")
+    public ResponseEntity<Boolean> queryBooks(@RequestParam String bookApiId) {
+        Boolean exists = bookService.exists(bookApiId);
+        return ResponseEntity.ok(exists);
+    }
 }
