@@ -1,0 +1,18 @@
+package com.bookfox.model;
+
+import java.security.Timestamp;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class BookReviewDto {
+    private int id;
+    private String userId;
+    private int bookId;
+    private String title;
+    private String content;
+    private int rating;
+    private Timestamp creationDate;
+}

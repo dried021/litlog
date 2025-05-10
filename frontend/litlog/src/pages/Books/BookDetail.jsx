@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { FaRegHeart, FaBars } from "react-icons/fa";
 import styles from "./BookDetail.module.css";
 import { removeTags } from "../../libs/text/removeTag";
 import axios from "axios";
@@ -129,6 +128,7 @@ const BookDetail = () => {
               <button className={styles["option-button"]}>인기순 (Default)</button>
               <button className={styles["option-button"]}>최근등록순</button>
             </div>
+            <Reviews bookApiId={bookId}/>
           </div>
         </div>
       ) : (
