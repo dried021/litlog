@@ -5,17 +5,24 @@ import FavoriteBooks from '../../components/Profile/FavoriteBooks';
 import RecentBooks from '../../components/Profile/RecentBooks';
 import RecentReviews from '../../components/Profile/RecentReviews';
 import PopularReviews from '../../components/Profile/PopularReviews';
+import BookStack from '../../components/Profile/BookStack';
+import styles from './Profile.module.css';
 
 const Profile = () => {
     
     return(
-        <div>
+        <div className={styles.profile}>
             <ProfileSummary/>
             <TabMenu/>
-            <FavoriteBooks/>
-            <RecentBooks/>
-            <RecentReviews/>
-            <PopularReviews/>
+            <div className={styles.left}>
+                <FavoriteBooks/>
+                <RecentBooks/>
+                <RecentReviews/>
+                <PopularReviews/>
+            </div>
+            <div className={styles.right}>
+                <BookStack/>
+            </div>
         </div>
     );
 };
