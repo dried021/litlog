@@ -30,7 +30,12 @@
     </select>
     <select id="getRecentlyReadBooks" resultType="com.bookfox.model.BookshelfDto" parameterType="map">
         SELECT 
-            bs.*,
+            bs.id,
+            bs.book_id AS bookId,
+            bs.user_id AS userId,
+            bs.shelf_type AS shelfType,
+            bs.creation_date AS creationDate,
+            bs.progress,
             CASE 
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0

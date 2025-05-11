@@ -5,7 +5,13 @@
 
 <mapper namespace="com.bookfox.repository.BookshelfMapper">
     <select id="getCurrentlyReadingBooks" resultType="com.bookfox.model.BookshelfDto" parameterType="String">
-        SELECT bs.*,
+        SELECT
+            bs.id,
+            bs.book_id AS bookId,
+            bs.user_id AS userId,
+            bs.shelf_type AS shelfType,
+            bs.creation_date AS creationDate,
+            bs.progress,
             CASE 
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0
@@ -22,13 +28,19 @@
             AND bs.shelf_type = 2
     </select>
     <select id="getReadBooks" resultType="com.bookfox.model.BookshelfDto" parameterType="String">
-        SELECT bs.*,
+        SELECT
+            bs.id,
+            bs.book_id AS bookId,
+            bs.user_id AS userId,
+            bs.shelf_type AS shelfType,
+            bs.creation_date AS creationDate,
+            bs.progress,
             CASE 
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0
             END AS likeStatus,
             b.thumbnail,
-            br.rating AS user_rating
+            br.rating AS rating
         FROM book_shelf bs
         LEFT JOIN like_list ll 
             ON bs.book_id = ll.target_id 
@@ -43,7 +55,13 @@
             AND bs.shelf_type = 3
     </select>
     <select id="getToReadBooks" resultType="com.bookfox.model.BookshelfDto" parameterType="String">
-        SELECT bs.*,
+        SELECT
+            bs.id,
+            bs.book_id AS bookId,
+            bs.user_id AS userId,
+            bs.shelf_type AS shelfType,
+            bs.creation_date AS creationDate,
+            bs.progress,
             CASE 
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0
