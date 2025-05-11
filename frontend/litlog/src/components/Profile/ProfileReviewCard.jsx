@@ -39,7 +39,7 @@ export default function ProfileReviewCard({review}) {
             );
         }
     }
-    console.log("likeCount:", review.likeCount);
+    
     return (
         <div className={styles.reviewCard}>
             <img

@@ -22,6 +22,6 @@ export default function PopularReviews() {
     if (loading) return <p>Loading...</p>;
 
     return (
-        <GroupReviews groupLabel="POPULAR REVIEWS" group={reviews} msg="No reviewsto show"/>
+        <GroupReviews groupLabel="POPULAR REVIEWS" group={reviews} msg="No reviews to show"/>
     );
 }
