@@ -56,14 +56,21 @@ public class Books {
     }
 
     @GetMapping("/counts")
-    public ResponseEntity<Map<String, Integer>> bookscount(@RequestParam String bookApiId){
+    public ResponseEntity<Map<String, Object>> bookscount(@RequestParam String bookApiId){
+        //session에서 user 가져오기
+        String userId = "user01";
+
         int id = bookService.getIdByBookApiId(bookApiId);
         int bookshelfCount = bookService.getBookshelfCount(id);
         int likeCount = bookService.getLikeCount(id);
         
-        Map<String, Integer> response = new HashMap<>();
+        Map<String, Object> response = new HashMap<>();
+
+        boolean isLiked = bookService.isLiked(id, userId);
+
         response.put("bookshelfCount", bookshelfCount);
         response.put("likeCount", likeCount);
+        response.put("isLiked", isLiked);
         return ResponseEntity.ok(response);
     }
 

@@ -25,11 +25,37 @@ public class BooksAdd {
     private BookService bookService;
 
     @PostMapping("/bookshelf")
-    public ResponseEntity<String> addToBookshelf(@RequestBody Map<String, Object> request) {
+    public ResponseEntity<Integer> addToBookshelf(@RequestBody Map<String, Object> request) {
+        //session에서 user 가져오기
+        String userId = "user01";
+
+        String bookApiId = (String) request.get("bookId");
+        int option = (int) request.get("option");
+        boolean exists = bookService.exists(bookApiId);
+
+        if (!exists){
+            Map<String, Object> book = (Map<String, Object>) request.get("book");
+            if (book != null) {
+                BookDto bookDto = mapToBookDto(book);
+                bookService.addBook(bookDto);
+            }
+        }
+
+        int bookId = bookService.getIdByBookApiId(bookApiId);
+
+        int result = bookService.checkBookshelf(bookId, userId, option);
+        if (result>0){
+            return ResponseEntity.ok(result);
+        }
+        bookService.addBookshelf(bookId, userId, option);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/like")
+    public ResponseEntity<Integer> addLike(@RequestBody Map<String, Object> request) {
         //session에서 user 가져오기
         String userId = "user01";
         String bookApiId = (String) request.get("bookId");
-        int option = (int) request.get("option");
         boolean exists = bookService.exists(bookApiId);
 
         if (!exists){
@@ -42,10 +68,27 @@ public class BooksAdd {
         }
 
         int bookId = bookService.getIdByBookApiId(bookApiId);
-        bookService.addBookshelf(bookId, userId, option);
-
-        return ResponseEntity.ok("Book successfully processed");
+        int result = bookService.checkLike(bookId, userId);
+        if (result>0){
+            return ResponseEntity.ok(result);
+        }
+        bookService.addLike(bookId, userId);
+        return ResponseEntity.ok(result);
     }
+
+    @PostMapping("unlike")
+    public ResponseEntity<Boolean> unLike(@RequestBody Map<String, Object> request) {
+        //session에서 user 가져오기
+        String userId = "user01";
+        String bookApiId = (String) request.get("bookApiId");
+
+        int bookId = bookService.getIdByBookApiId(bookApiId);
+        bookService.unlike(bookId, userId);
+        return ResponseEntity.ok(true);
+    }
+    
+
+
 
     private BookDto mapToBookDto(Map<String, Object> book) {
         BookDto bookDto = new BookDto();
@@ -86,7 +129,7 @@ public class BooksAdd {
     
             // Thumbnail
             Map<String, String> imageLinks = (Map<String, String>) volumeInfo.get("imageLinks");
-            bookDto.setThumnail(imageLinks != null ? imageLinks.getOrDefault("thumbnail", "/images/covernotavailable.png") : "/images/covernotavailable.png");
+            bookDto.setThumbnail(imageLinks != null ? imageLinks.getOrDefault("thumbnail", "/images/covernotavailable.png") : "/images/covernotavailable.png");
     
             // Category Mapping
             List<String> categories = (List<String>) volumeInfo.get("categories");

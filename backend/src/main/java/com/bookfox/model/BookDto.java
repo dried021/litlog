@@ -18,6 +18,6 @@ public class BookDto {
     private Timestamp publishedDate;
     private String description;
     private int pageCount;
-    private String thumnail;
+    private String thumbnail;
     private int bookCategory;
 }

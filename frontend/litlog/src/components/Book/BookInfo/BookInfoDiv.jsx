@@ -2,10 +2,30 @@ import React, { useState, useEffect } from 'react';
 import styles from './BookInfoDiv.module.css';
 import { exists } from "../../../libs/book/exists";
 import axios from 'axios';
+import CustomModal from "../../Modal/CustomModal";
 
 function BookInfoDiv({ bookApiId }) {
   const [bookshelfCount, setBookshelfcount] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const [modalData, setModalData] = useState({
+    show:false,
+    message: "",
+    mode: "close",
+  });
+
+  const handleCloseModal = () => {
+    setModalData({...modalData, show:false,});
+  };
+
+  const openModal = (message) => {
+    setModalData({
+      show:true,
+      message,
+      mode: "close",
+    });
+  };
 
   useEffect(() => {
     if (bookApiId) {
@@ -16,6 +36,7 @@ function BookInfoDiv({ bookApiId }) {
         } else {
           setBookshelfcount(0);
           setLikeCount(0);
+          setIsLiked(false);
         }
       };
       checkCounts();
@@ -28,9 +49,10 @@ function BookInfoDiv({ bookApiId }) {
         params: { bookApiId },
       });
 
-      const { bookshelfCount, likeCount } = response.data;
+      const { bookshelfCount, likeCount, isLiked } = response.data;
       setBookshelfcount(bookshelfCount);
       setLikeCount(likeCount);
+      setIsLiked(isLiked);
       console.log(`Bookshelf: ${bookshelfCount}, Likes: ${likeCount}`);
     } catch (error) {
       console.error("Fail to fetch counts:", error);
@@ -39,13 +61,53 @@ function BookInfoDiv({ bookApiId }) {
     }
   };
 
+  const changeLike = async (bookApiId) => {
+    if (isLiked){
+      try {
+        const response = await axios.post(`http://localhost:9090/books/unlike`, { bookApiId });
+        const result = response.data;
+        openModal("The book has been successfully unliked.");
+        setIsLiked(false);
+        setLikeCount((prev) => prev - 1);
+      } catch (err) {
+        console.error("Add unlike error");
+      }
+
+    }else{
+      try {
+        const bookId = bookApiId;
+        const response = await axios.post(`http://localhost:9090/books/like`, { bookId });
+        const result = response.data;
+        openModal(result > 0 ? "You have already liked this book." : "The book has been successfully liked.");
+        setIsLiked(true);
+        setLikeCount((prev) => prev + 1);
+      } catch (err) {
+        console.error("Add like error");
+      }
+    }
+
+  }
+
   return (
+    <>
     <div className={styles.bookInfoDiv}>
       <img src="/icons/bookshelf.svg" alt="Bookshelf" />
       {" " + bookshelfCount + " "}
-      <img className={styles.heart} src="/icons/heart_filled.svg" alt="Like" />
+      <img className={styles.heart} src={isLiked ? "/icons/heart_filled.svg" : "/icons/heart_outline.svg"} alt="Like"
+        onClick={() => changeLike(bookApiId)}/>
       {" " + likeCount}
     </div>
+
+    {/* 모달 컴포넌트 */}
+    <CustomModal
+    show={modalData.show}
+    onHide={handleCloseModal}
+    successMessage={modalData.message}
+    failMessage={modalData.message}
+    resultValue={"1"}
+    mode="close"/>
+
+    </>
   );
 }
 
