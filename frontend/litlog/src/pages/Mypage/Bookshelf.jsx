@@ -5,7 +5,9 @@ import { useParams } from 'react-router-dom';
 import TabMenu from '../../components/Mypage/TabMenu';
 import styles from './Bookshelf.module.css';
 import defaultThumbnail from '../../assets/default_thumbnail.png';
-import heart from '../../assets/heart.svg';
+import heart from '../../assets/heart_light.svg';
+
+import Pagination from '../../components/Pagination/Pagination';
 
 const Bookshelf = () => {
     const {userId} = useParams();
@@ -13,6 +15,10 @@ const Bookshelf = () => {
     const [shelf, setShelf] = useState("current"); // current, finished, to-read, favorite
     const [sort, setSort] = useState("added-newest"); /* TODOOOOOOOOOO */
     const [result, setResult] = useState([]);
+
+    /* Pagination */
+    const [currentPage, setCurrentPage] = useState(1);
+    const booksPerPage = 24;
     
     useEffect(() => {
         let path;
@@ -37,6 +43,10 @@ const Bookshelf = () => {
             .finally(() => setLoading(false));
     }, [shelf, userId]);
 
+    useEffect(()=>{
+        setCurrentPage(1);
+    }, [shelf, sort])
+
     if (loading) return <p>Loading...</p>; 
 
     const sortedBooks = [...result.books].sort((a, b) => {
@@ -46,8 +56,12 @@ const Bookshelf = () => {
             case "added-earliest":
                 return new Date(a.creationDate) - new Date(b.creationDate);
             case "published-newest": 
+                if (a.publishedDate === null) return 1;
+                if (b.publishedDate === null) return -1;
                 return new Date(b.publishedDate) - new Date(a.publishedDate);
             case "published-earliest": 
+                if (a.publishedDate === null) return 1;
+                if (b.publishedDate === null) return -1;
                 return new Date(a.publishedDate) - new Date(b.publishedDate);
             case "rating-highest":
                 if (a.rating === null) return 1;
@@ -69,6 +83,11 @@ const Bookshelf = () => {
                 return new Date(b.creationDate) - new Date(a.creationDate);
         }
     });
+
+    /* PAGINATE */
+    const indexOfLastBook = currentPage * booksPerPage;
+    const indexOfFirstBook = indexOfLastBook - booksPerPage;
+    const currentBooks = sortedBooks.slice(indexOfFirstBook, indexOfLastBook); 
 
     return(
         <div className={styles.bookshelf}>
@@ -99,7 +118,7 @@ const Bookshelf = () => {
             </select>
 
             <ul className={styles.bookList}>
-                {sortedBooks.map(book => (
+                {currentBooks.map(book => (
                     <li key={book.bookId} className={styles.bookCard}>
                         <a href={""}>
                             <img 
@@ -119,6 +138,11 @@ const Bookshelf = () => {
                     </li>
                 ))}
             </ul>
+            <Pagination 
+                currentPage = {currentPage}
+                pageCount = {Math.ceil(sortedBooks.length / booksPerPage)}
+                onPageChange = {(page) => setCurrentPage(page)}
+            />
         </div>
     );
 };
