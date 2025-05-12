@@ -6,7 +6,6 @@ import { useRequireAuth } from "../../libs/useRequireAuth.js"
 const TabMenu = () => {
   const userId = useRequireAuth();
   const location = useLocation();
-  console.log(userId);
 
   return (
     <div className="mypage-tab">
