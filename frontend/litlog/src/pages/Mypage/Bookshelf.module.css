@@ -10,7 +10,13 @@
 
 .bookList {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     list-style-type: none;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #3D4127;
+    border-radius: 10px;
 }
 
 
@@ -21,8 +27,8 @@
 
 
 .bookThumbnail {
-    width: 140px;
-    height: 220px;
+    width: 100px; /* 140px */
+    height: 160px; /* 200px */
     object-fit: cover;
     border: 1px solid #F3F3F3;
     border-bottom: 1px solid #e0e0e0;
@@ -53,7 +59,7 @@
     color: transparent;
     font-size: 14px;
     margin-right: 2px;
-    color: #2e2d2b;
+    color: #F5ECD5;
 }
 
 .icon {
