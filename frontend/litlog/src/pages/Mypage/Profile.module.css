@@ -1,0 +1,12 @@
+.profile {
+    width: 960px;
+}
+.left {
+    width: 75%;
+    float: left;
+}
+
+.right {
+    width: 25%;
+    float: right;
+}

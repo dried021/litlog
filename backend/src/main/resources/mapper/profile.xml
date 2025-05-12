@@ -16,7 +16,11 @@
         FROM user WHERE id=#{userId}
     </select>
     <select id="getFavoriteBooks" resultType="com.bookfox.model.BookshelfDto" parameterType="map">
-        SELECT b.id as bookId, b.title, b.thumbnail,
+        SELECT 
+            b.id as bookId, 
+            b.book_api_id as bookApiId,
+            b.title, 
+            b.thumbnail,
             CASE
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0
@@ -40,6 +44,7 @@
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0
             END AS likeStatus,
+            b.book_api_id AS bookApiId,
             b.thumbnail AS thumbnail,
             br.rating AS rating
         FROM book_shelf bs
@@ -64,11 +69,12 @@
             br.id,
             br.user_id AS userId,
             br.book_id AS bookId,
-            br.title,
+            b.title,
             br.content,
             br.rating,
             br.creation_date AS creationDate,
             b.thumbnail,
+            b.book_api_id AS bookApiId,
             (
                 SELECT COUNT(*) 
                 FROM like_list 
@@ -92,11 +98,12 @@
             br.id,
             br.user_id AS userId,
             br.book_id AS bookId,
-            br.title,
+            b.title,
             br.content,
             br.rating,
             br.creation_date AS creationDate,
             b.thumbnail,
+            b.book_api_id AS bookApiId,
             (
                 SELECT COUNT(*) 
                 FROM like_list 
