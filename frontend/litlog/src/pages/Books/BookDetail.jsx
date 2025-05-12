@@ -156,11 +156,7 @@ const BookDetail = () => {
                 <div className={styles["readmore-button"]}>
                     <ReadMoreButton isOpen={!isClose} handleReadMore={handleReadMore} />
                 </div>
-
-                
               )}
-
-              
             </div>
           </div>
 

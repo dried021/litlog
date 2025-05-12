@@ -28,5 +28,8 @@ public interface BookMapper {
     public int checkBookshelf(Map<String, Object> params);
     public int checkLike(Map<String, Object> params);
     public void unlike(Map<String, Object> params);
+
+    public int addReview(Map<String, Object> params);
 }
+
 

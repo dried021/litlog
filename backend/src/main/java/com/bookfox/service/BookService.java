@@ -1,4 +1,6 @@
 package com.bookfox.service;
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,4 +85,26 @@ public class BookService {
         Map<String, Object> params = Map.of("bookId", bookId, "userId", userId);
         bookMapper.unlike(params);
     }
+
+    public int addReview(int bookId, String userId, String content, int rating){
+        Map<String, Object> params = new HashMap<>();
+        params.put("bookId", bookId);
+        params.put("userId", userId);
+        params.put("content", content);
+        params.put("rating", rating);        
+        bookMapper.addReview(params);
+        Object idObject = params.get("id");
+        int generatedId;
+
+        if (idObject instanceof BigInteger) {
+            generatedId = ((BigInteger) idObject).intValue();
+        } else if (idObject instanceof Long) {
+            generatedId = ((Long) idObject).intValue();
+        } else {
+            generatedId = (int) idObject; 
+        }
+
+        return generatedId;
+    }
+
 }
