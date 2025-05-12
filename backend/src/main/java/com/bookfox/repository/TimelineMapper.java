@@ -11,4 +11,5 @@ import com.bookfox.model.TimelineDto;
 public interface TimelineMapper {
     List<TimelineDto> getReviewTimelineAll(String userId);
     List<TimelineDto> getReviewTimeline(Map<String, Object> param);
+    int getUserJoinYear(String userId);
 }

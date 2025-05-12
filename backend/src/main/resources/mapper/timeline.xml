@@ -19,9 +19,9 @@
     JOIN book b ON r.book_id = b.id
     JOIN user u ON r.user_id = u.id
     LEFT JOIN like_list l 
-      ON l.target_id = r.id 
+      ON l.target_id = b.id 
       AND l.user_id = #{userId} 
-      AND l.like_type = 1
+      AND l.like_type = 2
     WHERE r.user_id = #{userId}
     ORDER BY r.creation_date DESC
   </select>
@@ -41,11 +41,17 @@
     JOIN book b ON r.book_id = b.id
     JOIN user u ON r.user_id = u.id
     LEFT JOIN like_list l 
-      ON l.target_id = r.id 
+      ON l.target_id = b.id 
       AND l.user_id = #{userId} 
-      AND l.like_type = 1
+      AND l.like_type = 2
     WHERE r.user_id = #{userId} 
       AND YEAR(r.creation_date) = #{year}
     ORDER BY r.creation_date DESC
+  </select>
+
+  <select id="getUserJoinYear" resultType="int">
+    SELECT YEAR(reg_date)
+    FROM user
+    WHERE id = #{userId}
   </select>
 </mapper>
