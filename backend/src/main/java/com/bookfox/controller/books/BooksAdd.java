@@ -29,9 +29,8 @@ public class BooksAdd {
         //session에서 user 가져오기
         String userId = "user01";
         String bookApiId = (String) request.get("bookId");
+        int option = (int) request.get("option");
         boolean exists = bookService.exists(bookApiId);
-
-        System.out.println("Book ID not found for bookApiId: " + bookApiId);
 
         if (!exists){
             Map<String, Object> book = (Map<String, Object>) request.get("book");
@@ -43,7 +42,7 @@ public class BooksAdd {
         }
 
         int bookId = bookService.getIdByBookApiId(bookApiId);
-        bookService.addBookshelf(bookId, userId);
+        bookService.addBookshelf(bookId, userId, option);
 
         return ResponseEntity.ok("Book successfully processed");
     }
