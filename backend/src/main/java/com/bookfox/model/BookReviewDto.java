@@ -2,6 +2,8 @@ package com.bookfox.model;
 
 import java.security.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,4 +19,6 @@ public class BookReviewDto {
     private int rating;
     private Timestamp creationDate;
     private int likeCount;
+    @JsonProperty("isLiked")
+    private boolean isLiked;
 }
