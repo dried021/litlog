@@ -29,7 +29,7 @@ function Rating({ rating }) {
 
 function Review({ reviews, currentPage, reviewPerPage, handleLikeClick }) {
     const handleClickProfile = (userId) => {
-    // Implement profile redirection logic
+    // 수정 Implement profile redirection logic
     };
 
 
@@ -81,9 +81,11 @@ function Reviews({ bookApiId }) {
   const [reviewsCount, setReviewsCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [isRelevance, setIsRelevance] = useState(true);
+  const [isPopularity, setIsPopularity] = useState(true);
+
   const handleOptionClick = (option) => {
-      setIsRelevance(option === "relevance");
+      setIsPopularity(option === "popularity");
+      setCurrentPage(1);
   };
 
   const reviewPerPage = 5;
@@ -91,14 +93,14 @@ function Reviews({ bookApiId }) {
   useEffect(() => {
     if (bookApiId) {
       setLoading(true);
-      getReviews(bookApiId, currentPage);
+      getReviews(bookApiId, currentPage, isPopularity);
     }
-  }, [bookApiId, currentPage]);
+  }, [bookApiId, currentPage, isPopularity]);
 
-  const getReviews = async (bookApiId, currentPage) => {
+  const getReviews = async (bookApiId, currentPage, isPopularity) => {
     try {
       const response = await axios.get(`http://localhost:9090/books/reviews`, {
-        params: { bookApiId, currentPage},
+        params: { bookApiId, currentPage, isPopularity},
       });
       const { reviews, reviewsCount } = response.data;
       setReviews(reviews || []);
@@ -134,7 +136,6 @@ function Reviews({ bookApiId }) {
             }
             return review;
         });
-
         setReviews(updatedReviews);
     }catch(error){
         console.error("Error updating like status: ", error);
@@ -153,11 +154,11 @@ function Reviews({ bookApiId }) {
         <>
             <div className={styles.optionsContainer}>
                 <div className={styles.leftContainer}>
-                    <p className={`${styles.option} ${isRelevance ? styles.optionActive : ""}`} 
-                        onClick={() => handleOptionClick("relevance")}>
-                    Relevance
+                    <p className={`${styles.option} ${isPopularity ? styles.optionActive : ""}`} 
+                        onClick={() => handleOptionClick("popularity")}>
+                    Popularity
                     </p>
-                    <p className={`${styles.option} ${!isRelevance ? styles.optionActive : ""}`} 
+                    <p className={`${styles.option} ${!isPopularity ? styles.optionActive : ""}`} 
                         onClick={() => handleOptionClick("newest")}>
                     Newest
                     </p>

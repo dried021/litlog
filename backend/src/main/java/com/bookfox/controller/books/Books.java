@@ -69,7 +69,7 @@ public class Books {
 
     @GetMapping("/reviews")
     public ResponseEntity<Map<String, Object>> getReviews(@RequestParam String bookApiId,
-                    @RequestParam int currentPage) {
+                    @RequestParam int currentPage, @RequestParam boolean isPopularity) {
         //session에서 user 가져오기
         String userId = "user01";
 
@@ -78,7 +78,7 @@ public class Books {
         Map<String, Object> response = new HashMap<>();
         if (exists) {
             int bookId = bookService.getIdByBookApiId(bookApiId);
-            List<BookReviewDto> reviews = bookService.getReviews(bookId, currentPage, userId);
+            List<BookReviewDto> reviews = bookService.getReviews(bookId, currentPage, userId, isPopularity);
             int reviewsCount = bookService.getReviewCount(bookId);
             response.put("reviews", reviews);
             response.put("reviewsCount", reviewsCount);
@@ -97,7 +97,7 @@ public class Books {
 
         int reviewId = (int) payload.get("reviewId");
         boolean isLiked = (boolean) payload.get("isLiked");
-        
+
         if (isLiked){
             bookService.likeReview(reviewId, userId);
         }else{
