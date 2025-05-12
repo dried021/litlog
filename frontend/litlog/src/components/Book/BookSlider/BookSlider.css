@@ -25,11 +25,21 @@
   }
   
   .book-stats {
-    font-size: 0.9rem;
-    color: #ccc;  
-    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 아이템 간격 */
   }
   
+  .book-stats img {
+    width: 24px;  /* 이미지 크기 */
+    height: 24px;
+    cursor: pointer;
+  }
+  
+  .book-stats p {
+    margin: 0;
+    padding: 0;
+  }
   .book-slider a {
     text-decoration: none;   /* 밑줄 제거 */
     color: inherit;          /* 부모 요소 글씨 색상 따라가기 */
@@ -38,4 +48,16 @@
   .slick-prev::before,
   .slick-next::before {
     display: none !important;
+  }
+
+  .review{
+    width: 20px;
+  }
+
+  .like{
+    width: 20px;
+  }
+
+  .bookshelf{
+    width: 20px;
   }
