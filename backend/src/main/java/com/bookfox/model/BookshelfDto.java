@@ -18,6 +18,8 @@ public class BookshelfDto {
     private String bookApiId;
     private boolean likeStatus;
     private int rating;
+
+    private Timestamp publishedDate;
     private String thumbnail;
     private int pageCount;
 }

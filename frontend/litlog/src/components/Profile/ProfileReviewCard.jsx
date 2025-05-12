@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import heart from "../../assets/heart_white.svg";
+import heart from "../../assets/heart.svg";
 import defaultThumbnail from "../../assets/default_thumbnail.png";
 import styles from "./GroupReviews.module.css";
 
-export default function ProfileReviewCard({review}) {
+export default function ProfileReviewCard({review, last}) {
     const [isExpanded, setIsExpanded] = useState(false);
     const charLimit = 200;
 
@@ -41,7 +41,7 @@ export default function ProfileReviewCard({review}) {
     }
     
     return (
-        <div className={styles.reviewCard}>
+        <div className={`${styles.reviewCard} ${last ? styles.noBorder : ""}`}>
             <a href={""}>
                 <img
                     className={styles.bookThumbnail}
@@ -54,13 +54,16 @@ export default function ProfileReviewCard({review}) {
                     <a href={""} className={styles.hyperlink}>{review.title}</a>
                 </div>
                 <div className={styles.meta}>
-                    {[...Array(5)].map((_, index) => (
-                        <span 
-                            key={index}
-                            className={`${styles.star} ${index < review.rating ? styles.filled : ''}`.trim()}
-                        >★</span>
-                    ))}
-                    {review.likeStatus ? (<img src={heart} className={styles.icon}/>) : ''}
+                        {review.rating > 0 && (
+                            <div className={styles.bookInfo}>
+                                {[...Array(5)].map((_, index) => (
+                                    index < review.rating && (
+                                        <span key={index} className={styles.star}>★</span>
+                                    )
+                                ))}
+                                {review.likeStatus ? (<img src={heart} className={styles.icon}/>) : ''}
+                            </div>
+                        )}
                     <div className={styles.date}>{date}</div>
                 </div>
                 <p className={styles.content}>{renderContent()}</p>

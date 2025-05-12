@@ -1,19 +1,12 @@
-.groupBooks {
-    padding: 5px;
-    width: 650px;
-    margin: 5 auto;
-    font-family: Arial, sans-serif;
+.bookshelf {
+    width: 960px;
 }
 
-.groupBooks h2 {
-    font-size: 15px;
-    margin-bottom: 20px;
-    color: #333;
+.results {
+    width: 960px;
 }
 
-.solid {
-    border: 2px solid #636B2F;
-}
+/* BOOK STYLING - START */
 
 .bookList {
     display: flex;
@@ -63,10 +56,10 @@
     color: #2e2d2b;
 }
 
-
 .icon {
     width: 16px;
     margin: 0px;
     padding: 0px;
     display: inline-block;
 }
+/* BOOK STYLING - END */

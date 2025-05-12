@@ -2,7 +2,6 @@ import React from "react";
 import styles from './GroupBooks.module.css';
 import defaultThumbnail from "../../assets/default_thumbnail.png";
 import heart from "../../assets/heart.svg";
-import star from "../../assets/star.svg";
 
 export default function GroupBooks({groupLabel, group, msg}) {
     return (
@@ -15,7 +14,7 @@ export default function GroupBooks({groupLabel, group, msg}) {
                     <ul className={styles.bookList}>
                         {group.books.map(book => (
                             <li key={book.bookId} className={styles.bookCard}>
-                                <a href={""}>
+                                <a href={`books`}>
                                     <img 
                                         src={book.thumbnail ? book.thumbnail : defaultThumbnail}
                                         alt={book.title}
@@ -23,16 +22,11 @@ export default function GroupBooks({groupLabel, group, msg}) {
                                 </a>
                                 <div className={styles.bookInfo}>
                                     {book.rating > 0 && (
-                                        <div className={styles.bookRating}>
-                                            {/*[...Array(5)].map((_, index) => index < book.rating && (
-                                                <img src={star} className={styles.icon}/>
-                                            ))*/}
+                                        <div className={styles.bookInfo}>
                                             {[...Array(5)].map((_, index) => (
-                                                <span 
-                                                    key={index}
-                                                    className={`${styles.star} ${index < book.rating ? styles.filled : ''}`}
-                                                >★
-                                                </span>
+                                                index < book.rating && (
+                                                    <span key={index} className={styles.star}>★</span>
+                                                )
                                             ))}
                                             {book.likeStatus && (<img src={heart} className={styles.icon}/>)}
                                         </div>
