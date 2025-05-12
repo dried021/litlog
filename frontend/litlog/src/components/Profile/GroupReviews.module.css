@@ -109,3 +109,8 @@
     font-size: 14px;
     color: #a3a3a3;
 }
+
+.hyperlink {
+    text-decoration: none;
+    color: inherit;
+}

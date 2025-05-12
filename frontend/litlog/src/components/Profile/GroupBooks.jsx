@@ -15,10 +15,12 @@ export default function GroupBooks({groupLabel, group, msg}) {
                     <ul className={styles.bookList}>
                         {group.books.map(book => (
                             <li key={book.bookId} className={styles.bookCard}>
-                                <img 
-                                    src={book.thumbnail ? book.thumbnail : defaultThumbnail}
-                                    alt={book.title}
-                                    className={styles.bookThumbnail}/>
+                                <a href={""}>
+                                    <img 
+                                        src={book.thumbnail ? book.thumbnail : defaultThumbnail}
+                                        alt={book.title}
+                                        className={styles.bookThumbnail}/>
+                                </a>
                                 <div className={styles.bookInfo}>
                                     {book.rating > 0 && (
                                         <div className={styles.bookRating}>
