@@ -42,14 +42,16 @@ export default function ProfileReviewCard({review}) {
     
     return (
         <div className={styles.reviewCard}>
-            <img
-                className={styles.bookThumbnail}
-                src={review.thumbnail || defaultThumbnail}
-                alt={review.title}
-            />
+            <a href={""}>
+                <img
+                    className={styles.bookThumbnail}
+                    src={review.thumbnail || defaultThumbnail}
+                    alt={review.title}
+                />
+            </a>
             <div className={styles.details}>
                 <div className={styles.title}>
-                    {review.title}
+                    <a href={""} className={styles.hyperlink}>{review.title}</a>
                 </div>
                 <div className={styles.meta}>
                     {[...Array(5)].map((_, index) => (
