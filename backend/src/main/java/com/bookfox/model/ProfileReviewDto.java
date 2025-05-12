@@ -16,6 +16,7 @@ public class ProfileReviewDto {
     private int rating;
     private Timestamp creationDate;
 
+    private String bookApiId;
     private int likeStatus;
     private int likeCount;
     private String thumbnail;
