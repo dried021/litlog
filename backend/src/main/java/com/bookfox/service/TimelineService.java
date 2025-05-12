@@ -14,6 +14,10 @@ public class TimelineService {
     @Autowired
     private TimelineMapper timelineMapper;
 
+    public List<TimelineDto> getReviewTimelineAll(String userId) {
+    return timelineMapper.getReviewTimelineAll(userId);
+    }
+
     public List<TimelineDto> getReviewTimeline(String userId, int year) {
         return timelineMapper.getReviewTimeline(Map.of(
             "userId", userId,

@@ -50,7 +50,8 @@ Books 검색 결과    /books/search/{bookId}
 랭킹 (유저들)    /readers
 회원 프로필 정보    /{userId}
 책장    /{userId}/bookshelf
-리뷰 타임라인    /{userId}/reviews/{year}
+리뷰 타임라인           /{userId}/reviews      
+리뷰 타임라인 (연도별)    /{userId}/reviews/{year}
 리뷰 디테일    /{userId}/reviews/detail
 컬렉션 메인    /{userId}/collections
 회원 정보 수정    /settings
