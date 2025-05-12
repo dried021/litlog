@@ -92,6 +92,6 @@
 
     <insert id="addBookshelf" parameterType="map">
         INSERT INTO book_shelf (book_id, user_id, shelf_type)
-        VALUES (#{bookId}, #{userId}, 1)
+        VALUES (#{bookId}, #{userId}, #{option})
     </insert>
 </mapper>

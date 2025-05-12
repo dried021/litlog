@@ -73,11 +73,12 @@ const BookDetail = () => {
     setIsClose(!isClose);
   };
 
-  const handleAddToBookShelfButton = async () => {
+  const handleAddToBookShelfButton = async (option) => {
     try {
       const response = await axios.post(`http://localhost:9090/books/bookshelf`, {
         bookId,
         book,
+        option,
       });
   
       const { result } = response.data;
@@ -114,8 +115,8 @@ const BookDetail = () => {
             />
             <div className={styles["add-buttons"]}>
                 <BookInfoDiv bookApiId={bookId}/>
-                <AddToBookshelfButton isAdded={false} handleClick={handleAddToBookShelfButton}/>
-                <AddLikeButton isLiked={false} handleClick={handleAddLikeButton}/>
+                <AddToBookshelfButton handleClick={handleAddToBookShelfButton}/>
+                <AddLikeButton handleClick={handleAddLikeButton}/>
             </div>
           </div>
 
