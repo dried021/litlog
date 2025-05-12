@@ -2,37 +2,100 @@
     text-align: center;
     margin-top: 2rem;
   }
-  
-  /* 박스 스타일은 wrapper가 아니라 박스에 줌 */
+
   .signup-box {
     max-width: 400px;
     margin: 0 auto;
     padding: 2rem;
+    background-color: #f7f7f7;
     border: 1px solid #ccc;
     border-radius: 10px;
     text-align: left;
   }
-  
-  .signup-form .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  .signup-form input {
-    margin-right: 0.5rem;
-  }
-  
-  .form-footer {
-    margin-top: 1rem;
-  }
-  .phone-inputs {
+
+  .signup-form {
     display: flex;
+    flex-direction: column;
     align-items: center;
+  }
+
+  .signup-form-group {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .signup-form-group label {
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+
+  .signup-form-group input[type="text"],
+  .signup-form-group input[type="email"],
+  .signup-form-group input[type="password"] {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+
+  .signup-form-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .signup-form-group button {
+    padding: 4px 8px;
+    border: 1px solid #333;
+    background-color: white;
+    cursor: pointer;
+    font-size: 13px;
+  }
+
+  .signup-phone-inputs {
+    display: flex;
     gap: 4px;
   }
-  
-  .phone-inputs input {
-    width: 60px;
-    padding: 4px;
-    text-align: center;
+
+  .signup-valid {
+    color: green;
+    font-size: 12px;
+    margin-top: 4px;
   }
-  
+
+  .signup-invalid {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  .signup-button-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .signup-input-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.signup-input-row input {
+  flex: 1;
+  margin-right: 6px;
+}
+
+.signup-input-row button {
+  white-space: nowrap;
+}
+
+.signup-button-row button {
+  padding: 6px 12px;
+  font-weight: bold;
+  border-radius: 5px;
+}
