@@ -30,5 +30,13 @@ public class UserService {
     public boolean isEmailDuplicate(String email) {
         return userMapper.selectUserByEmail(email) != null;
     }
-     
+
+    public void updatePassword(String id, String newPwd) {
+        userMapper.updatePassword(id, newPwd); 
+    }
+
+    public String findUserId(String name, String email) {
+        return userMapper.findUserId(name, email);
+    }
+
 }

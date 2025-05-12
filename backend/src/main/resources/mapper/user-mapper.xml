@@ -24,5 +24,16 @@
   <select id="selectUserByEmail" resultType="com.bookfox.model.UserDto">
     SELECT * FROM user WHERE email = #{email}
   </select>
- 
+
+  <update id="updatePassword">
+    UPDATE user SET pwd = #{newPwd} WHERE id = #{id}
+  </update>
+
+  <select id="findUserId" resultType="string">
+    SELECT id
+    FROM user
+    WHERE name = #{name} AND email = #{email}
+  </select>
+
+
 </mapper>
