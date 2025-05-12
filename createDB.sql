@@ -162,7 +162,7 @@ CREATE TABLE book_shelf(
     user_id VARCHAR(50), 
     shelf_type INT null,
     creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    progress INT NOT NULL CHECK (progress BETWEEN 1 AND 100),		-- 진도
+    progress INT NOT NULL DEFAULT 0 CHECK (progress BETWEEN 0 AND 100),		-- 진도
 	FOREIGN KEY (shelf_type) REFERENCES shelf_type(value) ON DELETE SET NULL,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE SET NULL,
     FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE,

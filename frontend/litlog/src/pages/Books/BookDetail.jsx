@@ -77,35 +77,23 @@ const BookDetail = () => {
     try {
       const response = await axios.post(`http://localhost:9090/books/bookshelf`, {
         bookId,
+        book,
       });
+  
       const { result } = response.data;
-
-      if (result === 0) {
-        openModal("이미 책장에 추가된 책입니다.");
-      } else {
-        openModal("책장에 성공적으로 추가되었습니다.");
-      }
+      openModal(result === 0 ? "이미 책장에 추가된 책입니다." : "책장에 성공적으로 추가되었습니다.");
     } catch (err) {
-      console.error("Add to bookshelf error: ", err);
-      openModal("책장에 추가하는 중 오류가 발생했습니다.");
+      console.error("Add to bookshelf error");
     }
   };
-
+  
   const handleAddLikeButton = async () => {
     try {
-      const response = await axios.post(`http://localhost:9090/books/like`, {
-        bookId,
-      });
+      const response = await axios.post(`http://localhost:9090/books/like`, { bookId });
       const { result } = response.data;
-
-      if (result === 0) {
-        openModal("이미 좋아요를 누른 책입니다.");
-      } else {
-        openModal("좋아요가 성공적으로 추가되었습니다.");
-      }
+      openModal(result === 0 ? "이미 좋아요를 누른 책입니다." : "좋아요가 성공적으로 추가되었습니다.");
     } catch (err) {
-      console.error("Add like error: ", err);
-      openModal("좋아요 추가 중 오류가 발생했습니다.");
+      console.error("Add like error");
     }
   };
 
@@ -147,6 +135,10 @@ const BookDetail = () => {
               
               <p className={styles["publisher"]}>
                 {book.volumeInfo.publisher} | {book.volumeInfo.publishedDate}
+              </p>
+
+              <p className={styles['categories']}>
+                {book.volumeInfo?.categories ? book.volumeInfo.categories.join(', ') : '카테고리 정보 없음'}
               </p>
 
               {displayedDescription && (
