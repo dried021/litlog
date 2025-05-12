@@ -15,7 +15,7 @@ public class TimelineService {
     private TimelineMapper timelineMapper;
 
     public List<TimelineDto> getReviewTimelineAll(String userId) {
-    return timelineMapper.getReviewTimelineAll(userId);
+        return timelineMapper.getReviewTimelineAll(userId);
     }
 
     public List<TimelineDto> getReviewTimeline(String userId, int year) {
@@ -23,5 +23,9 @@ public class TimelineService {
             "userId", userId,
             "year", year
         ));
+    }
+
+    public int getUserJoinYear(String userId) {
+        return timelineMapper.getUserJoinYear(userId);
     }
 }
