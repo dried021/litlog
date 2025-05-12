@@ -69,7 +69,12 @@ function NextArrow(props) {
                 <img src={book.image} alt={book.title} className="book-image" />
                 <h5>{book.title}</h5>
                 <div className="book-stats">
-                  👁 {book.views} &nbsp;&nbsp; 👍 {book.likes} &nbsp;&nbsp; ❤️ {book.hearts}
+                  <img className="bookshelf" src="/icons/bookshelf.svg" alt="Bookshelf" />
+                  <p>{" " + book.views + " "}</p>
+                  <img className="like" src={"/icons/heart_filled.svg"} alt="Like"/>
+                  <p>{" " + book.likes+ " "}</p>
+                  <img className="review" src="/icons/star2.svg" alt="Review"/>
+                  <p>{" " + book.hearts + " "}</p>
                 </div>
               </Link>
             </div>
