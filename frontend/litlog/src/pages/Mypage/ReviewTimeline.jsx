@@ -18,6 +18,7 @@ const ReviewTimeline = () => {
 
   const [activeTab, setActiveTab] = useState("timeline");
   const [showLikedOnly, setShowLikedOnly] = useState(false);
+    const [withContentOnly, setWithContentOnly] = useState(false);
   const [ratingFilter, setRatingFilter] = useState(0);
 
   const [years, setYears] = useState([]);
@@ -75,19 +76,25 @@ const ReviewTimeline = () => {
     setShowLikedOnly((prev) => !prev);
   };
 
+  const handleToggleContent = () => {
+    setWithContentOnly((prev) => !prev);
+  };
+
   const handleRatingChange = (e) => {
     setRatingFilter(parseInt(e.target.value));
   };
 
   const handleResetFilters = () => {
     setShowLikedOnly(false);
+    setWithContentOnly(false);
     setRatingFilter(0);
   };
 
   const filteredReviews = reviews.filter((review) => {
     const meetsRating = ratingFilter === 0 || review.rating === ratingFilter;
     const meetsLiked = !showLikedOnly || review.liked === true;
-    return meetsRating && meetsLiked;
+    const meetsContent = !withContentOnly || (review.content && review.content.trim().length > 0);
+    return meetsRating && meetsLiked && meetsContent;
   });
 
   return (
@@ -102,6 +109,8 @@ const ReviewTimeline = () => {
         onTabChange={handleTabChange}
         showLikedOnly={showLikedOnly}
         onToggleLiked={handleToggleLiked}
+        withContentOnly={withContentOnly}
+        onToggleContent={handleToggleContent}
         ratingFilter={ratingFilter}
         onRatingChange={handleRatingChange}
         onResetFilters={handleResetFilters}
