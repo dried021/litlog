@@ -5,7 +5,7 @@ const Header = () => {
     return (
         <header>
             <nav>
-                <Link to="/home">LitLog</Link>
+                <Link to="/">LitLog</Link>
                 <Link to="/books">Books</Link>
                 <Link to="/collections">Collections</Link>
                 <Link to="/readers">Readers</Link>

@@ -1,0 +1,99 @@
+.findid-find-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 80px;
+  font-family: 'Arial', sans-serif;
+}
+
+.findid-find-box, .findid-result-box {
+  width: 360px;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f7f7f7;
+  text-align: center;
+}
+
+.findid-h2 {
+  margin-bottom: 30px;
+  font-size: 24px;
+}
+
+.findid-form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.findid-form-group label {
+  width: 80px;
+  text-align: right;
+  margin-right: 10px;
+  font-weight: bold;
+  white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+.findid-form-group input {
+  flex: 1;
+  padding: 6px;
+  font-size: 14px;
+}
+
+.findid-button-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #999;
+  border-radius: 6px;
+  width: 200px;
+  margin: 20px auto;
+  padding: 8px 0;
+  background-color: white;
+}
+
+.findid-button-row span {
+  cursor: pointer;
+  padding: 0 1px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.findid-btn-confirm {
+  color: #c0392b;
+  text-decoration: underline;
+}
+
+.findid-btn-cancel {
+  color: #17a2b8;
+  text-decoration: underline;
+}
+
+.findid-divider {
+  color: #888;
+}
+
+
+.findid-link-row {
+  margin-top: 20px;
+  font-size: 13px;
+}
+
+.findid-link-row a {
+  margin-left: 5px;
+  color: teal;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.findid-result-box p {
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.findid-result-box button {
+  padding: 6px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}

@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,20 +56,27 @@ public class Books {
     }
 
     @GetMapping("/counts")
-    public ResponseEntity<Map<String, Integer>> bookscount(@RequestParam String bookApiId){
+    public ResponseEntity<Map<String, Object>> bookscount(@RequestParam String bookApiId){
+        //session에서 user 가져오기
+        String userId = "user01";
+
         int id = bookService.getIdByBookApiId(bookApiId);
         int bookshelfCount = bookService.getBookshelfCount(id);
         int likeCount = bookService.getLikeCount(id);
         
-        Map<String, Integer> response = new HashMap<>();
+        Map<String, Object> response = new HashMap<>();
+
+        boolean isLiked = bookService.isLiked(id, userId);
+
         response.put("bookshelfCount", bookshelfCount);
         response.put("likeCount", likeCount);
+        response.put("isLiked", isLiked);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/reviews")
     public ResponseEntity<Map<String, Object>> getReviews(@RequestParam String bookApiId,
-                    @RequestParam int currentPage) {
+                    @RequestParam int currentPage, @RequestParam boolean isPopularity) {
         //session에서 user 가져오기
         String userId = "user01";
 
@@ -76,7 +85,7 @@ public class Books {
         Map<String, Object> response = new HashMap<>();
         if (exists) {
             int bookId = bookService.getIdByBookApiId(bookApiId);
-            List<BookReviewDto> reviews = bookService.getReviews(bookId, currentPage);
+            List<BookReviewDto> reviews = bookService.getReviews(bookId, currentPage, userId, isPopularity);
             int reviewsCount = bookService.getReviewCount(bookId);
             response.put("reviews", reviews);
             response.put("reviewsCount", reviewsCount);
@@ -86,5 +95,22 @@ public class Books {
         }
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/reviews/like")
+    public ResponseEntity<Boolean> changeLikeState(@RequestBody Map<String, Object> payload){
+        //session에서 user 가져오기
+        String userId = "user01";
+
+        int reviewId = (int) payload.get("reviewId");
+        boolean isLiked = (boolean) payload.get("isLiked");
+
+        if (isLiked){
+            bookService.likeReview(reviewId, userId);
+        }else{
+            bookService.unlikeReview(reviewId, userId);
+        }
+
+        return ResponseEntity.ok(true);
     }
 }

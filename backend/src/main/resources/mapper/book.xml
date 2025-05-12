@@ -12,6 +12,20 @@
             END AS is_book_exists
     </select>
 
+    <select id="isLiked" parameterType="map" resultType="Boolean">
+        SELECT 
+            CASE    
+                WHEN EXISTS (
+                    SELECT 1 
+                    FROM like_list 
+                    WHERE target_id = #{id} 
+                    AND user_id = #{userId} 
+                    AND like_type = 2
+                ) THEN 1
+                ELSE 0
+            END AS is_book_liked
+    </select>
+
     <select id="getIdByBookApiId" parameterType="String" resultType="int">
         SELECT id 
         FROM book
@@ -37,9 +51,81 @@
     </select>
 
     <select id="getReviews" parameterType="map" resultType="com.bookfox.model.BookReviewDto">
-        SELECT * 
-        FROM book_review
-        WHERE book_id = #{id}
-        LIMIT #{offset}, 5
+        SELECT 
+            br.id,
+            br.user_id AS userId,
+            br.book_id AS bookId,
+            br.content,
+            br.rating,
+            br.creation_date AS creationDate,
+
+            (SELECT COUNT(*) 
+            FROM like_list ll1 
+            WHERE ll1.target_id = br.id AND ll1.like_type = 1) AS likeCount,
+
+            CASE 
+                WHEN ll2.target_id IS NOT NULL THEN true
+                ELSE false
+            END AS isLiked
+
+        FROM book_review br
+
+        LEFT JOIN like_list ll2 
+            ON br.id = ll2.target_id 
+            AND ll2.like_type = 1 
+            AND ll2.user_id = #{userId}
+
+        WHERE br.book_id = #{id}
+
+        <choose>
+            <when test="isPopularity == true">
+                ORDER BY likeCount DESC, br.creation_date DESC, br.id DESC
+            </when>
+            <otherwise>
+                ORDER BY br.creation_date DESC, br.id DESC
+            </otherwise>
+        </choose>
+
+        LIMIT 5 OFFSET #{offset};
     </select>
+
+    <insert id="likeReview" parameterType="map">
+        INSERT INTO like_list (user_id, target_id, like_type)
+        VALUES (#{userId}, #{id}, 1)
+    </insert>
+
+    <delete id="unlikeReview" parameterType="map">
+        DELETE FROM like_list
+        WHERE user_id = #{userId} AND target_id = #{id} and like_type = 1
+    </delete>
+
+    <insert id="addBook" parameterType="com.bookfox.model.BookDto">
+        INSERT INTO book (book_api_id, title, subtitle, authors, publisher, published_date, description, page_count, thumbnail, book_category)
+        VALUES (#{bookApiId}, #{title}, #{subtitle}, #{authors}, #{publisher}, #{publishedDate}, #{description}, #{pageCount}, #{thumbnail}, #{bookCategory})
+    </insert>
+
+    <insert id="addBookshelf" parameterType="map">
+        INSERT INTO book_shelf (book_id, user_id, shelf_type)
+        VALUES (#{bookId}, #{userId}, #{option})
+    </insert>
+
+    <select id="checkBookshelf" parameterType="map" resultType="int">
+        select COUNT(*) from book_shelf
+        where book_id = #{bookId} and user_id = #{userId} and shelf_type=#{option}
+    </select>
+
+    <select id="checkLike" parameterType="map" resultType="int">
+        select COUNT(*) from like_list
+        where target_id = #{bookId} and user_id = #{userId} and like_type = 2
+    </select>
+
+    <insert id = "addLike" parameterType="map">
+        insert into like_list (target_id, user_id, like_type)
+        values (#{bookId}, #{userId}, 2)
+    </insert>
+
+    <delete id="unlike" parameterType="map">
+        DELETE FROM like_list
+        WHERE user_id = #{userId} AND target_id = #{bookId} AND like_type = 2 
+    </delete>
 </mapper>

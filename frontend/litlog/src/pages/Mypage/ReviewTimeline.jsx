@@ -2,66 +2,105 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ReviewEntry from "./ReviewEntry";
+import ReviewHeader from "../../components/Mypage/ReviewHeader";
 import TabMenu from "../../components/Mypage/TabMenu";
 import "./ReviewTimeline.css";
 
 const ReviewTimeline = () => {
   const { userId, year } = useParams();
   const navigate = useNavigate();
-
   const currentYear = new Date().getFullYear();
-  const [selectedYear, setSelectedYear] = useState(year || currentYear);
+
+  // ✅ 최초 1회만 초기값 설정
+  const [selectedYear, setSelectedYear] = useState(year || "");
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [activeTab, setActiveTab] = useState("timeline");
+  const [showLikedOnly, setShowLikedOnly] = useState(false);
+  const [ratingFilter, setRatingFilter] = useState(0);
+
   const years = Array.from({ length: 10 }, (_, i) => currentYear - i);
 
+  // ✅ 리뷰 데이터 fetch만 처리 (selectedYear 업데이트 없음)
   useEffect(() => {
-    setSelectedYear(year || currentYear);
     setLoading(true);
     axios
       .get(
-        `http://localhost:9090/api/members/${userId}/reviews/review-timeline/${year}`
+        year
+          ? `http://localhost:9090/api/members/${userId}/reviews/review-timeline/${year}`
+          : `http://localhost:9090/api/members/${userId}/reviews/review-timeline`
       )
       .then((res) => {
         setReviews(res.data);
         setError(null);
       })
       .catch(() => {
-        setError("불러오기 실패");
+        setError("Failed to load reviews.");
         setReviews([]);
       })
       .finally(() => setLoading(false));
   }, [userId, year]);
 
+  // 연도 셀렉 변경 → URL 반영
   const handleYearChange = (e) => {
     const newYear = e.target.value;
     setSelectedYear(newYear);
-    navigate(`/${userId}/reviews/${newYear}`);
+    if (newYear) {
+      navigate(`/${userId}/reviews/${newYear}`);
+    } else {
+      navigate(`/${userId}/reviews`);
+    }
   };
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
+
+  const handleToggleLiked = () => {
+    setShowLikedOnly((prev) => !prev);
+  };
+
+  const handleRatingChange = (e) => {
+    setRatingFilter(parseInt(e.target.value));
+  };
+
+  const handleResetFilters = () => {
+    setShowLikedOnly(false);
+    setRatingFilter(0);
+  };
+
+  // ✅ 정렬 조건 모두 반영
+  const filteredReviews = reviews.filter((review) => {
+    const meetsRating = ratingFilter === 0 || review.rating === ratingFilter;
+    const meetsLiked = !showLikedOnly || review.liked === true;
+    return meetsRating && meetsLiked;
+  });
 
   return (
     <div className="review-timeline">
       <TabMenu userId={userId} />
 
-      <div className="timeline-header">
-        <select value={selectedYear} onChange={handleYearChange}>
-          {years.map((y) => (
-            <option key={y} value={y}>
-              {y}
-            </option>
-          ))}
-        </select>
-
-        {reviews.length > 0 && (
-          <p className="summary-text">
-            {reviews[0].nickname}, you left reviews for {reviews.length} books during {selectedYear}.
-            <br/>
-            Keep sharing your thoughts — we love hearing them!
-          </p>
-        )}
-      </div>
+      <ReviewHeader
+        selectedYear={selectedYear}
+        handleYearChange={handleYearChange}
+        years={years}
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+        showLikedOnly={showLikedOnly}
+        onToggleLiked={handleToggleLiked}
+        ratingFilter={ratingFilter}
+        onRatingChange={handleRatingChange}
+        onResetFilters={handleResetFilters}
+        message={
+          filteredReviews.length === 0
+            ? "No reviews found. Try adjusting your filters."
+            : `${filteredReviews[0].nickname}, you left reviews for ${filteredReviews.length} books during ${
+                selectedYear || "all years"
+              }.`
+        }
+      />
 
       <div className="review-table">
         <div className="table-header">
@@ -72,11 +111,12 @@ const ReviewTimeline = () => {
           <div>LIKE</div>
           <div>REVIEW</div>
         </div>
-        {reviews.length === 0 ? (
+
+        {filteredReviews.length === 0 ? (
           <p className="no-reviews">No reviews yet. Share your first review!</p>
         ) : (
-          reviews.map((review, idx) => {
-            const prev = reviews[idx - 1];
+          filteredReviews.map((review, idx) => {
+            const prev = filteredReviews[idx - 1];
             const prevMonth = prev && new Date(prev.creationDate).getMonth();
             const currMonth = new Date(review.creationDate).getMonth();
             const showMonth = !prev || prevMonth !== currMonth;

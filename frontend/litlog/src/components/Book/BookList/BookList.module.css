@@ -8,16 +8,14 @@
     border-bottom: 1px solid #ddd;
     cursor: pointer;
     transition: background-color 0.3s;
+    gap: 1rem; 
   }
 
   .book-item:hover {
     background-color: #e1e1e1;
     transform: scale(1.05);  /* 5% 확대 */
   }
-  
-  .index-box {
-    margin-right: 1rem;
-  }
+
 
   .thumbnail {
     width: 100px;

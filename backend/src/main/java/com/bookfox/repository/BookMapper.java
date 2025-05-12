@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.bookfox.model.BookDto;
 import com.bookfox.model.BookReviewDto;
 
 @Mapper
@@ -14,6 +15,18 @@ public interface BookMapper {
     public int getBookshelfCount(int id);
     public int getLikeCount(int id);
     public int getReviewCount(int id);
-    public List<BookReviewDto> getReviews(Map<String, Integer> params);
+    public boolean isLiked(Map<String, Object> params);
+
+    public List<BookReviewDto> getReviews(Map<String, Object> params);
+    public void likeReview(Map<String, Object> params);
+    public void unlikeReview(Map<String, Object> params);
+
+    public void addBook(BookDto bookDto);
+    public void addBookshelf(Map<String, Object> params);
+    public void addLike(Map<String, Object> params);
+    
+    public int checkBookshelf(Map<String, Object> params);
+    public int checkLike(Map<String, Object> params);
+    public void unlike(Map<String, Object> params);
 }
 
