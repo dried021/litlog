@@ -10,4 +10,5 @@ public interface BookshelfMapper {
     public List<BookshelfDto> getCurrentlyReadingBooks(String userId);
     public List<BookshelfDto> getReadBooks(String userId);
     public List<BookshelfDto> getToReadBooks(String userId);
+    public List<BookshelfDto> getFavoriteBooks(String userId);
 }

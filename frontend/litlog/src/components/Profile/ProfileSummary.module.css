@@ -93,4 +93,12 @@
     font-size: 11px;
     color: #666;
 }
-  
+
+/* BOOK STACK */
+.bookStack {
+    width: 240px;
+    padding-left: 30px;
+    background-color:#F3F3F3;
+    display: flex;
+    border-radius: 15px;
+}

@@ -12,12 +12,15 @@
             bs.shelf_type AS shelfType,
             bs.creation_date AS creationDate,
             bs.progress,
+            b.book_api_id AS bookApiId,
             CASE 
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0
             END AS likeStatus,
-            b.thumbnail
-        FROM book b
+            b.published_date AS publishedDate,
+            b.thumbnail,
+            b.page_count AS pageCount
+        FROM book_shelf bs
         LEFT JOIN like_list ll 
             ON bs.book_id = ll.target_id 
             AND ll.user_id = #{userId} 
@@ -35,12 +38,15 @@
             bs.shelf_type AS shelfType,
             bs.creation_date AS creationDate,
             bs.progress,
+            b.book_api_id AS bookApiId,
             CASE 
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0
             END AS likeStatus,
+            b.published_date AS publishedDate,
             b.thumbnail,
-            br.rating AS rating
+            br.rating AS rating,
+            b.page_count AS pageCount
         FROM book_shelf bs
         LEFT JOIN like_list ll 
             ON bs.book_id = ll.target_id 
@@ -62,12 +68,15 @@
             bs.shelf_type AS shelfType,
             bs.creation_date AS creationDate,
             bs.progress,
+            b.book_api_id AS bookApiId,
             CASE 
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0
             END AS likeStatus,
-            b.thumbnail
-        FROM book b
+            b.published_date AS publishedDate,
+            b.thumbnail,
+            b.page_count AS pageCount
+        FROM book_shelf bs
         LEFT JOIN like_list ll 
             ON bs.book_id = ll.target_id 
             AND ll.user_id = #{userId} 
@@ -76,5 +85,53 @@
             ON bs.book_id = b.id
         WHERE bs.user_id = #{userId}
             AND bs.shelf_type = 1
+    </select>
+    <!--
+    <select id="getFavoriteBooks" resultType="com.bookfox.model.BookshelfDto" parameterType="String">
+        SELECT
+            b.id AS bookId,
+            br.user_id AS userId,
+            ll.creation_date AS creationDate,
+            b.book_api_id AS bookApiId,
+            CASE 
+                WHEN ll.id IS NOT NULL THEN 1
+                ELSE 0
+            END AS likeStatus,
+            br.rating,
+            b.published_date AS publishedDate,
+            b.thumbnail,
+            b.page_count AS pageCount
+        FROM book b
+        LEFT JOIN like_list ll 
+            ON b.id = ll.target_id 
+            AND ll.user_id = #{userId} 
+            AND ll.like_type = 2
+        LEFT JOIN book_review br
+            ON b.id = br.book_id
+            AND br.user_id = #{userId}
+    </select>-->
+    <select id="getFavoriteBooks" resultType="com.bookfox.model.BookshelfDto" parameterType="String">
+        SELECT
+            b.id AS bookId,
+            br.user_id AS userId,
+            ll.creation_date AS creationDate,
+            b.book_api_id AS bookApiId,
+            CASE 
+                WHEN ll.id IS NOT NULL THEN 1
+                ELSE 0
+            END AS likeStatus,
+            br.rating,
+            b.published_date AS publishedDate,
+            b.thumbnail,
+            b.page_count AS pageCount
+        FROM like_list ll
+        LEFT JOIN book b 
+            ON ll.target_id = b.id
+        LEFT JOIN book_review br
+            ON b.id = br.book_id
+            AND br.user_id = #{userId}
+        WHERE 
+            ll.user_id = #{userId} 
+            AND ll.like_type = 2
     </select>
 </mapper>
