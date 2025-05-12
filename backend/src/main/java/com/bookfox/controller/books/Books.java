@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -76,7 +78,7 @@ public class Books {
         Map<String, Object> response = new HashMap<>();
         if (exists) {
             int bookId = bookService.getIdByBookApiId(bookApiId);
-            List<BookReviewDto> reviews = bookService.getReviews(bookId, currentPage);
+            List<BookReviewDto> reviews = bookService.getReviews(bookId, currentPage, userId);
             int reviewsCount = bookService.getReviewCount(bookId);
             response.put("reviews", reviews);
             response.put("reviewsCount", reviewsCount);
@@ -86,5 +88,22 @@ public class Books {
         }
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/reviews/like")
+    public ResponseEntity<Boolean> changeLikeState(@RequestBody Map<String, Object> payload){
+        //session에서 user 가져오기
+        String userId = "user01";
+
+        int reviewId = (int) payload.get("reviewId");
+        boolean isLiked = (boolean) payload.get("isLiked");
+        
+        if (isLiked){
+            bookService.likeReview(reviewId, userId);
+        }else{
+            bookService.unlikeReview(reviewId, userId);
+        }
+
+        return ResponseEntity.ok(true);
     }
 }

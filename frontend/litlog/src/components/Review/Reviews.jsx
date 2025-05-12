@@ -27,7 +27,7 @@ function Rating({ rating }) {
 }
 
 
-function Review({ reviews, isLiked, currentPage, reviewPerPage, handleLikeClick }) {
+function Review({ reviews, currentPage, reviewPerPage, handleLikeClick }) {
     const handleClickProfile = (userId) => {
     // Implement profile redirection logic
     };
@@ -61,7 +61,7 @@ function Review({ reviews, isLiked, currentPage, reviewPerPage, handleLikeClick 
             </div>
 
             <div className={styles['review-like']} onClick={() => handleLikeClick(review.id)}>
-                {isLiked[index] ? (
+                {review.isLiked ? (
                 <img src="/icons/heart_filled.svg" alt="Liked" />
                 ) : (
                 <img src="/icons/heart_outline.svg" alt="Not Liked" />
@@ -80,7 +80,6 @@ function Reviews({ bookApiId }) {
   const [loading, setLoading] = useState(false);
   const [reviewsCount, setReviewsCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLiked, setIsLiked] = useState([]);
 
   const [isRelevance, setIsRelevance] = useState(true);
   const handleOptionClick = (option) => {
@@ -101,11 +100,9 @@ function Reviews({ bookApiId }) {
       const response = await axios.get(`http://localhost:9090/books/reviews`, {
         params: { bookApiId, currentPage},
       });
-
-      const { reviews, reviewsCount, isLiked } = response.data;
+      const { reviews, reviewsCount } = response.data;
       setReviews(reviews || []);
-      setReviewsCount(reviewsCount);
-      setIsLiked(isLiked || []);
+      setReviewsCount(reviewsCount || 0);
 
     } catch (error) {
       console.error("Fail to fetch reviews:", error);
@@ -122,8 +119,26 @@ function Reviews({ bookApiId }) {
     setCurrentPage(pageNum);
   };
 
-  const handleLikeClick = (reviewId) => {
-    console.log("Like clicked for review:", reviewId);
+  const handleLikeClick = async (reviewId) => {
+    try{
+        const updatedReviews = reviews.map((review) => {
+            if (review.id === reviewId){
+                const isLiked= !review.isLiked;
+                const likeCount = isLiked? review.likeCount + 1 : review.likeCount -1;
+
+                axios.post(`http://localhost:9090/books/reviews/like`, {
+                    reviewId, isLiked
+                }).catch((err) => console.error("Like update error:", err));
+
+                return {...review, isLiked, likeCount};
+            }
+            return review;
+        });
+
+        setReviews(updatedReviews);
+    }catch(error){
+        console.error("Error updating like status: ", error);
+    }
   };
 
   const handleAddReview = () => {
