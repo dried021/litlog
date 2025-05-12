@@ -2,9 +2,12 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import "./TabMenu.css";
 import { useRequireAuth } from "../../libs/useRequireAuth.js"
+import { useParams } from "react-router-dom";
 
 const TabMenu = () => {
-  const userId = useRequireAuth();
+  const params = useParams().userId;
+  const userId = (params ? params : useRequireAuth());
+
   const location = useLocation();
 
   return (
