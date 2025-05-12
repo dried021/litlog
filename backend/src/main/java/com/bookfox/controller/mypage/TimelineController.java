@@ -22,4 +22,9 @@ public class TimelineController {
     public List<TimelineDto> getTimeline(@PathVariable String userId, @PathVariable int year) {
         return timelineService.getReviewTimeline(userId, year);
     }
+
+    @GetMapping("/{userId}/join-year")
+    public int getJoinYear(@PathVariable String userId) {
+        return timelineService.getUserJoinYear(userId);
+    }
 }
