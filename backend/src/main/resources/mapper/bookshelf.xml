@@ -17,8 +17,9 @@
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0
             END AS likeStatus,
-            b.thumbnail
-        FROM book b
+            b.thumbnail,
+            b.page_count AS pageCount
+        FROM book_shelf bs
         LEFT JOIN like_list ll 
             ON bs.book_id = ll.target_id 
             AND ll.user_id = #{userId} 
@@ -42,7 +43,8 @@
                 ELSE 0
             END AS likeStatus,
             b.thumbnail,
-            br.rating AS rating
+            br.rating AS rating,
+            b.page_count AS pageCount
         FROM book_shelf bs
         LEFT JOIN like_list ll 
             ON bs.book_id = ll.target_id 
@@ -69,8 +71,9 @@
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0
             END AS likeStatus,
-            b.thumbnail
-        FROM book b
+            b.thumbnail,
+            b.page_count AS pageCount
+        FROM book_shelf bs
         LEFT JOIN like_list ll 
             ON bs.book_id = ll.target_id 
             AND ll.user_id = #{userId} 
@@ -79,5 +82,29 @@
             ON bs.book_id = b.id
         WHERE bs.user_id = #{userId}
             AND bs.shelf_type = 1
+    </select>
+    <select id="getFavoriteBooks" resultType="com.bookfox.model.BookshelfDto" parameterType="String">
+        SELECT
+            bs.id,
+            bs.book_id AS bookId,
+            bs.user_id AS userId,
+            bs.shelf_type AS shelfType,
+            bs.creation_date AS creationDate,
+            bs.progress,
+            b.book_api_id AS bookApiId,
+            CASE 
+                WHEN ll.id IS NOT NULL THEN 1
+                ELSE 0
+            END AS likeStatus,
+            b.thumbnail,
+            b.page_count AS pageCount
+        FROM book_shelf bs
+        LEFT JOIN like_list ll 
+            ON bs.book_id = ll.target_id 
+            AND ll.user_id = #{userId} 
+            AND ll.like_type = 2
+        LEFT JOIN book b
+            ON bs.book_id = b.id
+        WHERE bs.user_id = #{userId}
     </select>
 </mapper>

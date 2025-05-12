@@ -19,4 +19,5 @@ public class BookshelfDto {
     private boolean likeStatus;
     private int rating;
     private String thumbnail;
+    private int pageCount;
 }
