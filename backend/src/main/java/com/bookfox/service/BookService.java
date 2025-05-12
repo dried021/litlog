@@ -1,15 +1,17 @@
 package com.bookfox.service;
-
 import java.util.List;
 import java.util.Map;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.bookfox.model.BookDto;
 import com.bookfox.model.BookReviewDto;
 import com.bookfox.repository.BookMapper;
 
 @Service
 public class BookService {
-
     @Autowired
     private BookMapper bookMapper;
 
@@ -37,7 +39,6 @@ public class BookService {
     public List<BookReviewDto> getReviews(int id, int currentPage, String userId, Boolean isPopularity) {
         int offset = (currentPage - 1) * 5;
         Map<String, Object> params = Map.of("id", id, "offset", offset, "userId", userId, "isPopularity", isPopularity);
-        System.out.println("검사"+bookMapper.getReviews(params));
         return bookMapper.getReviews(params);
     }
 
@@ -51,4 +52,12 @@ public class BookService {
         bookMapper.unlikeReview(params);
     }
 
+    public void addBook(BookDto bookDto){
+        bookMapper.addBook(bookDto);
+    }
+
+    public void addBookshelf(int bookId, String userId){
+        Map<String, Object> params = Map.of("bookId", bookId, "userId", userId);
+        bookMapper.addBookshelf(params);
+    }
 }

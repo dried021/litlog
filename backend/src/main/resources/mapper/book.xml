@@ -84,4 +84,14 @@
         DELETE FROM like_list
         WHERE user_id = #{userId} AND target_id = #{id}
     </delete>
+
+    <insert id="addBook" parameterType="com.bookfox.model.BookDto">
+        INSERT INTO book (book_api_id, title, subtitle, authors, publisher, published_date, description, page_count, thumbnail, book_category)
+        VALUES (#{bookApiId}, #{title}, #{subtitle}, #{authors}, #{publisher}, #{publishedDate}, #{description}, #{pageCount}, #{thumnail}, #{bookCategory})
+    </insert>
+
+    <insert id="addBookshelf" parameterType="map">
+        INSERT INTO book_shelf (book_id, user_id, shelf_type)
+        VALUES (#{bookId}, #{userId}, 1)
+    </insert>
 </mapper>
