@@ -51,4 +51,11 @@ public class SignInController {
 
         return ResponseEntity.ok(Map.of("status", "성공", "message", "로그인 성공"));
     }
+
+    @PostMapping("/sign-out")
+    public ResponseEntity<?> signOut(HttpSession session) {
+        session.invalidate();
+        return ResponseEntity.ok(Map.of("status", "성공", "message", "로그아웃 완료"));
+    }
+
 }
