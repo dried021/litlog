@@ -80,9 +80,8 @@ const BookDetail = () => {
         book,
         option,
       });
-  
-      const { result } = response.data;
-      openModal(result === 0 ? "이미 책장에 추가된 책입니다." : "책장에 성공적으로 추가되었습니다.");
+      const result = response.data;
+      openModal(result > 0 ? "The book is already added to the bookshelf." : "The book has been successfully added to the bookshelf.");
     } catch (err) {
       console.error("Add to bookshelf error");
     }
@@ -91,8 +90,8 @@ const BookDetail = () => {
   const handleAddLikeButton = async () => {
     try {
       const response = await axios.post(`http://localhost:9090/books/like`, { bookId });
-      const { result } = response.data;
-      openModal(result === 0 ? "이미 좋아요를 누른 책입니다." : "좋아요가 성공적으로 추가되었습니다.");
+      const result = response.data;
+      openModal(result > 0 ? "You have already liked this book." : "The book has been successfully liked.");
     } catch (err) {
       console.error("Add like error");
     }
