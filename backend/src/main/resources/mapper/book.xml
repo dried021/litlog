@@ -44,20 +44,34 @@
             br.content,
             br.rating,
             br.creation_date AS creationDate,
+
             (SELECT COUNT(*) 
             FROM like_list ll1 
             WHERE ll1.target_id = br.id AND ll1.like_type = 1) AS likeCount,
+
             CASE 
                 WHEN ll2.target_id IS NOT NULL THEN true
                 ELSE false
             END AS isLiked
+
         FROM book_review br
+
         LEFT JOIN like_list ll2 
             ON br.id = ll2.target_id 
             AND ll2.like_type = 1 
             AND ll2.user_id = #{userId}
+
         WHERE br.book_id = #{id}
-        ORDER BY br.creation_date DESC, br.id DESC
+
+        <choose>
+            <when test="isPopularity == true">
+                ORDER BY likeCount DESC, br.creation_date DESC, br.id DESC
+            </when>
+            <otherwise>
+                ORDER BY br.creation_date DESC, br.id DESC
+            </otherwise>
+        </choose>
+
         LIMIT 5 OFFSET #{offset};
     </select>
 

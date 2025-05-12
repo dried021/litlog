@@ -34,10 +34,9 @@ public class BookService {
         return bookMapper.getReviewCount(id);
     }
 
-    public List<BookReviewDto> getReviews(int id, int currentPage, String userId) {
+    public List<BookReviewDto> getReviews(int id, int currentPage, String userId, Boolean isPopularity) {
         int offset = (currentPage - 1) * 5;
-        System.out.println("userId"+userId);
-        Map<String, Object> params = Map.of("id", id, "offset", offset, "userId", userId);
+        Map<String, Object> params = Map.of("id", id, "offset", offset, "userId", userId, "isPopularity", isPopularity);
         System.out.println("검사"+bookMapper.getReviews(params));
         return bookMapper.getReviews(params);
     }
