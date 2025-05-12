@@ -13,6 +13,11 @@ public class TimelineController {
     @Autowired
     private TimelineService timelineService;
 
+    @GetMapping("/{userId}/reviews/review-timeline")
+    public List<TimelineDto> getTimelineAll(@PathVariable String userId) {
+        return timelineService.getReviewTimelineAll(userId);
+    }
+    
     @GetMapping("/{userId}/reviews/review-timeline/{year}")
     public List<TimelineDto> getTimeline(@PathVariable String userId, @PathVariable int year) {
         return timelineService.getReviewTimeline(userId, year);

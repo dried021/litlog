@@ -10,7 +10,7 @@ const ReviewTimeline = () => {
   const navigate = useNavigate();
 
   const currentYear = new Date().getFullYear();
-  const [selectedYear, setSelectedYear] = useState(year || currentYear);
+  const [selectedYear, setSelectedYear] = useState(year || "");
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,11 +18,14 @@ const ReviewTimeline = () => {
   const years = Array.from({ length: 10 }, (_, i) => currentYear - i);
 
   useEffect(() => {
-    setSelectedYear(year || currentYear);
+    setSelectedYear(year || "");
     setLoading(true);
     axios
+      axios
       .get(
-        `http://localhost:9090/api/members/${userId}/reviews/review-timeline/${year}`
+        year
+          ? `http://localhost:9090/api/members/${userId}/reviews/review-timeline/${year}`
+          : `http://localhost:9090/api/members/${userId}/reviews/review-timeline`
       )
       .then((res) => {
         setReviews(res.data);
@@ -38,7 +41,11 @@ const ReviewTimeline = () => {
   const handleYearChange = (e) => {
     const newYear = e.target.value;
     setSelectedYear(newYear);
-    navigate(`/${userId}/reviews/${newYear}`);
+    if (newYear) {
+      navigate(`/${userId}/reviews/${newYear}`);
+    } else {
+      navigate(`/${userId}/reviews`);
+    }
   };
 
   return (
@@ -47,6 +54,7 @@ const ReviewTimeline = () => {
 
       <div className="timeline-header">
         <select value={selectedYear} onChange={handleYearChange}>
+          <option value="">전체</option>
           {years.map((y) => (
             <option key={y} value={y}>
               {y}
