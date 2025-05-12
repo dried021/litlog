@@ -12,6 +12,7 @@
             bs.shelf_type AS shelfType,
             bs.creation_date AS creationDate,
             bs.progress,
+            b.book_api_id AS bookApiId,
             CASE 
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0
@@ -35,6 +36,7 @@
             bs.shelf_type AS shelfType,
             bs.creation_date AS creationDate,
             bs.progress,
+            b.book_api_id AS bookApiId,
             CASE 
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0
@@ -62,6 +64,7 @@
             bs.shelf_type AS shelfType,
             bs.creation_date AS creationDate,
             bs.progress,
+            b.book_api_id AS bookApiId,
             CASE 
                 WHEN ll.id IS NOT NULL THEN 1
                 ELSE 0

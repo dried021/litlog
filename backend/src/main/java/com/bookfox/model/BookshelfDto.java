@@ -9,11 +9,13 @@ import lombok.Setter;
 @Setter
 public class BookshelfDto {
     private int id;
-    private String bookId;
+    private int bookId;
     private String userId;
     private int shelfType;
     private Timestamp creationDate;
     private int progress;
+
+    private String bookApiId;
     private boolean likeStatus;
     private int rating;
     private String thumbnail;
