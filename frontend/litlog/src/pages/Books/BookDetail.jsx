@@ -8,12 +8,31 @@ import Reviews from "../../components/Review/Reviews";
 import AddLikeButton from "../../components/Button/AddLikeButton";
 import AddToBookshelfButton from "../../components/Button/AddToBookshelfButton";
 import BookInfoDiv from "../../components/Book/BookInfo/BookInfoDiv";
+import CustomModal from "../../components/Modal/CustomModal";
 
 
 const BookDetail = () => {
   const { bookId } = useParams();
   const [book, setBook] = useState({});
   const [isClose, setIsClose] = useState(true);
+
+  const [modalData, setModalData] = useState({
+    show:false,
+    message: "",
+    mode: "close",
+  });
+
+  const handleCloseModal = () => {
+    setModalData({...modalData, show:false,});
+  };
+
+  const openModal = (message) => {
+    setModalData({
+      show:true,
+      message,
+      mode: "close",
+    });
+  };
 
   useEffect(() => {
     if (bookId) {
@@ -54,9 +73,30 @@ const BookDetail = () => {
     setIsClose(!isClose);
   };
 
-  //백 작업: 세션에서 꺼내올 수 있을 때 작업...
-  const handleAddToBookShelfButton = () => {};
-  const handleAddLikeButton = () => {};
+  const handleAddToBookShelfButton = async () => {
+    try {
+      const response = await axios.post(`http://localhost:9090/books/bookshelf`, {
+        bookId,
+        book,
+      });
+  
+      const { result } = response.data;
+      openModal(result === 0 ? "이미 책장에 추가된 책입니다." : "책장에 성공적으로 추가되었습니다.");
+    } catch (err) {
+      console.error("Add to bookshelf error");
+    }
+  };
+  
+  const handleAddLikeButton = async () => {
+    try {
+      const response = await axios.post(`http://localhost:9090/books/like`, { bookId });
+      const { result } = response.data;
+      openModal(result === 0 ? "이미 좋아요를 누른 책입니다." : "좋아요가 성공적으로 추가되었습니다.");
+    } catch (err) {
+      console.error("Add like error");
+    }
+  };
+
 
   return (
     <div>
@@ -97,6 +137,10 @@ const BookDetail = () => {
                 {book.volumeInfo.publisher} | {book.volumeInfo.publishedDate}
               </p>
 
+              <p className={styles['categories']}>
+                {book.volumeInfo?.categories ? book.volumeInfo.categories.join(', ') : '카테고리 정보 없음'}
+              </p>
+
               {displayedDescription && (
                 <div className={styles["description"]}>
                   {displayedDescription.split("\n").map((line, index) => (
@@ -131,6 +175,16 @@ const BookDetail = () => {
       ) : (
         <p>Loading book information...</p>
       )}
+
+      {/* 모달 컴포넌트 */}
+      <CustomModal
+        show={modalData.show}
+        onHide={handleCloseModal}
+        successMessage={modalData.message}
+        failMessage={modalData.message}
+        resultValue={"1"}
+        mode="close"
+      />
     </div>
   );
 };
