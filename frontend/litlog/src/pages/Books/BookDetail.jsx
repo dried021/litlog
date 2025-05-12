@@ -8,12 +8,31 @@ import Reviews from "../../components/Review/Reviews";
 import AddLikeButton from "../../components/Button/AddLikeButton";
 import AddToBookshelfButton from "../../components/Button/AddToBookshelfButton";
 import BookInfoDiv from "../../components/Book/BookInfo/BookInfoDiv";
+import CustomModal from "../../components/Modal/CustomModal";
 
 
 const BookDetail = () => {
   const { bookId } = useParams();
   const [book, setBook] = useState({});
   const [isClose, setIsClose] = useState(true);
+
+  const [modalData, setModalData] = useState({
+    show:false,
+    message: "",
+    mode: "close",
+  });
+
+  const handleCloseModal = () => {
+    setModalData({...modalData, show:false,});
+  };
+
+  const openModal = (message) => {
+    setModalData({
+      show:true,
+      message,
+      mode: "close",
+    });
+  };
 
   useEffect(() => {
     if (bookId) {
@@ -54,9 +73,30 @@ const BookDetail = () => {
     setIsClose(!isClose);
   };
 
-  //백 작업: 세션에서 꺼내올 수 있을 때 작업...
-  const handleAddToBookShelfButton = () => {};
-  const handleAddLikeButton = () => {};
+  const handleAddToBookShelfButton = async (option) => {
+    try {
+      const response = await axios.post(`http://localhost:9090/books/bookshelf`, {
+        bookId,
+        book,
+        option,
+      });
+      const result = response.data;
+      openModal(result > 0 ? "The book is already added to the bookshelf." : "The book has been successfully added to the bookshelf.");
+    } catch (err) {
+      console.error("Add to bookshelf error");
+    }
+  };
+  
+  const handleAddLikeButton = async () => {
+    try {
+      const response = await axios.post(`http://localhost:9090/books/like`, { bookId });
+      const result = response.data;
+      openModal(result > 0 ? "You have already liked this book." : "The book has been successfully liked.");
+    } catch (err) {
+      console.error("Add like error");
+    }
+  };
+
 
   return (
     <div>
@@ -74,8 +114,8 @@ const BookDetail = () => {
             />
             <div className={styles["add-buttons"]}>
                 <BookInfoDiv bookApiId={bookId}/>
-                <AddToBookshelfButton isAdded={false} handleClick={handleAddToBookShelfButton}/>
-                <AddLikeButton isLiked={false} handleClick={handleAddLikeButton}/>
+                <AddToBookshelfButton handleClick={handleAddToBookShelfButton}/>
+                <AddLikeButton handleClick={handleAddLikeButton}/>
             </div>
           </div>
 
@@ -95,6 +135,10 @@ const BookDetail = () => {
               
               <p className={styles["publisher"]}>
                 {book.volumeInfo.publisher} | {book.volumeInfo.publishedDate}
+              </p>
+
+              <p className={styles['categories']}>
+                {book.volumeInfo?.categories ? book.volumeInfo.categories.join(', ') : '카테고리 정보 없음'}
               </p>
 
               {displayedDescription && (
@@ -131,6 +175,16 @@ const BookDetail = () => {
       ) : (
         <p>Loading book information...</p>
       )}
+
+      {/* 모달 컴포넌트 */}
+      <CustomModal
+        show={modalData.show}
+        onHide={handleCloseModal}
+        successMessage={modalData.message}
+        failMessage={modalData.message}
+        resultValue={"1"}
+        mode="close"
+      />
     </div>
   );
 };

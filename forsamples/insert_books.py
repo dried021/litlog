@@ -35,13 +35,21 @@ def insert_book(book):
     # authors를 문자열로 변환하여 저장
     authors_str = ", ".join(book.get("authors", []))
 
+    # published_date 포맷 보정
+    published_date = book.get("published_date")
+    if published_date:
+        if len(published_date) == 4:  # YYYY만 있는 경우
+            published_date += "-01-01"
+        elif len(published_date) == 7:  # YYYY-MM만 있는 경우
+            published_date += "-01"
+
     values = (
         book.get("book_api_id"),
         book.get("title"),
         book.get("subtitle"),
         authors_str,
         book.get("publisher"),
-        book.get("published_date"),
+        published_date,
         book.get("description"),
         book.get("page_count"),
         book.get("thumbnail"),
