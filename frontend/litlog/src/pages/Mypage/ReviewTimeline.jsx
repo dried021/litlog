@@ -11,7 +11,6 @@ const ReviewTimeline = () => {
   const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
 
-  // ✅ 최초 1회만 초기값 설정
   const [selectedYear, setSelectedYear] = useState(year || "");
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,9 +20,8 @@ const ReviewTimeline = () => {
   const [showLikedOnly, setShowLikedOnly] = useState(false);
   const [ratingFilter, setRatingFilter] = useState(0);
 
-  const years = Array.from({ length: 10 }, (_, i) => currentYear - i);
+  const [years, setYears] = useState([]);
 
-  // ✅ 리뷰 데이터 fetch만 처리 (selectedYear 업데이트 없음)
   useEffect(() => {
     setLoading(true);
     axios
@@ -43,7 +41,22 @@ const ReviewTimeline = () => {
       .finally(() => setLoading(false));
   }, [userId, year]);
 
-  // 연도 셀렉 변경 → URL 반영
+  useEffect(() => {
+    axios
+      .get(`http://localhost:9090/api/members/${userId}/join-year`)
+      .then((res) => {
+        const joinYear = res.data; 
+        const yearList = [];
+        for (let y = currentYear; y >= joinYear; y--) {
+          yearList.push(y);
+        }
+        setYears(yearList);
+      })
+      .catch(() => {
+        setYears([currentYear]);
+      });
+  }, [userId]);
+
   const handleYearChange = (e) => {
     const newYear = e.target.value;
     setSelectedYear(newYear);
@@ -71,7 +84,6 @@ const ReviewTimeline = () => {
     setRatingFilter(0);
   };
 
-  // ✅ 정렬 조건 모두 반영
   const filteredReviews = reviews.filter((review) => {
     const meetsRating = ratingFilter === 0 || review.rating === ratingFilter;
     const meetsLiked = !showLikedOnly || review.liked === true;
@@ -95,7 +107,7 @@ const ReviewTimeline = () => {
         onResetFilters={handleResetFilters}
         message={
           filteredReviews.length === 0
-            ? "No reviews found. Try adjusting your filters."
+            ? "No reviews found."
             : `${filteredReviews[0].nickname}, you left reviews for ${filteredReviews.length} books during ${
                 selectedYear || "all years"
               }.`
