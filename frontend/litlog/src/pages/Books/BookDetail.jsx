@@ -15,6 +15,8 @@ const BookDetail = () => {
   const { bookId } = useParams();
   const [book, setBook] = useState({});
   const [isClose, setIsClose] = useState(true);
+  const [likeUpdated, setLikeUpdated] = useState(false);
+
 
   const [modalData, setModalData] = useState({
     show:false,
@@ -80,8 +82,7 @@ const BookDetail = () => {
         book,
         option,
       });
-      const result = response.data;
-      openModal(result > 0 ? "The book is already added to the bookshelf." : "The book has been successfully added to the bookshelf.");
+      openModal("The book has been successfully added to the bookshelf.");
     } catch (err) {
       console.error("Add to bookshelf error");
     }
@@ -89,9 +90,10 @@ const BookDetail = () => {
   
   const handleAddLikeButton = async () => {
     try {
-      const response = await axios.post(`http://localhost:9090/books/like`, { bookId });
+      const response = await axios.post(`http://localhost:9090/books/like`, { bookId, book });
       const result = response.data;
       openModal(result > 0 ? "You have already liked this book." : "The book has been successfully liked.");
+      setLikeUpdated(!likeUpdated);
     } catch (err) {
       console.error("Add like error");
     }
@@ -113,8 +115,8 @@ const BookDetail = () => {
               alt={book.volumeInfo.title}
             />
             <div className={styles["add-buttons"]}>
-                <BookInfoDiv bookApiId={bookId}/>
-                <AddToBookshelfButton handleClick={handleAddToBookShelfButton}/>
+                <BookInfoDiv bookApiId={bookId} likeUpdated={likeUpdated}/>
+                <AddToBookshelfButton bookApiId={bookId} handleClick={handleAddToBookShelfButton}/>
                 <AddLikeButton handleClick={handleAddLikeButton}/>
             </div>
           </div>

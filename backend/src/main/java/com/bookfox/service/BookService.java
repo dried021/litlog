@@ -63,8 +63,8 @@ public class BookService {
         bookMapper.addBook(bookDto);
     }
 
-    public int checkBookshelf(int bookId, String userId, int option){
-        Map<String, Object> params = Map.of("bookId", bookId, "userId", userId, "option", option);
+    public int checkBookshelf(int bookId, String userId){
+        Map<String, Object> params = Map.of("bookId", bookId, "userId", userId);
         return bookMapper.checkBookshelf(params);
     }
 

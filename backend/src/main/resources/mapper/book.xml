@@ -111,7 +111,7 @@
 
     <select id="checkBookshelf" parameterType="map" resultType="int">
         select COUNT(*) from book_shelf
-        where book_id = #{bookId} and user_id = #{userId} and shelf_type=#{option}
+        where book_id = #{bookId} and user_id = #{userId}
     </select>
 
     <select id="checkLike" parameterType="map" resultType="int">

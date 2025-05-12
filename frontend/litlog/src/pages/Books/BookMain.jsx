@@ -6,6 +6,13 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 const BookMain = () => {
     const navigate = useNavigate();
     const [keyword, setKeyword] = useState("");
+    // const [popularBookList, setPopularBookList] = useState([]);
+    // const [justReviewedBookList, setJustReviewedBookList] = useState([]);
+
+    // useEffect(()=>{
+        
+
+    // }, [popularBookList, justReviewedBookList]);
 
     // 더미 데이터
     const booklist = [

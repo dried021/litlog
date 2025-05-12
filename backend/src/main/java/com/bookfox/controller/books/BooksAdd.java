@@ -26,7 +26,7 @@ public class BooksAdd {
     private BookService bookService;
 
     @PostMapping("/bookshelf")
-    public ResponseEntity<Integer> addToBookshelf(@RequestBody Map<String, Object> request) {
+    public ResponseEntity<Boolean> addToBookshelf(@RequestBody Map<String, Object> request) {
         //session에서 user 가져오기
         String userId = "user01";
 
@@ -43,13 +43,8 @@ public class BooksAdd {
         }
 
         int bookId = bookService.getIdByBookApiId(bookApiId);
-
-        int result = bookService.checkBookshelf(bookId, userId, option);
-        if (result>0){
-            return ResponseEntity.ok(result);
-        }
         bookService.addBookshelf(bookId, userId, option);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(true);
     }
 
     @PostMapping("/like")
