@@ -8,7 +8,8 @@ import lombok.Setter;
 public class TimelineDto {
     private int id;
     private String nickname;            
-    private int bookId;        
+    private int bookId;     
+    private String bookApiId;   
     private String title;        
     private String thumbnail;    
     private int rating;           

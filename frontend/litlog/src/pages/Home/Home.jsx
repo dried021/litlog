@@ -4,8 +4,7 @@ import { useLogout } from '../../libs/useLogout';
 
 const Home = () => {
   const { user } = useContext(UserContext);
-  const logout = useLogout(); // ✅ 가져옴
-
+  const logout = useLogout(); 
   return (
     <div>
       <h2>메인 페이지</h2>

@@ -32,6 +32,12 @@
         WHERE book_api_id = #{bookApiId}
     </select>
 
+    <select id="getApiIdByBookId" parameterType="int" resultType="String">
+        SELECT book_api_id
+        FROM book
+        WHERE id = #{bookId}
+    </select>
+
     <select id="getBookshelfCount" parameterType="int" resultType="int">
         SELECT COUNT(*) 
         FROM book_shelf 
@@ -142,7 +148,7 @@
 
             (SELECT COUNT(*) 
             FROM book_shelf bs 
-            WHERE bs.book_id = b.id) AS views,
+            WHERE bs.book_id = b.id) AS bookshelves,
 
             (SELECT COUNT(*) 
             FROM like_list ll 
@@ -150,7 +156,7 @@
 
             (SELECT COUNT(*) 
             FROM book_review br 
-            WHERE br.book_id = b.id) AS hearts
+            WHERE br.book_id = b.id) AS reviews
 
         FROM book b
 
@@ -178,7 +184,7 @@
 
             (SELECT COUNT(*) 
             FROM book_shelf bs 
-            WHERE bs.book_id = b.id) AS views,
+            WHERE bs.book_id = b.id) AS bookshelves,
 
             (SELECT COUNT(*) 
             FROM like_list ll 
@@ -186,7 +192,7 @@
 
             (SELECT COUNT(*) 
             FROM book_review br 
-            WHERE br.book_id = b.id) AS hearts
+            WHERE br.book_id = b.id) AS reviews
 
         FROM book b
 
@@ -197,5 +203,30 @@
         LIMIT 20
     </select>
 
+    <select id="getPopularReviewList" parameterType="int" resultType="com.bookfox.model.BookReviewListDTO">
+        SELECT 
+            br.id,
+            br.user_id AS userId,
+            br.book_id AS bookId,
+            b.book_api_id AS bookApiId,
+            b.title,
+            b.authors,
+            b.thumbnail,
+            br.content,
+            br.rating,
+            br.creation_date AS creationDate,
+            COALESCE(likeCount.likeCount, 0) AS likeCount
+        FROM book_review br
+        LEFT JOIN book b ON b.id = br.book_id
+        LEFT JOIN (
+            SELECT target_id, COUNT(*) AS likeCount 
+            FROM like_list 
+            WHERE like_type = 1 
+            GROUP BY target_id
+        ) likeCount ON likeCount.target_id = br.id
+        WHERE br.creation_date &gt;= NOW() - INTERVAL 7 DAY
+        ORDER BY likeCount DESC
+        LIMIT 5 OFFSET #{offset};
+    </select>
     
 </mapper>

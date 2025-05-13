@@ -53,7 +53,6 @@ function BookInfoDiv({ bookApiId, likeUpdated }) {
       setBookshelfcount(bookshelfCount);
       setLikeCount(likeCount);
       setIsLiked(isLiked);
-      console.log(`Bookshelf: ${bookshelfCount}, Likes: ${likeCount}`);
     } catch (error) {
       console.error("Fail to fetch counts:", error);
       setBookshelfcount(0);

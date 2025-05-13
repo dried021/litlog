@@ -1,9 +1,60 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import UserSlider from "../../components/Ranking/UserSlider/UserSlider";
+import SearchBar from '../../components/SearchBar/SearchBar';
+import axios from "axios";
 
 const ReadersMain = () => {
+    const navigate = useNavigate();
+    const [keyword, setKeyword] = useState("");
+    const [avidUserList, setAvidUserList] = useState([]);
+    const [belovedUserList, setBelovedUserList] = useState([]);
+
+    useEffect(()=>{
+        getAvidUserList();
+        getBelovedUserList();
+    });
+
+    const getAvidUserList = async () => {
+        try{
+            const response = await axios.get(`http://localhost:9090/readers/avidUserList`);
+            setAvidUserList(response.data || []);
+        }catch(error){
+            console.error("Fail to load userlist", error);
+            setAvidUserList([]);
+        }
+    }
+
+    const getBelovedUserList = async () => {
+        try{
+            const response = await axios.get(`http://localhost:9090/readers/belovedUserList`);
+            setBelovedUserList(response.data || []);
+        }catch(error){
+            console.error("Fail to load userlist", error);
+            setBelovedUserList([]);
+        }
+    }
+
+    const handleSearch = (searchKeyword) => {
+        // if (searchKeyword.trim()) {
+        //     navigate(`/readers/search?keyword=${encodeURIComponent(searchKeyword)}`);
+        // }
+    };
+
+
     return(
         <div>
-            <h2> Readers 메인 페이지 </h2>
+            <h2 className="title">Readers Main Page</h2>
+            <SearchBar 
+                handleSearch={handleSearch} 
+                value={keyword} 
+                onChange={(e) => setKeyword(e.target.value)} 
+                placeholder="Search readers..."
+            />
+
+            <UserSlider type="avid" title="Avid Reader Rank" users={avidUserList} />
+            <UserSlider type="beloved" title="Beloved Reader Rank" users={belovedUserList}/>
+
         </div>
     );
 };

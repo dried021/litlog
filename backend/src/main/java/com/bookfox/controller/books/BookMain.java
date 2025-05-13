@@ -4,9 +4,11 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookfox.model.BookListDto;
+import com.bookfox.model.BookReviewListDTO;
 import com.bookfox.service.BookService;
 
 import jakarta.annotation.Resource;
@@ -20,15 +22,29 @@ public class BookMain {
 
     @GetMapping("/popularBookList")
     public ResponseEntity<List<BookListDto>> getPopularBookList(){
-        List<BookListDto> books = bookService.getPopularBookList(); 
-        System.out.println("popularbooklist" + books);
+        List<BookListDto> books = bookService.getPopularBookList();
+        for (BookListDto book : books) {
+            String bookApiId = bookService.getApiIdByBookId(book.getId());
+            book.setLink(bookApiId);
+        }
         return ResponseEntity.ok(books);
     }
 
     @GetMapping("/justReviewedBookList")
     public ResponseEntity<List<BookListDto>> getJustReviewedBookList(){
         List<BookListDto> books = bookService.getJustReviewedBookList(); 
+        for (BookListDto book : books) {
+            String bookApiId = bookService.getApiIdByBookId(book.getId());
+            book.setLink(bookApiId);
+        }
         return ResponseEntity.ok(books);
+    }
+
+    @GetMapping("/popularReviewList")
+    public ResponseEntity<List<BookReviewListDTO>> getPopularReviewList(@RequestParam int currentPage){
+        List<BookReviewListDTO> reviews = bookService.getPopularReviewList(currentPage);
+
+        return ResponseEntity.ok(reviews);
     }
 
 }

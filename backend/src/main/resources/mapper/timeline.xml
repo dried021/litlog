@@ -8,6 +8,7 @@
     SELECT
       r.id,
       r.book_id AS bookId,
+      b.book_api_id AS bookApiId,
       b.title,
       COALESCE(b.thumbnail, '') AS thumbnail,
       r.rating,
@@ -30,6 +31,7 @@
     SELECT
       r.id,
       r.book_id AS bookId,
+      b.book_api_id AS bookApiId,
       b.title,
       COALESCE(b.thumbnail, '') AS thumbnail,
       r.rating,

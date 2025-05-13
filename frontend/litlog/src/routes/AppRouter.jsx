@@ -68,8 +68,7 @@ const AppRouter = () => {
             <Route path="/:userId/bookshelf" element={<Bookshelf />} />
             <Route path="/:userId/following" element={<Network type="following"/>} />
             <Route path="/:userId/followers" element={<Network type="followers"/>} />
-            <Route path="/:userId/reviews" element={<ReviewTimeline />} />
-            <Route path="/:userId/reviews/:year" element={<ReviewTimeline />} />
+            <Route path="/:userId/reviews/:year?" element={<ReviewTimeline />} />
             <Route path="/:userId/reviews/detail" element={<ReviewDetail />} />
             <Route path="/:userId/collections" element={<CollectionList />} />
     

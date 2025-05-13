@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ReviewEntry = ({ review, showMonth }) => {
   const date = new Date(review.creationDate);
@@ -7,9 +8,23 @@ const ReviewEntry = ({ review, showMonth }) => {
   const day = String(date.getDate()).padStart(2, "0");
   const thumbnail = review.thumbnail || "/images/covernotavailable.png";
 
+  const getThumbnail = (thumbnail) => {
+    if (!thumbnail) return "/images/covernotavailable.png";
+    if (thumbnail.includes("zoom=")) {
+      return thumbnail.replace(/zoom=\d+/, "zoom=3");
+    } else if (thumbnail.includes("=s")) {
+      return thumbnail.replace(/=s\d+/, "=s400");
+    }
+    return thumbnail;
+  };
+
   const renderStars = (rating) => {
-    return Array.from({ length: rating }, (_, i) => (
-      <img key={i} src="/icons/star.svg" alt="별점"/>
+    return Array.from({ length: 5 }, (_, i) => (
+      <img
+        key={i}
+        src={i < rating ? "/icons/star.svg" : "/icons/star_gray.svg"}
+        alt="별점"
+      />
     ));
   };
 
@@ -25,8 +40,10 @@ const ReviewEntry = ({ review, showMonth }) => {
       </div>
       <div className="day-label">{day}</div>
       <div className="book-info">
-        <img className="book-thumbnail" src={thumbnail} alt="표지 이미지"/>
-        <span className="book-title">{review.title}</span>
+        <img className="book-thumbnail" src={getThumbnail(review.thumbnail)} alt="표지 이미지"/>
+        <Link to={`/books/${review.bookApiId}`} className="book-title">
+          {review.title}
+        </Link>
       </div>
       <div className="entry-rating">{renderStars(review.rating)}</div>
       <div className="entry-like">
