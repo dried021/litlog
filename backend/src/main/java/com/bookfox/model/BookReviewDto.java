@@ -1,6 +1,6 @@
 package com.bookfox.model;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -21,4 +21,6 @@ public class BookReviewDto {
     private int likeCount;
     @JsonProperty("isLiked")
     private boolean isLiked;
+    private String thumbnail;
+    private Timestamp publishedDate;
 }
