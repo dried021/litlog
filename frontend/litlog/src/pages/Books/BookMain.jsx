@@ -60,27 +60,3 @@ const BookMain = () => {
 };
 
 export default BookMain;
-
-
-
-    // 더미 데이터
-    // const booklist = [
-    //     {
-    //         id: 1,
-    //         title: 'THUNDERBOLTS',
-    //         image: '/images/cat.jpg',
-    //         link: '/books/thunderbolts',
-    //         views: '473K',
-    //         likes: '118K',
-    //         hearts: '205K',
-    //     },
-    //     {
-    //         id: 2,
-    //         title: 'SINNERS',
-    //         image: '/images/cat.jpg',
-    //         link: '/books/sinners',
-    //         views: '994K', <<bookshelf
-    //         likes: '169K', << like
-    //         hearts: '468K', << reviews
-    //     }
-    // ];
