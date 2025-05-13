@@ -89,8 +89,6 @@ INSERT INTO like_type (name, value) VALUES
 ('BOOK', 2),
 ('BOOK_COLLECTION', 3);
 
-SELECT * FROM user;
-
 CREATE TABLE user(
 	id VARCHAR(50) PRIMARY KEY,
     id_reset_at TIMESTAMP NULL DEFAULT NULL,
@@ -126,8 +124,6 @@ CREATE TABLE term (
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL
 );
-
-SELECT * from book;
 
 CREATE TABLE book (
     id INT PRIMARY KEY AUTO_INCREMENT,                        -- 책 고유 ID
@@ -194,12 +190,6 @@ CREATE TABLE like_list(
 -- ('BOOK', 2),
 -- ('BOOK_COLLECTION', 3)
 
-select * from book_collection;
-select * from book_collection_like;
-SELECT collection_id, COUNT(*) AS like_count
-FROM book_collection_like
-GROUP BY collection_id
-ORDER BY like_count DESC;
 
 CREATE TABLE book_collection(
 	id INT AUTO_INCREMENT PRIMARY KEY,			-- 이건 프리메리
