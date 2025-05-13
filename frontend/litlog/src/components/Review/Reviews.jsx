@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './Reviews.module.css';
 import axios from 'axios';
 import Pagination from "../../components/Pagination/Pagination";
+import AddReview from "./AddReview";
 
 function Rating({ rating }) {
   return (
@@ -28,7 +29,7 @@ function Rating({ rating }) {
 
 
 function Review({ reviews, currentPage, reviewPerPage, handleLikeClick }) {
-    const handleClickProfile = (userId) => {
+  const handleClickProfile = (userId) => {
     // 수정 Implement profile redirection logic
     };
 
@@ -80,22 +81,21 @@ function Reviews({ bookApiId }) {
   const [loading, setLoading] = useState(false);
   const [reviewsCount, setReviewsCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-
   const [isPopularity, setIsPopularity] = useState(true);
-
-  const handleOptionClick = (option) => {
-      setIsPopularity(option === "popularity");
-      setCurrentPage(1);
-  };
-
+  const [isAddingReview, setIsAddingReview] = useState(false);
   const reviewPerPage = 5;
 
+  const handleOptionClick = (option) => {
+    setIsPopularity(option === "popularity");
+    setCurrentPage(1);
+  };
+
   useEffect(() => {
-    if (bookApiId) {
+    if (bookApiId && !isAddingReview) {
       setLoading(true);
       getReviews(bookApiId, currentPage, isPopularity);
     }
-  }, [bookApiId, currentPage, isPopularity]);
+  }, [bookApiId, currentPage, isPopularity, isAddingReview]);
 
   const getReviews = async (bookApiId, currentPage, isPopularity) => {
     try {
@@ -105,7 +105,6 @@ function Reviews({ bookApiId }) {
       const { reviews, reviewsCount } = response.data;
       setReviews(reviews || []);
       setReviewsCount(reviewsCount || 0);
-
     } catch (error) {
       console.error("Fail to fetch reviews:", error);
       setReviews([]);
@@ -143,50 +142,75 @@ function Reviews({ bookApiId }) {
   };
 
   const handleAddReview = () => {
-    console.log("리뷰 쓰는 화면으로 이동~~");
+    setIsAddingReview(true);    
+  }
+
+  const handleCancelAddReview = () => {
+    setIsAddingReview(false);
+  }
+
+  const handleReviewSubmitted = (newReview) => {
+    setIsAddingReview(false);
+    setReviews([newReview, ...reviews]);
+    setReviewsCount(reviewsCount + 1);
   }
 
   return (
     <div className={styles["review-section"]}>
       {loading ? (
         <p className="loading">Loading...</p>
-      ) : reviews.length > 0 ? (
+      ) : (
         <>
-            <div className={styles.optionsContainer}>
-                <div className={styles.leftContainer}>
-                    <p className={`${styles.option} ${isPopularity ? styles.optionActive : ""}`} 
-                        onClick={() => handleOptionClick("popularity")}>
-                    Popularity
-                    </p>
-                    <p className={`${styles.option} ${!isPopularity ? styles.optionActive : ""}`} 
-                        onClick={() => handleOptionClick("newest")}>
-                    Newest
-                    </p>
-                </div>
-
-                <div className={styles.rightContainer}>
-                    <p className={styles.addReviewButton} onClick={handleAddReview}>
-                    Add Review
-                    </p>
-                </div>
+          <div className={styles.optionsContainer}>
+            <div className={styles.leftContainer}>
+              <p 
+                className={`${styles.option} ${isPopularity ? styles.optionActive : ""}`} 
+                onClick={() => handleOptionClick("popularity")}
+              >
+                Popularity
+              </p>
+              <p 
+                className={`${styles.option} ${!isPopularity ? styles.optionActive : ""}`} 
+                onClick={() => handleOptionClick("newest")}
+              >
+                Newest
+              </p>
             </div>
 
-            <Review
+            <div className={styles.rightContainer}>
+              <p className={styles.addReviewButton} onClick={handleAddReview}>
+                Add Review
+              </p>
+            </div>
+          </div>
+
+          {isAddingReview ? (
+            <AddReview
+              bookApiId = {bookApiId}
+              onCancel = {handleCancelAddReview}
+              onSubmit = {handleReviewSubmitted}/>
+          )
+          :reviews.length > 0 ? (
+            <>
+              <Review
                 reviews={reviews}
                 currentPage={currentPage}
                 reviewPerPage={reviewPerPage}
                 handleLikeClick={handleLikeClick}
-            />
-            <Pagination
+              />
+              <Pagination
                 currentPage={currentPage}
                 pageCount={Math.ceil(reviewsCount / reviewPerPage)}
                 onPageChange={handlePageChange}
-            />
+              />
+            </>
+          ) : (
+            <p className="no-reviews">No reviews yet</p>
+          )}
         </>
-      ) : (
-        <p className="no-reviews">No reviews yet</p>
       )}
     </div>
+
   );
 }
 

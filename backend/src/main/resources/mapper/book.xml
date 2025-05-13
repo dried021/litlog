@@ -12,10 +12,30 @@
             END AS is_book_exists
     </select>
 
+    <select id="isLiked" parameterType="map" resultType="Boolean">
+        SELECT 
+            CASE    
+                WHEN EXISTS (
+                    SELECT 1 
+                    FROM like_list 
+                    WHERE target_id = #{id} 
+                    AND user_id = #{userId} 
+                    AND like_type = 2
+                ) THEN 1
+                ELSE 0
+            END AS is_book_liked
+    </select>
+
     <select id="getIdByBookApiId" parameterType="String" resultType="int">
         SELECT id 
         FROM book
         WHERE book_api_id = #{bookApiId}
+    </select>
+
+    <select id="getApiIdByBookId" parameterType="int" resultType="String">
+        SELECT book_api_id
+        FROM book
+        WHERE id = #{bookId}
     </select>
 
     <select id="getBookshelfCount" parameterType="int" resultType="int">
@@ -82,16 +102,106 @@
 
     <delete id="unlikeReview" parameterType="map">
         DELETE FROM like_list
-        WHERE user_id = #{userId} AND target_id = #{id}
+        WHERE user_id = #{userId} AND target_id = #{id} and like_type = 1
     </delete>
 
     <insert id="addBook" parameterType="com.bookfox.model.BookDto">
         INSERT INTO book (book_api_id, title, subtitle, authors, publisher, published_date, description, page_count, thumbnail, book_category)
-        VALUES (#{bookApiId}, #{title}, #{subtitle}, #{authors}, #{publisher}, #{publishedDate}, #{description}, #{pageCount}, #{thumnail}, #{bookCategory})
+        VALUES (#{bookApiId}, #{title}, #{subtitle}, #{authors}, #{publisher}, #{publishedDate}, #{description}, #{pageCount}, #{thumbnail}, #{bookCategory})
     </insert>
 
     <insert id="addBookshelf" parameterType="map">
         INSERT INTO book_shelf (book_id, user_id, shelf_type)
         VALUES (#{bookId}, #{userId}, #{option})
     </insert>
+
+    <select id="checkBookshelf" parameterType="map" resultType="int">
+        select COUNT(*) from book_shelf
+        where book_id = #{bookId} and user_id = #{userId}
+    </select>
+
+    <select id="checkLike" parameterType="map" resultType="int">
+        select COUNT(*) from like_list
+        where target_id = #{bookId} and user_id = #{userId} and like_type = 2
+    </select>
+
+    <insert id = "addLike" parameterType="map">
+        insert into like_list (target_id, user_id, like_type)
+        values (#{bookId}, #{userId}, 2)
+    </insert>
+
+    <delete id="unlike" parameterType="map">
+        DELETE FROM like_list
+        WHERE user_id = #{userId} AND target_id = #{bookId} AND like_type = 2 
+    </delete>
+
+    <insert id="addReview" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+        insert into book_review (user_id, book_id, content, rating)
+        values (#{userId}, #{bookId}, #{content}, #{rating})
+    </insert>
+
+    <select id="getPopularBookList" resultType="com.bookfox.model.BookListDto">
+        SELECT 
+            b.id,
+            b.title,
+            b.thumbnail AS image,
+
+            (SELECT COUNT(*) 
+            FROM book_shelf bs 
+            WHERE bs.book_id = b.id) AS bookshelves,
+
+            (SELECT COUNT(*) 
+            FROM like_list ll 
+            WHERE ll.target_id = b.id AND ll.like_type = 2) AS likes,
+
+            (SELECT COUNT(*) 
+            FROM book_review br 
+            WHERE br.book_id = b.id) AS reviews
+
+        FROM book b
+
+        ORDER BY 
+            (SELECT COUNT(*) 
+            FROM book_shelf bs 
+            WHERE bs.book_id = b.id AND bs.creation_date &gt;= NOW() - INTERVAL 7 DAY) +
+
+            (SELECT COUNT(*) 
+            FROM like_list ll 
+            WHERE ll.target_id = b.id AND ll.like_type = 2 AND ll.creation_date &gt;= NOW() - INTERVAL 7 DAY) +
+
+            (SELECT COUNT(*) 
+            FROM book_review br 
+            WHERE br.book_id = b.id AND br.creation_date &gt;= NOW() - INTERVAL 7 DAY) DESC
+
+        LIMIT 20
+    </select>
+
+    <select id="getJustReviewedBookList" resultType="com.bookfox.model.BookListDto">
+        SELECT 
+            b.id,
+            b.title,
+            b.thumbnail AS image,
+
+            (SELECT COUNT(*) 
+            FROM book_shelf bs 
+            WHERE bs.book_id = b.id) AS bookshelves,
+
+            (SELECT COUNT(*) 
+            FROM like_list ll 
+            WHERE ll.target_id = b.id AND ll.like_type = 2) AS likes,
+
+            (SELECT COUNT(*) 
+            FROM book_review br 
+            WHERE br.book_id = b.id) AS reviews
+
+        FROM book b
+
+        ORDER BY 
+            (SELECT MAX(br.creation_date) 
+            FROM book_review br 
+            WHERE br.book_id = b.id ) DESC
+        LIMIT 20
+    </select>
+
+    
 </mapper>

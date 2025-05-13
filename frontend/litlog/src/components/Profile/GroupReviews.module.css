@@ -12,18 +12,23 @@
 }
 
 .solid {
-    border: 1px solid #636B2F;
+    border: 2px solid #6d743d;
 }
 
 .reviewCard {
     display: flex;
-    background-color: #4e503d;
+    /*background-color: #F3F3F3; /* backgroud color */
     padding: 16px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 1px 5px 0 #E0E0E0;
+    /*border-radius: 8px;*/
+    margin-bottom: 25px;
+    padding-bottom: 30px;
+    /*box-shadow: 0 3px 5px 0 #E0E0E0;*/
+    border-bottom: 2px solid #b9beb6;
 }
 
+.reviewCard.noBorder {
+    border: none;
+}
 .bookThumbnail {
     width: 100px;
     height: 150px;
@@ -42,7 +47,7 @@
 }
 
 .title {
-    color: 	#F8F8F8; /*#444*/
+    color: 	#333; /*#444*/
     font-size: 20px;
     font-weight: bold;
     margin: 0;
@@ -64,12 +69,13 @@
 .star {
     color: transparent;
     font-size: 15px;
-    margin-right: 0px;
+    margin-right: 3px;
     width: 8px;
+    color: 	#2e2d2b;
 }
 
 .star.filled {
-    color: 	#F8F8F8 /*#2e2d2b;*/
+    color: 	#2e2d2b; /*#2e2d2b;*/
 }
 
 .icon {
@@ -81,15 +87,15 @@
 
 .date {
     font-size: 14px;
-    color: #a3a3a3;
-    margin-left: 8px;
+    color: #555; /* a3a3a3 */
+    margin-left: 3px;
 }
 
 .content {
     font-size: 15px;
     margin-top: 8px;
     margin-bottom: 12px;
-    color: 	#F8F8F8;
+    color: 	#333;
 }
 
 .moreButton {
@@ -108,4 +114,9 @@
     gap: 6px;
     font-size: 14px;
     color: #a3a3a3;
+}
+
+.hyperlink {
+    text-decoration: none;
+    color: inherit;
 }

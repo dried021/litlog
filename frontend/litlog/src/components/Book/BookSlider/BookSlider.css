@@ -7,15 +7,28 @@
     box-sizing: border-box;
   }
 
+  .bookslider-title{
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+
+  .bookslider-booktitle{
+    height: 50px;
+    margin: 15px;
+    text-align: center;
+    display: flex;
+    align-items: center;   
+    justify-content: center;
+  }
   
   .book-card {
     padding: 10px;
     text-align: center;
   }
-  
+
   .book-image {
     width: 100%;
-    height: auto;
+    height: 318px;
     border-radius: 8px;
     transition: transform 0.3s ease;
   }
@@ -25,9 +38,26 @@
   }
   
   .book-stats {
-    font-size: 0.9rem;
-    color: #ccc;  
-    margin-top: 5px;
+    height: 24px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* 아이템 간격 */
+  }
+  
+  .book-stats img {
+    width: 25px;  /* 이미지 크기 */
+    height: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .book-stats p {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
   }
   
   .book-slider a {
@@ -38,4 +68,16 @@
   .slick-prev::before,
   .slick-next::before {
     display: none !important;
+  }
+
+  .review{
+    width: 20px;
+  }
+
+  .like{
+    width: 20px;
+  }
+
+  .bookshelf{
+    width: 20px;
   }

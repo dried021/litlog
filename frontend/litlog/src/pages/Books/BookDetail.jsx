@@ -15,6 +15,8 @@ const BookDetail = () => {
   const { bookId } = useParams();
   const [book, setBook] = useState({});
   const [isClose, setIsClose] = useState(true);
+  const [likeUpdated, setLikeUpdated] = useState(false);
+
 
   const [modalData, setModalData] = useState({
     show:false,
@@ -80,9 +82,7 @@ const BookDetail = () => {
         book,
         option,
       });
-  
-      const { result } = response.data;
-      openModal(result === 0 ? "이미 책장에 추가된 책입니다." : "책장에 성공적으로 추가되었습니다.");
+      openModal("The book has been successfully added to the bookshelf.");
     } catch (err) {
       console.error("Add to bookshelf error");
     }
@@ -90,9 +90,10 @@ const BookDetail = () => {
   
   const handleAddLikeButton = async () => {
     try {
-      const response = await axios.post(`http://localhost:9090/books/like`, { bookId });
-      const { result } = response.data;
-      openModal(result === 0 ? "이미 좋아요를 누른 책입니다." : "좋아요가 성공적으로 추가되었습니다.");
+      const response = await axios.post(`http://localhost:9090/books/like`, { bookId, book });
+      const result = response.data;
+      openModal(result > 0 ? "You have already liked this book." : "The book has been successfully liked.");
+      setLikeUpdated(!likeUpdated);
     } catch (err) {
       console.error("Add like error");
     }
@@ -114,8 +115,8 @@ const BookDetail = () => {
               alt={book.volumeInfo.title}
             />
             <div className={styles["add-buttons"]}>
-                <BookInfoDiv bookApiId={bookId}/>
-                <AddToBookshelfButton handleClick={handleAddToBookShelfButton}/>
+                <BookInfoDiv bookApiId={bookId} likeUpdated={likeUpdated}/>
+                <AddToBookshelfButton bookApiId={bookId} handleClick={handleAddToBookShelfButton}/>
                 <AddLikeButton handleClick={handleAddLikeButton}/>
             </div>
           </div>
@@ -157,11 +158,7 @@ const BookDetail = () => {
                 <div className={styles["readmore-button"]}>
                     <ReadMoreButton isOpen={!isClose} handleReadMore={handleReadMore} />
                 </div>
-
-                
               )}
-
-              
             </div>
           </div>
 
