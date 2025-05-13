@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding-bottom: 16px;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid #111;
 }
 
 .tabGroup {
@@ -12,23 +12,32 @@
 }
 
 .tabButton {
-  font-size: 16px;
+  font-size: 17px;
   background: none;
   border: none;
   color: #aaa;
   padding: 8px 0;
   border-bottom: 2px solid transparent;
   cursor: pointer;
+  outline: none;
+  transition: color 0.2s ease;
 }
 
 .tabButton:hover {
-  color: #fff;
+  color: #444;
+}
+
+.tabButton:focus {
+  outline: none;
 }
 
 .active {
   color: #d4a373;
   border-bottom: 2px solid #d4a373;
-  font-weight: bold;
+}
+
+.filterTab {
+  font-size: 14px;
 }
 
 .filterGroup {
@@ -37,80 +46,50 @@
   gap: 16px;
 }
 
-.dropdown {
-  background-color: #1a1a1a;
-  color: #fff;
-  border: 1px solid #555;
+.dropdownWrapper {
+  position: relative;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #f8f8f8;
+  border: 1px solid #ddd;
   padding: 6px 10px;
   border-radius: 4px;
-  font-size: 14px;
-  min-width: 100px;
-  appearance: none;
+  min-width: 140px;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
-.toggleWrapper {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.filterLabel {
+  font-size: 13px;
+  color: #333;
+  white-space: nowrap;
 }
 
-.icon {
-  font-size: 16px;
-  color: #aaa;
-}
-
-.switchLabel {
-  position: relative;
-  width: 36px;
-  height: 20px;
-  display: inline-block;
-}
-
-.switchLabel input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.switchCustom {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #555;
-  border-radius: 34px;
-  transition: 0.4s;
-}
-
-.switchCustom:before {
-  content: "";
-  position: absolute;
-  left: 3px;
-  bottom: 3px;
-  width: 14px;
-  height: 14px;
-  background-color: white;
-  border-radius: 50%;
-  transition: 0.4s;
-}
-
-.switchLabel input:checked + .switchCustom {
-  background-color: #d4a373;
-}
-
-.switchLabel input:checked + .switchCustom:before {
-  transform: translateX(16px);
-}
-
-.resetButton {
-  background: none;
-  border: none;
-  font-size: 18px;
+.dropdownItem {
+  padding: 4px 8px;
   cursor: pointer;
-  color: #aaa;
+  color: #333;
+  font-size: 13px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
 
-.resetButton:hover {
-  color: #fff;
+.dropdownItem:hover {
+  background-color: #3a3a3a;
+}
+
+.refreshIcon {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  filter: grayscale(1) brightness(0.8);
+  transition: filter 0.2s ease;
+}
+
+.tabButton:hover .refreshIcon {
+  filter: brightness(0.3);
 }
