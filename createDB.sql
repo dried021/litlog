@@ -194,12 +194,11 @@ CREATE TABLE like_list(
 -- ('BOOK', 2),
 -- ('BOOK_COLLECTION', 3)
 
-select * from book_collection;
-select * from book_collection_like;
-SELECT collection_id, COUNT(*) AS like_count
-FROM book_collection_like
-GROUP BY collection_id
-ORDER BY like_count DESC;
+drop Table book_collection;
+drop Table book_collection_book;
+drop Table book_collection_comment;
+drop Table book_collection_like;
+
 
 CREATE TABLE book_collection(
 	id INT AUTO_INCREMENT PRIMARY KEY,			-- 이건 프리메리
