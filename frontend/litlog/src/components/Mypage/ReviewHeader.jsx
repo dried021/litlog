@@ -40,15 +40,11 @@ const ReviewHeader = ({
       <div className={styles.tabGroup}>
         <button
           className={`${styles.tabButton} ${styles.mainTab} ${activeTab === "timeline" ? styles.active : ""}`}
-          onClick={() => onTabChange("timeline")}
-        >
-          Timeline
+          onClick={() => onTabChange("timeline")}>Timeline
         </button>
         <button
           className={`${styles.tabButton} ${styles.mainTab} ${activeTab === "reviews" ? styles.active : ""}`}
-          onClick={() => onTabChange("reviews")}
-        >
-          Reviews
+          onClick={() => onTabChange("reviews")}>Reviews
         </button>
       </div>
 
@@ -59,24 +55,17 @@ const ReviewHeader = ({
           <span
             className={`${styles.tabButton} ${styles.filterTab} ${openDropdown === "year" ? styles.active : ""}`}
             onClick={() => toggleDropdown("year")}
-          >
+          > 
             {selectedYear || "Year"} ▾
           </span>
           {openDropdown === "year" && (
             <div className={styles.dropdownMenu}>
-              <div
-                className={styles.dropdownItem}
-                onClick={() => onYearChange({ target: { value: "" } })}
-              >
+              <div className={styles.dropdownItem} onClick={() => onYearChange({ target: { value: "" } })}>
                 Any year
               </div>
               <div className={styles.scrollArea}>
                 {years.map((year) => (
-                  <div
-                    key={year}
-                    className={styles.dropdownItem}
-                    onClick={() => onYearChange({ target: { value: year } })}
-                  >
+                  <div key={year} className={styles.dropdownItem} onClick={() => onYearChange({ target: { value: year } })}>
                     {year}
                   </div>
                 ))}
@@ -100,16 +89,12 @@ const ReviewHeader = ({
               </div>
               <div className={styles.dropdownItem}>
                 <div className={styles.ratingRow}>
-                  <Rating
-                    name="interactive-rating"
-                    value={Number(selectedRating) || 0}
+                  <Rating name="interactive-rating" value={Number(selectedRating) || 0}
                     onChange={(event, newValue) => {
                       if (newValue !== null) {
                         onRatingChange({ target: { value: newValue } });
                       }
-                    }}
-                    precision={1}
-                    size="small"
+                    }} precision={1} size="small"
                   />
                 </div>
               </div>
