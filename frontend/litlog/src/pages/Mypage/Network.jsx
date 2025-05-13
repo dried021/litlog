@@ -10,6 +10,7 @@ import defaultProfile from "../../assets/default_profile.png";
 import eyeIcon from '../../assets/eye_light.svg';
 import reviewIcon from '../../assets/review_light.svg';
 import collectionIcon from '../../assets/collection_light.svg';
+import Pagination from "../../components/Pagination/Pagination";
 
 export default function Network({type}) {
     const {userId} = useParams();
@@ -18,7 +19,8 @@ export default function Network({type}) {
     const [networkType, setNetworkType] = useState(type ? type : "following");
 
     const [currentPage, setCurrentPage] = useState(1);
-    
+    const membersPerPage = 10;
+
     useEffect(()=>{
         fetch(`http://localhost:9090/members/${userId}/network`)
             .then(res => res.json())
@@ -26,6 +28,10 @@ export default function Network({type}) {
             .catch(error => console.error("Failed to fetch data", error))
             .finally(() => setLoading(false));
     }, [userId]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [networkType])
 
     if (loading) return <p>Loading...</p>
     
@@ -44,6 +50,11 @@ export default function Network({type}) {
         }
     }
 
+    /* PAGINATE */
+    const indexOfLastMember = currentPage * membersPerPage;
+    const indexOfFirstMember = indexOfLastMember - membersPerPage;
+    const currentMembers = memberList.slice(indexOfFirstMember, indexOfLastMember);
+
     return (
         <div className={styles.network}>
             <ProfileSummary/>
@@ -59,7 +70,7 @@ export default function Network({type}) {
             </div>
             <ul className={styles.memberList}>
                 {msg && (<p>{msg}</p>)}
-                {memberList.map(profile => (
+                {currentMembers.map(profile => (
                     <li key={profile.id}>
                         <div className={styles.profileSummary}>
                             <div className={styles.profileLeft}>
@@ -112,6 +123,11 @@ export default function Network({type}) {
                     </li>
                 ))}
             </ul>
+            <Pagination 
+                currentPage = {currentPage}
+                pageCount = {Math.ceil(memberList.length / membersPerPage)}
+                onPageChange = {(page) => setCurrentPage(page)}
+            />
         </div>
     );
 }
