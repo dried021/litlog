@@ -65,8 +65,7 @@ const AppRouter = () => {
             {/* Mypage */}
             <Route path="/:userId" element={<Profile />} />
             <Route path="/:userId/bookshelf" element={<Bookshelf />} />
-            <Route path="/:userId/reviews" element={<ReviewTimeline />} />
-            <Route path="/:userId/reviews/:year" element={<ReviewTimeline />} />
+            <Route path="/:userId/reviews/:year?" element={<ReviewTimeline />} />
             <Route path="/:userId/reviews/detail" element={<ReviewDetail />} />
             <Route path="/:userId/collections" element={<CollectionList />} />
     
