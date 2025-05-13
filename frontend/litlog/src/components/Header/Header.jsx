@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { useRequireAuth } from "../../libs/useRequireAuth.js"
+import { UserContext } from '../../libs/UserContext';
 
 const Header = () => {
-    const userId = useRequireAuth();
+    const { user } = useContext(UserContext);
 
     return (
         <header>
@@ -13,7 +13,7 @@ const Header = () => {
                 <Link to="/collections">Collections</Link>
                 <Link to="/readers">Readers</Link>
                 <Link to="/sign-in">Sign in</Link>
-                <Link to={`/${userId}`}>Profile</Link>
+                <Link to={`/${user}`}>Profile</Link>
                 <Link to="/books/-9F9WaXUhRYC"> 테스트용 </Link>
             </nav>
         </header>

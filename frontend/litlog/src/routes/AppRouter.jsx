@@ -13,6 +13,7 @@ import BookSearch from '../pages/Books/SearchResult';
 import BookDetail from '../pages/Books/BookDetail';
 
 import CollectionMain from '../pages/Collections/CollectionMain';
+import CollectionPopularList from '../pages/Collections/CollectionPopularList';
 import CollectionDetail from '../pages/Collections/CollectionDetail';
 import NewCollection from '../pages/Collections/NewCollection';
 
@@ -57,9 +58,12 @@ const AppRouter = () => {
     
             {/* Collections */}
             <Route path="/collections" element={<CollectionMain />} />
-            <Route path="/collections/:collecctionId" element={<CollectionDetail />} />
+            <Route path="/collections/list" element={<CollectionPopularList />} />
             <Route path="/collections/new" element={<NewCollection />} />
-    
+            <Route path="/collections/:collectionId" element={<CollectionDetail />} />
+
+            
+
             {/* Readers */}
             <Route path="/readers" element={<ReadersMain />} />
     

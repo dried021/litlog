@@ -101,46 +101,61 @@ VALUES
 
 -- 11. 책 콜렉션 (book_collection)
 
-SELECT * from book_collection
+SELECT * from book_collection;
+
+SELECT * from book_collection_book;
+SELECT * from book_collection_like;
+SELECT collection_id,  COUNT(*) AS 좋아요_수
+FROM book_collection_like
+GROUP BY collection_id;
 
 INSERT INTO book_collection (user_id, creation_date, title, content, thumbnail)
 VALUES
 ('user01', '2025-05-13', '얼음과 불의 노래', '통쾌한 결말을 가진 소설들 모음입니다.', 'http://books.google.com/books/publisher/content?id=bNW-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE733JkpcbfA-7iOsHv4jWjvD_XeBSP3Ta-3rwh4EVkE4UqRK1v13OuElHEyTYoRJCNPVJv6aY-Wqr6IfdFCzMNrQ2meyOiEnYRYA45cAhGU7egvprpPWGDXy4vVostUQ_swB2six&source=gbs_api'),
-('user02', '2025-05-14', '나니아 연대기기', '마음이 편안해지는 이야기 모음입니다.', 'http://books.google.com/books/publisher/content?id=bR3REAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE704gz2uBJus0XQvgnl04svj9VzI12HDdAZk1cEGSLsiWbXM-0JCN2o-cy9vhUEnlIgTRueHDgfoEjeyA-5K7avlz_FbR4hCjXIb-6OAyzT99lBfqJ403ny1QE57wgWZ2T0a3BFB&source=gbs_api'),
-('user03', '2025-05-11', '해리포터 시리즈', '배꼽 빠질 정도로 웃긴 책만 모았어요.', 'http://books.google.com/books/content?id=BGXkMAAACAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE71awvMbdyokYm6G0Uu5SxxGXT_WXJNojVbme93BNu2kRIc4AwiVzgksiIAM-32YhUrHvv7cE23VCGDCmHRCDdH9qm9brKue_AC-rhiKe6NOO2epuKljtP4N6cTroPpxYQ0ZOC2u&source=gbs_api');
+('user02', '2025-05-14', '나니아 연대기', '마음이 편안해지는 이야기 모음입니다.', 'http://books.google.com/books/publisher/content?id=bR3REAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE704gz2uBJus0XQvgnl04svj9VzI12HDdAZk1cEGSLsiWbXM-0JCN2o-cy9vhUEnlIgTRueHDgfoEjeyA-5K7avlz_FbR4hCjXIb-6OAyzT99lBfqJ403ny1QE57wgWZ2T0a3BFB&source=gbs_api'),
+('user03', '2025-05-11', '해리포터 시리즈', '배꼽 빠질 정도로 웃긴 책만 모았어요.', 'http://books.google.com/books/content?id=BGXkMAAACAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE71awvMbdyokYm6G0Uu5SxxGXT_WXJNojVbme93BNu2kRIc4AwiVzgksiIAM-32YhUrHvv7cE23VCGDCmHRCDdH9qm9brKue_AC-rhiKe6NOO2epuKljtP4N6cTroPpxYQ0ZOC2u&source=gbs_api'),
+('user04', '2025-05-15', '눈물을 마시는 새', '통쾌한 결말을 가진 소설들 모음입니다.', 'http://books.google.com/books/publisher/content?id=bNW-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE733JkpcbfA-7iOsHv4jWjvD_XeBSP3Ta-3rwh4EVkE4UqRK1v13OuElHEyTYoRJCNPVJv6aY-Wqr6IfdFCzMNrQ2meyOiEnYRYA45cAhGU7egvprpPWGDXy4vVostUQ_swB2six&source=gbs_api'),
+('user05', '2025-05-16', '반지의 제왕', '통쾌한 결말을 가진 소설들 모음입니다.', 'http://books.google.com/books/publisher/content?id=bNW-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE733JkpcbfA-7iOsHv4jWjvD_XeBSP3Ta-3rwh4EVkE4UqRK1v13OuElHEyTYoRJCNPVJv6aY-Wqr6IfdFCzMNrQ2meyOiEnYRYA45cAhGU7egvprpPWGDXy4vVostUQ_swB2six&source=gbs_api');
 
 -- 12. 책 콜렉션에 책 추가 (book_collection_book)
 INSERT INTO book_collection_book(collection_id, book_id, thumbnail)
 VALUES 
-(5, 37, 'http://books.google.com/books/publisher/content?id=bNW-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE733JkpcbfA-7iOsHv4jWjvD_XeBSP3Ta-3rwh4EVkE4UqRK1v13OuElHEyTYoRJCNPVJv6aY-Wqr6IfdFCzMNrQ2meyOiEnYRYA45cAhGU7egvprpPWGDXy4vVostUQ_swB2six&source=gbs_api'),
-(5, 38, 'http://books.google.com/books/publisher/content?id=YlolDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE73oSy78PrYkR67bncDP6QZZgSISkE9Z37rny116OgeQdywbaWih-jeoprMlQ1WWz1v9fKy1JBvIybnIE0Q8PdVxs3xIV4u2jk-kjuLVOXuwBPvHqBl8o3RkolBRBW6Hdihn8rm2&source=gbs_api'),
-(5, 39, 'http://books.google.com/books/publisher/content?id=MnNnDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE72AHMwcZNWj0ncj6y_qSv871OhzwwS3wzQm7I3DBvRO20IVHaPzt8TNovaOxoO2ifuJ9t4rYx2W2kmaG8uQ-HTG-wQ52zWDU82IP81XdiarPnFLO0DwLN8H7t0KqbIPAn9rk95L&source=gbs_api'),
-(5, 40, 'http://books.google.com/books/publisher/content?id=YlolDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE73oSy78PrYkR67bncDP6QZZgSISkE9Z37rny116OgeQdywbaWih-jeoprMlQ1WWz1v9fKy1JBvIybnIE0Q8PdVxs3xIV4u2jk-kjuLVOXuwBPvHqBl8o3RkolBRBW6Hdihn8rm2&source=gbs_api'),
-(5, 40, 'http://books.google.com/books/publisher/content?id=tGquDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE70Hl-OX30yUFImp6wL1EWND3Cq8205mYuGkKsbiJqO3REJZBvAjDqTBd9uZQXR9_7_7eY6sfgTdTb5EhX6UWURtLP5vU5IEidMTRal3OTB2OmszBkF8GzCvoMQR1pRMCJ39ju46&source=gbs_api'),
-(5, 41, 'http://books.google.com/books/publisher/content?id=JLgDEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE72Mkna2XQok-SybMBAbDF98i16eXIESeQ0iBsbsZ8qnK94xig3DO5e8hiFHdqoLelFOO6s8Yz9w7CV_g2uad6rvFLAXzwQv0FsTZ7PH4LTkw-h-GUBy6twl3PafuVGIi_IsP24E&source=gbs_api'),
-(6, 42, 'http://books.google.com/books/publisher/content?id=bR3REAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE704gz2uBJus0XQvgnl04svj9VzI12HDdAZk1cEGSLsiWbXM-0JCN2o-cy9vhUEnlIgTRueHDgfoEjeyA-5K7avlz_FbR4hCjXIb-6OAyzT99lBfqJ403ny1QE57wgWZ2T0a3BFB&source=gbs_api'),
-(6, 43, 'http://books.google.com/books/publisher/content?id=UiLREAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE722FsEXnWPL8ni7JnJmqQ9YlsQM21rCpSLPKavEW9ngijRPGn3KcxN5hPqGANQuDjKIbqry2qR-gjxeCSb4iOwolrAkVMhI2cIHoaXO-tztGvXnsVyzsSmVjTfe9HK1zhGlP151&source=gbs_api'),
-(6, 44, 'http://books.google.com/books/publisher/content?id=yR3REAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE70BrVFuBM2aWr6HNOVf0jqyJcY8zpsIZplKS8iHmcKZzyaUXZ2GOWgzOSHBQ1mm67zCaJiQY6aaV1hW_srczocBW6NWD_cIcPyp8X4MpsoGezlbHob1BDkH_uFM5sxPGc0Vac2I&source=gbs_api'),
-(6, 45, 'http://books.google.com/books/publisher/content?id=NCPREAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE71-5sx8m3Kfp3y65dkplY5S6QvNhiz-ZtVVpBBBJnaWd28dV62YYZdRabJ12GCRanfRFIKnvfLBfNGBP6GT_AaTcZx9WUT4MGodPsnik7lo0d_RsYTNFoef999d1pieba1CkaTe&source=gbs_api'),
-(6, 46, 'http://books.google.com/books/publisher/content?id=AErREAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE73ZKUVvGOptcoAJalu4E9b4ftyI0d__alE0khx-ZXMVWd5TD5g_mLMTmAsFBxsDqk_CfGf5ZDyQvEaYrnWRpNeHpx-xbgId02UDV0EuiSIyQgceNEZoMnVOjffUd2DFb9ogUAY0&source=gbs_api'),
-(6, 47, 'http://books.google.com/books/publisher/content?id=bkrREAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE73b3cWujh4clc2ehLbbynQv_KrcV1t2chSAtxa9aiUH1ZDxZWHM96k91KyOVsHVtZ46M73LzsrsPQFODgelq95-YWDkFzsgtoGw_KKrSWeV-XCTIWxUaQu36J5yTm71v8QN4pik&source=gbs_api'),
-(6, 48, 'http://books.google.com/books/publisher/content?id=fR3REAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE71GuaCPQ2n1JsuvSg0Z4QBHykN-pujXyCz1rXXrxj1vt0w-DoqamRabyFebMp6cHj-WtBbY9AirPVsbzpLxOyHjiFoo-KnzI8t7CpJg_aLbvLVSm2mDG76he9cwTu2wzwJD7rCX&source=gbs_api'),
-(7, 49, '/images/covernotavailable.png'),
-(7, 50, 'http://books.google.com/books/content?id=BGXkMAAACAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE71awvMbdyokYm6G0Uu5SxxGXT_WXJNojVbme93BNu2kRIc4AwiVzgksiIAM-32YhUrHvv7cE23VCGDCmHRCDdH9qm9brKue_AC-rhiKe6NOO2epuKljtP4N6cTroPpxYQ0ZOC2u&source=gbs_api'),
-(7, 51, 'http://books.google.com/books/content?id=we1EMgAACAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE70M8bMNp1zPVCNWd2UJMjnqjnEuDLnd_FwL3TTNLIfgA0Ct_byp2NWpFElGVQ8swV2pXIAyZxOOD9JMpfWmR-WbWzL3X5sHmHD507D2J0R-RV2e9mfW87_Ff0RpwQbZcf1LJnXA&source=gbs_api'),
-(7, 52, '/images/covernotavailable.png'),
-(7, 53, '/images/covernotavailable.png'),
-(7, 54, 'http://books.google.com/books/publisher/content?id=YwfYDwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72HomLx91itLlOSdQkm79YJkNPNx7SqXDudMpv3JMLR8dnbuIRDNuNc8bOYuVn1WiuqlOHI0orMZ61vLQigfcqgUNdBQuhLRz0zLOIaOFQvZ6-ABEgmktREkFKh2MmqVWd76Pc0&source=gbs_api'),
-(7, 55, '/images/covernotavailable.png');
+(1, 37, 'http://books.google.com/books/publisher/content?id=bNW-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE733JkpcbfA-7iOsHv4jWjvD_XeBSP3Ta-3rwh4EVkE4UqRK1v13OuElHEyTYoRJCNPVJv6aY-Wqr6IfdFCzMNrQ2meyOiEnYRYA45cAhGU7egvprpPWGDXy4vVostUQ_swB2six&source=gbs_api'),
+(1, 38, 'http://books.google.com/books/publisher/content?id=YlolDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE73oSy78PrYkR67bncDP6QZZgSISkE9Z37rny116OgeQdywbaWih-jeoprMlQ1WWz1v9fKy1JBvIybnIE0Q8PdVxs3xIV4u2jk-kjuLVOXuwBPvHqBl8o3RkolBRBW6Hdihn8rm2&source=gbs_api'),
+(1, 39, 'http://books.google.com/books/publisher/content?id=MnNnDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE72AHMwcZNWj0ncj6y_qSv871OhzwwS3wzQm7I3DBvRO20IVHaPzt8TNovaOxoO2ifuJ9t4rYx2W2kmaG8uQ-HTG-wQ52zWDU82IP81XdiarPnFLO0DwLN8H7t0KqbIPAn9rk95L&source=gbs_api'),
+(1, 40, 'http://books.google.com/books/publisher/content?id=YlolDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE73oSy78PrYkR67bncDP6QZZgSISkE9Z37rny116OgeQdywbaWih-jeoprMlQ1WWz1v9fKy1JBvIybnIE0Q8PdVxs3xIV4u2jk-kjuLVOXuwBPvHqBl8o3RkolBRBW6Hdihn8rm2&source=gbs_api'),
+(1, 40, 'http://books.google.com/books/publisher/content?id=tGquDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE70Hl-OX30yUFImp6wL1EWND3Cq8205mYuGkKsbiJqO3REJZBvAjDqTBd9uZQXR9_7_7eY6sfgTdTb5EhX6UWURtLP5vU5IEidMTRal3OTB2OmszBkF8GzCvoMQR1pRMCJ39ju46&source=gbs_api'),
+(1, 41, 'http://books.google.com/books/publisher/content?id=JLgDEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE72Mkna2XQok-SybMBAbDF98i16eXIESeQ0iBsbsZ8qnK94xig3DO5e8hiFHdqoLelFOO6s8Yz9w7CV_g2uad6rvFLAXzwQv0FsTZ7PH4LTkw-h-GUBy6twl3PafuVGIi_IsP24E&source=gbs_api'),
+(2, 42, 'http://books.google.com/books/publisher/content?id=bR3REAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE704gz2uBJus0XQvgnl04svj9VzI12HDdAZk1cEGSLsiWbXM-0JCN2o-cy9vhUEnlIgTRueHDgfoEjeyA-5K7avlz_FbR4hCjXIb-6OAyzT99lBfqJ403ny1QE57wgWZ2T0a3BFB&source=gbs_api'),
+(2, 43, 'http://books.google.com/books/publisher/content?id=UiLREAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE722FsEXnWPL8ni7JnJmqQ9YlsQM21rCpSLPKavEW9ngijRPGn3KcxN5hPqGANQuDjKIbqry2qR-gjxeCSb4iOwolrAkVMhI2cIHoaXO-tztGvXnsVyzsSmVjTfe9HK1zhGlP151&source=gbs_api'),
+(2, 44, 'http://books.google.com/books/publisher/content?id=yR3REAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE70BrVFuBM2aWr6HNOVf0jqyJcY8zpsIZplKS8iHmcKZzyaUXZ2GOWgzOSHBQ1mm67zCaJiQY6aaV1hW_srczocBW6NWD_cIcPyp8X4MpsoGezlbHob1BDkH_uFM5sxPGc0Vac2I&source=gbs_api'),
+(2, 45, 'http://books.google.com/books/publisher/content?id=NCPREAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE71-5sx8m3Kfp3y65dkplY5S6QvNhiz-ZtVVpBBBJnaWd28dV62YYZdRabJ12GCRanfRFIKnvfLBfNGBP6GT_AaTcZx9WUT4MGodPsnik7lo0d_RsYTNFoef999d1pieba1CkaTe&source=gbs_api'),
+(2, 46, 'http://books.google.com/books/publisher/content?id=AErREAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE73ZKUVvGOptcoAJalu4E9b4ftyI0d__alE0khx-ZXMVWd5TD5g_mLMTmAsFBxsDqk_CfGf5ZDyQvEaYrnWRpNeHpx-xbgId02UDV0EuiSIyQgceNEZoMnVOjffUd2DFb9ogUAY0&source=gbs_api'),
+(2, 47, 'http://books.google.com/books/publisher/content?id=bkrREAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE73b3cWujh4clc2ehLbbynQv_KrcV1t2chSAtxa9aiUH1ZDxZWHM96k91KyOVsHVtZ46M73LzsrsPQFODgelq95-YWDkFzsgtoGw_KKrSWeV-XCTIWxUaQu36J5yTm71v8QN4pik&source=gbs_api'),
+(2, 48, 'http://books.google.com/books/publisher/content?id=fR3REAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE71GuaCPQ2n1JsuvSg0Z4QBHykN-pujXyCz1rXXrxj1vt0w-DoqamRabyFebMp6cHj-WtBbY9AirPVsbzpLxOyHjiFoo-KnzI8t7CpJg_aLbvLVSm2mDG76he9cwTu2wzwJD7rCX&source=gbs_api'),
+(3, 49, '/images/covernotavailable.png'),
+(3, 50, 'http://books.google.com/books/content?id=BGXkMAAACAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE71awvMbdyokYm6G0Uu5SxxGXT_WXJNojVbme93BNu2kRIc4AwiVzgksiIAM-32YhUrHvv7cE23VCGDCmHRCDdH9qm9brKue_AC-rhiKe6NOO2epuKljtP4N6cTroPpxYQ0ZOC2u&source=gbs_api'),
+(3, 51, 'http://books.google.com/books/content?id=we1EMgAACAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE70M8bMNp1zPVCNWd2UJMjnqjnEuDLnd_FwL3TTNLIfgA0Ct_byp2NWpFElGVQ8swV2pXIAyZxOOD9JMpfWmR-WbWzL3X5sHmHD507D2J0R-RV2e9mfW87_Ff0RpwQbZcf1LJnXA&source=gbs_api'),
+(3, 52, '/images/covernotavailable.png'),
+(3, 53, '/images/covernotavailable.png'),
+(3, 54, 'http://books.google.com/books/publisher/content?id=YwfYDwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72HomLx91itLlOSdQkm79YJkNPNx7SqXDudMpv3JMLR8dnbuIRDNuNc8bOYuVn1WiuqlOHI0orMZ61vLQigfcqgUNdBQuhLRz0zLOIaOFQvZ6-ABEgmktREkFKh2MmqVWd76Pc0&source=gbs_api'),
+(4, 57, 'http://books.google.com/books/content?id=X6Pp-yxTBEkC&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE70TDifQ4xRdpBpIHhDJv5aBy0waSmPEWmAaatyQNVowTXlueUGw49LSARgR00oEdD1hwyStdncul8vD4s4jb9umtSqUlzK5A7tHg4PRlScAfNpMow0FbyFTRlO-vyFDVYQReK7u&source=gbs_api'),
+(4, 58, 'http://books.google.com/books/content?id=Jf1eOkxzhgAC&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE71vbSqOKpPW_VyBV2BB2LWb9ytxfOP5xQkmVds8rij2YNjjwUItJkh_5X5z50Xb74q9fTjhojdIWRgj2REeEQZ-xgbfhGwjkjkefkn0mC1Mz7NRtiop3DxlUllx7xZ13x7MWijl&source=gbs_api'),
+(4, 59, 'http://books.google.com/books/content?id=2G_incf839QC&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE70AsxHpnhy4I611uFYjvdjfxB6K-8HKypjpCRfsW6ZHOBhBYkI2HrUilFbsJNd4OmEE2Hsxq7jkncz5Nq02bo8zvOtumq4QD79d6J10QlEGcCmOAh3hiWf9yogcH0IgL0Jw-kD6&source=gbs_api'),
+(5, 60, 'http://books.google.com/books/publisher/content?id=oXgmEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE71NzZKSbkIIGyh2Dlp9xYzDMBzAmzwz7upjY8b9qp45sfvmFE6Q7A9pVdjJ5xfKf4JauphCFO96lBpYQnrDYCkX7h4xNYosVoSBOVWKbP7zSGy3jzfMQ9azyih82Qpq6dCd2hJi&source=gbs_api'),
+(5, 61, 'http://books.google.com/books/content?id=yIHfJwAACAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE71jEtZ1g_g39I8buH7Lif5qcRe2SZs56R-0vMQHYuc3yWsU1kM1yGp9LCJJWU11UsfkbpgAgJ7ZcgijSxCvGBwBdw7zjL3-b7grIYkOTGbm_voPhS6RGHcBgwRoX7tyjMTVY8ZT&source=gbs_api'),
+(5, 62, 'http://books.google.com/books/content?id=QMIPMgAACAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72hT4LcuZ1TmW51Rq3wnXNc9b1GOGtle4iydWi0GPK2vFA3B5xzLkhYpQ2i7uidV-ZemM5gMwe_TqMPwBLmPi-1_eZzcjk9Scb-bFLIJEQJ-Rtvu8SJcuj_VK_z7FcHvrws_n23&source=gbs_api');
 -- 13. 책 콜렉션 댓글 (book_collection_comment)
 INSERT INTO book_collection_comment(user_id, collection_id, content)
 VALUES 
-('admin01', 1, '좋은 책 모음이네요!');
+('aaa', 1, '좋은 책 모음이네요!');
 
 -- 좋아요 수 가정: 10, 3, 7
 INSERT INTO book_collection_like (collection_id, user_id) VALUES
-(5, 'user01'), (5, 'user02'), (5, 'user03'), (5, 'user04'), (5, 'user05'),
-(5, 'user06'), (5, 'user07'), (5, 'user08'), (5, 'user09'), (5, 'user10'),
-(6, 'user01'), (6, 'user02'), (6, 'user03'),
-(7, 'user01'), (7, 'user02'), (7, 'user03'), (7, 'user04'), (7, 'user05'),
-(7, 'user06'), (7, 'user07');
+(1, 'user01'), (1, 'user02'), (1, 'user03'), (1, 'user04'), (1, 'user05'),
+(1, 'user06'), (1, 'user07'), (1, 'user08'), (1, 'user09'), (1, 'user10'),
+(2, 'user01'), (2, 'user02'), (2, 'user03'),
+(3, 'user01'), (3, 'user02'), (3, 'user03'), (3, 'user04'), (3, 'user05'),
+(3, 'user06'), (3, 'user07'),
+(4, 'user07'),
+(5, 'user07'),(5, 'user07');
