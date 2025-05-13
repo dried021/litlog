@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import './ReviewDetail.css';
+import styles from './ReviewDetail.module.css'; 
+import TabMenu from "../../components/Mypage/TabMenu";
 
 const ReviewDetail = () => {
   const { userId, reviewId } = useParams();
@@ -48,39 +49,39 @@ const ReviewDetail = () => {
   if (!review) return <div>Loading...</div>;
 
   return (
-    <div className="review-detail">
-      <div className="review-left">
-        <img
-          className="book-thumbnail"
-          src={review.thumbnail || '/images/covernotavailable.png'}
-          alt="책 표지"
-          width={120}
-          height={180}
-        />
-      </div>
-
-      <div className="review-right">
-        <h2 className="book-title">
-          {review.title} <span className="book-year">({formatPublishedYear(review.publishedDate)})</span>
-        </h2>
-
-        <div className="review-header">
-          <span className="review-date">Logged on {formatDate(review.creationDate)}</span>
-          <span className="rating-stars">{renderStars(review.rating)}</span>
-        </div>
-
-        <div className="review-content">
-          {review.content}
-        </div>
-
-        <div className="review-like">
+    <div className={styles.wrapper}>
+      <TabMenu userId={userId} />
+      <div className={styles.container}>
+        <div className={styles.left}>
           <img
-            src={review.isLiked ? '/icons/heart_filled.svg' : '/icons/heart_outline.svg'}
-            alt="좋아요"
-            width={18}
-            height={18}
+            className={styles.thumbnail}
+            src={review.thumbnail || '/images/covernotavailable.png'}
+            alt="책 표지"
           />
-          <span>{review.likeCount ?? 0} likes</span>
+        </div>
+
+        <div className={styles.right}>
+          <h2 className={styles.title}>
+            {review.title}
+            <span className={styles.year}> ({formatPublishedYear(review.publishedDate)})</span>
+          </h2>
+
+          <div className={styles.header}>
+            <span>Logged on {formatDate(review.creationDate)}</span>
+            <span className={styles.stars}>{renderStars(review.rating)}</span>
+          </div>
+
+          <div className={styles.content}>
+            {review.content}
+          </div>
+
+          <div className={styles.like}>
+            <img
+              src={review.isLiked ? '/icons/heart_filled.svg' : '/icons/heart_outline.svg'}
+              alt="좋아요"
+            />
+            <span>{review.likeCount ?? 0} likes</span>
+          </div>
         </div>
       </div>
     </div>
