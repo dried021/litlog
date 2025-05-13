@@ -39,7 +39,7 @@
 /* 리뷰 */
 .review-entry {
   display: grid;
-  grid-template-columns: 60px 100px 1fr 130px 80px 80px;
+  grid-template-columns: 60px 100px 1fr 130px 85px 80px;
   align-items: center;
   padding: 14px 0;
   border-bottom: 1px solid #eee;
