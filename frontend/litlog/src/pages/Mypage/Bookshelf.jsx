@@ -120,7 +120,7 @@ const Bookshelf = () => {
             <ul className={styles.bookList}>
                 {currentBooks.map(book => (
                     <li key={book.bookId} className={styles.bookCard}>
-                        <a href={""}>
+                        <a href={`/books/${book.bookApiId}`}>
                             <img 
                                 src={book.thumbnail ? book.thumbnail : defaultThumbnail}
                                 alt={book.title}
