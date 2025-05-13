@@ -1,0 +1,80 @@
+.user-list {
+    padding: 1rem;
+  }
+  
+  .user-item {
+    display: flex;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    gap: 1.5rem; 
+    align-items: center;
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; 
+    width: 500px;
+    height: auto;          
+  }
+  
+  .user-id {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .user-bio {
+    font-size: 0.875rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+  }
+  
+  .user-status {
+    display: flex;
+    flex-direction: row;    
+    gap: 1rem;               
+    flex-wrap: wrap;     
+  }
+  
+  .user-book {
+    display: flex;
+    width: 300px;
+    flex-direction: row;    
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .book-thumbnail {
+    width: auto;
+    height: 125px;
+    border-radius: 4px;
+  }
+
+  .user-rank {
+    display: flex;           
+    justify-content: center;  
+    align-items: center;       
+    width: 70px;
+    height: 70px;
+  }
+
+  .user-rank img{
+    width: 64px;
+    height: 64px;
+  }
+
+  .user-profile {
+    flex-grow: 0;
+    margin-left: auto;
+    justify-content: center;
+    display: flex;
+  }
+
+  .user-profile-img{
+    width: 70px;
+    height: 70px;
+  }
