@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bookfox.repository.ReaderMapper">
+
+    <select id="getAvidUserList" resultType="com.bookfox.model.UserListDto">
+        SELECT
+            u.id,
+            u.profile_image AS profile,
+
+            (SELECT COUNT(*)
+             FROM book_shelf bs
+             WHERE bs.user_id = u.id AND bs.shelf_type = 3) AS bookshelves,
+
+            (SELECT COUNT(*)
+             FROM book_review br
+             WHERE br.user_id = u.id) AS reviews,
+
+            (
+              (SELECT COUNT(*) FROM book_shelf bs WHERE bs.user_id = u.id AND bs.shelf_type = 3) +
+              (SELECT COUNT(*) FROM book_review br WHERE br.user_id = u.id)
+            ) AS activityScore
+
+        FROM user u
+        ORDER BY activityScore DESC
+        LIMIT 20
+    </select>
+
+    <select id="getBelovedUserList" resultType="com.bookfox.model.UserListDto">
+        SELECT
+            u.id,
+            u.profile_image AS profile,
+
+            (SELECT COUNT(*)
+             FROM like_list ll1
+             WHERE ll1.target_id = bc.id AND ll1.like_type = 3) AS collections,
+
+            (SELECT COUNT(*)
+             FROM like_list ll2
+             WHERE ll2.target_id = br.id AND ll2.like_type = 1) AS likes,
+
+            (SELECT COUNT(*)
+             FROM follow_list fl 
+             WHERE fl.follow_user_id = u.id) AS followers,
+
+            (
+              (SELECT COUNT(*) FROM like_list ll1 WHERE ll1.target_id = bc.id AND ll1.like_type = 3) + 
+              (SELECT COUNT(*) FROM like_list ll2 WHERE ll2.target_id = br.id AND ll2.like_type = 1) +
+              (SELECT COUNT(*) FROM follow_list fl WHERE fl.follow_user_id = u.id)
+            ) AS activityScore
+
+        FROM user u
+        LEFT JOIN book_collection bc ON bc.user_id = u.id
+        LEFT JOIN book_review br ON br.user_id = u.id
+
+        GROUP BY u.id, u.profile_image, bc.id, br.id
+        ORDER BY activityScore DESC
+        LIMIT 20
+    </select>
+
+</mapper>

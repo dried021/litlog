@@ -80,10 +80,12 @@ function NextArrow(props) {
                 </div> 
                 
                 :  <div className="user-stats">  
+                  <img className="bookshelf" src="/icons/bookshelf.svg" alt="Bookshelf" />
+                  <p>{" " + user.collections + " "}</p>
                   <img className="like" src={"/icons/heart_filled.svg"} alt="Like"/>
                   <p>{" " + user.likes+ " "}</p>
-                  <img className="view" src="/icons/views.svg" alt="View"/>
-                  <p>{" " + user.views + " "}</p>
+                  <img className="view" src="/icons/followers.svg" alt="View"/>
+                  <p>{" " + user.followers + " "}</p>
                 </div>}
                
               </Link>
