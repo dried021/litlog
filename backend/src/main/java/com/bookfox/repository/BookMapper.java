@@ -1,11 +1,13 @@
 package com.bookfox.repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.bookfox.model.BookDto;
+import com.bookfox.model.BookListDto;
 import com.bookfox.model.BookReviewDto;
 
 @Mapper
@@ -28,5 +30,11 @@ public interface BookMapper {
     public int checkBookshelf(Map<String, Object> params);
     public int checkLike(Map<String, Object> params);
     public void unlike(Map<String, Object> params);
+
+    public int addReview(Map<String, Object> params);
+
+    public List<BookListDto> getPopularBookList();
+    public List<BookListDto> getJustReviewedBookList();
 }
+
 

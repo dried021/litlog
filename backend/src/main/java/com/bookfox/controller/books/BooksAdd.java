@@ -2,6 +2,7 @@ package com.bookfox.controller.books;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -25,7 +26,7 @@ public class BooksAdd {
     private BookService bookService;
 
     @PostMapping("/bookshelf")
-    public ResponseEntity<Integer> addToBookshelf(@RequestBody Map<String, Object> request) {
+    public ResponseEntity<Boolean> addToBookshelf(@RequestBody Map<String, Object> request) {
         //session에서 user 가져오기
         String userId = "user01";
 
@@ -42,13 +43,8 @@ public class BooksAdd {
         }
 
         int bookId = bookService.getIdByBookApiId(bookApiId);
-
-        int result = bookService.checkBookshelf(bookId, userId, option);
-        if (result>0){
-            return ResponseEntity.ok(result);
-        }
         bookService.addBookshelf(bookId, userId, option);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(true);
     }
 
     @PostMapping("/like")
@@ -76,7 +72,7 @@ public class BooksAdd {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("unlike")
+    @PostMapping("/unlike")
     public ResponseEntity<Boolean> unLike(@RequestBody Map<String, Object> request) {
         //session에서 user 가져오기
         String userId = "user01";
@@ -85,6 +81,38 @@ public class BooksAdd {
         int bookId = bookService.getIdByBookApiId(bookApiId);
         bookService.unlike(bookId, userId);
         return ResponseEntity.ok(true);
+    }
+
+    @PostMapping("/review")
+    public ResponseEntity<Map<String, Object>> addReview(@RequestBody Map<String, Object> request){
+        //세션에서 가져오기
+        String userId = "user01";
+
+        String content = (String) request.get("content");
+        int rating = Integer.parseInt(String.valueOf(request.get("rating")));
+        String bookApiId = (String) request.get("bookApiId");
+
+
+        boolean exists = bookService.exists(bookApiId);
+
+        if (!exists){
+            Map<String, Object> book = (Map<String, Object>) request.get("book");
+            if (book != null) {
+                BookDto bookDto = mapToBookDto(book);
+                System.out.println("Book DTO: " + bookDto);
+                bookService.addBook(bookDto);
+            }
+        }
+
+        int bookId = bookService.getIdByBookApiId(bookApiId);
+
+        Map<String, Object> response = new HashMap<>();
+        int reviewId =bookService.addReview(bookId, userId, content, rating);
+        response.put("success", true);
+        response.put("reviewId", reviewId);
+        response.put("userId", userId);
+        response.put("message", "Review added successfully.");
+        return ResponseEntity.ok(response);
     }
     
 
