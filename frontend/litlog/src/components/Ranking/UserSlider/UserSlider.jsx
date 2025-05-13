@@ -1,8 +1,7 @@
 import React from 'react';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
-import './BookSlider.css';
-import { splitTextIntoLines } from "../../../libs/text/splitTextIntoLines";
+import './UserSlider.css';
 function NextArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -43,11 +42,12 @@ function NextArrow(props) {
     );
   }
 
-  function BookSlider({
+  function UserSlider({
     title,
-    books,
+    users,
     slidesToShow = 5,
-    slidesToScroll = 4
+    slidesToScroll = 4,
+    type
   }) {
     const settings = {
       dots: false,
@@ -61,30 +61,35 @@ function NextArrow(props) {
     };
   
     return (
-      <div className="book-slider">
-        {title && <h3 className="bookslider-title">{title}</h3>}
+      <div className="user-slider">
+        {title && <h3 className="userslider-title">{title}</h3>}
         <Slider {...settings}>
-          {books.map((book) => (
-            <div className="book-card" key={book.id}>
-              <Link to={book.link}>
-                <img src={book.image ?? '/images/covernotavailable.png'}  alt={book.title} className="book-image" />
-                <h5 className="bookslider-booktitle">{
-                splitTextIntoLines(book.title, 9).map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    <br />
-                  </React.Fragment>
-                ))  
-                }</h5>
-                <div className="book-stats">
+          {users.map((user) => (
+            <div className="user-card" key={user.id}>
+
+              <Link to={`/${user.id}`}>
+                <img src={user.profile ?? '/icons/profile.svg'}  alt={user.title} className="user-profile" />
+                <h5 className="user-id">{user.id}</h5>
+                {(type=="avid")?  
+
+                <div className="user-stats">  
                   <img className="bookshelf" src="/icons/bookshelf.svg" alt="Bookshelf" />
-                  <p>{" " + book.bookshelves + " "}</p>
-                  <img className="like" src={"/icons/heart_filled.svg"} alt="Like"/>
-                  <p>{" " + book.likes+ " "}</p>
+                  <p>{" " + user.bookshelves + " "}</p>
                   <img className="review" src="/icons/star2.svg" alt="Review"/>
-                  <p>{" " + book.reviews + " "}</p>
-                </div>
+                  <p>{" " + user.reviews + " "}</p>
+                </div> 
+                
+                :  <div className="user-stats">  
+                  <img className="bookshelf" src="/icons/bookshelf.svg" alt="Bookshelf" />
+                  <p>{" " + user.collections + " "}</p>
+                  <img className="like" src={"/icons/heart_filled.svg"} alt="Like"/>
+                  <p>{" " + user.likes+ " "}</p>
+                  <img className="view" src="/icons/followers.svg" alt="View"/>
+                  <p>{" " + user.followers + " "}</p>
+                </div>}
+               
               </Link>
+
             </div>
           ))}
         </Slider>
@@ -93,4 +98,4 @@ function NextArrow(props) {
   }
   
 
-export default BookSlider;
+export default UserSlider;

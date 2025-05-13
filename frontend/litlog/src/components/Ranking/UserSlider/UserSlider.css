@@ -1,4 +1,4 @@
-.book-slider {
+.user-slider {
     width: 100%;              
     max-width: 1200px;      
     padding: 30px 20px;        
@@ -7,12 +7,12 @@
     box-sizing: border-box;
   }
 
-  .bookslider-title{
+  .userslider-title{
     font-weight: bold;
     margin-bottom: 12px;
   }
 
-  .bookslider-booktitle{
+  .userslider-usertitle{
     height: 50px;
     margin: 15px;
     text-align: center;
@@ -21,23 +21,23 @@
     justify-content: center;
   }
   
-  .book-card {
+  .user-card {
     padding: 10px;
     text-align: center;
   }
 
-  .book-image {
+  .user-profile {
     width: 100%;
-    height: 318px;
+    height: 100px;
     border-radius: 8px;
     transition: transform 0.3s ease;
   }
   
-  .book-image:hover {
+  .user-profile:hover {
     transform: scale(1.05);
   }
   
-  .book-stats {
+  .user-stats {
     height: 24px; 
     display: flex;
     align-items: center;
@@ -45,7 +45,7 @@
     gap: 10px; /* 아이템 간격 */
   }
   
-  .book-stats img {
+  .user-stats img {
     width: 25px;  /* 이미지 크기 */
     height: 25px;
     cursor: pointer;
@@ -53,16 +53,16 @@
     align-items: center;
   }
   
-  .book-stats p {
+  .user-stats p {
     margin: 0;
     padding: 0;
     display: flex;
     align-items: center;
   }
   
-  .book-slider a {
-    text-decoration: none;   /* 밑줄 제거 */
-    color: inherit;          /* 부모 요소 글씨 색상 따라가기 */
+  .user-slider a {
+    text-decoration: none;  
+    color: inherit;        
   }
 
   .slick-prev::before,
@@ -79,5 +79,8 @@
   }
 
   .bookshelf{
+    width: 20px;
+  }
+  .view{
     width: 20px;
   }

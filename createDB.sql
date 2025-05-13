@@ -89,6 +89,7 @@ INSERT INTO like_type (name, value) VALUES
 ('BOOK', 2),
 ('BOOK_COLLECTION', 3);
 
+SELECT * FROM user;
 
 CREATE TABLE user(
 	id VARCHAR(50) PRIMARY KEY,
@@ -125,6 +126,8 @@ CREATE TABLE term (
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL
 );
+
+SELECT * from book;
 
 CREATE TABLE book (
     id INT PRIMARY KEY AUTO_INCREMENT,                        -- 책 고유 ID
@@ -191,13 +194,20 @@ CREATE TABLE like_list(
 -- ('BOOK', 2),
 -- ('BOOK_COLLECTION', 3)
 
+select * from book_collection;
+select * from book_collection_like;
+SELECT collection_id, COUNT(*) AS like_count
+FROM book_collection_like
+GROUP BY collection_id
+ORDER BY like_count DESC;
+
 CREATE TABLE book_collection(
 	id INT AUTO_INCREMENT PRIMARY KEY,			-- 이건 프리메리
     user_id VARCHAR(50) NOT NULL, 
     creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     title VARCHAR(255),
     content VARCHAR(1000), 
-    thumbnail VARCHAR(255), 
+    thumbnail VARCHAR(300), 
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
@@ -205,7 +215,7 @@ CREATE TABLE book_collection_book(
 	id INT AUTO_INCREMENT PRIMARY KEY,			-- 이건 프리메리
     collection_id INT NOT NULL, 		-- collection 분류. 같은 collection이면 같은 collection id
     book_id INT,
-    thumbnail VARCHAR(255),
+    thumbnail VARCHAR(300),
     FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE,
     FOREIGN KEY (collection_id) REFERENCES book_collection(id) ON DELETE CASCADE
 );
@@ -216,6 +226,15 @@ CREATE TABLE book_collection_comment(
     collection_id INT NOT NULL,
     content VARCHAR(1000),
     creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (collection_id) REFERENCES book_collection(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+);
+
+CREATE TABLE book_collection_like (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id VARCHAR(50) NOT NULL,
+    collection_id INT NOT NULL,
+    liked_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (collection_id) REFERENCES book_collection(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.bookfox.model.BookDto;
 import com.bookfox.model.BookListDto;
 import com.bookfox.model.BookReviewDto;
+import com.bookfox.model.BookReviewListDTO;
 import com.bookfox.repository.BookMapper;
 
 @Service
@@ -25,6 +26,10 @@ public class BookService {
 
     public int getIdByBookApiId(String bookApiId) {
         return bookMapper.getIdByBookApiId(bookApiId);
+    }
+
+    public String getApiIdByBookId(int bookId){
+        return bookMapper.getApiIdByBookId(bookId);
     }
 
     public int getBookshelfCount(int id) {
@@ -116,4 +121,8 @@ public class BookService {
         return bookMapper.getJustReviewedBookList();
     }
 
+    public List<BookReviewListDTO> getPopularReviewList(int currentPage){
+        int offset = (currentPage - 1) * 5;
+        return bookMapper.getPopularReviewList(offset);
+    }
 }
