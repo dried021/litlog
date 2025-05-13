@@ -27,6 +27,10 @@ public class BookService {
         return bookMapper.getIdByBookApiId(bookApiId);
     }
 
+    public String getApiIdByBookId(int bookId){
+        return bookMapper.getApiIdByBookId(bookId);
+    }
+
     public int getBookshelfCount(int id) {
         return bookMapper.getBookshelfCount(id);
     }

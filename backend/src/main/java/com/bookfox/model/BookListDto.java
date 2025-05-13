@@ -11,7 +11,7 @@ public class BookListDto {
     private String image;
     private String link;
     //나중에 bookshelf
-    private int views;
+    private int bookshelves;
     private int likes;
-    private int hearts;
+    private int reviews;
 }
