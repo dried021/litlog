@@ -20,6 +20,12 @@ public class ProfileService {
     public ProfileDto getProfileDto(String userId) {
         return profileMapper.getProfile(userId);
     }
+    public List<String> getFollowing(String userId) {
+        return profileMapper.getFollowing(userId);
+    }
+    public List<String> getFollowers(String userId) {
+        return profileMapper.getFollowers(userId);
+    }
     public List<BookshelfDto> getFavoriteBooks(String userId, int count) {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);

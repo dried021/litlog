@@ -1,5 +1,6 @@
 package com.bookfox.controller.mypage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +26,33 @@ public class ProfileController {
 
     @GetMapping("/profile-summary/{userId}")
     public ProfileDto getProfile(@PathVariable String userId) {
-        // TODO: get logged in user from session and pass in response
         return profileService.getProfileDto(userId);
+    }
+
+    @GetMapping("/{userId}/network")
+    public ResponseEntity<Map<String, Object>> getNetwork(@PathVariable String userId) {
+        Map<String, Object> response = new HashMap<>();
+        List<String> followingIds = profileService.getFollowing(userId);
+        List<String> followerIds = profileService.getFollowers(userId);
+        
+        List<ProfileDto> following = new ArrayList<>();
+        List<ProfileDto> followers = new ArrayList<>();
+
+        for (String id : followingIds) {
+            ProfileDto dto = profileService.getProfileDto(id);
+            following.add(dto);
+        }
+        for (String id : followerIds) {
+            ProfileDto dto = profileService.getProfileDto(id);
+            followers.add(dto);
+        }
+
+        response.put("followingCount", following.size());
+        response.put("followersCount", followers.size());
+        response.put("following", following);
+        response.put("followers", followers);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{userId}/books/favorite")
