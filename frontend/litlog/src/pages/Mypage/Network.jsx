@@ -70,6 +70,7 @@ export default function Network({type}) {
             </div>
             <ul className={styles.memberList}>
                 {msg && (<p>{msg}</p>)}
+                <></>
                 {currentMembers.map(profile => (
                     <li key={profile.id}>
                         <div className={styles.profileSummary}>
