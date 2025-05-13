@@ -47,7 +47,11 @@ const ReviewEntry = ({ review, showMonth }) => {
         />
       </div>
       <div className="entry-review">
-        {review.content && <img src="/icons/review.svg" alt="리뷰"/>}
+        {review.content && (
+          <Link to={`/${review.userId}/reviews/detail/${review.id}`}>
+            <img src="/icons/review.svg" alt="리뷰" />
+          </Link>
+        )}
       </div>
     </div>
   );
