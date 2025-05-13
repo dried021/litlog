@@ -1,54 +1,180 @@
-.collectionGrid {
+/* CollectionMain.module.css */
+
+.collectionWrapper {
+  padding: 40px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.collectionHeader {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.collectionHeader h2 {
+  font-size: 28px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.collectionCreateBtn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.collectionCreateBtn:hover {
+  background-color: #0056b3;
+}
+
+.sectionHeader {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.moreBtn {
+  font-size: 14px;
+  color: #007bff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.popularSection {
+  margin-top: 30px;
+}
+
+.popularSection h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.popularGrid {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+}
+
+.popularGrid::-webkit-scrollbar {
+  display: none;
+}
+
+.allSection {
+  margin-top: 40px;
+}
+
+.collectionSort {
+  display: flex;
   gap: 20px;
   justify-content: center;
+  margin-bottom: 20px;
+}
+
+.collectionSort span {
+  cursor: pointer;
+  font-weight: bold;
+  color: #555;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.collectionSort .active {
+  background-color: #007bff;
+  color: white;
+}
+
+.collectionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* 가로 스크롤용 카드 */
+.popularGrid .collectionCard {
+  min-width: 240px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
 }
 
 .collectionCard {
-  width: 260px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   overflow: hidden;
-  transition: transform 0.2s ease;
-}
-
-.collectionCard:hover {
-  transform: translateY(-5px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
 }
 
 .collectionThumbnail img {
   width: 100%;
-  height: 160px;
+  height: 180px;
   object-fit: cover;
 }
 
 .collectionBody {
-  padding: 12px;
+  padding: 16px;
 }
 
 .collectionTitle {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  color: #222;
 }
 
 .collectionAuthor {
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 8px;
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 10px;
 }
 
 .collectionDesc {
   font-size: 14px;
-  margin-bottom: 8px;
-  color: #444;
+  color: #555;
+  line-height: 1.4;
+  margin-bottom: 12px;
 }
 
 .collectionMeta {
-  font-size: 13px;
-  color: #999;
   display: flex;
-  gap: 12px;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #888;
 }
+
+.thumbnailStack {
+  position: relative;
+  height: 160px;
+  margin-bottom: 12px;
+}
+
+.thumbnailImage {
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s;
+}
+
+.thumbnailImage:hover {
+  transform: scale(1.05);
+}
+

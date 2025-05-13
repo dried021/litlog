@@ -4,27 +4,104 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bookfox.repository.CollectionMapper">
-    <select id="selectPopularCollectionsThisWeek" resultType="com.bookfox.model.CollectionDto">
-        SELECT c.id, c.title, c.user_id, c.creation_date, c.content, c.thumbnail
-        FROM book_collection c
-        LEFT JOIN book_collection_like l ON c.id = l.collection_id
-        WHERE YEARWEEK(c.creation_date, 1) = YEARWEEK(NOW(), 1)
-        GROUP BY c.id
-        ORDER BY COUNT(l.id) DESC
-        LIMIT 10
+    <resultMap id="CollectionWithBooksResultMap" type="com.bookfox.model.CollectionDto">
+        <id property="id" column="collection_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="thumbnail" column="thumbnail"/>
+        <result property="creationDate" column="creation_date"/>
+        <result property="likeCount" column="like_count"/>
+        <result property="commentCount" column="comment_count"/>
+        
+        <!-- ★ 책 리스트 중첩 매핑 -->
+        <collection property="books" ofType="com.bookfox.model.BookDto">
+            <id property="id" column="book_id"/>
+            <result property="title" column="book_title"/>
+            <result property="thumbnail" column="book_thumbnail"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="selectPopularCollectionsThisWeek" resultMap="CollectionWithBooksResultMap">
+        SELECT 
+            c.id AS collection_id,
+            c.user_id,
+            u.nickname,
+            c.title,
+            c.content,
+            c.thumbnail,
+            c.creation_date,
+            COUNT(DISTINCT l.id) AS like_count,
+            COUNT(DISTINCT cm.id) AS comment_count,
+            b.id AS book_id,
+            b.title AS book_title,
+            b.thumbnail AS book_thumbnail
+        FROM (
+            SELECT l.collection_id
+            FROM book_collection_like l
+            WHERE YEARWEEK(l.liked_at, 1) = YEARWEEK(NOW(), 1)
+            GROUP BY l.collection_id
+            ORDER BY COUNT(*) DESC
+        ) AS top
+        JOIN book_collection c ON c.id = top.collection_id
+        LEFT JOIN user u ON c.user_id = u.id
+        LEFT JOIN book_collection_like l ON c.id = l.collection_id AND YEARWEEK(l.liked_at, 1) = YEARWEEK(NOW(), 1)
+        LEFT JOIN book_collection_comment cm ON c.id = cm.collection_id
+        LEFT JOIN book_collection_book cb ON c.id = cb.collection_id
+        LEFT JOIN book b ON cb.book_id = b.id
+        GROUP BY c.id, b.id
+        ORDER BY like_count DESC
     </select>
 
-    <select id="selectAllCollectionsSortedByLikes" resultType="com.bookfox.model.CollectionDto">
-        SELECT c.id, c.title, c.user_id, c.creation_date, c.content, c.thumbnail
+    <select id="selectAllCollectionsSortedByLikes" resultMap="CollectionWithBooksResultMap">
+        SELECT 
+            c.id AS collection_id,
+            c.user_id, 
+            u.nickname, 
+            c.title, 
+            c.content, 
+            c.thumbnail, 
+            c.creation_date,
+            COUNT(DISTINCT l.id) AS like_count,
+            COUNT(DISTINCT cm.id) AS comment_count,
+            b.id AS book_id, 
+            b.title AS book_title, 
+            b.thumbnail AS book_thumbnail
         FROM book_collection c
+        LEFT JOIN user u ON c.user_id = u.id
         LEFT JOIN book_collection_like l ON c.id = l.collection_id
-        GROUP BY c.id
-        ORDER BY COUNT(l.id) DESC
+        LEFT JOIN book_collection_comment cm ON c.id = cm.collection_id
+        LEFT JOIN book_collection_book cb ON c.id = cb.collection_id
+        LEFT JOIN book b ON cb.book_id = b.id
+        GROUP BY c.id, b.id
+        ORDER BY like_count DESC
     </select>
 
-    <select id="selectAllCollectionsSortedByRecent" resultType="com.bookfox.model.CollectionDto">
-        SELECT c.id, c.title, c.user_id, c.creation_date, c.content, c.thumbnail
+
+
+    <select id="selectAllCollectionsSortedByRecent" resultMap="CollectionWithBooksResultMap">
+        SELECT 
+            c.id AS collection_id,
+            c.user_id, 
+            u.nickname, 
+            c.title, 
+            c.content, 
+            c.thumbnail, 
+            c.creation_date,
+            COUNT(DISTINCT l.id) AS like_count,
+            COUNT(DISTINCT cm.id) AS comment_count,
+            b.id AS book_id, 
+            b.title AS book_title, 
+            b.thumbnail AS book_thumbnail
         FROM book_collection c
+        LEFT JOIN user u ON c.user_id = u.id
+        LEFT JOIN book_collection_like l ON c.id = l.collection_id
+        LEFT JOIN book_collection_comment cm ON c.id = cm.collection_id
+        LEFT JOIN book_collection_book cb ON c.id = cb.collection_id
+        LEFT JOIN book b ON cb.book_id = b.id
+        GROUP BY c.id, b.id
         ORDER BY c.creation_date DESC
     </select>
 
