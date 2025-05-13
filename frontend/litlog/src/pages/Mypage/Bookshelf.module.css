@@ -6,6 +6,27 @@
     width: 960px;
 }
 
+.tabs {
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+
+.tabs button {
+    border: none;
+    background-color: transparent;
+    opacity: 40%;
+    margin-right: 15px;
+}
+.tabs button:hover {
+    opacity: 100%;
+}
+
+button.active {
+    border-bottom: solid 2px #636B2F; 
+    opacity: 100%;
+    font-weight: bold;
+}
+
 /* BOOK STYLING - START */
 
 .bookList {
@@ -15,13 +36,15 @@
     list-style-type: none;
     padding-top: 30px;
     padding-bottom: 30px;
-    background-color: #3D4127;
+    background-color: #3D4127; /*#3D4127;*/
     border-radius: 10px;
 }
 
 
 .bookCard {
     margin: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -33,6 +56,8 @@
     border: 1px solid #F3F3F3;
     border-bottom: 1px solid #e0e0e0;
     border-radius: 8px;
+    display: block;
+    margin: 0 auto;
 }
 
 .bookThumbnail:hover {
@@ -41,6 +66,7 @@
 
 .bookInfo {
     text-align: left;
+    margin-bottom: 15px;
 }
 
 .bookInfo p {
@@ -56,7 +82,6 @@
 }
 
 .star {
-    color: transparent;
     font-size: 14px;
     margin-right: 2px;
     color: #F5ECD5;
@@ -68,4 +93,32 @@
     padding: 0px;
     display: inline-block;
 }
+
+.progressRow {
+    margin-top: 9px;
+    display: flex;
+    align-items: center;
+}
+
+.outerProgressBar {
+    height: 3px;
+    width: 100%;
+    border-radius: 20px; 
+    background-color: black;
+    flex: 1;
+}
+
+.innerProgressBar {
+    height: 3px;
+    background-color: #F5ECD5;
+    border-radius: 20px; 
+    opacity: 100%;
+}
+
+.progressInfo {
+    color: #F5ECD5;
+    font-size: 12px;
+    margin-right: 6px;
+}
+
 /* BOOK STYLING - END */
