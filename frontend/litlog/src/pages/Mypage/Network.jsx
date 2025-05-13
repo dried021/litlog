@@ -68,9 +68,26 @@ export default function Network({type}) {
                     FOLLOWERS
                 </button>
             </div>
+            {currentMembers.length !== 0 && (
+                <div className={styles.listHeader}>
+                    <span className={styles.headerLeft}>
+                        USERNAME
+                    </span>
+                    <span className={styles.headerRight}>
+                        <span className={styles.headerInfo}>
+                            READ
+                        </span>
+                        <span className={styles.headerInfo}>
+                            REVIEW
+                        </span>
+                        <span className={styles.headerInfo}>
+                            COLLECTION
+                        </span>
+                    </span>
+                </div>
+            )}
             <ul className={styles.memberList}>
                 {msg && (<p>{msg}</p>)}
-                <></>
                 {currentMembers.map(profile => (
                     <li key={profile.id}>
                         <div className={styles.profileSummary}>
@@ -124,11 +141,12 @@ export default function Network({type}) {
                     </li>
                 ))}
             </ul>
-            <Pagination 
+            {memberList.length > membersPerPage &&
+            (<Pagination 
                 currentPage = {currentPage}
                 pageCount = {Math.ceil(memberList.length / membersPerPage)}
                 onPageChange = {(page) => setCurrentPage(page)}
-            />
+            />)}
         </div>
     );
 }
