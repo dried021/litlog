@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useRequireAuth } from "../../libs/useRequireAuth.js"
 
 const Header = () => {
+    const userId = useRequireAuth();
+
     return (
         <header>
             <nav>
@@ -10,7 +13,7 @@ const Header = () => {
                 <Link to="/collections">Collections</Link>
                 <Link to="/readers">Readers</Link>
                 <Link to="/sign-in">Sign in</Link>
-                <Link to="/:userId">Profile</Link>
+                <Link to={`/${userId}`}>Profile</Link>
                 <Link to="/books/-9F9WaXUhRYC"> 테스트용 </Link>
             </nav>
         </header>

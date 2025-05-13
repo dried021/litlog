@@ -3,7 +3,7 @@ import './Button.css';
 
 function AddLikeButton({handleClick}) {
   return (
-        <button className="button-common addlike-button" onClick={() => {handleClick(isLiked)}}>
+        <button className="button-common addlike-button" onClick={handleClick}>
             <img src="/icons/heart_filled.svg"/>
             {" Add Like"}
         </button>

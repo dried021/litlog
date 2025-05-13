@@ -151,7 +151,6 @@ CREATE TABLE book_review(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     user_id VARCHAR (50),
     book_id INT,
-	title VARCHAR(255),
     content TEXT NOT NULL,
     rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
     creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,

@@ -1,0 +1,95 @@
+.headerWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #111;
+}
+
+.tabGroup {
+  display: flex;
+  gap: 16px;
+}
+
+.tabButton {
+  font-size: 17px;
+  background: none;
+  border: none;
+  color: #aaa;
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  outline: none;
+  transition: color 0.2s ease;
+}
+
+.tabButton:hover {
+  color: #444;
+}
+
+.tabButton:focus {
+  outline: none;
+}
+
+.active {
+  color: #d4a373;
+  border-bottom: 2px solid #d4a373;
+}
+
+.filterTab {
+  font-size: 14px;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dropdownWrapper {
+  position: relative;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 6px 10px;
+  border-radius: 4px;
+  min-width: 140px;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.filterLabel {
+  font-size: 13px;
+  color: #333;
+  white-space: nowrap;
+}
+
+.dropdownItem {
+  padding: 4px 8px;
+  cursor: pointer;
+  color: #333;
+  font-size: 13px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.dropdownItem:hover {
+  background-color: #3a3a3a;
+}
+
+.refreshIcon {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  filter: grayscale(1) brightness(0.8);
+  transition: filter 0.2s ease;
+}
+
+.tabButton:hover .refreshIcon {
+  filter: brightness(0.3);
+}

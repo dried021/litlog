@@ -17,9 +17,12 @@ public class BookshelfService {
         return bookshelfMapper.getCurrentlyReadingBooks(userId);
     }
     public List<BookshelfDto> getReadBooks(String userId) {
-        return bookshelfMapper.getCurrentlyReadingBooks(userId);
+        return bookshelfMapper.getReadBooks(userId);
     }
     public List<BookshelfDto> getToReadBooks(String userId) {
-        return bookshelfMapper.getCurrentlyReadingBooks(userId);
+        return bookshelfMapper.getToReadBooks(userId);
+    }
+    public List<BookshelfDto> getFavoriteBooks(String userId) {
+        return bookshelfMapper.getFavoriteBooks(userId);
     }
 }

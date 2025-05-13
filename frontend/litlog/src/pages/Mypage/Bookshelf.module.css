@@ -1,23 +1,22 @@
-.groupBooks {
-    padding: 5px;
-    width: 650px;
-    margin: 5 auto;
-    font-family: Arial, sans-serif;
+.bookshelf {
+    width: 960px;
 }
 
-.groupBooks h2 {
-    font-size: 15px;
-    margin-bottom: 20px;
-    color: #333;
+.results {
+    width: 960px;
 }
 
-.solid {
-    border: 2px solid #636B2F;
-}
+/* BOOK STYLING - START */
 
 .bookList {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     list-style-type: none;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #3D4127;
+    border-radius: 10px;
 }
 
 
@@ -28,8 +27,8 @@
 
 
 .bookThumbnail {
-    width: 140px;
-    height: 220px;
+    width: 100px; /* 140px */
+    height: 160px; /* 200px */
     object-fit: cover;
     border: 1px solid #F3F3F3;
     border-bottom: 1px solid #e0e0e0;
@@ -60,9 +59,8 @@
     color: transparent;
     font-size: 14px;
     margin-right: 2px;
-    color: #2e2d2b;
+    color: #F5ECD5;
 }
-
 
 .icon {
     width: 16px;
@@ -70,3 +68,4 @@
     padding: 0px;
     display: inline-block;
 }
+/* BOOK STYLING - END */
