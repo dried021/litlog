@@ -229,3 +229,9 @@ VALUES
 (54, 'bbb', 2, 3),
 (55, 'bbb', 2, 3)
 ;
+
+INSERT INTO book_shelf (book_id, user_id, shelf_type, progress) VALUES
+(1, 'aaa', 3, 100),
+(2, 'aaa', 3, 100),
+(3, 'aaa', 3, 100)
+;
