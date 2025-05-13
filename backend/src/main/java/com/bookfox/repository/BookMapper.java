@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.bookfox.model.BookDto;
 import com.bookfox.model.BookListDto;
 import com.bookfox.model.BookReviewDto;
+import com.bookfox.model.BookReviewListDTO;
 
 @Mapper
 public interface BookMapper {
@@ -35,6 +36,7 @@ public interface BookMapper {
 
     public List<BookListDto> getPopularBookList();
     public List<BookListDto> getJustReviewedBookList();
+    public List<BookReviewListDTO> getPopularReviewList(int currentPage);
 }
 
 

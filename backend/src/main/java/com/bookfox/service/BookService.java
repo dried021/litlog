@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.bookfox.model.BookDto;
 import com.bookfox.model.BookListDto;
 import com.bookfox.model.BookReviewDto;
+import com.bookfox.model.BookReviewListDTO;
 import com.bookfox.repository.BookMapper;
 
 @Service
@@ -120,4 +121,8 @@ public class BookService {
         return bookMapper.getJustReviewedBookList();
     }
 
+    public List<BookReviewListDTO> getPopularReviewList(int currentPage){
+        int offset = (currentPage - 1) * 5;
+        return bookMapper.getPopularReviewList(offset);
+    }
 }
