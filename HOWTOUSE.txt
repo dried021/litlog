@@ -2,6 +2,7 @@
 
 cd frontend/litlog 해서
 npm install react-slick slick-carousel
+npm install @mui/material @mui/icons-material @emotion/react @emotion/styled
 
 
 색
