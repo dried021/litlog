@@ -24,6 +24,15 @@ const BookDetail = () => {
     mode: "close",
   });
 
+  {/* 고화질 썸네일 */}
+  const getThumbnail = (thumbnail) => {
+    if (!thumbnail) return "/images/covernotavailable.png";
+    if (thumbnail.includes("zoom=")) {
+      return thumbnail.replace(/zoom=\d+/, "zoom=3");
+    }
+    return thumbnail;
+  };
+
   const handleCloseModal = () => {
     setModalData({...modalData, show:false,});
   };
@@ -108,10 +117,7 @@ const BookDetail = () => {
           <div className={styles["book-section"]}>
             <img
               className={styles["thumbnail"]}
-              src={
-                book.volumeInfo.imageLinks?.thumbnail ||
-                "/images/covernotavailable.png"
-              }
+              src={getThumbnail(book.volumeInfo.imageLinks?.thumbnail)}
               alt={book.volumeInfo.title}
             />
             <div className={styles["add-buttons"]}>
