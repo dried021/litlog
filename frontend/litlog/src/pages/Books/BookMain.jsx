@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import BookSlider from "../../components/Book/BookSlider/BookSlider";
 import SearchBar from '../../components/SearchBar/SearchBar';
 import axios from "axios";
+import ReviewList from '../../components/Review/ReviewList';
 
 const BookMain = () => {
     const navigate = useNavigate();
@@ -53,6 +54,7 @@ const BookMain = () => {
 
             <BookSlider title="Popular Books This Week" books={popularBookList} />
             <BookSlider title="Just Reviewed Books" books={justReviewedBookList} />
+            <ReviewList/>
         </div>
     );
 };
