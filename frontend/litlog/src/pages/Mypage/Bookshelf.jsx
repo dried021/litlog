@@ -92,31 +92,40 @@ const Bookshelf = () => {
     return(
         <div className={styles.bookshelf}>
             <TabMenu/>
-            <button onClick={() => setShelf("current")}>CURRENTLY READING</button>
-            <button onClick={() => setShelf("finished")}>FINISHED READING</button>
-            <button onClick={() => setShelf("to-read")}>TO READ</button>
-            <button onClick={() => setShelf("favorite")}>FAVORITE</button>
+            <div className={styles.tabs}>
+                <button onClick={() => setShelf("current")} className={`${shelf === "current" ? styles.active : ""}`}>
+                    CURRENTLY READING
+                </button>
+                <button onClick={() => setShelf("finished")} className={`${shelf === "finished" ? styles.active : ""}`}>
+                    FINISHED READING
+                </button>
+                <button onClick={() => setShelf("to-read")} className={`${shelf === "to-read" ? styles.active : ""}`}>
+                    TO READ
+                </button>
+                <button onClick={() => setShelf("favorite")} className={`${shelf === "favorite" ? styles.active : ""}`}>
+                    FAVORITE
+                </button>
 
-            <label htmlFor="sortOptions">SORT BY</label>
-            <select id="sortOptions" onChange={(e) => setSort(e.target.value)}>
-                <optgroup label="When Added">
-                    <option value="added-newest">Newest First</option>
-                    <option value="added-earliest">Earliest First</option>
-                </optgroup>
-                <optgroup label="Published Date">
-                    <option value="published-newest">Newest First</option>
-                    <option value="published-earliest">Earliest First</option>
-                </optgroup>
-                <optgroup label="Your Rating">
-                    <option value="rating-highest">Highest First</option>
-                    <option value="rating-lowest">Lowest First</option>
-                </optgroup>
-                <optgroup label="Book Length">
-                    <option value="length-shortest">Shortest First</option>
-                    <option value="length-longest">Longest First</option>
-                </optgroup>
-            </select>
-
+                <label htmlFor="sortOptions">SORT BY</label>
+                <select id="sortOptions" onChange={(e) => setSort(e.target.value)}>
+                    <optgroup label="When Added">
+                        <option value="added-newest">Newest First</option>
+                        <option value="added-earliest">Earliest First</option>
+                    </optgroup>
+                    <optgroup label="Published Date">
+                        <option value="published-newest">Newest First</option>
+                        <option value="published-earliest">Earliest First</option>
+                    </optgroup>
+                    <optgroup label="Your Rating">
+                        <option value="rating-highest">Highest First</option>
+                        <option value="rating-lowest">Lowest First</option>
+                    </optgroup>
+                    <optgroup label="Book Length">
+                        <option value="length-shortest">Shortest First</option>
+                        <option value="length-longest">Longest First</option>
+                    </optgroup>
+                </select>
+            </div>
             <ul className={styles.bookList}>
                 {currentBooks.map(book => (
                     <li key={book.bookId} className={styles.bookCard}>
@@ -129,11 +138,29 @@ const Bookshelf = () => {
                         </a>
                         <div className={styles.bookInfo}>
                             {[...Array(5)].map((_, index) => (
-                                index < book.rating && (
+                                (index < book.rating && shelf !== "current") && (
                                     <span key={index} className={styles.star}>★</span>
                                 )
                             ))}
-                            {book.likeStatus && (<img src={heart} className={styles.icon}/>)}
+                            {(book.likeStatus && shelf !== "current") && (<img src={heart} className={styles.icon}/>)}
+                            {shelf === "current" && (
+                                <>
+                                    <div className={styles.progressRow}>
+                                        <span className={styles.progressInfo}>{book.progress}%</span>
+                                        <div className={styles.outerProgressBar}>
+                                            <div 
+                                                className={styles.innerProgressBar}
+                                                style={{width:`${book.progress}%`}}
+                                            />
+                                        </div>
+                                    </div>
+                                    <span className={styles.progressInfo}>
+                                        Started {new Date(book.creationDate).toLocaleDateString('en-GB', {
+                                            day: '2-digit', month: 'short', year: 'numeric'
+                                        })}
+                                    </span>
+                                </>
+                            )}
                         </div>
                     </li>
                 ))}
