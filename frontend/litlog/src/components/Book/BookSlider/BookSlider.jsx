@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 import './BookSlider.css';
+import { splitTextIntoLines } from "../../../libs/text/splitTextIntoLines";
 function NextArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -45,8 +46,8 @@ function NextArrow(props) {
   function BookSlider({
     title,
     books,
-    slidesToShow = 4,
-    slidesToScroll = 3
+    slidesToShow = 5,
+    slidesToScroll = 4
   }) {
     const settings = {
       dots: false,
@@ -61,20 +62,27 @@ function NextArrow(props) {
   
     return (
       <div className="book-slider">
-        {title && <h3>{title}</h3>}
+        {title && <h3 className="bookslider-title">{title}</h3>}
         <Slider {...settings}>
           {books.map((book) => (
             <div className="book-card" key={book.id}>
               <Link to={book.link}>
-                <img src={book.image} alt={book.title} className="book-image" />
-                <h5>{book.title}</h5>
+                <img src={book.image ?? '/images/covernotavailable.png'}  alt={book.title} className="book-image" />
+                <h5 className="bookslider-booktitle">{
+                splitTextIntoLines(book.title, 9).map((line, index) => (
+                  <React.Fragment key={index}>
+                    {line}
+                    <br />
+                  </React.Fragment>
+                ))  
+                }</h5>
                 <div className="book-stats">
                   <img className="bookshelf" src="/icons/bookshelf.svg" alt="Bookshelf" />
-                  <p>{" " + book.views + " "}</p>
+                  <p>{" " + book.bookshelves + " "}</p>
                   <img className="like" src={"/icons/heart_filled.svg"} alt="Like"/>
                   <p>{" " + book.likes+ " "}</p>
                   <img className="review" src="/icons/star2.svg" alt="Review"/>
-                  <p>{" " + book.hearts + " "}</p>
+                  <p>{" " + book.reviews + " "}</p>
                 </div>
               </Link>
             </div>

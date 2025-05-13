@@ -20,14 +20,21 @@ public class BookMain {
 
     @GetMapping("/popularBookList")
     public ResponseEntity<List<BookListDto>> getPopularBookList(){
-        List<BookListDto> books = bookService.getPopularBookList(); 
-        System.out.println("popularbooklist" + books);
+        List<BookListDto> books = bookService.getPopularBookList();
+        for (BookListDto book : books) {
+            String bookApiId = bookService.getApiIdByBookId(book.getId());
+            book.setLink(bookApiId);
+        }
         return ResponseEntity.ok(books);
     }
 
     @GetMapping("/justReviewedBookList")
     public ResponseEntity<List<BookListDto>> getJustReviewedBookList(){
         List<BookListDto> books = bookService.getJustReviewedBookList(); 
+        for (BookListDto book : books) {
+            String bookApiId = bookService.getApiIdByBookId(book.getId());
+            book.setLink(bookApiId);
+        }
         return ResponseEntity.ok(books);
     }
 

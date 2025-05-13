@@ -1,6 +1,4 @@
 package com.bookfox.repository;
-
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +12,8 @@ import com.bookfox.model.BookReviewDto;
 public interface BookMapper {
     public Boolean exists(String bookApiId);
     public int getIdByBookApiId(String bookApiId);
+    public String getApiIdByBookId(int bookId);
+
     public int getBookshelfCount(int id);
     public int getLikeCount(int id);
     public int getReviewCount(int id);
