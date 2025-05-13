@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import UserSlider from "../../components/Ranking/UserSlider/UserSlider";
 import SearchBar from '../../components/SearchBar/SearchBar';
 import axios from "axios";
+import UserTotalRanking from '../../components/Ranking/UserTotalRanking/UserTotalRanking';
+import styles from './ReadersMain.module.css';
 
 const ReadersMain = () => {
     const navigate = useNavigate();
@@ -54,7 +56,7 @@ const ReadersMain = () => {
 
             <UserSlider type="avid" title="Avid Reader Rank" users={avidUserList} />
             <UserSlider type="beloved" title="Beloved Reader Rank" users={belovedUserList}/>
-
+            <UserTotalRanking className={styles['rank']}/>
         </div>
     );
 };
