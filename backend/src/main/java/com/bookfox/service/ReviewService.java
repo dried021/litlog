@@ -8,11 +8,10 @@ import com.bookfox.repository.ReviewMapper;
 
 @Service
 public class ReviewService {
-
     @Autowired
     private ReviewMapper reviewMapper;
 
-    public BookReviewDto getReviewDetailById(int reviewId) {
-        return reviewMapper.getReviewDetailById(reviewId);
+    public BookReviewDto getReviewDetailById(int reviewId, String loginUserId) {
+        return reviewMapper.getReviewDetailById(reviewId, loginUserId);
     }
 }
