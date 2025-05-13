@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import ReviewEntry from "./ReviewEntry";
 import ReviewHeader from "../../components/Mypage/ReviewHeader";
@@ -9,20 +9,27 @@ import "./ReviewTimeline.css";
 const ReviewTimeline = () => {
   const { userId, year } = useParams();
   const navigate = useNavigate();
-  const currentYear = new Date().getFullYear();
+  const [searchParams, setSearchParams] = useSearchParams();
 
+  const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(year || "");
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const [activeTab, setActiveTab] = useState("timeline");
-  const [showLikedOnly, setShowLikedOnly] = useState(false);
-  const [withContentOnly, setWithContentOnly] = useState(false);
-  const [ratingFilter, setRatingFilter] = useState(0);
+
+  const [showLikedOnly, setShowLikedOnly] = useState(searchParams.get("liked") === "true");
+  const [withContentOnly, setWithContentOnly] = useState(searchParams.get("withReview") === "true");
+  const [ratingFilter, setRatingFilter] = useState(parseInt(searchParams.get("rating")) || 0);
 
   const [years, setYears] = useState([]);
 
+  // ✅ year 파라미터 변경 시 selectedYear 동기화
+  useEffect(() => {
+    setSelectedYear(year || "");
+  }, [year]);
+
+  // ✅ 리뷰 불러오기
   useEffect(() => {
     setLoading(true);
     axios
@@ -42,11 +49,12 @@ const ReviewTimeline = () => {
       .finally(() => setLoading(false));
   }, [userId, year]);
 
+  // 가입 연도 리스트 생성
   useEffect(() => {
     axios
       .get(`http://localhost:9090/api/members/${userId}/join-year`)
       .then((res) => {
-        const joinYear = res.data; 
+        const joinYear = res.data;
         const yearList = [];
         for (let y = currentYear; y >= joinYear; y--) {
           yearList.push(y);
@@ -57,6 +65,18 @@ const ReviewTimeline = () => {
         setYears([currentYear]);
       });
   }, [userId]);
+
+  const updateSearchParams = (updates) => {
+    const newParams = new URLSearchParams(searchParams);
+    Object.entries(updates).forEach(([key, value]) => {
+      if (value === "" || value === false || value === 0) {
+        newParams.delete(key);
+      } else {
+        newParams.set(key, value);
+      }
+    });
+    setSearchParams(newParams);
+  };
 
   const handleYearChange = (e) => {
     const newYear = e.target.value;
@@ -73,24 +93,30 @@ const ReviewTimeline = () => {
   };
 
   const handleToggleLiked = () => {
-    setShowLikedOnly((prev) => !prev);
+    const updated = !showLikedOnly;
+    setShowLikedOnly(updated);
+    updateSearchParams({ liked: updated });
+  };
+
+  const handleToggleContent = () => {
+    const updated = !withContentOnly;
+    setWithContentOnly(updated);
+    updateSearchParams({ withReview: updated });
   };
 
   const handleRatingChange = (e) => {
     const val = parseInt(e.target.value);
-    setRatingFilter(isNaN(val) ? 0 : val);
-  };
-
-  const handleToggleContent = () => {
-    setWithContentOnly(prev => !prev);
+    const finalVal = isNaN(val) ? 0 : val;
+    setRatingFilter(finalVal);
+    updateSearchParams({ rating: finalVal });
   };
 
   const handleResetFilters = () => {
-    setSelectedYear("");
-    navigate(`/${userId}/reviews`); 
     setShowLikedOnly(false);
     setWithContentOnly(false);
     setRatingFilter(0);
+    setSearchParams({});
+    navigate(`/${userId}/reviews`, { replace: true });
   };
 
   const filteredReviews = reviews.filter((review) => {
@@ -98,9 +124,7 @@ const ReviewTimeline = () => {
     const meetsRating = ratingFilter === 0 || review.rating === ratingFilter;
     const meetsLiked = !showLikedOnly || review.liked === true;
     const meetsContent =
-      !withContentOnly ||
-      (typeof content === "string" && content.trim().length > 0);
-
+      !withContentOnly || (typeof content === "string" && content.trim().length > 0);
     return meetsRating && meetsLiked && meetsContent;
   });
 
@@ -118,8 +142,8 @@ const ReviewTimeline = () => {
         onRatingChange={handleRatingChange}
         likedOnly={showLikedOnly}
         onToggleLiked={handleToggleLiked}
-        withContentOnly={withContentOnly}         
-        onToggleContent={handleToggleContent}     
+        withContentOnly={withContentOnly}
+        onToggleContent={handleToggleContent}
         onResetFilters={handleResetFilters}
       />
 
