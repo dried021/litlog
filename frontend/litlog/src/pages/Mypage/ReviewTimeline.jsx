@@ -18,7 +18,7 @@ const ReviewTimeline = () => {
 
   const [activeTab, setActiveTab] = useState("timeline");
   const [showLikedOnly, setShowLikedOnly] = useState(false);
-    const [withContentOnly, setWithContentOnly] = useState(false);
+  const [withContentOnly, setWithContentOnly] = useState(false);
   const [ratingFilter, setRatingFilter] = useState(0);
 
   const [years, setYears] = useState([]);
@@ -76,24 +76,31 @@ const ReviewTimeline = () => {
     setShowLikedOnly((prev) => !prev);
   };
 
-  const handleToggleContent = () => {
-    setWithContentOnly((prev) => !prev);
+  const handleRatingChange = (e) => {
+    const val = parseInt(e.target.value);
+    setRatingFilter(isNaN(val) ? 0 : val);
   };
 
-  const handleRatingChange = (e) => {
-    setRatingFilter(parseInt(e.target.value));
+  const handleToggleContent = () => {
+    setWithContentOnly(prev => !prev);
   };
 
   const handleResetFilters = () => {
+    setSelectedYear("");
+    navigate(`/${userId}/reviews`); 
     setShowLikedOnly(false);
     setWithContentOnly(false);
     setRatingFilter(0);
   };
 
   const filteredReviews = reviews.filter((review) => {
+    const content = review.content;
     const meetsRating = ratingFilter === 0 || review.rating === ratingFilter;
     const meetsLiked = !showLikedOnly || review.liked === true;
-    const meetsContent = !withContentOnly || (review.content && review.content.trim().length > 0);
+    const meetsContent =
+      !withContentOnly ||
+      (typeof content === "string" && content.trim().length > 0);
+
     return meetsRating && meetsLiked && meetsContent;
   });
 
@@ -103,24 +110,17 @@ const ReviewTimeline = () => {
 
       <ReviewHeader
         selectedYear={selectedYear}
-        handleYearChange={handleYearChange}
+        onYearChange={handleYearChange}
         years={years}
         activeTab={activeTab}
         onTabChange={handleTabChange}
-        showLikedOnly={showLikedOnly}
-        onToggleLiked={handleToggleLiked}
-        withContentOnly={withContentOnly}
-        onToggleContent={handleToggleContent}
-        ratingFilter={ratingFilter}
+        selectedRating={ratingFilter}
         onRatingChange={handleRatingChange}
+        likedOnly={showLikedOnly}
+        onToggleLiked={handleToggleLiked}
+        withContentOnly={withContentOnly}         
+        onToggleContent={handleToggleContent}     
         onResetFilters={handleResetFilters}
-        message={
-          filteredReviews.length === 0
-            ? "No reviews found."
-            : `${filteredReviews[0].nickname}, you left reviews for ${filteredReviews.length} books during ${
-                selectedYear || "all years"
-              }.`
-        }
       />
 
       <div className="review-table">
@@ -134,7 +134,7 @@ const ReviewTimeline = () => {
         </div>
 
         {filteredReviews.length === 0 ? (
-          <p className="no-reviews">No reviews yet. Share your first review!</p>
+          <p className="no-reviews">No Reviews</p>
         ) : (
           filteredReviews.map((review, idx) => {
             const prev = filteredReviews[idx - 1];

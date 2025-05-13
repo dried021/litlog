@@ -8,8 +8,12 @@ const ReviewEntry = ({ review, showMonth }) => {
   const thumbnail = review.thumbnail || "/images/covernotavailable.png";
 
   const renderStars = (rating) => {
-    return Array.from({ length: rating }, (_, i) => (
-      <img key={i} src="/icons/star.svg" alt="별점"/>
+    return Array.from({ length: 5 }, (_, i) => (
+      <img
+        key={i}
+        src={i < rating ? "/icons/star.svg" : "/icons/star_gray.svg"}
+        alt="별점"
+      />
     ));
   };
 
