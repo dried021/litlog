@@ -4,11 +4,12 @@ cd frontend/litlog 해서
 npm install react-slick slick-carousel
 
 
-
-
-
-
-
+색
+짙은 녹색 CCD5AE
+연한 녹색 E9EDC9
+아이보리 FEFAE0
+연한 노란색 FAEDCD
+연한 갈색 D4A373
 
 
 

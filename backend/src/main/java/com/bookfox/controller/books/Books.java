@@ -74,6 +74,21 @@ public class Books {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/bookshelf")
+    public ResponseEntity<Boolean> checkBookShelf(@RequestParam String bookApiId){
+        //session에서 user 가져오기
+        String userId = "user01";
+        boolean exists = bookService.exists(bookApiId);
+        
+        if (!exists){
+            return ResponseEntity.ok(false);
+        }
+        
+        int bookId = bookService.getIdByBookApiId(bookApiId);
+        int result = bookService.checkBookshelf(bookId, userId);
+        return ResponseEntity.ok(result > 0);
+    }
+
     @GetMapping("/reviews")
     public ResponseEntity<Map<String, Object>> getReviews(@RequestParam String bookApiId,
                     @RequestParam int currentPage, @RequestParam boolean isPopularity) {
