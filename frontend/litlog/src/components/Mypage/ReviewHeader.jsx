@@ -1,19 +1,41 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./ReviewHeader.module.css";
+import { FormControlLabel, Switch } from "@mui/material";
 
 const ReviewHeader = ({
   activeTab = "timeline",
   onTabChange,
   selectedYear,
   onYearChange,
+  years = [],
   selectedRating,
   onRatingChange,
+  ratingOptions = [1, 2, 3, 4, 5],
   likedOnly,
   onToggleLiked,
   withContentOnly,
   onToggleContent,
   onResetFilters,
 }) => {
+  const [openDropdown, setOpenDropdown] = useState(null); // "year", "rating", "filter"
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = (name) => {
+    setOpenDropdown((prev) => (prev === name ? null : name));
+  };
+
+  const closeDropdown = () => setOpenDropdown(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <div className={styles.headerWrapper}>
       {/* 왼쪽 탭 */}
@@ -32,48 +54,83 @@ const ReviewHeader = ({
         </button>
       </div>
 
-      {/* 오른쪽 필터 */}
-      <div className={styles.filterGroup}>
-        {/* 연도 드롭다운 */}
-        <select
-          className={styles.dropdown}
-          value={selectedYear}
-          onChange={onYearChange}
-        >
-          <option value="">Any year</option>
-          {/* 연도 항목은 추후 동적으로 추가 */}
-        </select>
-
-        {/* 평점 드롭다운 */}
-        <select
-          className={styles.dropdown}
-          value={selectedRating}
-          onChange={onRatingChange}
-        >
-          <option value="">Any rating</option>
-          {/* 평점 항목도 추후 동적으로 추가 */}
-        </select>
-
-        {/* 좋아요 토글 */}
-        <div className={styles.toggleWrapper}>
-          <label className={styles.switchLabel}>
-            <input type="checkbox" checked={likedOnly} onChange={onToggleLiked} />
-            <span className={styles.switchCustom}></span>
-          </label>
-          <span className={styles.icon}>♥️</span>
+      {/* 오른쪽 필터 드롭다운 그룹 */}
+      <div className={styles.filterGroup} ref={dropdownRef}>
+        {/* Year Dropdown */}
+        <div className={styles.dropdownWrapper}>
+          <span
+            className={`${styles.tabButton} ${styles.filterTab} ${openDropdown === "year" ? styles.active : ""}`}
+            onClick={() => toggleDropdown("year")}
+          >
+            {selectedYear ? selectedYear : "Year"} ▾
+          </span>
+          {openDropdown === "year" && (
+            <div className={styles.dropdownMenu}>
+              <div className={styles.dropdownItem} onClick={() => onYearChange({ target: { value: "" } })}>Any year</div>
+              {years.map((year) => (
+                <div
+                  key={year}
+                  className={styles.dropdownItem}
+                  onClick={() => onYearChange({ target: { value: year } })}
+                >
+                  {year}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* 리뷰 내용 있는 것만 토글 */}
-        <div className={styles.toggleWrapper}>
-          <label className={styles.switchLabel}>
-            <input type="checkbox" checked={withContentOnly} onChange={onToggleContent} />
-            <span className={styles.switchCustom}></span>
-          </label>
-          <span className={styles.icon}>✏️</span>
+        {/* Rating Dropdown */}
+        <div className={styles.dropdownWrapper}>
+          <span
+            className={`${styles.tabButton} ${styles.filterTab} ${openDropdown === "rating" ? styles.active : ""}`}
+            onClick={() => toggleDropdown("rating")}
+          >
+            {selectedRating ? `${selectedRating}★` : "Rating"} ▾
+          </span>
+          {openDropdown === "rating" && (
+            <div className={styles.dropdownMenu}>
+              <div className={styles.dropdownItem} onClick={() => onRatingChange({ target: { value: "" } })}>Any rating</div>
+              {ratingOptions.map((rating) => (
+                <div
+                  key={rating}
+                  className={styles.dropdownItem}
+                  onClick={() => onRatingChange({ target: { value: rating } })}
+                >
+                  {rating}★
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* 리셋 버튼 */}
-        <button className={styles.resetButton} onClick={onResetFilters}>🔄</button>
+        {/* Filter Dropdown (Switches) */}
+        <div className={styles.dropdownWrapper}>
+          <span
+            className={`${styles.tabButton} ${styles.filterTab} ${openDropdown === "filter" ? styles.active : ""}`}
+            onClick={() => toggleDropdown("filter")}
+          >
+            Filter ▾
+          </span>
+          {openDropdown === "filter" && (
+            <div className={styles.dropdownMenu}>
+              <FormControlLabel
+                control={<Switch checked={likedOnly} onChange={onToggleLiked} size="small" sx={{ ml: 1 }}/>}
+                label={<span className={styles.filterLabel}>Liked Only</span>}
+              />
+              <FormControlLabel
+                control={<Switch checked={withContentOnly} onChange={onToggleContent} size="small" sx={{ ml: 1 }}/>}
+                label={<span className={styles.filterLabel}>With Review</span>}
+              />
+            </div>
+          )}
+        </div>
+
+
+        {/* Reset */}
+        <span className={styles.tabButton} onClick={onResetFilters}>
+          <img src="/icons/refresh.svg" alt="Reset" className={styles.refreshIcon}/>
+        </span>
       </div>
     </div>
   );
