@@ -35,14 +35,17 @@ button.active {
     justify-content: flex-start;
     list-style-type: none;
     padding-top: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     background-color: #3D4127; /*#3D4127;*/
     border-radius: 10px;
+    padding-left: 50px;
 }
 
 
 .bookCard {
-    margin: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
     display: flex;
     flex-direction: column;
 }
