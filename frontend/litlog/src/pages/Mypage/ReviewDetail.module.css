@@ -1,0 +1,107 @@
+.wrapper {
+  width: 960px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.container {
+  display: flex;
+  gap: 30px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+/* 왼쪽 썸네일 영역 */
+.left {
+  flex-shrink: 0;
+}
+
+.thumbnail {
+  width: 120px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 6px;
+  background-color: #f2f2f2;
+}
+
+/* 오른쪽 내용 전체 */
+.right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 제목 + 출간연도 */
+.title {
+  font-size: 21px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1.4;
+}
+
+.year {
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
+  margin-left: 6px;
+}
+
+/* 별점 + 작성일 */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin-top: 6px;
+  font-size: 14px;
+  color: #444;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.stars {
+  display: flex;
+  gap: 4px;
+  margin-left: -3px;
+}
+
+.stars img {
+  width: 18px;
+  height: 18px;
+}
+
+/* 본문 내용 */
+.content {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #222;
+  white-space: pre-wrap;
+  padding-top: 8px;
+  flex-grow: 1;
+  min-height: 120px;
+}
+
+/* 좋아요 */
+.like {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto; /* 맨 아래 고정 */
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+  font-size: 14px;
+  color: #444;
+}
+
+.like img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.like img:hover {
+  opacity: 1;
+}
