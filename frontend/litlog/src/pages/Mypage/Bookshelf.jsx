@@ -126,50 +126,55 @@ const Bookshelf = () => {
                     </optgroup>
                 </select>
             </div>
-            <ul className={styles.bookList}>
-                {currentBooks.map(book => (
-                    <li key={book.bookId} className={styles.bookCard}>
-                        <a href={`/books/${book.bookApiId}`}>
-                            <img 
-                                src={book.thumbnail ? book.thumbnail : defaultThumbnail}
-                                alt={book.title}
-                                className={styles.bookThumbnail}
-                            />
-                        </a>
-                        <div className={styles.bookInfo}>
-                            {[...Array(5)].map((_, index) => (
-                                (index < book.rating && shelf !== "current") && (
-                                    <span key={index} className={styles.star}>★</span>
-                                )
-                            ))}
-                            {(book.likeStatus && shelf !== "current") && (<img src={heart} className={styles.icon}/>)}
-                            {shelf === "current" && (
-                                <>
-                                    <div className={styles.progressRow}>
-                                        <span className={styles.progressInfo}>{book.progress}%</span>
-                                        <div className={styles.outerProgressBar}>
-                                            <div 
-                                                className={styles.innerProgressBar}
-                                                style={{width:`${book.progress}%`}}
-                                            />
-                                        </div>
-                                    </div>
-                                    <span className={styles.progressInfo}>
-                                        Started {new Date(book.creationDate).toLocaleDateString('en-GB', {
-                                            day: '2-digit', month: 'short', year: 'numeric'
-                                        })}
-                                    </span>
-                                </>
-                            )}
-                        </div>
-                    </li>
-                ))}
-            </ul>
-            <Pagination 
-                currentPage = {currentPage}
-                pageCount = {Math.ceil(sortedBooks.length / booksPerPage)}
-                onPageChange = {(page) => setCurrentPage(page)}
-            />
+            {currentBooks.length ===0 && <p>No books to show</p>}
+            {currentBooks.length > 0 && (
+                <>
+                    <ul className={styles.bookList}>
+                        {currentBooks.map(book => (
+                            <li key={book.bookId} className={styles.bookCard}>
+                                <a href={`/books/${book.bookApiId}`}>
+                                    <img 
+                                        src={book.thumbnail ? book.thumbnail : defaultThumbnail}
+                                        alt={book.title}
+                                        className={styles.bookThumbnail}
+                                    />
+                                </a>
+                                <div className={styles.bookInfo}>
+                                    {[...Array(5)].map((_, index) => (
+                                        (index < book.rating && shelf !== "current") && (
+                                            <span key={index} className={styles.star}>★</span>
+                                        )
+                                    ))}
+                                    {(book.likeStatus && shelf !== "current") && (<img src={heart} className={styles.icon}/>)}
+                                    {shelf === "current" && (
+                                        <>
+                                            <div className={styles.progressRow}>
+                                                <span className={styles.progressInfo}>{book.progress}%</span>
+                                                <div className={styles.outerProgressBar}>
+                                                    <div 
+                                                        className={styles.innerProgressBar}
+                                                        style={{width:`${book.progress}%`}}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <span className={styles.progressInfo}>
+                                                Started {new Date(book.creationDate).toLocaleDateString('en-GB', {
+                                                    day: '2-digit', month: 'short', year: 'numeric'
+                                                })}
+                                            </span>
+                                        </>
+                                    )}
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                    <Pagination 
+                        currentPage = {currentPage}
+                        pageCount = {Math.ceil(sortedBooks.length / booksPerPage)}
+                        onPageChange = {(page) => setCurrentPage(page)}
+                    />
+                </>
+            )}
         </div>
     );
 };

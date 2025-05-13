@@ -26,6 +26,27 @@ button.active {
     opacity: 100%;
     font-weight: bold;
 }
+/* LIST HEADER START */
+.listHeader {
+    display: flex;
+    background-color: #E8E8E8;
+    border-radius: 5px;
+    padding: 3px;
+    font-size: 12px;
+}
+.headerLeft {
+    margin-left: 77px;
+}
+.headerRight {
+    width: 100%;
+    text-align: right;
+    margin-right: 10px;
+}
+.headerInfo {
+    margin-left: 9px;
+}
+
+/* LIST HEADER END */
 
 .profileSummary {
     display: flex;
@@ -33,10 +54,9 @@ button.active {
     align-items: center;
     padding: 10px;
     background-color: #3D4127; /*#F3F3F3;*/
-    border-radius: 5px;
     width: 960px;
     height: 65px; /* ROW HEIGHT */
-    margin-bottom: 5px;
+    border-top: 1px solid #EDE1D2;
 }
 
 .profileLeft {
@@ -121,3 +141,9 @@ button.active {
 .icon {
     margin: 5px;
 }
+
+.memberList li:last-child .profileSummary {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  
