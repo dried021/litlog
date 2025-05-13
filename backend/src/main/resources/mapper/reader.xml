@@ -126,7 +126,7 @@
         JOIN book b ON bs.book_id = b.id
         WHERE bs.user_id = #{id}
         ORDER BY bs.creation_date DESC
-        LIMIT 3
+        LIMIT 5
     </select>
 
     <select id="getUserCount" resultType="int">
