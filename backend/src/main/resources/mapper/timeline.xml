@@ -7,6 +7,7 @@
   <select id="getReviewTimelineAll" resultType="com.bookfox.model.TimelineDto" parameterType="string">
     SELECT
       r.id,
+      r.user_id AS userId,
       r.book_id AS bookId,
       b.book_api_id AS bookApiId,
       b.title,
@@ -30,6 +31,7 @@
   <select id="getReviewTimeline" resultType="com.bookfox.model.TimelineDto" parameterType="map">
     SELECT
       r.id,
+      r.user_id AS userId,
       r.book_id AS bookId,
       b.book_api_id AS bookApiId,
       b.title,

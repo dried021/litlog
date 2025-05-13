@@ -24,12 +24,10 @@ const ReviewTimeline = () => {
 
   const [years, setYears] = useState([]);
 
-  // ✅ year 파라미터 변경 시 selectedYear 동기화
   useEffect(() => {
     setSelectedYear(year || "");
   }, [year]);
 
-  // ✅ 리뷰 불러오기
   useEffect(() => {
     setLoading(true);
     axios
@@ -39,6 +37,7 @@ const ReviewTimeline = () => {
           : `http://localhost:9090/api/members/${userId}/reviews/review-timeline`
       )
       .then((res) => {
+        console.log("✅ 리뷰 타임라인 데이터:", res.data);
         setReviews(res.data);
         setError(null);
       })
@@ -49,7 +48,6 @@ const ReviewTimeline = () => {
       .finally(() => setLoading(false));
   }, [userId, year]);
 
-  // 가입 연도 리스트 생성
   useEffect(() => {
     axios
       .get(`http://localhost:9090/api/members/${userId}/join-year`)

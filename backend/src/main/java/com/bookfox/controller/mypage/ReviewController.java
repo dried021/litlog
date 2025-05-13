@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import com.bookfox.model.BookReviewDto;
 import com.bookfox.service.ReviewService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/api/members") 
 public class ReviewController {
@@ -13,7 +15,9 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @GetMapping("/{userId}/reviews/{reviewId}")
-    public BookReviewDto getReviewDetail(@PathVariable String userId, @PathVariable int reviewId) {
-        return reviewService.getReviewDetailById(reviewId);
+    public BookReviewDto getReviewDetail(@PathVariable String userId, @PathVariable int reviewId, HttpSession session) {
+        String loginUserId = (String) session.getAttribute("loginUserId");
+        
+        return reviewService.getReviewDetailById(reviewId, loginUserId);
     }
 }
