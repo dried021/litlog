@@ -18,7 +18,7 @@ const Bookshelf = () => {
 
     /* Pagination */
     const [currentPage, setCurrentPage] = useState(1);
-    const booksPerPage = 24;
+    let booksPerPage = (shelf === "current" ? 15 : 18);
     
     useEffect(() => {
         let path;
