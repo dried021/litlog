@@ -5,7 +5,7 @@ import UserList from '../UserList/UserList';
 import ViewMoreButton from '../../Button/ViewMoreButton';
 import TopButton from '../../Button/TopButton';
 import { Row, Col } from 'react-bootstrap';
-import './UserTotalRanking.css';
+import styles from './UserTotalRanking.module.css';
 
 
 const UserTotalRanking = () => {
@@ -69,15 +69,15 @@ const UserTotalRanking = () => {
     
     return (
         <div>
-            <h2 className="title">Overall User Rank</h2>
+            <h2 className={styles["title"]}>Overall User Rank</h2>
 
-            <div className="search-result">
+            <div className={styles["search-result"]}>
                 {loading && loadedItems === 0 ? (
                     <p className="search">Loading...</p>
                 ) : users.length > 0 ? (
                     <UserList users={users} onItemClick={handleItemClick}/>
                 ) : (
-                    <p className="search">No results found.</p>
+                    <p className={styles["search"]}>No results found.</p>
                 )}
             </div>
 

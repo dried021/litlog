@@ -14,19 +14,25 @@ function UserList({ users, onItemClick }) {
                     {(index === 0) ? <img src="/images/first.png" alt={"rank 1"} />
                     :(index === 1)? <img src="/images/second.png" alt={"rank 2"} />
                     : (index === 2)? <img src="/images/third.png" alt={"rank 3"} />
-                : <p className={styles['index-box-p']}>{index + 1}</p>}
+                : <p className={styles['user-rank-p']}>{index + 1}</p>}
                 </div>
 
                 <div className={styles['user-info']}>
                     <h3 className={styles['user-id']}>{user.id}</h3>
                     <p className={styles['user-bio']}>{user.bio}</p>
 
-                    <div className={styles['user-status']}>
-                        <p className={styles['user-score']}>{user.activityScore}</p>
-                        <p className={styles['reviews']}>{user.reviews}</p>
-                        <p className={styles['collections']}>{user.collections}</p>
-                        <p className={styles['likes']}>{user.likes}</p>
-                        <p className={styles['followers']}>{user.followers}</p>
+                    <div className={styles['user-stats']}>
+                    <img className="bookshelf" src="/icons/bookshelf.svg" alt="reviews" />
+                      <p className={styles['reviews']}>{"  "+user.reviews+" "}</p>
+
+                      <img className="collections" src="/icons/collections.svg" alt="collections" />
+                      <p className={styles['collections']}>{"  "+user.collections+" "}</p>
+
+                      <img className="like" src={"/icons/heart_filled.svg"} alt="Like"/>
+                      <p className={styles['likes']}>{"  "+user.likes+" "}</p>
+
+                      <img className="view" src="/icons/followers.svg" alt="followers"/>
+                      <p className={styles['followers']}>{"  "+user.followers}</p>
                     </div>
                 </div>
 

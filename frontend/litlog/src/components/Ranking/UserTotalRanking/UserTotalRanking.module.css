@@ -9,8 +9,15 @@
   .search-result{
       width: 100%;              
       width: 1200px;      
-      padding: 20px 10px;        
+      padding: 0px 10px;        
       background-color: #fff;
       color: #121212;
       box-sizing: border-box;
+  }
+
+  .title{
+    margin-top: 50px;
+    font-weight: bold;
+    text-align: left;
+    padding: 0px 30px;
   }
