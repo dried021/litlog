@@ -60,4 +60,76 @@
         LIMIT 20
     </select>
 
+    <select id="getRank" parameterType="map" resultType="com.bookfox.model.UserListDto">
+        SELECT
+        u.id,
+        u.bio,
+        u.profile_image AS profile,
+
+        (SELECT COUNT(*)
+            FROM book_review br
+            WHERE br.user_id = u.id AND br.creation_date &gt;= NOW() - INTERVAL 1 YEAR) AS reviews,
+
+        (SELECT COUNT(*)
+            FROM book_collection bc
+            WHERE bc.user_id = u.id AND bc.creation_date &gt;= NOW() - INTERVAL 1 YEAR) AS collections,
+
+        (
+        (SELECT COUNT(*)
+        FROM like_list ll1
+        WHERE ll1.target_id IN (
+            SELECT id FROM book_collection 
+            WHERE user_id = u.id AND creation_date &gt;= NOW() - INTERVAL 1 YEAR
+        ) AND ll1.like_type = 3 AND ll1.creation_date &gt;= NOW() - INTERVAL 1 YEAR)
+        +
+        (SELECT COUNT(*)
+        FROM like_list ll2
+        WHERE ll2.target_id IN (
+            SELECT id FROM book_review 
+            WHERE user_id = u.id AND creation_date &gt;= NOW() - INTERVAL 1 YEAR
+        ) AND ll2.like_type = 1 AND ll2.creation_date &gt;= NOW() - INTERVAL 1 YEAR)
+        ) AS likes,
+
+        (SELECT COUNT(*)
+        FROM follow_list fl 
+        WHERE fl.follow_user_id = u.id) AS followers,
+
+        (
+            (SELECT COUNT(*) FROM book_collection bc 
+            WHERE bc.user_id = u.id AND bc.creation_date &gt;= NOW() - INTERVAL 1 YEAR) +
+
+            (SELECT COUNT(*) FROM book_review br 
+            WHERE br.user_id = u.id AND br.creation_date &gt;= NOW() - INTERVAL 1 YEAR) +
+
+            (SELECT COUNT(*) FROM like_list ll1 
+            WHERE ll1.target_id IN (
+            SELECT id FROM book_collection 
+            WHERE user_id = u.id AND creation_date &gt;= NOW() - INTERVAL 1 YEAR
+            ) AND ll1.like_type = 3 AND ll1.creation_date &gt;= NOW() - INTERVAL 1 YEAR) +
+
+            (SELECT COUNT(*) FROM like_list ll2 
+            WHERE ll2.target_id IN (
+            SELECT id FROM book_review 
+            WHERE user_id = u.id AND creation_date &gt;= NOW() - INTERVAL 1 YEAR
+            ) AND ll2.like_type = 1 AND ll2.creation_date &gt;= NOW() - INTERVAL 1 YEAR)
+        ) AS activityScore
+
+        FROM user u
+        GROUP BY u.id, u.bio, u.profile_image
+        ORDER BY activityScore DESC
+        LIMIT #{itemsPerPage} OFFSET #{offset}
+    </select>
+    
+    <select id="getRankerThumbnail" parameterType="String" resultType="com.bookfox.model.BookDto">
+        SELECT b.id, b.book_api_id, b.thumbnail
+        FROM book_shelf bs
+        JOIN book b ON bs.book_id = b.id
+        WHERE bs.user_id = #{id}
+        ORDER BY bs.creation_date DESC
+        LIMIT 3
+    </select>
+
+    <select id="getUserCount" resultType="int">
+        select COUNT(*) from user;
+    </select>
 </mapper>
