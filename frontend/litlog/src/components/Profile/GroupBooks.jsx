@@ -14,7 +14,7 @@ export default function GroupBooks({groupLabel, group, msg}) {
                     <ul className={styles.bookList}>
                         {group.books.map(book => (
                             <li key={book.bookId} className={styles.bookCard}>
-                                <a href={`books`}>
+                                <a href={`/books/${book.bookApiId}`}>
                                     <img 
                                         src={book.thumbnail ? book.thumbnail : defaultThumbnail}
                                         alt={book.title}

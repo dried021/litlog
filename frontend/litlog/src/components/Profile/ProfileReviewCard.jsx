@@ -42,7 +42,7 @@ export default function ProfileReviewCard({review, last}) {
     
     return (
         <div className={`${styles.reviewCard} ${last ? styles.noBorder : ""}`}>
-            <a href={""}>
+            <a href={`books/${review.bookApiId}`}>
                 <img
                     className={styles.bookThumbnail}
                     src={review.thumbnail || defaultThumbnail}
@@ -51,7 +51,7 @@ export default function ProfileReviewCard({review, last}) {
             </a>
             <div className={styles.details}>
                 <div className={styles.title}>
-                    <a href={""} className={styles.hyperlink}>{review.title}</a>
+                    <a href={`books/${review.bookApiId}`} className={styles.hyperlink}>{review.title}</a>
                 </div>
                 <div className={styles.meta}>
                         {review.rating > 0 && (
