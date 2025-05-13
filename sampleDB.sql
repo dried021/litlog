@@ -26,6 +26,49 @@ INSERT INTO user VALUES
 ('yyy',NULL,'Nico Bernal','010-1111-1111','nicoshelf',NULL,NULL,NULL,'pwd123',NULL,'nicoshelf@example.com','2025-05-12 06:38:15',NULL,2,1),
 ('zzz',NULL,'Grace Miller','010-1111-1111','gracereads',NULL,NULL,NULL,'pwd123',NULL,'gracereads@example.com','2025-05-12 06:38:15',NULL,2,1);
 
+INSERT INTO follow_list (user_id, follow_user_id) VALUES
+('bbb', 'aaa'), /* aaa following list*/
+('bbb', 'ccc'),
+('bbb', 'ddd'),
+('bbb', 'eee'),
+('bbb', 'fff'),
+('bbb', 'ggg'),
+('bbb', 'hhh'),
+('bbb', 'iii'),
+('bbb', 'jjj'),
+('bbb', 'kkk'), 
+('bbb', 'lll'),
+/*('aaa', 'mmm'),
+('aaa', 'nnn'),
+('aaa', 'ooo'),
+('aaa', 'ppp'),
+('aaa', 'qqq'),*/
+('bbb', 'rrr'),
+('bbb', 'sss'),
+('bbb', 'ttt'), 
+('bbb', 'uuu'),
+('bbb', 'vvv'),
+('bbb', 'www'),
+('bbb', 'xxx'),
+('bbb', 'yyy'),
+('bbb', 'zzz'),
+('aaa', 'bbb'), /* aaa follower list*/
+('ccc', 'bbb'),
+('ddd', 'bbb'),
+('eee', 'bbb'),
+('fff', 'bbb'),
+('ggg', 'bbb'),
+('hhh', 'bbb'),
+('iii', 'bbb'),
+('jjj', 'bbb'),
+('kkk', 'bbb'),
+('lll', 'bbb'),
+('mmm', 'bbb'),
+('nnn', 'bbb');
+
+
+
+
 INSERT INTO book VALUES 
 (1,'1HbVmUsuGiYC','Siddhartha',NULL,NULL,NULL,'2005-11-15',NULL,50,'https://sterling-us.imgix.net/covers/9781435166929.jpg?auto=format&h=648',NULL),
 (2,'BwCQaeYMUfIC',"Ender's Game",NULL,NULL,NULL,NULL,NULL,120,'https://prodimage.images-bn.com/pimages/9781250773029_p0_v3_s1200x630.jpg',NULL),
@@ -61,12 +104,12 @@ INSERT INTO book_shelf VALUES
 
 
 INSERT INTO book_review VALUES 
-(1,'bbb',1,'Siddhartha',"A philosophical and introspective journey that left me pondering life\'s deeper meaning. Beautiful prose but slow at times.",3,'2025-05-12 15:38:15'),
-(2,'bbb',2, "Ender\'s Game","Absolutely thrilling! The twist at the end blew my mind. Ender’s character is both brilliant and tragic.",5,'2025-05-12 15:38:15'),
-(3,'bbb',3,'The Hunger Games','Gripping from start to finish. Katniss is a compelling protagonist, though the love triangle was a bit cliché.',4,'2025-05-12 15:38:15'),
-(4,'bbb',4,'Interstellar','An epic blend of science fiction and emotional storytelling. The visuals and soundtrack are unforgettable.',5,'2025-05-14 15:38:15'),
-(5,'bbb',5,'In Defense of Anarchism','A thought-provoking read that challenges mainstream political ideologies. Dense but worth it.',3,'2025-05-12 15:38:15'),
-(6,'bbb',6,"1984","A chilling and powerful portrayal of totalitarianism. Orwell\'s vision feels disturbingly relevant even today. A must-read for anyone interested in politics and human rights.",5,'2025-05-13 15:38:15');
+(1,'bbb',1,"A philosophical and introspective journey that left me pondering life's deeper meaning. Beautiful prose but slow at times.",3,'2025-05-12 15:38:15'),
+(2,'bbb',2,"Absolutely thrilling! The twist at the end blew my mind. Ender’s character is both brilliant and tragic.",5,'2025-05-12 15:38:15'),
+(3,'bbb',3,'Gripping from start to finish. Katniss is a compelling protagonist, though the love triangle was a bit cliché.',4,'2025-05-12 15:38:15'),
+(4,'bbb',4,'An epic blend of science fiction and emotional storytelling. The visuals and soundtrack are unforgettable.',5,'2025-05-14 15:38:15'),
+(5,'bbb',5,'A thought-provoking read that challenges mainstream political ideologies. Dense but worth it.',3,'2025-05-12 15:38:15'),
+(6,'bbb',6,"A chilling and powerful portrayal of totalitarianism. Orwell\'s vision feels disturbingly relevant even today. A must-read for anyone interested in politics and human rights.",5,'2025-05-13 15:38:15');
  /* Interstellar, 1984 most recent */
 
 

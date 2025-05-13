@@ -1,12 +1,42 @@
+
+.memberList {
+    padding: 0px;
+    width: 650px;
+    list-style-type: none;
+    width: 500px;
+}
+
+.tabs {
+    margin-top: 23px;
+    margin-bottom: 15px;
+}
+
+.tabs button {
+    border: none;
+    background-color: transparent;
+    opacity: 40%;
+    margin-right: 15px;
+}
+.tabs button:hover {
+    opacity: 100%;
+}
+
+button.active {
+    border-bottom: solid 2px #636B2F; 
+    opacity: 100%;
+    font-weight: bold;
+}
+
 .profileSummary {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    margin-bottom: 20px;
-    background-color: #F3F3F3;
-    border-radius: 10px;
+    padding: 10px;
+    background-color: #3D4127; /*#F3F3F3;*/
+    border-radius: 5px;
     width: 960px;
+    height: 65px; /* ROW HEIGHT */
+    margin-bottom: 5px;
 }
 
 .profileLeft {
@@ -19,26 +49,12 @@
     display: flex;
     align-items: center;
     gap: 13px; /* nickname and button spacing */
-    margin-bottom: 5px;
-}
-
-.editButton {
-    padding: 6px 12px;
-    font-size: 12px;
-    border: none;
-    border-radius: 6px;
-    background-color: #636B2F;
-    color: white;
-    cursor: pointer;
-}
-
-.editButton:hover {
-    background-color: #BAC095;
+    margin-bottom: 3px;
 }
 
 .profileImage {
-    width: 100px;
-    height: 100px;
+    width: 45px;
+    height: 45px;
     border: 1px solid #ccc;
     border-radius: 50%;
     overflow: hidden;
@@ -57,20 +73,21 @@
 }
 
 .nickname {
-    font-size: 20px;
+    color: #EDE1D2; /* #CBB89D*/
+    font-size: 16px;
     font-weight: bold;
     margin: 0;
 }
 
-.bio {
+.count {
     font-size: 13px;
-    color: #666;
-    margin: 4px 0 0;
+    color: #EDE1D2;
+    margin: 0px;
 }
 
 .profileStats {
     display: flex;
-    gap: 15px;
+    gap: 5px;
 }
 
 .statBlock {
@@ -79,7 +96,8 @@
 }
 
 .statNumber {
-    font-size: 18px;
+    color: #EDE1D2;
+    font-size: 14px;
     font-weight: bold;
     display: block;
 }
@@ -89,15 +107,6 @@
     color: #666;
 }
 
-/* BOOK STACK */
-.bookStack {
-    width: 240px;
-    padding-left: 30px;
-    background-color:#F3F3F3;
-    display: flex;
-    border-radius: 15px;
-}
-
 .hyperlink {
     text-decoration: none;
     color: inherit;
@@ -105,4 +114,9 @@
 
 .hyperlink:hover {
     color: #BAC095;
+    opacity: 50%;
+}
+
+.icon {
+    margin: 5px;
 }

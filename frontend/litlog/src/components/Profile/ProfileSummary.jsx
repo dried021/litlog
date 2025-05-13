@@ -10,9 +10,7 @@ export default function ProfileSummary() {
     const [profile, setProfile] = useState(null);
 
     useEffect(() => {
-        // fetch(`/members/profile-summary/${userId}`) // actual URL
         fetch(`http://localhost:9090/members/profile-summary/${userId}`) // port 9090
-        //fetch(`https://ee6f455d-9dd2-463d-9e5f-2752da892af8.mock.pstmn.io/members/bbb`) // mock server
             .then(res => res.json())
             .then(data => setProfile(data))
             .catch(error => console.error(error));
@@ -32,7 +30,9 @@ export default function ProfileSummary() {
                 </div>
                 <div className={styles.profileInfo}>
                     <div className={styles.nicknameRow}>
-                        <h2 className={styles.nickname}>{profile.nickname}</h2>
+                        <a href={`/${userId}`} className={styles.hyperlink}>
+                            <h2 className={styles.nickname}>{profile.nickname}</h2>
+                        </a>
                         <button className={styles.editButton}>EDIT PROFILE</button>
                     </div>
                     <p className={styles.bio}>{profile.bio}</p>
@@ -42,20 +42,36 @@ export default function ProfileSummary() {
             </div>
             <div className={styles.profileStats}>
                 <div className={styles.statBlock}>
-                    <span className={styles.statNumber}>{profile.totalBooksReadCount}</span>
-                    <span className={styles.statLabel}>BOOKS</span>
+                    <a href={`/${userId}/bookshelf`} className={styles.hyperlink}>
+                        <span className={styles.statNumber}>{profile.totalBooksReadCount}</span>
+                    </a>
+                    <a href={`/${userId}/bookshelf`} className={styles.hyperlink}>
+                        <span className={styles.statLabel}>BOOKS</span>
+                    </a>
                 </div>
                 <div className={styles.statBlock}>
-                    <span className={styles.statNumber}>{profile.annualBooksReadCount}</span>
-                    <span className={styles.statLabel}>THIS YEAR</span>
+                    <a href={`/${userId}/reviews`} className={styles.hyperlink}>
+                        <span className={styles.statNumber}>{profile.annualBooksReadCount}</span>
+                    </a>
+                    <a href={`/${userId}/reviews`} className={styles.hyperlink}>
+                        <span className={styles.statLabel}>THIS YEAR</span>
+                    </a>
                 </div>
                 <div className={styles.statBlock}>
-                    <span className={styles.statNumber}>{profile.userFollowingCount}</span>
-                    <span className={styles.statLabel}>FOLLOWING</span>
+                    <a href={`/${userId}/following`} className={styles.hyperlink}>
+                        <span className={styles.statNumber}>{profile.userFollowingCount}</span>
+                    </a>
+                    <a href={`/${userId}/following`} className={styles.hyperlink}>
+                        <span className={styles.statLabel}>FOLLOWING</span>
+                    </a>
                 </div>
                 <div className={styles.statBlock}>
-                    <span className={styles.statNumber}>{profile.userFollowersCount}</span>
-                    <span className={styles.statLabel}>FOLLOWERS</span>
+                    <a href={`/${userId}/followers`} className={styles.hyperlink}>
+                        <span className={styles.statNumber}>{profile.userFollowersCount}</span>
+                    </a>
+                    <a href={`/${userId}/followers`} className={styles.hyperlink}>
+                        <span className={styles.statLabel}>FOLLOWERS</span>
+                    </a>
                 </div>
             </div>
         </div>

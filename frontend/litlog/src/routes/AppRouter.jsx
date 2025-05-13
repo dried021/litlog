@@ -19,6 +19,7 @@ import NewCollection from '../pages/Collections/NewCollection';
 import ReadersMain from '../pages/Readers/ReadersMain'; 
 
 import Profile from '../pages/Mypage/Profile';
+import Network from '../pages/Mypage/Network';
 import Bookshelf from '../pages/Mypage/Bookshelf';
 import ReviewTimeline from '../pages/Mypage/ReviewTimeline';
 import ReviewDetail from '../pages/Mypage/ReviewDetail';
@@ -65,6 +66,8 @@ const AppRouter = () => {
             {/* Mypage */}
             <Route path="/:userId" element={<Profile />} />
             <Route path="/:userId/bookshelf" element={<Bookshelf />} />
+            <Route path="/:userId/following" element={<Network type="following"/>} />
+            <Route path="/:userId/followers" element={<Network type="followers"/>} />
             <Route path="/:userId/reviews" element={<ReviewTimeline />} />
             <Route path="/:userId/reviews/:year" element={<ReviewTimeline />} />
             <Route path="/:userId/reviews/detail" element={<ReviewDetail />} />

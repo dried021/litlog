@@ -12,6 +12,8 @@ import com.bookfox.model.ProfileReviewDto;
 @Mapper
 public interface ProfileMapper {
     public ProfileDto getProfile(String userId);
+    public List<String> getFollowing(String userId);
+    public List<String> getFollowers(String userId);
     public List<BookshelfDto> getFavoriteBooks(Map<String, Object> map);
     public List<BookshelfDto> getRecentlyReadBooks(Map<String, Object> map);
     public List<ProfileReviewDto> getRecentReviews(Map<String, Object> map);
