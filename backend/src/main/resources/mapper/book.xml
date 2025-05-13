@@ -32,6 +32,12 @@
         WHERE book_api_id = #{bookApiId}
     </select>
 
+    <select id="getApiIdByBookId" parameterType="int" resultType="String">
+        SELECT book_api_id
+        FROM book
+        WHERE id = #{bookId}
+    </select>
+
     <select id="getBookshelfCount" parameterType="int" resultType="int">
         SELECT COUNT(*) 
         FROM book_shelf 
@@ -142,7 +148,7 @@
 
             (SELECT COUNT(*) 
             FROM book_shelf bs 
-            WHERE bs.book_id = b.id) AS views,
+            WHERE bs.book_id = b.id) AS bookshelves,
 
             (SELECT COUNT(*) 
             FROM like_list ll 
@@ -150,7 +156,7 @@
 
             (SELECT COUNT(*) 
             FROM book_review br 
-            WHERE br.book_id = b.id) AS hearts
+            WHERE br.book_id = b.id) AS reviews
 
         FROM book b
 
@@ -178,7 +184,7 @@
 
             (SELECT COUNT(*) 
             FROM book_shelf bs 
-            WHERE bs.book_id = b.id) AS views,
+            WHERE bs.book_id = b.id) AS bookshelves,
 
             (SELECT COUNT(*) 
             FROM like_list ll 
@@ -186,7 +192,7 @@
 
             (SELECT COUNT(*) 
             FROM book_review br 
-            WHERE br.book_id = b.id) AS hearts
+            WHERE br.book_id = b.id) AS reviews
 
         FROM book b
 

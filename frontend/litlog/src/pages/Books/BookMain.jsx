@@ -13,7 +13,6 @@ const BookMain = () => {
     useEffect(()=>{
         getPopularBookList();
         getJustReviewedBookList();
-        console.log(popularBookList);
     }, []);
 
     const getPopularBookList = async () => {
