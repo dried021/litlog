@@ -51,6 +51,10 @@
   align-items: center;
 }
 
+.entry-review img:hover {
+  filter: invert(70%) 
+}
+
 /* Month, Year */
 .entry-month {
   flex-direction: column;
