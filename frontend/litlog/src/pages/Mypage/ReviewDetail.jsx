@@ -4,24 +4,44 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from './ReviewDetail.module.css'; 
 import TabMenu from "../../components/Mypage/TabMenu";
+import CustomModal from "../../components/Modal/CustomModal";
 
 const ReviewDetail = () => {
   const { userId, reviewId } = useParams();
   const [review, setReview] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [editedContent, setEditedContent] = useState("");
+  const [editedRating, setEditedRating] = useState(1);
+  const [showModal, setShowModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [resultValue, setResultValue] = useState("0");
+
+  const fetchReviewDetail = async () => {
+    try {
+      const res = await axios.get(`http://localhost:9090/api/members/${userId}/reviews/${reviewId}`);
+      setReview(res.data);
+    } catch (err) {
+      console.error('Fail to load', err);
+    }
+  };
 
   useEffect(() => {
-    const fetchReviewDetail = async () => {
-      try {
-        const res = await axios.get(`http://localhost:9090/api/members/${userId}/reviews/${reviewId}`);
-        setReview(res.data);
-      } catch (err) {
-        console.error('Fail to load', err);
-      }
-    };
-
     fetchReviewDetail();
   }, [userId, reviewId]);
+
+  useEffect(() => {
+    if (review) {
+      setEditedContent(review.content || "");
+      setEditedRating(review.rating || 1);
+
+      console.log("editedContent:", review.content);
+      console.log("editedRating:", review.rating);
+    }
+  }, [review]);
+
+  useEffect(() => { 
+    console.log("isEditing 상태:", isEditing);
+  }, [isEditing]);
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -48,6 +68,33 @@ const ReviewDetail = () => {
     return isNaN(date) ? '' : date.toISOString().slice(0, 10); // yyyy-MM-dd
   };
 
+  const cancelEdit = () => {
+    setIsEditing(false);
+    setEditedContent(review.content || "");
+    setEditedRating(review.rating || 1);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      await axios.patch(
+        `http://localhost:9090/api/members/${userId}/reviews/${reviewId}`,
+        {
+          content: editedContent,
+          rating: editedRating
+        },
+        {
+          withCredentials: true 
+        }
+      );
+      setResultValue("1");  // 성공
+      setShowModal(true);
+    } catch (err) {
+      console.error("Update failed", err);
+      setResultValue("0");  // 실패
+      setShowModal(true);
+    }
+  };
+
   if (!review) return <div>Loading...</div>;
 
   return (
@@ -72,12 +119,33 @@ const ReviewDetail = () => {
           </div>
 
           <div className={styles.header}>
-            <span className={styles.stars}>{renderStars(review.rating)}</span>
+            <span className={`${styles.stars} ${isEditing ? styles.editModeRating : ''}`}>
+              {isEditing ? Array.from({ length: 5 }, (_, i) => (
+                    <img
+                      key={i}
+                      src={i < editedRating ? '/icons/star.svg' : '/icons/star_gray.svg'}
+                      onClick={() => setEditedRating(i + 1)}
+                      alt="별점"
+                      width={18}
+                      height={18}
+                      style={{ cursor: 'pointer' }}
+                    />
+                  ))
+                : renderStars(review.rating)}
+            </span>
             <span>Logged on {formatDate(review.creationDate)}</span>
           </div>
 
           <div className={styles.content}>
-            {review.content}
+            {isEditing ? (
+              <textarea
+                value={editedContent}
+                onChange={(e) => setEditedContent(e.target.value)}
+                className={styles.textarea}
+              />
+            ) : (
+              review.content
+            )}
           </div>
 
           <div className={styles.footerRow}>
@@ -87,18 +155,66 @@ const ReviewDetail = () => {
             </div>
 
             <div className={styles.actions}>
-              <div className={styles.tooltipContainer}>
-                <img src="/icons/edit.svg" alt="Edit" className={styles.iconButton1} />
-                <div className={styles.tooltipText}>Edit</div>
-              </div>
-              <div className={styles.tooltipContainer}>
-                <img src="/icons/delete.svg" alt="Delete" className={styles.iconButton2} />
-                <div className={styles.tooltipText}>Delete</div>
-              </div>
+              {isEditing ? (
+                <>
+                  <div className={styles.tooltipContainer}>
+                    <img src="/icons/submit.svg" alt="Submit" className={styles.iconButton1} onClick={() => setShowConfirmModal(true)}/>
+                    <div className={styles.tooltipText}>Submit</div>
+                  </div>
+                  <div className={styles.tooltipContainer}>
+                    <img src="/icons/cancel.svg" alt="Cancel" className={styles.iconButton2} onClick={cancelEdit}/>
+                    <div className={styles.tooltipText}>Cancel</div>
+                  </div>
+                </>
+              ) : 
+              ( <>
+                  <div className={styles.tooltipContainer}>
+                    <img src="/icons/edit.svg" alt="Edit" className={styles.iconButton1} onClick={() => setIsEditing(true)}/>
+                    <div className={styles.tooltipText}>Edit</div>
+                  </div>
+                  <div className={styles.tooltipContainer}>
+                    <img src="/icons/delete.svg" alt="Delete" className={styles.iconButton2}/>
+                    <div className={styles.tooltipText}>Delete</div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
       </div>
+      <CustomModal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        resultValue={resultValue}
+        successMessage="Review Updated Successfully."
+        failMessage="Review Update Failed.."
+        mode="close"
+        callbackOnSuccess={() => {
+          setIsEditing(false);
+          fetchReviewDetail();
+        }}
+      />
+      <CustomModal
+        show={showConfirmModal}
+        onHide={() => setShowConfirmModal(false)}
+        resultValue="1"
+        successMessage={
+          <>
+            Would you like to update your review?
+            <br />
+            The log date will be changed as well.
+          </>
+        }
+        failMessage=""
+        mode="confirm"
+        callbackOnSuccess={() => {
+          setShowConfirmModal(false);
+          handleSubmit(); 
+        }}
+        callbackOnFail={() => {
+          setShowConfirmModal(false);  
+        }}
+      />
     </div>
   );
 };
