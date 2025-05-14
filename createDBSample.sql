@@ -95,9 +95,27 @@ VALUES
 -- ('BOOK', 2),
 -- ('BOOK_COLLECTION', 3)
 INSERT INTO like_list(user_id, target_id, like_type)
-VALUES 
-('user01', 1, 1),  -- review001에 좋아요
-('user01', 3, 2); -- id가 3인 책(like_type가 2)에 좋아요
+VALUES
+('user01', 1, 3),
+('user02', 1, 3),
+('user03', 1, 3),
+('user04', 1, 3),
+('user05', 1, 3),
+
+('user06', 2, 3),
+
+('user07', 3, 3),
+('user08', 3, 3),
+('user09', 3, 3),
+('user10', 3, 3),
+
+('user11', 4, 3),
+('user12', 4, 3),
+
+('user13', 5, 3),
+('user14', 5, 3),
+('user15', 5, 3);
+
 
 -- 11. 책 콜렉션 (book_collection)
 
@@ -117,7 +135,7 @@ VALUES
 ('user04', '2025-05-15', '눈물을 마시는 새', '통쾌한 결말을 가진 소설들 모음입니다.', 'http://books.google.com/books/publisher/content?id=bNW-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE733JkpcbfA-7iOsHv4jWjvD_XeBSP3Ta-3rwh4EVkE4UqRK1v13OuElHEyTYoRJCNPVJv6aY-Wqr6IfdFCzMNrQ2meyOiEnYRYA45cAhGU7egvprpPWGDXy4vVostUQ_swB2six&source=gbs_api'),
 ('user05', '2025-05-16', '반지의 제왕', '통쾌한 결말을 가진 소설들 모음입니다.', 'http://books.google.com/books/publisher/content?id=bNW-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE733JkpcbfA-7iOsHv4jWjvD_XeBSP3Ta-3rwh4EVkE4UqRK1v13OuElHEyTYoRJCNPVJv6aY-Wqr6IfdFCzMNrQ2meyOiEnYRYA45cAhGU7egvprpPWGDXy4vVostUQ_swB2six&source=gbs_api');
 
-SELECT * from book;
+SELECT * from user;
 -- 12. 책 콜렉션에 책 추가 (book_collection_book)
 INSERT INTO book_collection_book(collection_id, book_id, thumbnail)
 VALUES 
@@ -149,14 +167,3 @@ VALUES
 INSERT INTO book_collection_comment(user_id, collection_id, content)
 VALUES 
 ('aaa', 1, '좋은 책 모음이네요!');
-
--- 좋아요 수 가정: 10, 3, 7
-DELETE FROM book_collection_like;
-INSERT INTO book_collection_like (collection_id, user_id) VALUES
-(1, 'user01'), (1, 'user02'), (1, 'user03'), (1, 'user04'), (1, 'user05'),
-(1, 'user06'), (1, 'user07'), (1, 'user08'), (1, 'user09'), (1, 'user10'),
-(2, 'user01'), (2, 'user02'), (2, 'user03'),
-(3, 'user01'), (3, 'user02'), (3, 'user03'), (3, 'user04'), (3, 'user05'),
-(3, 'user06'), (3, 'user07'),
-(4, 'user07'),
-(5, 'user07'),(5, 'user07');
