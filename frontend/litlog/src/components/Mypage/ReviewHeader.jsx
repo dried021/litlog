@@ -16,12 +16,37 @@ const ReviewHeader = ({
   withContentOnly,
   onToggleContent,
   onResetFilters,
+  totalTimelineBooks,
+  totalWrittenReviews,
 }) => {
+  const [showTimelineTooltip, setShowTimelineTooltip] = useState(false);
+  const [showReviewTooltip, setShowReviewTooltip] = useState(false);
+
   const [openDropdown, setOpenDropdown] = useState(null);
   const dropdownRef = useRef(null);
 
   const toggleDropdown = (name) => {
     setOpenDropdown((prev) => (prev === name ? null : name));
+  };
+
+  const formatNumber = (num) => {
+    return num?.toLocaleString?.() ?? "0";
+  };
+
+  const timeoutRef = useRef(null);
+
+  const handleMouseEnter = (setFn) => {
+    return () => {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => setFn(true), 400);
+    };
+  };
+
+  const handleMouseLeave = (setFn) => {
+    return () => {
+      clearTimeout(timeoutRef.current);
+      setFn(false);
+    };
   };
 
   useEffect(() => {
@@ -38,14 +63,45 @@ const ReviewHeader = ({
     <div className={styles.headerWrapper}>
       {/* Tabs */}
       <div className={styles.tabGroup}>
-        <button
-          className={`${styles.tabButton} ${styles.mainTab} ${activeTab === "timeline" ? styles.active : ""}`}
-          onClick={() => onTabChange("timeline")}>Timeline
-        </button>
-        <button
-          className={`${styles.tabButton} ${styles.mainTab} ${activeTab === "reviews" ? styles.active : ""}`}
-          onClick={() => onTabChange("reviews")}>Reviews
-        </button>
+        <div
+          className="tooltip-container"
+          onMouseEnter={handleMouseEnter(setShowTimelineTooltip)}
+          onMouseLeave={handleMouseLeave(setShowTimelineTooltip)}
+        >
+          <button
+            className={`${styles.tabButton} ${styles.mainTab} ${activeTab === "timeline" ? styles.active : ""}`}
+            onClick={() => onTabChange("timeline")}
+          >
+            Timeline
+          </button>
+          <div className="tooltip-text"
+            style={{
+              opacity: showTimelineTooltip ? 1 : 0,
+              visibility: showTimelineTooltip ? "visible" : "hidden",
+            }}
+          > {formatNumber(totalTimelineBooks)} books
+          </div>
+        </div>
+
+        <div
+          className="tooltip-container"
+          onMouseEnter={handleMouseEnter(setShowReviewTooltip)}
+          onMouseLeave={handleMouseLeave(setShowReviewTooltip)}
+        >
+          <button
+            className={`${styles.tabButton} ${styles.mainTab} ${activeTab === "reviews" ? styles.active : ""}`}
+            onClick={() => onTabChange("reviews")}
+          >
+            Reviews
+          </button>
+          <div className="tooltip-text"
+            style={{
+              opacity: showReviewTooltip ? 1 : 0,
+              visibility: showReviewTooltip ? "visible" : "hidden",
+            }}
+          > {formatNumber(totalWrittenReviews)} reviews
+          </div>
+        </div>
       </div>
 
       {/* Filters */}

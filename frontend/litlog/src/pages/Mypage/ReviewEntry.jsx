@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const ReviewEntry = ({ review, showMonth }) => {
@@ -8,6 +9,20 @@ const ReviewEntry = ({ review, showMonth }) => {
   const day = String(date.getDate()).padStart(2, "0");
   const thumbnail = review.thumbnail || "/images/covernotavailable.png";
 
+  const [showTooltip, setShowTooltip] = useState(false);
+  const timeoutRef = useRef(null);
+
+  const handleMouseEnter = () => {
+    timeoutRef.current = setTimeout(() => {
+      setShowTooltip(true);
+    }, 400);
+  };
+
+  const handleMouseLeave = () => {
+    clearTimeout(timeoutRef.current);
+    setShowTooltip(false);
+  };
+  
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
       <img key={i} src={i < rating ? "/icons/star.svg" : "/icons/star_gray.svg"} alt="별점"/>
@@ -44,9 +59,24 @@ const ReviewEntry = ({ review, showMonth }) => {
       </div>
       <div className="entry-review">
         {review.content && (
-          <Link to={`/${review.userId}/reviews/detail/${review.id}`}>
-            <img src="/icons/review.svg" alt="리뷰" />
-          </Link>
+          <div
+            className="tooltip-container"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <Link to={`/${review.userId}/reviews/detail/${review.id}`}>
+              <img src="/icons/review.svg" alt="리뷰" />
+            </Link>
+            <div
+              className="tooltip-text"
+              style={{
+                opacity: showTooltip ? 1 : 0,
+                visibility: showTooltip ? "visible" : "hidden",
+              }}
+            >
+              Read the review
+            </div>
+          </div>
         )}
       </div>
     </div>
