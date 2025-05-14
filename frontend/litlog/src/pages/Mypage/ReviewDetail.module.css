@@ -12,20 +12,20 @@
   padding-top: 20px;
 }
 
-/* 왼쪽 썸네일 영역 */
+/* 왼쪽 영역 */
 .left {
   flex-shrink: 0;
 }
 
 .thumbnail {
-  width: 120px;
-  height: 180px;
+  width: 180px;
+  height: 270px;
   object-fit: cover;
   border-radius: 6px;
   background-color: #f2f2f2;
 }
 
-/* 오른쪽 내용 전체 */
+/* 오른쪽 영역 */
 .right {
   flex: 1;
   display: flex;
@@ -33,7 +33,7 @@
   gap: 16px;
 }
 
-/* 제목 + 출간연도 */
+/* 도서 정보 */
 .title {
   font-size: 21px;
   font-weight: 700;
@@ -41,30 +41,35 @@
   line-height: 1.4;
 }
 
-.year {
-  font-size: 16px;
+.author {
+  font-size: 14px;
   font-weight: 500;
   color: #666;
   margin-left: 6px;
 }
 
+.meta {
+  font-size: 14px;
+  color: #555;
+  margin-top: -15px;
+  margin-bottom: 40px;
+}
+
 /* 별점 + 작성일 */
 .header {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 6px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ddd;
   font-size: 14px;
   color: #444;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #eee;
 }
 
 .stars {
   display: flex;
   gap: 4px;
-  margin-left: -3px;
 }
 
 .stars img {
@@ -80,7 +85,7 @@
   white-space: pre-wrap;
   padding-top: 8px;
   flex-grow: 1;
-  min-height: 120px;
+  min-height: 200px;
 }
 
 /* 좋아요 */
@@ -88,7 +93,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: auto; /* 맨 아래 고정 */
+  margin-top: auto; 
   padding-top: 12px;
   border-top: 1px solid #eee;
   font-size: 14px;

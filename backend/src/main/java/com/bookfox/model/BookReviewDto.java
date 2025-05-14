@@ -23,4 +23,7 @@ public class BookReviewDto {
     private boolean isLiked;
     private String thumbnail;
     private Timestamp publishedDate;
+    private String authors;
+    private String publisher;
+    private Integer pageCount;
 }
