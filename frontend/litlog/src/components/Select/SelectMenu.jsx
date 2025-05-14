@@ -24,7 +24,8 @@ export default function SelectMenu({placeholder, options, action}) {
                 ? '#636B2F'
                 : 'white',
             color: state.isSelected ? 'white' : 'black',
-            padding: '10px 15px',
+            padding: '5px 15px',
+            fontSize: '15px',
             cursor: 'pointer',
             ':hover': {
                 color: 'white',
