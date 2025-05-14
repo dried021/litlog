@@ -61,26 +61,15 @@ const CustomModal = ({
         {mode === "confirm" ? (
           <>
             <Button className="btn btn-primary" onClick={handleConfirm}>
-<<<<<<< HEAD
               confirm
             </Button>
             <Button className="btn btn-danger" onClick={handleCancel}>
               cancel
-=======
-              Confirm
-            </Button>
-            <Button className="btn btn-danger" onClick={handleCancel}>
-              Cancel
->>>>>>> nahye
             </Button>
           </>
         ) : (
           <Button className="btn btn-secondary" onClick={handleClose}>
-<<<<<<< HEAD
             close
-=======
-            Close
->>>>>>> nahye
           </Button>
         )}
       </Modal.Footer>
