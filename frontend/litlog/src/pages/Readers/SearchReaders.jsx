@@ -8,7 +8,7 @@ import Pagination from "../../components/Pagination/Pagination";
 
 
 const SearchReaders = () => {
-    const navigate = useNavigate;
+    const navigate = useNavigate();
     const location = useLocation();
     const [users, setUsers] = useState([]);
     const [usersCount, setUsersCount] = useState(0);
@@ -74,8 +74,8 @@ const SearchReaders = () => {
         setCurrentPage(1);
     };
 
-    const handleItemClick = (userId) => {
-        navigate(`/${userId}`);
+    const handleItemClick = (id) => {
+        navigate(`/${id}`);
     };
 
     return (
