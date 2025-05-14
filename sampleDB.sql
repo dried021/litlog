@@ -24,7 +24,8 @@ INSERT INTO user VALUES
 ('www',NULL,'Tina Wu','010-1111-1111','tinareads',NULL,NULL,NULL,'pwd123',NULL,'tinareads@example.com','2025-05-12 06:38:15',NULL,2,1),
 ('xxx',NULL,'Tomoko Tanaka','010-1111-1111','tokobooks',NULL,NULL,NULL,'pwd123',NULL,'tokobooks@example.com','2025-05-12 06:38:15',NULL,2,1),
 ('yyy',NULL,'Nico Bernal','010-1111-1111','nicoshelf',NULL,NULL,NULL,'pwd123',NULL,'nicoshelf@example.com','2025-05-12 06:38:15',NULL,2,1),
-('zzz',NULL,'Grace Miller','010-1111-1111','gracereads',NULL,NULL,NULL,'pwd123',NULL,'gracereads@example.com','2025-05-12 06:38:15',NULL,2,1);
+('zzz',NULL,'Grace Miller','010-1111-1111','gracereads',NULL,NULL,NULL,'pwd123',NULL,'gracereads@example.com','2025-05-12 06:38:15',NULL,2,1),
+('user01',NULL,'James McAvoy','010-1111-1111','mcavoy',NULL,NULL,NULL,'pwd123',NULL,'mcavoy@example.com','2025-05-12 06:38:15',NULL,2,1);
 
 INSERT INTO follow_list (user_id, follow_user_id) VALUES
 ('bbb', 'aaa'), /* aaa following list*/
@@ -235,3 +236,5 @@ INSERT INTO book_shelf (book_id, user_id, shelf_type, progress) VALUES
 (2, 'aaa', 3, 100),
 (3, 'aaa', 3, 100)
 ;
+
+select * from book_shelf where user_id="user01";
