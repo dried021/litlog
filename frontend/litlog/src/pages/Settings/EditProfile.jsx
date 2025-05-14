@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SideMenu from '../../components/Setting/SideMenu';
 import styles from './Setting.module.css'; 
 import axios from 'axios';
+import UpdateUserForm from '../../components/Setting/UpdateUserForm';
 
 const EditProfile = () => {
     const [userId, setUserId] = useState("");
@@ -27,11 +28,7 @@ const EditProfile = () => {
         <div className={styles.container}>
             
         <SideMenu isAdmin={true} />
-
-        <div className={styles.content}>
-            
-            <p>{userId}</p>
-        </div>
+        <UpdateUserForm userId={userId}/>
         </div>
         </>
     );
