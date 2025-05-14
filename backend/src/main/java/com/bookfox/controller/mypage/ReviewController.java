@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.bookfox.model.BookReviewDto;
+import com.bookfox.model.ReviewUpdateDto;
 import com.bookfox.service.ReviewService;
 
 import jakarta.servlet.http.HttpSession;
@@ -34,4 +36,26 @@ public class ReviewController {
         result.put("totalWrittenReviews", totalWrittenReviews);
         return result;
     }
+    
+    @PatchMapping("/{userId}/reviews/{reviewId}")
+    public ResponseEntity<?> updateReview(@PathVariable String userId, @PathVariable int reviewId, @RequestBody ReviewUpdateDto dto, HttpSession session) {
+        String loginUserId = (String) session.getAttribute("loginUser");
+
+        if (loginUserId == null) {
+            return ResponseEntity.status(401).body("Login Required");
+        }
+
+        if (!userId.equals(loginUserId)) {
+            return ResponseEntity.status(403).body("Access Denied");
+        }
+
+        boolean success = reviewService.updateReview(reviewId, dto);
+
+        if (success) {
+            return ResponseEntity.ok("Review Updated");
+        } else {
+            return ResponseEntity.status(500).body("Review Update Failed");
+        }
+    }
+
 }

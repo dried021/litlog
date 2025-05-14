@@ -49,4 +49,14 @@
       AND content IS NOT NULL
       AND content != ''
   </select>
+
+  <update id="updateReview">
+    UPDATE book_review
+    SET
+      content = #{content},
+      rating = #{rating},
+      creation_date = #{creationDate}
+    WHERE
+      id = #{reviewId}
+  </update>
 </mapper>
