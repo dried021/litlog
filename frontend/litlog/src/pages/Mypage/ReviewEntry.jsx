@@ -15,7 +15,7 @@ const ReviewEntry = ({ review, showMonth }) => {
   const handleMouseEnter = () => {
     timeoutRef.current = setTimeout(() => {
       setShowTooltip(true);
-    }, 400);
+    }, 300);
   };
 
   const handleMouseLeave = () => {

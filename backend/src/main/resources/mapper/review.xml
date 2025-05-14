@@ -9,6 +9,7 @@
       r.id,
       r.user_id,
       r.book_id,
+      b.book_api_id,
       b.title,
       b.authors,
       b.publisher,
