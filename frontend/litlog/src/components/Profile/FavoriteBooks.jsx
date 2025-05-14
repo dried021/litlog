@@ -19,6 +19,8 @@ export default function FavoriteBooks() {
     }, [userId]);
     
     return (
-        <GroupBooks groupLabel="FAVORITE BOOKS" group={favoriteBooks} msg="No books to show"/>
+        <GroupBooks groupLabel="FAVORITE BOOKS" group={favoriteBooks} msg="No books to show"
+            url={`/${userId}/bookshelf`}
+        />
     );
 }
