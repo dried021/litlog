@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from './ReviewDetail.module.css'; 
@@ -8,10 +9,14 @@ import CustomModal from "../../components/Modal/CustomModal";
 
 const ReviewDetail = () => {
   const { userId, reviewId } = useParams();
+  const navigate = useNavigate();
   const [review, setReview] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState("");
   const [editedRating, setEditedRating] = useState(1);
+  const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
+  const [showDeleteResultModal, setShowDeleteResultModal] = useState(false);
+  const [deleteResultValue, setDeleteResultValue] = useState("0");
   const [showModal, setShowModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [resultValue, setResultValue] = useState("0");
@@ -33,15 +38,8 @@ const ReviewDetail = () => {
     if (review) {
       setEditedContent(review.content || "");
       setEditedRating(review.rating || 1);
-
-      console.log("editedContent:", review.content);
-      console.log("editedRating:", review.rating);
     }
   }, [review]);
-
-  useEffect(() => { 
-    console.log("isEditing 상태:", isEditing);
-  }, [isEditing]);
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -92,6 +90,23 @@ const ReviewDetail = () => {
       console.error("Update failed", err);
       setResultValue("0");  // 실패
       setShowModal(true);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(
+        `http://localhost:9090/api/members/${userId}/reviews/${reviewId}`, 
+        {
+          withCredentials: true
+        }
+      );
+      setDeleteResultValue("1"); // 성공
+      setShowDeleteResultModal(true);
+    } catch (err) {
+      console.error("Delete failed", err);
+      setDeleteResultValue("0"); // 실패
+      setShowDeleteResultModal(true);
     }
   };
 
@@ -173,7 +188,7 @@ const ReviewDetail = () => {
                     <div className={styles.tooltipText}>Edit</div>
                   </div>
                   <div className={styles.tooltipContainer}>
-                    <img src="/icons/delete.svg" alt="Delete" className={styles.iconButton2}/>
+                    <img src="/icons/delete.svg" alt="Delete" className={styles.iconButton2} onClick={() => setShowDeleteConfirmModal(true)}/>
                     <div className={styles.tooltipText}>Delete</div>
                   </div>
                 </>
@@ -200,7 +215,7 @@ const ReviewDetail = () => {
         resultValue="1"
         successMessage={
           <>
-            Would you like to update your review?
+            Would you like to Update your review?
             <br />
             The log date will be changed as well.
           </>
@@ -213,6 +228,38 @@ const ReviewDetail = () => {
         }}
         callbackOnFail={() => {
           setShowConfirmModal(false);  
+        }}
+      />
+      <CustomModal
+        show={showDeleteResultModal}
+        onHide={() => setShowDeleteResultModal(false)}
+        resultValue={deleteResultValue}
+        successMessage="Review deleted successfully."
+        failMessage="Failed to delete the review."
+        mode="close"
+        callbackOnSuccess={() => {
+          navigate(`/${userId}/reviews`); 
+        }}
+      />
+      <CustomModal
+        show={showDeleteConfirmModal}
+        onHide={() => setShowDeleteConfirmModal(false)}
+        resultValue="1"
+        successMessage={
+          <>
+            Would you like to Delete your review?
+            <br />
+            This action is irreversible.
+          </>
+        }
+        failMessage=""
+        mode="confirm"
+        callbackOnSuccess={() => {
+          setShowDeleteConfirmModal(false);
+          handleDelete();
+        }}
+        callbackOnFail={() => {
+          setShowDeleteConfirmModal(false);
         }}
       />
     </div>
