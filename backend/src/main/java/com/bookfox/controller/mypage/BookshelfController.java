@@ -28,7 +28,6 @@ public class BookshelfController {
         
         response.put("totalCount", books.size());
         response.put("books", books);
-        // TODO: return session user 
 
         return ResponseEntity.ok(response);
     }
