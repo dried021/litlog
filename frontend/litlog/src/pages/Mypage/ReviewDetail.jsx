@@ -8,6 +8,7 @@ import TabMenu from "../../components/Mypage/TabMenu";
 const ReviewDetail = () => {
   const { userId, reviewId } = useParams();
   const [review, setReview] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const fetchReviewDetail = async () => {
