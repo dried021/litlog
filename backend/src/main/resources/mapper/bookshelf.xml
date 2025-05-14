@@ -59,6 +59,7 @@
             AND br.user_id = #{userId}
         WHERE bs.user_id = #{userId}
             AND bs.shelf_type = 3
+        ORDER BY bs.creation_date DESC
     </select>
     <select id="getToReadBooks" resultType="com.bookfox.model.BookshelfDto" parameterType="String">
         SELECT
