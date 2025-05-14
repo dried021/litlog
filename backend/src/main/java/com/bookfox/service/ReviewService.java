@@ -14,4 +14,12 @@ public class ReviewService {
     public BookReviewDto getReviewDetailById(int reviewId, String loginUserId) {
         return reviewMapper.getReviewDetailById(reviewId, loginUserId);
     }
+
+    public int countAllReviewedBooks(String userId) {
+        return reviewMapper.countAllReviewedBooks(userId);
+    }
+
+    public int countWrittenReviews(String userId) {
+        return reviewMapper.countWrittenReviews(userId);
+    }
 }
