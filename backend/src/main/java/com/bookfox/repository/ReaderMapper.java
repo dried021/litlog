@@ -15,4 +15,6 @@ public interface ReaderMapper {
     public List<UserListDto> getRank(Map<String, Object> params);
     public List<BookDto> getRankerThumbnail(String id);
     public int getUserCount();
+    public List<UserListDto> getSearchResult(Map<String, Object> params);
+    public int getSearchResultCount(String keyword);
 }

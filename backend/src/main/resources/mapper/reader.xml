@@ -8,6 +8,7 @@
     <select id="getAvidUserList" resultType="com.bookfox.model.UserListDto">
         SELECT
             u.id,
+            u.nickname,
             u.profile_image AS profile,
 
             (SELECT COUNT(*)
@@ -31,6 +32,7 @@
     <select id="getBelovedUserList" resultType="com.bookfox.model.UserListDto">
         SELECT
             u.id,
+            u.nickname,
             u.profile_image AS profile,
 
             (SELECT COUNT(*)
@@ -64,6 +66,7 @@
         SELECT
         u.id,
         u.bio,
+        u.nickname,
         u.profile_image AS profile,
 
         (SELECT COUNT(*)
@@ -131,5 +134,90 @@
 
     <select id="getUserCount" resultType="int">
         select COUNT(*) from user;
+    </select>
+
+    <select id="getSearchResult" parameterType="map" resultType="com.bookfox.model.UserListDto">
+        SELECT
+            u.id,
+            u.bio,
+            u.profile_image AS profile,
+            u.nickname,
+
+            (SELECT COUNT(*)
+                FROM book_review br
+                WHERE br.user_id = u.id) AS reviews,
+
+            (SELECT COUNT(*)
+                FROM book_collection bc
+                WHERE bc.user_id = u.id) AS collections,
+
+            (
+            (SELECT COUNT(*)
+            FROM like_list ll1
+            WHERE ll1.target_id IN (
+                SELECT id FROM book_collection 
+                WHERE user_id = u.id
+            ) AND ll1.like_type = 3)
+            +
+            (SELECT COUNT(*)
+            FROM like_list ll2
+            WHERE ll2.target_id IN (
+                SELECT id FROM book_review 
+                WHERE user_id = u.id
+            ) AND ll2.like_type = 1)
+            ) AS likes,
+
+            (SELECT COUNT(*)
+            FROM follow_list fl 
+            WHERE fl.follow_user_id = u.id) AS followers,
+
+        (
+            CASE WHEN u.id LIKE CONCAT('%', #{keyword}, '%') THEN 3 ELSE 0 END +
+            CASE WHEN u.nickname LIKE CONCAT('%', #{keyword}, '%') THEN 2 ELSE 0 END +
+            CASE WHEN u.bio LIKE CONCAT('%', #{keyword}, '%') THEN 1 ELSE 0 END
+        ) AS relevance,
+
+            (
+                (SELECT COUNT(*) FROM book_collection bc 
+                WHERE bc.user_id = u.id) +
+
+                (SELECT COUNT(*) FROM book_review br 
+                WHERE br.user_id = u.id) +
+
+                (SELECT COUNT(*) FROM like_list ll1 
+                WHERE ll1.target_id IN (
+                SELECT id FROM book_collection 
+                WHERE user_id = u.id AND creation_date &gt;= NOW() - INTERVAL 1 YEAR
+                ) AND ll1.like_type = 3) +
+
+                (SELECT COUNT(*) FROM like_list ll2 
+                WHERE ll2.target_id IN (
+                SELECT id FROM book_review 
+                WHERE user_id = u.id AND creation_date &gt;= NOW() - INTERVAL 1 YEAR
+                ) AND ll2.like_type = 1)
+            ) AS activityScore
+
+        FROM user u
+        WHERE u.id LIKE CONCAT('%', #{keyword}, '%')
+            OR u.nickname LIKE CONCAT('%', #{keyword}, '%')
+            OR u.bio LIKE CONCAT('%', #{keyword}, '%')
+
+        GROUP BY u.id, u.bio, u.profile_image
+        <choose>
+            <when test="isRelevance == true">
+                ORDER BY relevance DESC, activityScore DESC
+            </when>
+            <otherwise>
+                ORDER BY activityScore DESC
+            </otherwise>
+        </choose>
+        LIMIT 10 OFFSET #{offset}    
+    </select>
+
+    <select id="getSearchResultCount" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM user u
+        WHERE u.id LIKE CONCAT('%', #{keyword}, '%')
+        OR u.bio LIKE CONCAT('%', #{keyword}, '%')
     </select>
 </mapper>

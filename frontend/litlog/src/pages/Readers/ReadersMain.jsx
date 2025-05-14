@@ -15,7 +15,7 @@ const ReadersMain = () => {
     useEffect(()=>{
         getAvidUserList();
         getBelovedUserList();
-    });
+    }, []);
 
     const getAvidUserList = async () => {
         try{
@@ -38,9 +38,9 @@ const ReadersMain = () => {
     }
 
     const handleSearch = (searchKeyword) => {
-        // if (searchKeyword.trim()) {
-        //     navigate(`/readers/search?keyword=${encodeURIComponent(searchKeyword)}`);
-        // }
+        if (searchKeyword.trim()) {
+            navigate(`/readers/search?keyword=${encodeURIComponent(searchKeyword)}`);
+        }
     };
 
 

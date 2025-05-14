@@ -1,24 +1,28 @@
 import React from 'react';
 import styles from './UserList.module.css';
 
-function UserList({ users, onItemClick }) {
+function UserList({ users, onItemClick, isRank, currentPage=1 }) {
   return (
     <div className={styles['user-list']}>
       {users.map((user, index) => {
+        const displayIndex = index + (currentPage-1) * 10;
         return (
-            <div key={`${user.id}-${index}`} 
+            <div key={`${user.id}-${displayIndex}`} 
                 className={styles['user-item']} 
                 onClick={() => onItemClick(user.id)}>
 
                 <div className={styles['user-rank']}>
-                    {(index === 0) ? <img src="/images/first.png" alt={"rank 1"} />
-                    :(index === 1)? <img src="/images/second.png" alt={"rank 2"} />
-                    : (index === 2)? <img src="/images/third.png" alt={"rank 3"} />
-                : <p className={styles['user-rank-p']}>{index + 1}</p>}
+                    {(displayIndex === 0 && isRank) ? <img src="/images/first.png" alt={"rank 1"} />
+                    :(displayIndex === 1 && isRank)? <img src="/images/second.png" alt={"rank 2"} />
+                    : (displayIndex === 2 && isRank)? <img src="/images/third.png" alt={"rank 3"} />
+                : <p className={styles['user-rank-p']}>{displayIndex + 1}</p>}
                 </div>
 
                 <div className={styles['user-info']}>
-                    <h3 className={styles['user-id']}>{user.id}</h3>
+                <h3 className={styles['user-id']}>
+                    {user.nickname}
+                    <span className={styles['user-id-gray']}> ({user.id})</span>
+                  </h3>
                     <p className={styles['user-bio']}>{user.bio}</p>
 
                     <div className={styles['user-stats']}>

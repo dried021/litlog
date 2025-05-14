@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class UserListDto {
     private String id;
+    private String nickname;
     private String bio;
     private String profile;
     private int bookshelves;
@@ -19,4 +20,5 @@ public class UserListDto {
     private int activityScore;
 
     private List<BookDto> books;
+    private int relevance;
 }

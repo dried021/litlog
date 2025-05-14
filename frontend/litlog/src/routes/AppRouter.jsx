@@ -18,6 +18,7 @@ import CollectionDetail from '../pages/Collections/CollectionDetail';
 import NewCollection from '../pages/Collections/NewCollection';
 
 import ReadersMain from '../pages/Readers/ReadersMain'; 
+import SearchReaders from '../pages/Readers/SearchReaders';
 
 import Profile from '../pages/Mypage/Profile';
 import Network from '../pages/Mypage/Network';
@@ -62,10 +63,9 @@ const AppRouter = () => {
             <Route path="/collections/new" element={<NewCollection />} />
             <Route path="/collections/:collectionId" element={<CollectionDetail />} />
 
-            
-
             {/* Readers */}
             <Route path="/readers" element={<ReadersMain />} />
+            <Route path="/readers/search" element={<SearchReaders/>}/>
     
             {/* Mypage */}
             <Route path="/:userId" element={<Profile />} />

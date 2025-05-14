@@ -1,6 +1,12 @@
 .user-list {
     padding: 0rem 1rem;
   }
+
+  .user-id-gray {
+    color: #888;   
+    font-weight: normal;
+    font-size: 1.1rem;
+  }
   
   .user-item {
     display: flex;
