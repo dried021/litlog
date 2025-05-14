@@ -12,19 +12,19 @@
     width: 90%;
 }
 
-.groupReviews a {
+.groupHeader {
+    display: flex;
+}
+
+.groupHeader a {
     font-size: 14px;
     color: #888; /* MORE BUTTON COLOR */
     text-decoration: none; 
     height: 24px; 
 }
 
-.groupReviews a:hover {
+.groupHeader a:hover {
     color: #333;
-}
-
-.groupHeader {
-    display: flex;
 }
 
 .solid {

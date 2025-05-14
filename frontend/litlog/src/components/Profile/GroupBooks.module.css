@@ -12,15 +12,15 @@
     width: 90%;
 }
 
-.groupBooks a {
+.groupHeader a:hover {
+    color: #333;
+}
+
+.groupHeader a {
     font-size: 14px;
     color: #888; /* MORE BUTTON COLOR */
     text-decoration: none; 
     height: 24px; 
-}
-
-.groupBooks a:hover {
-    color: #333;
 }
 
 .groupHeader {
