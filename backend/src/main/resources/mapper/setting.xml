@@ -12,7 +12,6 @@
         UPDATE user
         SET
             nickname = #{nickname},
-            name = #{name},
             pwd = #{pwd},
             email = #{email}
         WHERE id = #{id}
