@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -53,16 +54,16 @@ const ReviewDetail = () => {
       <TabMenu userId={userId} />
       <div className={styles.container}>
         <div className={styles.left}>
-          <img
-            className={styles.thumbnail}
-            src={review.thumbnail || '/images/covernotavailable.png'}
-            alt="책 표지"
-          />
+          <Link to={`/books/${review.bookApiId}`}>
+            <img className={styles.thumbnail} src={review.thumbnail || '/images/covernotavailable.png'} alt="책 표지"/>
+          </Link>
         </div>
 
         <div className={styles.right}>
           <h2 className={styles.title}>
-            {review.title}
+            <Link to={`/books/${review.bookApiId}`} className={styles.titleLink}>
+              {review.title}
+            </Link>
             <span className={styles.author}>{review.authors}</span>
           </h2>
           <div className={styles.meta}>
@@ -78,9 +79,22 @@ const ReviewDetail = () => {
             {review.content}
           </div>
 
-          <div className={styles.like}>
-            <img src="/icons/heart_filled.svg" alt="좋아요" />
-            <span>{review.likeCount ?? 0} likes</span>
+          <div className={styles.footerRow}>
+            <div className={styles.likes}>
+              <img src="/icons/heart_filled.svg" alt="좋아요" />
+              <span>{review.likeCount ?? 0} Likes</span>
+            </div>
+
+            <div className={styles.actions}>
+              <div className={styles.tooltipContainer}>
+                <img src="/icons/edit.svg" alt="Edit" className={styles.iconButton1} />
+                <div className={styles.tooltipText}>Edit</div>
+              </div>
+              <div className={styles.tooltipContainer}>
+                <img src="/icons/delete.svg" alt="Delete" className={styles.iconButton2} />
+                <div className={styles.tooltipText}>Delete</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

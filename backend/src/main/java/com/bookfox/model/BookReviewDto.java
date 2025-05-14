@@ -14,6 +14,7 @@ public class BookReviewDto {
     private String userId;
     private String userProfile;
     private int bookId;
+    private String bookApiId;
     private String title;
     private String content;
     private int rating;
