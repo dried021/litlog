@@ -32,6 +32,32 @@ const CollectionMain = () => {
     }
   };
 
+  const CollectionCard = ({ col, navigate }) => (
+  <div key={col.id} className={styles.collectionCard}>
+    <div className={styles.thumbnailStack} onClick={() => navigate(`/collections/${col.id}`)}>
+      {(col.books || []).slice(0, 6).map((book, index) => (
+        <img
+          key={index}
+          src={book.thumbnail}
+          alt="book thumbnail"
+          className={styles.thumbnailImage}
+          style={{ left: `${index * 40}px`, zIndex: 10 - index }}
+        />
+      ))}
+    </div>
+    <div className={styles.collectionBody}>
+      <h4 className={styles.collectionTitle} onClick={() => navigate(`/collections/${col.id}`)}>{col.title}</h4>
+      <p className={styles.collectionAuthor}>@{col.nickname}</p>
+      <p className={styles.collectionDesc}>{col.content}</p>
+      <div className={styles.collectionMeta}>
+        <span>❤️ {col.likeCount}</span>
+        <span>💬 {col.commentCount}</span>
+      </div>
+    </div>
+  </div>
+);
+
+
   return (
     <div className={styles.collectionWrapper}>
       <div className={styles.collectionHeader}>
@@ -50,35 +76,10 @@ const CollectionMain = () => {
           <span className={styles.moreBtn} onClick={() => navigate('/collections/list')}>MORE</span>
         </div>
 
-        <div className={styles.popularGrid}>  
-          {popularCollections.slice(0, 3).map(col => {
-            console.log(col.books); // ← 여기에 찍으면 book 배열 확인 가능
-
-            return (
-              <div key={col.id} className={styles.collectionCard}>
-                <div className={styles.thumbnailStack}>
-                  {(col.books || []).slice(0, 5).map((book, index) => (
-                    <img
-                      key={index}
-                      src={book.thumbnail}
-                      alt="book thumbnail"
-                      className={styles.thumbnailImage}
-                      style={{ left: `${index * 20}px`, zIndex: 10 - index }}
-                    />
-                  ))}
-                </div>
-
-              <div className={styles.collectionBody}>
-                <h4 className={styles.collectionTitle}>{col.title}</h4>
-                <p className={styles.collectionAuthor}>@{col.nickname}</p>
-                <p className={styles.collectionDesc}>{col.content}</p>
-                <div className={styles.collectionMeta}>
-                  <span>❤️ {col.likeCount}</span>
-                  <span>💬 {col.commentCount}</span>
-                </div>
-              </div>
-            </div>
-          )})}
+        <div className={styles.collectionGrid}>  
+          {popularCollections.slice(0, 3).map(col => (
+            <CollectionCard key={col.id} col={col} navigate={navigate} />
+          ))}
         </div>
       </section>
 
@@ -100,34 +101,9 @@ const CollectionMain = () => {
         </div>
 
         <div className={styles.collectionGrid}>
-          {allCollections.map(col => {
-            console.log(col.books); // ← 여기도 확인용
-
-            return (
-              <div key={col.id} className={styles.collectionCard}>
-                <div className={styles.thumbnailStack}>
-                  {(col.books || []).slice(0, 5).map((book, index) => (
-                    <img
-                      key={index}
-                      src={book.thumbnail}
-                      alt="book thumbnail"
-                      className={styles.thumbnailImage}
-                      style={{ left: `${index * 20}px`, zIndex: 10 - index }}
-                    />
-                  ))}
-                </div>
-
-              <div className={styles.collectionBody}>
-                <h4 className={styles.collectionTitle}>{col.title}</h4>
-                <p className={styles.collectionAuthor}>@{col.nickname}</p>
-                <p className={styles.collectionDesc}>{col.content}</p>
-                <div className={styles.collectionMeta}>
-                  <span>❤️ {col.likeCount}</span>
-                  <span>💬 {col.commentCount}</span>
-                </div>
-              </div>
-            </div>
-          )})}
+          {allCollections.map(col => (
+            <CollectionCard key={col.id} col={col} navigate={navigate} />
+          ))}
         </div>
       </section>
     </div>

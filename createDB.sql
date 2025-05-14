@@ -199,6 +199,8 @@ CREATE TABLE book_collection(
     thumbnail VARCHAR(300), 
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
+SELECT * from book;
+SELECT * from book_collection_book;
 
 CREATE TABLE book_collection_book(
 	id INT AUTO_INCREMENT PRIMARY KEY,			-- 이건 프리메리

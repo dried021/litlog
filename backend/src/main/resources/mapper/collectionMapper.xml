@@ -11,17 +11,19 @@
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="thumbnail" column="thumbnail"/>
-        <result property="creationDate" column="creation_date"/>
+        <result property="creationDate" column="creation_date" javaType="java.sql.Timestamp"/>
         <result property="likeCount" column="like_count"/>
         <result property="commentCount" column="comment_count"/>
         
-        <!-- ★ 책 리스트 중첩 매핑 -->
+        <!-- 책 리스트 매핑 -->
         <collection property="books" ofType="com.bookfox.model.BookDto">
             <id property="id" column="book_id"/>
             <result property="title" column="book_title"/>
             <result property="thumbnail" column="book_thumbnail"/>
+            <result property="bookApiId" column="book_api_id"/>
         </collection>
     </resultMap>
+
 
 
     <select id="selectPopularCollectionsThisWeek" resultMap="CollectionWithBooksResultMap">
@@ -105,5 +107,37 @@
         ORDER BY c.creation_date DESC
     </select>
 
+    <select id="selectCollectionById" parameterType="int" resultMap="CollectionWithBooksResultMap">
+        SELECT 
+        c.id AS collection_id,
+        c.user_id,
+        u.nickname,
+        c.title,
+        c.content,
+        c.thumbnail,
+        c.creation_date,
+        lc.like_count,
+        cc.comment_count,
+        b.id AS book_id,
+        b.book_api_id AS book_api_id,
+        b.title AS book_title,
+        cb.thumbnail AS book_thumbnail
+        FROM book_collection c
+        LEFT JOIN user u ON c.user_id = u.id
+        LEFT JOIN (
+        SELECT collection_id, COUNT(*) AS like_count
+        FROM book_collection_like
+        GROUP BY collection_id
+        ) lc ON c.id = lc.collection_id
+        LEFT JOIN (
+        SELECT collection_id, COUNT(*) AS comment_count
+        FROM book_collection_comment
+        GROUP BY collection_id
+        ) cc ON c.id = cc.collection_id
+        LEFT JOIN book_collection_book cb ON c.id = cb.collection_id
+        LEFT JOIN book b ON cb.book_id = b.id
+        WHERE c.id = #{id}
+
+    </select>
 
 </mapper>
