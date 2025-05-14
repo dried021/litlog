@@ -22,7 +22,7 @@
 }
 
 button.active {
-    border-bottom: solid 2px #636B2F; 
+    border-bottom: solid 2px #74070E; 
     opacity: 100%;
     font-weight: bold;
 }
@@ -36,7 +36,7 @@ button.active {
     list-style-type: none;
     padding-top: 30px;
     padding-bottom: 20px;
-    background-color: #74070E; /*#3D4127;*/ /*74070E*/
+    background-color: #4f2426; /*#3D4127;*/ /*74070E*/
     border-radius: 10px;
     padding-left: 50px;
 }
@@ -64,7 +64,7 @@ button.active {
 }
 
 .bookThumbnail:hover {
-    border: 4px solid #D4DE95;
+    border: 4px solid #F5ECD5;
 }
 
 .bookInfo {
@@ -117,7 +117,7 @@ button.active {
 }
 
 .progressInfo {
-    color: #F5ECD5;
+    color: #F5ECD5; /* F5ECD5 */
     font-size: 12px;
     margin-right: 6px;
 }
