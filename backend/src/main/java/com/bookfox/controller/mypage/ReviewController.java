@@ -16,7 +16,7 @@ public class ReviewController {
 
     @GetMapping("/{userId}/reviews/{reviewId}")
     public BookReviewDto getReviewDetail(@PathVariable String userId, @PathVariable int reviewId, HttpSession session) {
-        String loginUserId = (String) session.getAttribute("loginUserId");
+        String loginUserId = (String) session.getAttribute("loginUser");
         
         return reviewService.getReviewDetailById(reviewId, loginUserId);
     }

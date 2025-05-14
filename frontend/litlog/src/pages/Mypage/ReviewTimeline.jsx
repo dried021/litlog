@@ -37,7 +37,6 @@ const ReviewTimeline = () => {
           : `http://localhost:9090/api/members/${userId}/reviews/review-timeline`
       )
       .then((res) => {
-        console.log("✅ 리뷰 타임라인 데이터:", res.data);
         setReviews(res.data);
         setError(null);
       })
