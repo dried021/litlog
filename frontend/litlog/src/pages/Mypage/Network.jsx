@@ -20,6 +20,33 @@ export default function Network({type}) {
 
     const [currentPage, setCurrentPage] = useState(1);
     const membersPerPage = 10;
+    
+    const unfollow = () => {
+        fetch(`http://localhost:9090/members/${userId}/following`, {
+            method: 'DELETE',
+            credentials: 'include'
+        }).then(data => {
+            if (data.success) {
+                // update UI
+                console.log("successfully unfollowed")
+            }
+        }).catch(error => {
+            console.error("Error unfollowing user", error);
+        })
+    }
+    const removeFollower = () => {
+        fetch(`http://localhost:9090/members/${userId}/followers`, {
+            method: 'DELETE',
+            credentials: 'include'
+        }).then(data => {
+            if (data.success) {
+                // update UI
+                console.log("successfully removed follower")
+            }
+        }).catch(error => {
+            console.error("Error removing follower", error);
+        })
+    }
 
     useEffect(()=>{
         fetch(`http://localhost:9090/members/${userId}/network`)
