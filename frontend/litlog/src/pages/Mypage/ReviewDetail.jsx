@@ -40,10 +40,10 @@ const ReviewDetail = () => {
     return isNaN(date) ? '' : date.toLocaleDateString('en-US', options);
   };
 
-  const formatPublishedYear = (dateStr) => {
-    if (!dateStr) return '출판년도';
+  const formatPublishedDate = (dateStr) => {
+    if (!dateStr) return '';
     const date = new Date(dateStr);
-    return isNaN(date) ? '출판년도' : date.getFullYear();
+    return isNaN(date) ? '' : date.toISOString().slice(0, 10); // yyyy-MM-dd
   };
 
   if (!review) return <div>Loading...</div>;
@@ -63,12 +63,15 @@ const ReviewDetail = () => {
         <div className={styles.right}>
           <h2 className={styles.title}>
             {review.title}
-            <span className={styles.year}> ({formatPublishedYear(review.publishedDate)})</span>
+            <span className={styles.author}>{review.authors}</span>
           </h2>
+          <div className={styles.meta}>
+            {review.publisher} &nbsp;|&nbsp; {formatPublishedDate(review.publishedDate)} &nbsp;|&nbsp; {review.pageCount}pg
+          </div>
 
           <div className={styles.header}>
-            <span>Logged on {formatDate(review.creationDate)}</span>
             <span className={styles.stars}>{renderStars(review.rating)}</span>
+            <span>Logged on {formatDate(review.creationDate)}</span>
           </div>
 
           <div className={styles.content}>
@@ -76,10 +79,7 @@ const ReviewDetail = () => {
           </div>
 
           <div className={styles.like}>
-            <img
-              src={review.isLiked ? '/icons/heart_filled.svg' : '/icons/heart_outline.svg'}
-              alt="좋아요"
-            />
+            <img src="/icons/heart_filled.svg" alt="좋아요" />
             <span>{review.likeCount ?? 0} likes</span>
           </div>
         </div>
