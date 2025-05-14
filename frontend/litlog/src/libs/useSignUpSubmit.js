@@ -7,46 +7,43 @@ export function useSignUpSubmit({
   nickname, nicknameChecked, nicknameAvailable,
   name, password, confirmPassword,
   email, emailChecked, emailAvailable, emailVerified,
-  tel1, tel2, tel3
+  tel1, tel2, tel3, openModal
 }) {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const isAnyTelInput = tel1 || tel2 || tel3;    
 
-    if (!idChecked || !idAvailable) return alert("아이디 중복확인을 해주세요.");
-    if (!nicknameChecked || !nicknameAvailable) return alert("닉네임 중복확인을 해주세요.");
+    if (!idChecked || !idAvailable) return openModal("Please check for duplicate ID.");
+    if (!nicknameChecked || !nicknameAvailable) return openModal("Please check for duplicate nickname.");
 
     const { valid: nameValid, message: nameMessage } = validateNameFormat(name);
     if (!nameValid) return alert(nameMessage);
 
-    if (password.length < 6) return alert("비밀번호는 최소 6자 이상이어야 합니다.");
-    if (password !== confirmPassword) return alert("비밀번호가 일치하지 않습니다.");
+    if (password.length < 6) return openModal("Password must be at least 6 characters long.");
+    if (password !== confirmPassword) return openModal("Passwords do not match.");
 
-    if (!emailChecked || !emailAvailable) return alert("이메일 인증을 해주세요.");
-    if (!emailVerified) return alert("이메일 인증을 완료해주세요.");
+    if (!emailChecked || !emailAvailable) return openModal("Please verify your email.");
+    if (!emailVerified) return openModal("Please complete email verification.");
 
     if (isAnyTelInput) {
-      // 1) 3칸 모두 입력됐는지 확인
       if (!tel1 || !tel2 || !tel3) {
-        alert("전화번호 입력이 불완전합니다. 3칸 모두 입력해주세요.");
+        openModal("Incomplete phone number. Please fill in all 3 fields.");
         return;
       }
 
-      // 2) 길이 확인 (예: 3-4-4)
       if (tel1.length !== 3 || tel2.length !== 4 || tel3.length !== 4) {
-        alert("전화번호 형식이 올바르지 않습니다. 예: 010-1234-5678");
+        openModal("Invalid phone number format. Example: 010-1234-5678");
         return;
       }
 
-      // 3) 숫자만 입력됐는지 확인 (선택)
       const phoneRegex = /^\d+$/;
       if (
         !phoneRegex.test(tel1) ||
         !phoneRegex.test(tel2) ||
         !phoneRegex.test(tel3)
       ) {
-        alert("전화번호는 숫자만 입력 가능합니다.");
+        openModal("Phone number must contain digits only.");
         return;
       }
     }
@@ -62,10 +59,10 @@ export function useSignUpSubmit({
       };
 
       await axios.post("http://localhost:9090/sign-up", dto);
-      alert("회원가입 성공!");
+      openModal("Sign-up successful!");
       navigate('/sign-in');
     } catch (err) {
-      alert("회원가입 중 오류가 발생했습니다.");
+      openModal("An error occurred during sign-up.");
       console.error(err);
     }
   };

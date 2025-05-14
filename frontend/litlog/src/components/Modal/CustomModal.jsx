@@ -61,15 +61,15 @@ const CustomModal = ({
         {mode === "confirm" ? (
           <>
             <Button className="btn btn-primary" onClick={handleConfirm}>
-              확인
+              confirm
             </Button>
             <Button className="btn btn-danger" onClick={handleCancel}>
-              취소
+              cancel
             </Button>
           </>
         ) : (
           <Button className="btn btn-secondary" onClick={handleClose}>
-            닫기
+            close
           </Button>
         )}
       </Modal.Footer>

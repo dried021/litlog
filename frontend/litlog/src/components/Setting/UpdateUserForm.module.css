@@ -8,6 +8,18 @@
     max-width: 600px;
     margin: 0 auto;
   }
+
+  .label {
+    margin-bottom: 0;
+  }
+
+  .flexLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
   
   .inlineRow {
     display: flex;
@@ -68,10 +80,36 @@
     color: #1e3a8a;
     cursor: pointer;
     transition: background-color 0.2s;
+    width: 100px;
+    height: 75px;
   }
   
+  .buttonSmall:disabled,
+  .submitButton:disabled {
+    background-color: #c0cfff; 
+    color: #1e3a8a;          
+    cursor: not-allowed;
+    opacity: 0.7;
+    border: 1px solid #d1d5db;
+}
+
   .buttonSmall:hover {
     background-color: #c7d2fe;
+  }
+
+  .labelRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .labelRow label {
+    font-weight: 500;
+  }
+  
+  .labelRow span {
+    font-size: 0.9rem;
   }
   
   .submitButton {

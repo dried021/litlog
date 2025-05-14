@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { validateIdFormat, validateNicknameFormat, validateEmailFormat } from './validation';
 
-export function useSignUpHandlers_id() { // 아이디 중복 확인 및 유효성 검사
+export function useSignUpHandlers_id(openModal) { // 아이디 중복 확인 및 유효성 검사
   const [id, setId] = useState('');
   const [idChecked, setIdChecked] = useState(false);
   const [idAvailable, setIdAvailable] = useState(null);
@@ -16,22 +16,22 @@ export function useSignUpHandlers_id() { // 아이디 중복 확인 및 유효�
   const checkIdDuplicate = async () => {
     const { valid, message } = validateIdFormat(id);
     if (!valid) {
-      alert(message);
+      openModal(message);
       return;
     }
  
     try {
       const res = await axios.post('http://localhost:9090/sign-up/check-id', { id });
       if (res.data.available) {
-        alert('사용 가능한 아이디입니다.');
+        openModal('This ID is available.');
         setIdAvailable(true);
       } else {
-        alert('이미 사용 중인 아이디입니다.');
+        openModal('This ID is already taken.');
         setIdAvailable(false);
       }
       setIdChecked(true);
     } catch (err) {
-      alert('서버 오류: 중복 확인 실패');
+      openModal('Server error: Failed to check ID.');
       console.error(err);
     }
   };
@@ -44,7 +44,7 @@ export function useSignUpHandlers_id() { // 아이디 중복 확인 및 유효�
   };
 }
 
-export function useSignUpHandlers_nickname() { // 닉네임 중복 확인 및 유효성 검사
+export function useSignUpHandlers_nickname(openModal) { // 닉네임 중복 확인 및 유효성 검사
     // 닉네임 상태 관리
     const [nickname, setNickname] = useState(''); // 닉네임 상태
     const [nicknameChecked, setNicknameChecked] = useState(false); // 닉네임 중복 확인 여부
@@ -59,22 +59,22 @@ export function useSignUpHandlers_nickname() { // 닉네임 중복 확인 및 �
     const checkNicknameDuplicate = async () => {
     const { valid, message } = validateNicknameFormat(nickname);
     if (!valid) {
-        alert(message);
+      openModal(message);
         return;
     }
  
     try {
         const res = await axios.post('http://localhost:9090/sign-up/check-nickname', { nickname });
         if (res.data.available) {
-        alert('사용 가능한 닉네임입니다.');
+          openModal('This nickname is available.');
         setNicknameAvailable(true);
         } else {
-        alert('이미 사용 중인 닉네임입니다.');
+          openModal('This nickname is already taken.');
         setNicknameAvailable(false);
         }
         setNicknameChecked(true);
     } catch (err) {
-        alert('서버 오류: 닉네임 확인 실패');
+      openModal('Server error: Failed to check nickname.');
         console.error(err);
     }
     };
@@ -87,7 +87,7 @@ export function useSignUpHandlers_nickname() { // 닉네임 중복 확인 및 �
       };
   }
 
-  export function useSignUpHandlers_email() {
+  export function useSignUpHandlers_email(openModal) {
   const [email, setEmail] = useState('');
   const [emailChecked, setEmailChecked] = useState(false);
   const [emailAvailable, setEmailAvailable] = useState(null);
@@ -107,26 +107,26 @@ export function useSignUpHandlers_nickname() { // 닉네임 중복 확인 및 �
 
   const sendEmailCode = async () => {
     const { valid, message } = validateEmailFormat(email);
-    if (!valid) return alert(message);
+    if (!valid) return openModal(message);
 
     try {
       const res = await axios.post('http://localhost:9090/sign-up/check-email', { email });
       if (!res.data.available) {
-        alert("이미 사용 중인 이메일입니다.");
+        openModal("This email is already in use.");
         setEmailAvailable(false);
         return;
       }
 
       // 인증코드 발송
       await axios.post('http://localhost:9090/sign-up/send-code', { email }, { withCredentials: true });
-      alert("인증코드가 전송되었습니다.");
+      openModal("Verification code has been sent to your email.");
 
       setEmailAvailable(true);
       setEmailChecked(true);
       setTimeLeft(300); // 5분
       setTimerRunning(true);
     } catch (err) {
-      alert("이메일 인증코드 전송 실패");
+      openModal("Failed to send verification code.");
       console.error(err);
     }
   };
@@ -135,14 +135,16 @@ export function useSignUpHandlers_nickname() { // 닉네임 중복 확인 및 �
     try {
       const res = await axios.post('http://localhost:9090/sign-up/verify-email', { code: emailCode }, { withCredentials: true });
       if (res.data.verified) {
-        alert('이메일 인증 완료!');
+        openModal('Email verified successfully!');
         setEmailVerified(true);
+        setTimerRunning(false);  
+      setTimeLeft(0);      
       } else {
-        alert('인증코드가 틀렸습니다.');
+        openModal('Incorrect verification code.');
         setEmailVerified(false);
       }
     } catch (err) {
-      alert('서버 오류: 인증 실패');
+      openModal('Server error: Email verification failed.');
       console.error(err);
     }
   };
@@ -156,7 +158,7 @@ export function useSignUpHandlers_nickname() { // 닉네임 중복 확인 및 �
         if (prev <= 1) {
           clearInterval(interval);
           setTimerRunning(false);
-          alert("인증 시간이 만료되었습니다.");
+          openModal("Verification time has expired.");
           return 0;
         }
         return prev - 1;

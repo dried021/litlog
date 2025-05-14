@@ -6,6 +6,7 @@ import {
 } from '../../libs/useSignUpHandlers.js';
 import { useSignUpSubmit } from '../../libs/useSignUpSubmit';
 import '../../styles/signUp.css';
+import CustomModal from "../../components/Modal/CustomModal";
 
 function SignUp() {
   const [name, setName] = useState('');
@@ -14,29 +15,48 @@ function SignUp() {
   const [tel1, setTel1] = useState('');
   const [tel2, setTel2] = useState('');
   const [tel3, setTel3] = useState('');
+  
+  const [modalData, setModalData] = useState({
+      show:false,
+      message: "",
+      mode: "close",
+    });
+  
+    const handleCloseModal = () => {
+      setModalData({...modalData, show:false,});
+    };
+  
+    const openModal = (message) => {
+      setModalData({
+        show:true,
+        message,
+        mode: "close",
+      });
+    };
 
   const {
     id, idChecked, idAvailable, handleIdChange, checkIdDuplicate
-  } = useSignUpHandlers_id();
+  } = useSignUpHandlers_id(openModal);
 
   const {
     nickname, nicknameChecked, nicknameAvailable,
     handleNicknameChange, checkNicknameDuplicate
-  } = useSignUpHandlers_nickname();
+  } = useSignUpHandlers_nickname(openModal);
 
   const {
     email, emailCode, emailChecked, emailAvailable,
     emailVerified, timeLeft, timerRunning, formatTime,
     setEmailCode, handleEmailChange, sendEmailCode, verifyEmailCode
-  } = useSignUpHandlers_email();
+  } = useSignUpHandlers_email(openModal);
 
   const { handleSubmit } = useSignUpSubmit({
     id, idChecked, idAvailable, nickname, nicknameChecked, nicknameAvailable,
     name, password, confirmPassword, email, emailVerified, emailAvailable,
-    emailChecked, tel1, tel2, tel3
+    emailChecked, tel1, tel2, tel3, openModal
   });
 
   return (
+    <>
     <div className="signup-wrapper">
       <h2>CREATE ACCOUNT</h2>
       <div className="signup-box">
@@ -121,6 +141,16 @@ function SignUp() {
       </div>
       <div><a href="/">HOME</a></div>
     </div>
+    {/* 모달 컴포넌트 */}
+    <CustomModal
+            show={modalData.show}
+            onHide={handleCloseModal}
+            successMessage={modalData.message}
+            failMessage={modalData.message}
+            resultValue={"1"}
+            mode="close"
+          />
+    </>
   );
 }
 
