@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import styles from './CollectionMain.module.css'; // 기존 스타일 그대로 사용
+import { useNavigate } from 'react-router-dom';
 const CollectionPopularList = () => {
   const [collections, setCollections] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('http://localhost:9090/collections/popular', { withCredentials: true })
@@ -14,18 +16,36 @@ const CollectionPopularList = () => {
   }, []);
 
   return (
-    <div>
-      <h2>🔥 Popular This Week</h2>
-      <ul>
+    <div className={styles.collectionWrapper}>
+      <h2 className={styles.sectionTitle}>🔥 Popular This Week</h2>
+
+      <div className={styles.collectionGrid}>
         {collections.map(col => (
-          <li key={col.id}>
-            <img src={col.thumbnail} alt={col.title} width="100" />
-            <h3>{col.title}</h3>
-            <p>{col.content}</p>
-            <p>❤️ {col.likeCount} likes</p>
-          </li>
+          <div key={col.id} className={styles.collectionCard}>
+            <div className={styles.thumbnailStack} onClick={() => navigate(`/collections/${col.id}`)}>
+              {(col.books || []).slice(0, 6).map((book, index) => (
+                <img
+                  key={index}
+                  src={book.thumbnail}
+                  alt="book"
+                  className={styles.thumbnailImage}
+                  style={{ left: `${index * 40}px`, zIndex: 10 - index }}
+                />
+              ))}
+            </div>
+            <div className={styles.collectionBody}>
+              <h4 className={styles.collectionTitle} onClick={() => navigate(`/collections/${col.id}`)}>{col.title}</h4>
+              <p className={styles.collectionAuthor}>@{col.nickname}</p>
+              <p className={styles.collectionDesc}>{col.content}</p>
+              <div className={styles.collectionMeta}>
+                <span>❤️ {col.likeCount}</span>
+                <span>💬 {col.commentCount}</span>
+              </div>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
+
     </div>
   );
 };

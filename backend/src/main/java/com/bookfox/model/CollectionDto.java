@@ -1,5 +1,6 @@
 package com.bookfox.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ public class CollectionDto {
     private String title;
     private String content;
     private String thumbnail;       // 대표 썸네일 (optional)
-    private String creationDate;
+    private Timestamp creationDate;
     private int likeCount;
     private int commentCount;       // 댓글 수
     private List<BookDto> books;         // 책 객체로 받을 경우

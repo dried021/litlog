@@ -25,7 +25,7 @@ public class CollectionController {
     }
 
     // 전체 컬렉션 인기/최신 정렬
-    @GetMapping // ✅ 경로를 "/collections"으로 중복 지정하면 안 됨
+    @GetMapping //
     public ResponseEntity<?> getCollections(@RequestParam(defaultValue = "popular") String sort) {
         List<CollectionDto> list;
         if ("recent".equals(sort)) {
@@ -35,5 +35,12 @@ public class CollectionController {
         }
         return ResponseEntity.ok(Map.of("book_collections", list));
     }
+
+    @GetMapping("/{id}")
+    public CollectionDto getCollectionDetail(@PathVariable int id) {
+        return collectionService.getCollectionById(id);
+    }
+
+
 }
 
