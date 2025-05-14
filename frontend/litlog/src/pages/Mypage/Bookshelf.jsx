@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import TabMenu from '../../components/Mypage/TabMenu';
+import SelectMenu from '../../components/Select/SelectMenu';
 import styles from './Bookshelf.module.css';
 import defaultThumbnail from '../../assets/default_thumbnail.png';
 import heart from '../../assets/heart_light.svg';
@@ -19,6 +20,37 @@ const Bookshelf = ({shelfType}) => {
     /* Pagination */
     const [currentPage, setCurrentPage] = useState(1);
     let booksPerPage = (shelf === "current" ? 15 : 18);
+
+    const options = [
+        {
+            label: 'When Added',
+            options: [
+                {value: 'added-newest', label: 'Newest First'},
+                {value: 'added-earliest', label: 'Earliest First'}
+            ]
+        },
+        {
+            label: 'Published Date',
+            options: [
+                {value: 'published-newest', label: 'Newest First'},
+                {value: 'published-earliest', label: 'Earliest First'}
+            ]
+        },
+        {
+            label: 'Your Rating',
+            options: [
+                {value: 'rating-highest', label: 'Highest First'},
+                {value: 'rating-lowest', label: 'Lowest First'}
+            ]
+        },
+        {
+            label: 'Book Length',
+            options: [
+                {value: 'length-shortest', label: 'Shortest First'},
+                {value: 'length-longest', label: 'Longest First'}
+            ]
+        }
+    ];
     
     useEffect(() => {
         let path;
@@ -93,38 +125,25 @@ const Bookshelf = ({shelfType}) => {
         <div className={styles.bookshelf}>
             <TabMenu/>
             <div className={styles.tabs}>
-                <button onClick={() => setShelf("current")} className={`${shelf === "current" ? styles.active : ""}`}>
-                    CURRENTLY READING
-                </button>
-                <button onClick={() => setShelf("finished")} className={`${shelf === "finished" ? styles.active : ""}`}>
-                    FINISHED READING
-                </button>
-                <button onClick={() => setShelf("to-read")} className={`${shelf === "to-read" ? styles.active : ""}`}>
-                    TO READ
-                </button>
-                <button onClick={() => setShelf("favorite")} className={`${shelf === "favorite" ? styles.active : ""}`}>
-                    FAVORITE
-                </button>
-
-                <label htmlFor="sortOptions">SORT BY</label>
-                <select id="sortOptions" onChange={(e) => setSort(e.target.value)}>
-                    <optgroup label="When Added">
-                        <option value="added-newest">Newest First</option>
-                        <option value="added-earliest">Earliest First</option>
-                    </optgroup>
-                    <optgroup label="Published Date">
-                        <option value="published-newest">Newest First</option>
-                        <option value="published-earliest">Earliest First</option>
-                    </optgroup>
-                    <optgroup label="Your Rating">
-                        <option value="rating-highest">Highest First</option>
-                        <option value="rating-lowest">Lowest First</option>
-                    </optgroup>
-                    <optgroup label="Book Length">
-                        <option value="length-shortest">Shortest First</option>
-                        <option value="length-longest">Longest First</option>
-                    </optgroup>
-                </select>
+                <div className={styles.buttonContainer}>
+                    <button onClick={() => setShelf("current")} className={`${shelf === "current" ? styles.active : ""}`}>
+                        CURRENTLY READING
+                    </button>
+                    <button onClick={() => setShelf("finished")} className={`${shelf === "finished" ? styles.active : ""}`}>
+                        FINISHED READING
+                    </button>
+                    <button onClick={() => setShelf("to-read")} className={`${shelf === "to-read" ? styles.active : ""}`}>
+                        TO READ
+                    </button>
+                    <button onClick={() => setShelf("favorite")} className={`${shelf === "favorite" ? styles.active : ""}`}>
+                        FAVORITE
+                    </button>
+                </div>
+                <SelectMenu
+                    className={styles.selectMenu}
+                    placeholder="Sort by..."
+                    options={options} action={(selected) => setSort(selected.value)}
+                />
             </div>
             {currentBooks.length ===0 && <p>No books to show</p>}
             {currentBooks.length > 0 && (
