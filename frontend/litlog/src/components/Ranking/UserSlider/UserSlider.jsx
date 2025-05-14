@@ -69,7 +69,7 @@ function NextArrow(props) {
 
               <Link to={`/${user.id}`}>
                 <img src={user.profile ?? '/icons/profile.svg'}  alt={user.title} className="user-profile" />
-                <h5 className="user-id">{user.id}</h5>
+                <h5 className="user-id">{user.nickname}</h5>
                 {(type=="avid")?  
 
                 <div className="user-stats">  

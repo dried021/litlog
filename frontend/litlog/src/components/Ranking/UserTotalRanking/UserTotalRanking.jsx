@@ -75,7 +75,7 @@ const UserTotalRanking = () => {
                 {loading && loadedItems === 0 ? (
                     <p className="search">Loading...</p>
                 ) : users.length > 0 ? (
-                    <UserList users={users} onItemClick={handleItemClick}/>
+                    <UserList users={users} onItemClick={handleItemClick} isRank={true}/>
                 ) : (
                     <p className={styles["search"]}>No results found.</p>
                 )}

@@ -37,4 +37,15 @@ public class ReaderService {
     public int getUserCount(){
         return readerMapper.getUserCount();
     }
+
+    public List<UserListDto> getSearchResult(String keyword, int currentPage, boolean isRelevance){
+        int offset = (currentPage - 1) * 10;
+        Map<String, Object> params = Map.of("keyword", keyword, "offset", offset, "isRelevance", isRelevance);
+        return readerMapper.getSearchResult(params);
+    }
+
+    public int getSearchResultCount(String keyword){
+        return readerMapper.getSearchResultCount(keyword);
+    }
+
 }
