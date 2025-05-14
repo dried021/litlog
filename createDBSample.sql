@@ -101,8 +101,8 @@ VALUES
 
 -- 11. 책 콜렉션 (book_collection)
 
+SELECT * from book;
 SELECT * from book_collection;
-
 SELECT * from book_collection_book;
 SELECT * from book_collection_like;
 SELECT collection_id,  COUNT(*) AS 좋아요_수
@@ -117,13 +117,13 @@ VALUES
 ('user04', '2025-05-15', '눈물을 마시는 새', '통쾌한 결말을 가진 소설들 모음입니다.', 'http://books.google.com/books/publisher/content?id=bNW-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE733JkpcbfA-7iOsHv4jWjvD_XeBSP3Ta-3rwh4EVkE4UqRK1v13OuElHEyTYoRJCNPVJv6aY-Wqr6IfdFCzMNrQ2meyOiEnYRYA45cAhGU7egvprpPWGDXy4vVostUQ_swB2six&source=gbs_api'),
 ('user05', '2025-05-16', '반지의 제왕', '통쾌한 결말을 가진 소설들 모음입니다.', 'http://books.google.com/books/publisher/content?id=bNW-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE733JkpcbfA-7iOsHv4jWjvD_XeBSP3Ta-3rwh4EVkE4UqRK1v13OuElHEyTYoRJCNPVJv6aY-Wqr6IfdFCzMNrQ2meyOiEnYRYA45cAhGU7egvprpPWGDXy4vVostUQ_swB2six&source=gbs_api');
 
+SELECT * from book;
 -- 12. 책 콜렉션에 책 추가 (book_collection_book)
 INSERT INTO book_collection_book(collection_id, book_id, thumbnail)
 VALUES 
 (1, 37, 'http://books.google.com/books/publisher/content?id=bNW-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE733JkpcbfA-7iOsHv4jWjvD_XeBSP3Ta-3rwh4EVkE4UqRK1v13OuElHEyTYoRJCNPVJv6aY-Wqr6IfdFCzMNrQ2meyOiEnYRYA45cAhGU7egvprpPWGDXy4vVostUQ_swB2six&source=gbs_api'),
 (1, 38, 'http://books.google.com/books/publisher/content?id=YlolDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE73oSy78PrYkR67bncDP6QZZgSISkE9Z37rny116OgeQdywbaWih-jeoprMlQ1WWz1v9fKy1JBvIybnIE0Q8PdVxs3xIV4u2jk-kjuLVOXuwBPvHqBl8o3RkolBRBW6Hdihn8rm2&source=gbs_api'),
 (1, 39, 'http://books.google.com/books/publisher/content?id=MnNnDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE72AHMwcZNWj0ncj6y_qSv871OhzwwS3wzQm7I3DBvRO20IVHaPzt8TNovaOxoO2ifuJ9t4rYx2W2kmaG8uQ-HTG-wQ52zWDU82IP81XdiarPnFLO0DwLN8H7t0KqbIPAn9rk95L&source=gbs_api'),
-(1, 40, 'http://books.google.com/books/publisher/content?id=YlolDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE73oSy78PrYkR67bncDP6QZZgSISkE9Z37rny116OgeQdywbaWih-jeoprMlQ1WWz1v9fKy1JBvIybnIE0Q8PdVxs3xIV4u2jk-kjuLVOXuwBPvHqBl8o3RkolBRBW6Hdihn8rm2&source=gbs_api'),
 (1, 40, 'http://books.google.com/books/publisher/content?id=tGquDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE70Hl-OX30yUFImp6wL1EWND3Cq8205mYuGkKsbiJqO3REJZBvAjDqTBd9uZQXR9_7_7eY6sfgTdTb5EhX6UWURtLP5vU5IEidMTRal3OTB2OmszBkF8GzCvoMQR1pRMCJ39ju46&source=gbs_api'),
 (1, 41, 'http://books.google.com/books/publisher/content?id=JLgDEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE72Mkna2XQok-SybMBAbDF98i16eXIESeQ0iBsbsZ8qnK94xig3DO5e8hiFHdqoLelFOO6s8Yz9w7CV_g2uad6rvFLAXzwQv0FsTZ7PH4LTkw-h-GUBy6twl3PafuVGIi_IsP24E&source=gbs_api'),
 (2, 42, 'http://books.google.com/books/publisher/content?id=bR3REAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE704gz2uBJus0XQvgnl04svj9VzI12HDdAZk1cEGSLsiWbXM-0JCN2o-cy9vhUEnlIgTRueHDgfoEjeyA-5K7avlz_FbR4hCjXIb-6OAyzT99lBfqJ403ny1QE57wgWZ2T0a3BFB&source=gbs_api'),
@@ -151,6 +151,7 @@ VALUES
 ('aaa', 1, '좋은 책 모음이네요!');
 
 -- 좋아요 수 가정: 10, 3, 7
+DELETE FROM book_collection_like;
 INSERT INTO book_collection_like (collection_id, user_id) VALUES
 (1, 'user01'), (1, 'user02'), (1, 'user03'), (1, 'user04'), (1, 'user05'),
 (1, 'user06'), (1, 'user07'), (1, 'user08'), (1, 'user09'), (1, 'user10'),
