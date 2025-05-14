@@ -8,7 +8,6 @@
 .container {
   display: flex;
   gap: 30px;
-  border-top: 1px solid #ccc;
   padding-top: 20px;
 }
 
@@ -65,7 +64,7 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 6px;
-  padding-bottom: 12px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #ddd;
   font-size: 14px;
   color: #444;
@@ -87,31 +86,30 @@
   line-height: 1.6;
   color: #222;
   white-space: pre-wrap;
-  padding-top: 8px;
+  padding-top: 2px;
   flex-grow: 1;
   min-height: 200px;
 }
 
 /* 좋아요 */
-.like {
+.likes {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-top: auto; 
-  padding-top: 12px;
-  border-top: 1px solid #eee;
+  padding-top: 10px;
   font-size: 14px;
   color: #444;
 }
 
-.like img {
+.likes img {
   width: 18px;
   height: 18px;
   opacity: 0.85;
   transition: opacity 0.2s;
 }
 
-.like img:hover {
+.likes img:hover {
   opacity: 1;
 }
 
@@ -126,25 +124,13 @@
   color: #d4a373;
 }
 
-
-
-
-
 .footerRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 24px;
-  padding-top: 12px;
+  padding-top: 10px;
   border-top: 1px solid #ddd;
-}
-
-.likes {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #444;
-  font-size: 14px;
 }
 
 .actions {
@@ -175,7 +161,8 @@
   transition: opacity 0.2s;
 }
 
-.iconButton1:hover .iconButton2:hover {
+.iconButton1:hover,
+.iconButton2:hover {
   opacity: 1;
 }
 
@@ -210,4 +197,11 @@
 .tooltipContainer:hover .tooltipText {
   visibility: visible;
   opacity: 1;
+}
+
+/* EditMode */
+.editModeRating {
+  border: 2px dashed #f4c542;
+  border-radius: 2px;
+  padding: 6px 10px;
 }
