@@ -22,7 +22,7 @@
 }
 
 button.active {
-    border-bottom: solid 2px #74070E; 
+    border-bottom: solid 2px #636B2F; 
     opacity: 100%;
     font-weight: bold;
 }
@@ -36,7 +36,7 @@ button.active {
     list-style-type: none;
     padding-top: 30px;
     padding-bottom: 20px;
-    background-color: #4f2426; /*#3D4127;*/ /*74070E*/
+    background-color: #2f333c; /*#3D4127;*/ /*74070E*/
     border-radius: 10px;
     padding-left: 50px;
 }
@@ -64,7 +64,7 @@ button.active {
 }
 
 .bookThumbnail:hover {
-    border: 4px solid #F5ECD5;
+    border: 4px solid #D4DE95;
 }
 
 .bookInfo {
@@ -85,7 +85,7 @@ button.active {
 .star {
     font-size: 14px;
     margin-right: 2px;
-    color: #F5ECD5;
+    color: white; /* #F5ECD5 */
 }
 
 .icon {
