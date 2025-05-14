@@ -153,7 +153,7 @@ CREATE TABLE book_review(
 	FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE SET NULL,
 	FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE SET NULL
 );
-
+select * from book_shelf;
 CREATE TABLE book_shelf(
 	id INT AUTO_INCREMENT PRIMARY KEY,
     book_id INT,
@@ -217,15 +217,6 @@ CREATE TABLE book_collection_comment(
     collection_id INT NOT NULL,
     content VARCHAR(1000),
     creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (collection_id) REFERENCES book_collection(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
-);
-
-CREATE TABLE book_collection_like (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id VARCHAR(50) NOT NULL,
-    collection_id INT NOT NULL,
-    liked_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (collection_id) REFERENCES book_collection(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
