@@ -158,7 +158,7 @@ function Reviews({ bookApiId }) {
   return (
     <div className={styles["review-section"]}>
       {loading ? (
-        <p className="loading">Loading...</p>
+        <p className={styles.reviewstext}>Loading...</p>
       ) : (
         <>
           <div className={styles.optionsContainer}>
@@ -205,12 +205,11 @@ function Reviews({ bookApiId }) {
               />
             </>
           ) : (
-            <p className="no-reviews">No reviews yet</p>
+            <p className={styles.reviewstext}>No reviews yet</p>
           )}
         </>
       )}
     </div>
-
   );
 }
 
