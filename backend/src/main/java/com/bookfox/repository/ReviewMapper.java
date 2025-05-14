@@ -16,9 +16,11 @@ public interface ReviewMapper {
     int countWrittenReviews(String userId);
     
     int updateReview(
-    @Param("reviewId") int reviewId,
-    @Param("content") String content,
-    @Param("rating") int rating,
-    @Param("creationDate") java.sql.Timestamp creationDate
-);
+        @Param("reviewId") int reviewId,
+        @Param("content") String content,
+        @Param("rating") int rating,
+        @Param("creationDate") java.sql.Timestamp creationDate
+    );
+    
+    int deleteReview(@Param("reviewId") int reviewId);
 }

@@ -31,4 +31,8 @@ public class ReviewService {
         int result = reviewMapper.updateReview(reviewId, dto.getContent(), dto.getRating(), now);
         return result > 0;
     }
+    public boolean deleteReview(int reviewId) {
+        int result = reviewMapper.deleteReview(reviewId);
+        return result > 0;
+    }
 }
