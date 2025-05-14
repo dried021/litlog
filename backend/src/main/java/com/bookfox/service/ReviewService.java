@@ -1,9 +1,12 @@
 package com.bookfox.service;
 
+import java.sql.Timestamp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bookfox.model.BookReviewDto;
+import com.bookfox.model.ReviewUpdateDto;
 import com.bookfox.repository.ReviewMapper;
 
 @Service
@@ -21,5 +24,11 @@ public class ReviewService {
 
     public int countWrittenReviews(String userId) {
         return reviewMapper.countWrittenReviews(userId);
+    }
+
+    public boolean updateReview(int reviewId, ReviewUpdateDto dto) {
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        int result = reviewMapper.updateReview(reviewId, dto.getContent(), dto.getRating(), now);
+        return result > 0;
     }
 }
