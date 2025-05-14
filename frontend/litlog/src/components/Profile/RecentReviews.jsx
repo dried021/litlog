@@ -22,6 +22,8 @@ export default function RecentReviews() {
     if (loading) return <p>Loading...</p>;
 
     return(
-        <GroupReviews groupLabel="RECENT REVIEWS" group={reviews} msg="No reviews to show"/>
+        <GroupReviews groupLabel="RECENT REVIEWS" group={reviews} msg="No reviews to show"
+            url={`/${userId}/reviews`}
+        />
     );
 }
