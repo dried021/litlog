@@ -3,7 +3,6 @@ package com.bookfox.controller.settings;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +33,7 @@ public class Setting {
 
     @GetMapping("/userinfo")
     public ResponseEntity<UserDto> getUserInfo(@RequestParam String userId){
+        System.out.println();
         return ResponseEntity.ok(settingService.getUserInfo(userId));
     }
 
