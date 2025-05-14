@@ -35,21 +35,26 @@
             c.content,
             c.thumbnail,
             c.creation_date,
-            COUNT(DISTINCT l.id) AS like_count,
+            l.like_count,
             COUNT(DISTINCT cm.id) AS comment_count,
             b.id AS book_id,
             b.title AS book_title,
             b.thumbnail AS book_thumbnail
         FROM (
-            SELECT l.collection_id
-            FROM book_collection_like l
-            WHERE YEARWEEK(l.liked_at, 1) = YEARWEEK(NOW(), 1)
-            GROUP BY l.collection_id
+            SELECT target_id AS collection_id
+            FROM like_list
+            WHERE like_type = 3 AND YEARWEEK(creation_date, 1) = YEARWEEK(NOW(), 1)
+            GROUP BY target_id
             ORDER BY COUNT(*) DESC
         ) AS top
         JOIN book_collection c ON c.id = top.collection_id
         LEFT JOIN user u ON c.user_id = u.id
-        LEFT JOIN book_collection_like l ON c.id = l.collection_id AND YEARWEEK(l.liked_at, 1) = YEARWEEK(NOW(), 1)
+        LEFT JOIN (
+            SELECT target_id, COUNT(*) AS like_count
+            FROM like_list
+            WHERE like_type = 3 AND YEARWEEK(creation_date, 1) = YEARWEEK(NOW(), 1)
+            GROUP BY target_id
+        ) l ON c.id = l.target_id
         LEFT JOIN book_collection_comment cm ON c.id = cm.collection_id
         LEFT JOIN book_collection_book cb ON c.id = cb.collection_id
         LEFT JOIN book b ON cb.book_id = b.id
@@ -66,14 +71,19 @@
             c.content, 
             c.thumbnail, 
             c.creation_date,
-            COUNT(DISTINCT l.id) AS like_count,
+            l.like_count,
             COUNT(DISTINCT cm.id) AS comment_count,
             b.id AS book_id, 
             b.title AS book_title, 
             b.thumbnail AS book_thumbnail
         FROM book_collection c
         LEFT JOIN user u ON c.user_id = u.id
-        LEFT JOIN book_collection_like l ON c.id = l.collection_id
+        LEFT JOIN (
+            SELECT target_id AS collection_id, COUNT(*) AS like_count
+            FROM like_list
+            WHERE like_type = 3
+            GROUP BY target_id
+        ) l ON c.id = l.collection_id
         LEFT JOIN book_collection_comment cm ON c.id = cm.collection_id
         LEFT JOIN book_collection_book cb ON c.id = cb.collection_id
         LEFT JOIN book b ON cb.book_id = b.id
@@ -92,14 +102,19 @@
             c.content, 
             c.thumbnail, 
             c.creation_date,
-            COUNT(DISTINCT l.id) AS like_count,
+            l.like_count,
             COUNT(DISTINCT cm.id) AS comment_count,
             b.id AS book_id, 
             b.title AS book_title, 
             b.thumbnail AS book_thumbnail
         FROM book_collection c
         LEFT JOIN user u ON c.user_id = u.id
-        LEFT JOIN book_collection_like l ON c.id = l.collection_id
+        LEFT JOIN (
+            SELECT target_id AS collection_id, COUNT(*) AS like_count
+            FROM like_list
+            WHERE like_type = 3
+            GROUP BY target_id
+        ) l ON c.id = l.collection_id
         LEFT JOIN book_collection_comment cm ON c.id = cm.collection_id
         LEFT JOIN book_collection_book cb ON c.id = cb.collection_id
         LEFT JOIN book b ON cb.book_id = b.id
@@ -125,9 +140,10 @@
         FROM book_collection c
         LEFT JOIN user u ON c.user_id = u.id
         LEFT JOIN (
-        SELECT collection_id, COUNT(*) AS like_count
-        FROM book_collection_like
-        GROUP BY collection_id
+            SELECT target_id AS collection_id, COUNT(*) AS like_count
+            FROM like_list
+            WHERE like_type = 3
+            GROUP BY target_id
         ) lc ON c.id = lc.collection_id
         LEFT JOIN (
         SELECT collection_id, COUNT(*) AS comment_count

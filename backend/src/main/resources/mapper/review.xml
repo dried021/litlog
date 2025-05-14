@@ -59,4 +59,9 @@
     WHERE
       id = #{reviewId}
   </update>
+
+  <delete id="deleteReview">
+    DELETE FROM book_review
+    WHERE id = #{reviewId}
+  </delete>
 </mapper>
