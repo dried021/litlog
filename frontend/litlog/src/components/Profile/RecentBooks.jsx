@@ -19,6 +19,8 @@ export default function RecentBooks() {
     }, [userId]);
     
     return (
-        <GroupBooks groupLabel="RECENT BOOKS" group={recentBooks} msg="No books to show"/>
+        <GroupBooks groupLabel="RECENT BOOKS" group={recentBooks} msg="No books to show"
+            url={`/${userId}/bookshelf`}
+        />
     );
 }
