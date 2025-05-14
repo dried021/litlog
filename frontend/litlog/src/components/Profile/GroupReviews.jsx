@@ -2,10 +2,13 @@ import React from "react";
 import styles from "./GroupReviews.module.css";
 import ProfileReviewCard from "./ProfileReviewCard";
 
-export default function GroupReviews({groupLabel, group, msg}) {
+export default function GroupReviews({groupLabel, group, msg, url}) {
     return(
         <div className={styles.groupReviews}>
-            <h2>{groupLabel}</h2>
+            <div className={styles.groupHeader}>
+                <h2>{groupLabel}</h2>
+                {group.totalCount !== 0 && <a href={url}>VIEW ALL</a>}
+            </div>
             <hr className={styles.solid}/>
             {group.totalCount === 0 ?
                 (<p>{msg}</p>) : 

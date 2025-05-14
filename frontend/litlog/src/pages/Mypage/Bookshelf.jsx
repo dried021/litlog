@@ -9,10 +9,10 @@ import heart from '../../assets/heart_light.svg';
 
 import Pagination from '../../components/Pagination/Pagination';
 
-const Bookshelf = () => {
+const Bookshelf = ({shelfType}) => {
     const {userId} = useParams();
     const [loading, setLoading] = useState(true);
-    const [shelf, setShelf] = useState("current"); // current, finished, to-read, favorite
+    const [shelf, setShelf] = useState(shelfType ? shelfType : "current"); // current, finished, to-read, favorite
     const [sort, setSort] = useState("added-newest"); /* TODOOOOOOOOOO */
     const [result, setResult] = useState([]);
 
