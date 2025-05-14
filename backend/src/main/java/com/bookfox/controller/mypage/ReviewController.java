@@ -58,4 +58,24 @@ public class ReviewController {
         }
     }
 
+    @DeleteMapping("/{userId}/reviews/{reviewId}")
+    public ResponseEntity<?> deleteReview(@PathVariable String userId, @PathVariable int reviewId, HttpSession session) {
+        String loginUserId = (String) session.getAttribute("loginUser");
+
+        if (loginUserId == null) {
+            return ResponseEntity.status(401).body("Login Required");
+        }
+
+        if (!userId.equals(loginUserId)) {
+            return ResponseEntity.status(403).body("Access Denied");
+        }
+
+        boolean success = reviewService.deleteReview(reviewId);
+
+        if (success) {
+            return ResponseEntity.ok("Review Deleted");
+        } else {
+            return ResponseEntity.status(500).body("Review Delete Failed");
+        }
+    }
 }
