@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import heart from "../../assets/heart.svg";
+import heart from "../../assets/heart_light.svg";
 import defaultThumbnail from "../../assets/default_thumbnail.png";
 import styles from "./GroupReviews.module.css";
 
