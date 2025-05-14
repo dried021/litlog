@@ -22,7 +22,7 @@
 }
 
 button.active {
-    border-bottom: solid 2px #636B2F; 
+    border-bottom: solid 2px #74070E; 
     opacity: 100%;
     font-weight: bold;
 }
@@ -64,7 +64,7 @@ button.active {
 }
 
 .bookThumbnail:hover {
-    border: 4px solid #D4DE95;
+    border: 4px solid #F5ECD5;
 }
 
 .bookInfo {
