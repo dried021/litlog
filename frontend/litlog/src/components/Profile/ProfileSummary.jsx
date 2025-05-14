@@ -1,20 +1,54 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styles from './ProfileSummary.module.css';
 import defaultProfile from '../../assets/default_profile.png';
-
+import { UserContext } from "../../libs/UserContext";
 
 export default function ProfileSummary() {
-    const {userId} = useParams();
+    const {userId} = useParams(); /* owner of this profile page */
+    const {user} = useContext(UserContext); /* Logged in user */
     const [profile, setProfile] = useState(null);
+    const [isFollowing, setIsFollowing] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:9090/members/profile-summary/${userId}`) // port 9090
-            .then(res => res.json())
-            .then(data => setProfile(data))
-            .catch(error => console.error(error));
+        fetch(`http://localhost:9090/members/profile-summary/${userId}`, {
+            method: 'GET',
+            credentials: 'include'
+        })
+        .then(res => res.json())
+        .then(data => {
+            setProfile(data);
+            setIsFollowing(data.followStatus);
+        }).catch(error => console.error(error));
     }, [userId]);
+
+
+    const handleFollow = () => {
+        fetch(`http://localhost:9090/members/${userId}/following`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => res.json())
+        .then(data => {
+            if (data.success) setIsFollowing(true);
+        }).catch(error => {
+            console.error("Error following user", error);
+        })
+    }
+    const handleUnfollow = () => {
+        fetch(`http://localhost:9090/members/${userId}/following`, {
+            method: 'DELETE',
+            credentials: 'include'
+        }).then(res => res.json())
+        .then(data => {
+            if (data.success) setIsFollowing(false);
+        }).catch(error => {
+            console.error("Error unfollowing user", error);
+        })
+    }
 
     if (!profile) return <div>Loading...</div>
 
@@ -33,7 +67,21 @@ export default function ProfileSummary() {
                         <a href={`/${userId}`} className={styles.hyperlink}>
                             <h2 className={styles.nickname}>{profile.nickname}</h2>
                         </a>
-                        <button className={styles.editButton}>EDIT PROFILE</button>
+                        {(user === userId) && 
+                            <button className={styles.editButton}>
+                                EDIT PROFILE
+                            </button>
+                        }
+                        {(user && !isFollowing && user !== userId) && 
+                            <button className={styles.editButton} onClick={handleFollow}>
+                                FOLLOW
+                            </button>
+                        }
+                        {(user && isFollowing) && 
+                            <button className={styles.editButton} onClick={handleUnfollow}>
+                                UNFOLLOW
+                            </button>
+                        }
                     </div>
                     <p className={styles.bio}>{profile.bio}</p>
                     

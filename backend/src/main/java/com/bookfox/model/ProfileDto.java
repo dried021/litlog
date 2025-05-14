@@ -16,4 +16,5 @@ public class ProfileDto {
     private int userFollowersCount;
     private int userReviewsCount;
     private int userCollectionsCount;
+    private boolean followStatus;
 }
