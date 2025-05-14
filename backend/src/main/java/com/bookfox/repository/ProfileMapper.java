@@ -14,6 +14,10 @@ public interface ProfileMapper {
     public ProfileDto getProfile(String userId);
     public List<String> getFollowing(String userId);
     public List<String> getFollowers(String userId);
+    public boolean checkIsFollowing(Map<String, Object> map);
+    public boolean followUser(Map<String, Object> map);
+    public boolean unfollowUser(Map<String, Object> map);
+    public boolean removeFollower(Map<String, Object> map);
     public List<BookshelfDto> getFavoriteBooks(Map<String, Object> map);
     public List<BookshelfDto> getRecentlyReadBooks(Map<String, Object> map);
     public List<ProfileReviewDto> getRecentReviews(Map<String, Object> map);

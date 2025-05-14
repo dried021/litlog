@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +19,7 @@ import com.bookfox.service.ProfileService;
 import com.bookfox.model.BookshelfDto;
 
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/members")
@@ -25,8 +28,14 @@ public class ProfileController {
     private ProfileService profileService;
 
     @GetMapping("/profile-summary/{userId}")
-    public ProfileDto getProfile(@PathVariable String userId) {
-        return profileService.getProfileDto(userId);
+    public ProfileDto getProfile(@PathVariable String userId, HttpSession session) {
+        String sessionUserId = (String) session.getAttribute("loginUser");
+        boolean followStatus = profileService.checkIsFollowing(sessionUserId, userId);
+       
+        ProfileDto dto = profileService.getProfileDto(userId);
+        dto.setFollowStatus(followStatus);
+
+        return dto;
     }
 
     @GetMapping("/{userId}/network")
@@ -52,6 +61,36 @@ public class ProfileController {
         response.put("following", following);
         response.put("followers", followers);
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/{userId}/following")
+    public ResponseEntity<Map<String, Object>> followUser(@PathVariable String userId, HttpSession session) {
+        String sessionUserId = (String) session.getAttribute("loginUser");
+        boolean success = profileService.followUser(sessionUserId, userId);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", success);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{userId}/following")
+    public ResponseEntity<Map<String, Object>> unfollowUser(@PathVariable String userId, HttpSession session) {
+        String sessionUserId = (String) session.getAttribute("loginUser");
+        boolean success = profileService.unfollowUser(sessionUserId, userId);
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", success);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{userId}/followers")
+    public ResponseEntity<Map<String, Object>> removeFollower(@PathVariable String userId, HttpSession session) {
+        String sessionUserId = (String) session.getAttribute("loginUser");
+        boolean success = profileService.removeFollower(userId, sessionUserId);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", success);
         return ResponseEntity.ok(response);
     }
 
