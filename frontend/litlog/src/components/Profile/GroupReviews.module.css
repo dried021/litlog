@@ -33,7 +33,7 @@
 
 .reviewCard {
     display: flex;
-    background-color: #333; /* backgroud color 74070E */
+    background-color: #2f333c; /* backgroud color 74070E */
     padding: 16px;
     border-radius: 8px;
     margin-bottom: 25px;
@@ -63,7 +63,7 @@
 }
 
 .title {
-    color: 	#EDE1D2; /*#333*/
+    color: 	white; /*#EDE1D2*/
     font-size: 20px;
     font-weight: bold;
     margin: 0;
@@ -87,11 +87,11 @@
     font-size: 15px;
     margin-right: 3px;
     width: 8px;
-    color: 	#EDE1D2/*#2e2d2b;*/
+    color: 	#ccc/*#EDE1D2;*/
 }
 
 .star.filled {
-    color: 	#EDE1D2; /*#2e2d2b;*/
+    color: 	#ccc; /*#2e2d2b;*/
 }
 
 .icon {
@@ -103,7 +103,7 @@
 
 .date {
     font-size: 14px;
-    color: #EDE1D2; /* 555 */
+    color: #ccc; /* 555 */
     margin-left: 3px;
 }
 
@@ -111,7 +111,7 @@
     font-size: 15px;
     margin-top: 8px;
     margin-bottom: 12px;
-    color: 	#EDE1D2; /*333*/
+    color: 	white; /*EDE1D2*/
 }
 
 .moreButton {
