@@ -25,6 +25,27 @@
         FROM follow_list
         WHERE follow_user_id = #{userId}
     </select>
+    <select id="checkIsFollowing" resultType="boolean" parameterType="map">
+        SELECT EXISTS
+        (SELECT 1 FROM follow_list
+            WHERE user_id = #{userId}
+            AND follow_user_id = #{followUserId}
+        )
+    </select>
+    <insert id="followUser" parameterType="map">
+        INSERT INTO follow_list (user_id, follow_user_id) VALUES
+        (#{userId}, #{followUserId})
+    </insert>
+    <delete id="unfollowUser" parameterType="map">
+        DELETE FROM follow_list
+        WHERE user_id = #{userId}
+        AND follow_user_id = #{followUserId}
+    </delete>
+    <delete id="removeFollower" parameterType="map">
+        DELETE FROM follow_list
+        WHERE user_id = #{followUserId}
+        AND follow_user_id = #{userId}
+    </delete>
     <select id="getFavoriteBooks" resultType="com.bookfox.model.BookshelfDto" parameterType="map">
         SELECT 
             b.id as bookId, 
