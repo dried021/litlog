@@ -1,5 +1,8 @@
 package com.bookfox.controller.mypage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,5 +22,16 @@ public class ReviewController {
         String loginUserId = (String) session.getAttribute("loginUser");
         
         return reviewService.getReviewDetailById(reviewId, loginUserId);
+    }
+
+    @GetMapping("/{userId}/review-counts")
+    public Map<String, Integer> getReviewCounts(@PathVariable String userId) {
+        int totalTimelineBooks = reviewService.countAllReviewedBooks(userId);
+        int totalWrittenReviews = reviewService.countWrittenReviews(userId);
+
+        Map<String, Integer> result = new HashMap<>();
+        result.put("totalTimelineBooks", totalTimelineBooks);
+        result.put("totalWrittenReviews", totalWrittenReviews);
+        return result;
     }
 }

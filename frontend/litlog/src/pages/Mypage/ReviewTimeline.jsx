@@ -24,6 +24,9 @@ const ReviewTimeline = () => {
 
   const [years, setYears] = useState([]);
 
+  const [totalTimelineBooks, setTotalTimelineBooks] = useState(0);
+  const [totalWrittenReviews, setTotalWrittenReviews] = useState(0);
+
   useEffect(() => {
     setSelectedYear(year || "");
   }, [year]);
@@ -60,6 +63,14 @@ const ReviewTimeline = () => {
       })
       .catch(() => {
         setYears([currentYear]);
+      });
+  }, [userId]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:9090/api/members/${userId}/review-counts`)
+      .then(res => {
+        setTotalTimelineBooks(res.data.totalTimelineBooks);
+        setTotalWrittenReviews(res.data.totalWrittenReviews);
       });
   }, [userId]);
 
@@ -142,6 +153,8 @@ const ReviewTimeline = () => {
         withContentOnly={withContentOnly}
         onToggleContent={handleToggleContent}
         onResetFilters={handleResetFilters}
+        totalTimelineBooks={totalTimelineBooks}
+        totalWrittenReviews={totalWrittenReviews}
       />
 
       <div className="review-table">

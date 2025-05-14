@@ -11,4 +11,7 @@ public interface ReviewMapper {
         @Param("reviewId") int reviewId,
         @Param("loginUserId") String loginUserId
     );
+
+    int countAllReviewedBooks(String userId);
+    int countWrittenReviews(String userId);
 }
