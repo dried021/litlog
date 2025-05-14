@@ -25,6 +25,10 @@
   background-color: #f2f2f2;
 }
 
+.thumbnail:hover {
+  border: 2px solid #d4a373; 
+}
+
 /* 오른쪽 영역 */
 .right {
   flex: 1;
@@ -108,5 +112,102 @@
 }
 
 .like img:hover {
+  opacity: 1;
+}
+
+/* 제목 링크 */
+.titleLink {
+  color: #111;          
+  text-decoration: none;  
+  transition: color 0.2s ease;
+}
+
+.titleLink:hover {
+  color: #d4a373;
+}
+
+
+
+
+
+.footerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  padding-top: 12px;
+  border-top: 1px solid #ddd;
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #444;
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 수정 삭제 */
+.tooltipContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.iconButton1 {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.iconButton2 {
+  width: 21px;
+  height: 21px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.iconButton1:hover .iconButton2:hover {
+  opacity: 1;
+}
+
+.tooltipText {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #555;
+  color: #fff;
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: opacity 0.3s;
+  z-index: 10;
+}
+
+.tooltipText::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 4px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltipContainer:hover .tooltipText {
+  visibility: visible;
   opacity: 1;
 }
