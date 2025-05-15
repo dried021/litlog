@@ -101,7 +101,7 @@ const SearchReaders = () => {
                         <div className={styles['option-container']}>
                             <div className={styles['leftContainer']}>
                             <p className={styles.searchResultP}>
-                                Search results for <span className={styles.bold}>"{keyword}"</span>. A total of {usersCount} users were found.
+                                Search results for <span className={styles.bold}>"{searchParam}"</span>. A total of {usersCount} users were found.
                             </p>
                             </div>
 

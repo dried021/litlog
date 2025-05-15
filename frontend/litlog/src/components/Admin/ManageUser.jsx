@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import Pagination from '../../components/Pagination/Pagination';
 import styles from './ManageUser.module.css';
 import SearchBar from '../SearchBar/SearchBar';
+import SortOptionButton from './SortOptionButton';
 
 function ManageUser() {
   const [searchParams] = useSearchParams();
@@ -12,21 +13,27 @@ function ManageUser() {
   const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('pageNum')) || 1);
   const [pageCount, setPageCount] = useState(1);
   const [searchName, setSearchName] = useState(searchParams.get('searchName') || '');
+  const [searchInput, setSearchInput] = useState(searchParams.get('searchName') || '');
+  const [totalCount, setTotalCount] = useState(0);
+  const [sortOption, setSortOption] = useState(1);
+  //1이 관련성 2가 신규순 3이 옛날 유저 순
+
   const navigate = useNavigate
   const userPerPage = 10;
 
   useEffect(() => {
-    fetchUsers(currentPage);
-  }, [currentPage, searchName]);
+    fetchUsers(currentPage, sortOption);
+  }, [currentPage, searchName, sortOption]);
 
-  const fetchUsers = async (page) => {
+  const fetchUsers = async (page, sortOption) => {
     setLoading(true);
     try {
       const response = await axios.get(`http://localhost:9090/admin`, {
-        params: { pageNum: page, searchName },
+        params: { pageNum: page, searchName, sortOption },
       });
       setUsers(response.data.users || []);
       setPageCount(response.data.pageCount || 1);
+      setTotalCount(response.data.totalCount || 0);
     } catch (err) {
       console.error("Failed to fetch users:", err);
     } finally {
@@ -41,7 +48,6 @@ function ManageUser() {
 
   return (
     <div className={styles.userSection}>
-      <h3 className={styles.title}>Manage Users</h3>
       <SearchBar 
         className={styles.adminSearchBar}
         handleSearch={(searchKeyword)=>{
@@ -49,11 +55,11 @@ function ManageUser() {
             if (trimmed) {
               setSearchName(trimmed);
               setCurrentPage(1);
-              navigate(`/admin?pageNum=1&searchName=${encodeURIComponent(trimmed)}`)
+              navigate(`/admin?pageNum=1&searchName=${encodeURIComponent(trimmed)}`);
             }
         }} 
-        value={searchName} 
-        onChange={(e) => setSearchName(e.target.value)} 
+        value={searchInput} 
+        onChange={(e) => setSearchInput(e.target.value)} 
         placeholder="Search Users..."
           />
 
@@ -63,6 +69,27 @@ function ManageUser() {
         <>
           {users.length > 0 ? (
             <>
+            <div className={styles['option-container']}>
+                <div className={styles['leftContainer']}>
+                  {searchName ? (
+                    <p className={styles.searchResultP}>
+                      Search results for <span className={styles.bold}>"{searchName}"</span>. A total of {totalCount} users were found.
+                    </p>
+                  ) : (
+                    <p className={styles.searchResultP}>
+                      Total:  {totalCount} users
+                    </p>
+                  )}
+                
+                </div>
+
+                <div className={styles['rightContainer']}>
+                    <SortOptionButton onSortChange={(option) => {setSortOption(option); setCurrentPage(1)}}/>
+                </div>
+            </div>
+
+
+
               <div className={styles.userList}>
                 {users.map((user, index) => {
                   const displayIndex = index + (currentPage - 1) * userPerPage;
@@ -73,15 +100,37 @@ function ManageUser() {
                       </div>
                       <div className={styles.userInfo}>
                         <h3 className={styles.userId}>
-                          {user.nickname}
-                          <span className={styles.userIdGray}> ({user.id})</span>
+                          {user.nickname} <span className={styles.userIdGray}>({user.name} / {user.id})</span>
                         </h3>
+                        <div className={styles.userInfo2}>
+                          <p>{user.tel}</p>
+                          <p>{user.email}</p>
+                        </div>
+                        <div className={styles.userStatusRow}>
+                          <p>Type: {user.userStatus === 1 ? 'GENERAL' : 'ADMIN'}</p>
+                          <p>Status: {user.userStatus === 1 ? 'ACTIVE' : (
+                              user.userStatus === 2 ? 'BANNED' :'WITHDRAWN')}</p>
+                        </div>
+                        
                         <div className={styles.userStats}>
                           <img className={styles.icon} src="/icons/bookshelf.svg" alt="reviews" />
                           <p className={styles.stat}>{user.reviews ?? 0}</p>
                           <img className={styles.icon} src="/icons/collections.svg" alt="collections" />
                           <p className={styles.stat}>{user.collections ?? 0}</p>
+                          <img className={styles.icon} src="/icons/collections.svg" alt="comments" />
+                          <p className={styles.stat}>{user.comments ?? 0}</p>
                         </div>
+
+                        <div className={styles.userToggleRow}>
+                          <button onClick={() => toggleUserType(user.id, user.userType)}>
+                            {user.userType === 1 ? 'General' : 'Admin'}
+                          </button>
+                          <button onClick={() => toggleUserStatus(user.id, user.userStatus)}>
+                            {user.userStatus === 1 ? 'Active' : (
+                              user.userStatus === 2 ? 'Banned' :'WITHDRAWN')}
+                          </button>
+                        </div>
+
                       </div>
                       <div className={styles.userProfile}>
                         <img

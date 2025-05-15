@@ -15,12 +15,12 @@ public class AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
-    public Map<String, Object> getUsers(int pageNum, String searchName){
+    public Map<String, Object> getUsers(int pageNum, String searchName, int sortOption){
         int userPerPage = 10;
         int offset = (pageNum - 1 ) * userPerPage;
         
         searchName = (searchName != null) ? searchName : "";
-        Map<String, Object> params = Map.of("offset", offset, "userPerPage", userPerPage, "searchName", searchName);
+        Map<String, Object> params = Map.of("offset", offset, "userPerPage", userPerPage, "searchName", searchName, "sortOption", sortOption);
         List<AdminUserDto> users = adminMapper.selectUsers(params);
         int totalCount = adminMapper.countUsers(searchName);
         int pageCount = (int) Math.ceil((double) totalCount / userPerPage);
@@ -35,6 +35,7 @@ public class AdminService {
         Map<String, Object> result = new HashMap<>();
         result.put("users", users);
         result.put("pageCount", pageCount);
+        result.put("totalCount", totalCount);
         return result;
     }
 }
