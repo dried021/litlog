@@ -90,10 +90,10 @@ const ReviewHeader = ({
           onMouseLeave={handleMouseLeave(setShowReviewTooltip)}
         >
           <button
-            className={`${styles.tabButton} ${styles.mainTab} ${activeTab === "reviews" ? styles.active : ""}`}
-            onClick={() => onTabChange("reviews")}
+            className={`${styles.tabButton} ${styles.mainTab} ${activeTab === "list" ? styles.active : ""}`}
+            onClick={() => onTabChange("list")}
           >
-            Reviews
+            List
           </button>
           <div className="tooltip-text"
             style={{
