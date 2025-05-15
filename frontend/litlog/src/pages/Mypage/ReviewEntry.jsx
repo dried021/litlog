@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import styles from './MyReview.module.css';
+import "../../components/Mypage/tooltip.css";
 
 const ReviewEntry = ({ review, showMonth }) => {
   const date = new Date(review.creationDate);
@@ -15,7 +17,7 @@ const ReviewEntry = ({ review, showMonth }) => {
   const handleMouseEnter = () => {
     timeoutRef.current = setTimeout(() => {
       setShowTooltip(true);
-    }, 300);
+    }, 400);
   };
 
   const handleMouseLeave = () => {
@@ -30,24 +32,24 @@ const ReviewEntry = ({ review, showMonth }) => {
   };
 
   return (
-    <div className="review-entry">
-      <div className="entry-month">
+    <div className={styles["review-entry"]}>
+      <div className={styles["entry-month"]}>
         {showMonth && (
-          <div className="month-box">
-            <div className="month-label">{month}</div>
-            <div className="year-label">{year}</div>
+          <div className={styles["month-box"]}>
+            <div className={styles["month-label"]}>{month}</div>
+            <div className={styles["year-label"]}>{year}</div>
           </div>
         )}
       </div>
-      <div className="day-label">{day}</div>
-      <div className="book-info">
-        <img className="book-thumbnail" src={thumbnail} alt="표지 이미지"/>
-        <Link to={`/books/${review.bookApiId}`} className="book-title">
+      <div className={styles["day-label"]}>{day}</div>
+      <div className={styles["book-info"]}>
+        <img className={styles["book-thumbnail"]} src={thumbnail} alt="표지 이미지"/>
+        <Link to={`/books/${review.bookApiId}`} className={styles["book-title"]}>
           {review.title}
         </Link>
       </div>
-      <div className="entry-rating">{renderStars(review.rating)}</div>
-      <div className="entry-like">
+      <div className={styles["entry-rating"]}>{renderStars(review.rating)}</div>
+      <div className={styles["entry-like"]}>
         <img
           src={
             review.liked
@@ -57,7 +59,7 @@ const ReviewEntry = ({ review, showMonth }) => {
           alt="좋아요"
         />
       </div>
-      <div className="entry-review">
+      <div className={styles["entry-review"]}>
         {review.content && (
           <div
             className="tooltip-container"
