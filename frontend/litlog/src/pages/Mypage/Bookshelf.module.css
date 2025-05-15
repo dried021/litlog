@@ -78,7 +78,6 @@ button.active {
     background-color: rgba(255, 255, 255, .8) ;
     color: black; 
 }
-*/
 
 .center:hover p {
     position: absolute;
@@ -86,7 +85,7 @@ button.active {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
+*/
 .bookThumbnail {
     width: 100px; /* 140px */
     height: 160px; /* 200px */
@@ -164,7 +163,7 @@ button.active {
 /* TOOLTIP CONTAINER */
 .tooltip {
     position: relative;
-    display: inline-block;
+    display: flex;
     border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
   }
   
