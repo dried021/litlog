@@ -1,5 +1,7 @@
 package com.bookfox.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,6 +23,7 @@ public interface ReviewMapper {
         @Param("rating") int rating,
         @Param("creationDate") java.sql.Timestamp creationDate
     );
-    
     int deleteReview(@Param("reviewId") int reviewId);
+
+    List<BookReviewDto> getReviewList(String userId);
 }
