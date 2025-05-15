@@ -9,22 +9,22 @@ import "../../components/Mypage/tooltip.css";
 
 const ReviewTimeline = () => {
   const { userId, year } = useParams();
-  const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(year || "");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  
+  const [years, setYears] = useState([]);
+  const currentYear = new Date().getFullYear();
+  
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("timeline");
 
-  const [showLikedOnly, setShowLikedOnly] = useState(searchParams.get("liked") === "true");
+  const [selectedRating, setSelectedRating] = useState(parseInt(searchParams.get("rating")) || 0);
+  const [likedOnly, setLikedOnly] = useState(searchParams.get("liked") === "true");
   const [withContentOnly, setWithContentOnly] = useState(searchParams.get("withReview") === "true");
-  const [ratingFilter, setRatingFilter] = useState(parseInt(searchParams.get("rating")) || 0);
-
-  const [years, setYears] = useState([]);
-
+  
   const [totalTimelineBooks, setTotalTimelineBooks] = useState(0);
   const [totalWrittenReviews, setTotalWrittenReviews] = useState(0);
 
@@ -75,6 +75,11 @@ const ReviewTimeline = () => {
       });
   }, [userId]);
 
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    navigate(`/${userId}/reviews/${tab}`);
+  };
+
   const updateSearchParams = (updates) => {
     const newParams = new URLSearchParams(searchParams);
     Object.entries(updates).forEach(([key, value]) => {
@@ -97,17 +102,16 @@ const ReviewTimeline = () => {
     }
   };
 
-  const handleTabChange = (tab) => {
-    if (tab === "timeline") {
-      navigate(`/${userId}/reviews/timeline`);
-    } else {
-      navigate(`/${userId}/reviews/list`);
-    }
+  const handleRatingChange = (e) => {
+    const val = parseInt(e.target.value);
+    const finalVal = isNaN(val) ? 0 : val;
+    setSelectedRating(finalVal);
+    updateSearchParams({ rating: finalVal });
   };
 
   const handleToggleLiked = () => {
-    const updated = !showLikedOnly;
-    setShowLikedOnly(updated);
+    const updated = !likedOnly
+    setLikedOnly(updated);
     updateSearchParams({ liked: updated });
   };
 
@@ -117,25 +121,19 @@ const ReviewTimeline = () => {
     updateSearchParams({ withReview: updated });
   };
 
-  const handleRatingChange = (e) => {
-    const val = parseInt(e.target.value);
-    const finalVal = isNaN(val) ? 0 : val;
-    setRatingFilter(finalVal);
-    updateSearchParams({ rating: finalVal });
-  };
-
   const handleResetFilters = () => {
-    setShowLikedOnly(false);
+    setSelectedYear("");
+    setSelectedRating(0);
+    setLikedOnly(false);
     setWithContentOnly(false);
-    setRatingFilter(0);
     setSearchParams({});
     navigate(`/${userId}/reviews/timeline`, { replace: true });
   };
 
   const filteredReviews = reviews.filter((review) => {
     const content = review.content;
-    const meetsRating = ratingFilter === 0 || review.rating === ratingFilter;
-    const meetsLiked = !showLikedOnly || review.liked === true;
+    const meetsRating = selectedRating === 0 || review.rating === selectedRating;
+    const meetsLiked = !likedOnly || review.liked === true;
     const meetsContent =
       !withContentOnly || (typeof content === "string" && content.trim().length > 0);
     return meetsRating && meetsLiked && meetsContent;
@@ -151,9 +149,9 @@ const ReviewTimeline = () => {
         years={years}
         activeTab={activeTab}
         onTabChange={handleTabChange}
-        selectedRating={ratingFilter}
+        selectedRating={selectedRating}
         onRatingChange={handleRatingChange}
-        likedOnly={showLikedOnly}
+        likedOnly={likedOnly}
         onToggleLiked={handleToggleLiked}
         withContentOnly={withContentOnly}
         onToggleContent={handleToggleContent}
