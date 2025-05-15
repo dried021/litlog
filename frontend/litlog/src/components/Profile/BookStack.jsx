@@ -26,7 +26,9 @@ export default function BookStack() {
             <div className={styles.bookList}>
                 {result.books.map((book, index) => (
                     <a key={index} href={`/books/${book.bookApiId}`} className={styles.bookLink}>
-                        <BookStackBook title={book.title.toUpperCase()} pageCount={book.pageCount}/>
+                        <BookStackBook title={book.title.toUpperCase()} pageCount={book.pageCount}
+                            creationDate={book.creationDate}
+                        />
                     </a>
                 ))}
             </div>
