@@ -152,13 +152,13 @@ const Bookshelf = ({shelfType}) => {
                         {currentBooks.map(book => (
                             <li key={book.bookId} className={styles.bookCard}>
                                 <a href={`/books/${book.bookApiId}`}>
-                                    <div className={styles.thumbnailContainer}>
+                                    <div className={styles.tooltip}>
                                         <img 
                                             src={book.thumbnail ? book.thumbnail : defaultThumbnail}
                                             alt={book.title}
                                             className={styles.bookThumbnail}
                                         />
-                                        {!book.thumbnail && <div className={styles.center}>{book.title ? book.title : "Untitled"}</div>}
+                                        <span className={styles.tooltiptext}>{book.title}</span>
                                     </div>
                                 </a>
                                 <div className={styles.bookInfo}>
