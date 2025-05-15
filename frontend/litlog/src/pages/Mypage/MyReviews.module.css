@@ -111,7 +111,8 @@
 }
 
 .book-title:hover {
-  text-decoration: underline;   
+  font-weight: bold;
+  color: #d4a373; 
 }
 
 /* 별점 */
@@ -146,7 +147,6 @@
   transition: opacity 0.2s;
 }
 
-.entry-like img:hover,
 .entry-review img:hover {
   opacity: 1;
 }
@@ -198,3 +198,132 @@
   opacity: 1;
 }
 */
+
+
+/* Review List (ListEntry.jsx) */
+
+.list-entry {
+  display: flex;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.list-thumbnail img {
+  width: 90px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 4px;
+  background-color: #f2f2f2;
+}
+
+.list-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.list-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 5px;
+}
+
+.list-title a {
+  color: #111;
+  text-decoration: none;
+}
+
+.list-title a:hover {
+  font-weight: bold;
+  color: #d4a373; 
+}
+
+.list-author {
+  font-size: 13px;
+  color: #777;
+}
+
+.list-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.list-rating img {
+  width: 16px;
+  height: 16px;
+}
+
+.book-like-icon img {
+  width: 16px;
+  height: 16px;
+}
+
+.list-date {
+  margin-left: auto;
+  font-size: 12px;
+  color: #888;
+}
+
+.list-content {
+  min-height: 90px;
+  font-size: 15px;
+  color: #333;
+  line-height: 1.5;
+  white-space: pre-line;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.no-content-placeholder {
+  height: 100%;
+  display: block;
+}
+
+.more-link {
+  margin-left: 6px;
+  font-size: 13px;
+  color: #888;
+  text-decoration: underline;
+}
+
+.list-like {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.list-like img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+}
+
+.more-inline {
+  color: #888;              
+  text-decoration: none; 
+  font-weight: bold;  
+  font-size: 15px;
+  margin-left: 4px;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.more-inline:hover {
+  color: #d4a373;          
+}
