@@ -22,4 +22,11 @@ public class SettingService {
     public boolean updateUser(UserDto userDto){
         return settingMapper.updateUser(userDto) > 0;
     }
+
+    public boolean checkPassword(UserDto userDto){
+        return settingMapper.checkPassword(userDto) > 0;
+    }
+    public boolean withdrawUser(UserDto userDto){
+        return settingMapper.withdrawUser(userDto) >  0;
+    }
 }

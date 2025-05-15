@@ -31,7 +31,7 @@ const EditProfile = () => {
             
         <SideMenu isAdmin={isAdmin} />
         <UpdateUserForm userId={userId}/>
-        <p>{isAdmin}</p>
+
         </div>
         </>
     );

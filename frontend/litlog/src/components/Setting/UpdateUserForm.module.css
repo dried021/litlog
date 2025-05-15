@@ -4,13 +4,8 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    width: 100%;
-    max-width: 600px;
+    width: 500px;
     margin: 0 auto;
-  }
-
-  .label {
-    margin-bottom: 0;
   }
 
   .flexLabel {
