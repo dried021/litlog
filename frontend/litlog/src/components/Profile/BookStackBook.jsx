@@ -20,8 +20,6 @@ export default function BookStackBook({title, pageCount}) {
     let height = (pageCount && pageCount > 0) ? (Math.ceil(pageCount / 100)*heightIncrementUnit + minHeight) : defaultHeight;
     let color = getRandomInt(0, colors.length - 1);
     let margin = getRandomInt(minMargin, maxMargin);
-
-    //color = (color === prevColor ? (color === 0 ? color + 1 : color - 1) : color);
     
     let titleSliced = (title.length > charLimit) ? `${title.slice(0, charLimit)}...` : title;
 
