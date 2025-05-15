@@ -23,7 +23,7 @@ export default function PopularReviews() {
 
     return (
         <GroupReviews groupLabel="POPULAR REVIEWS" group={reviews} msg="No reviews to show"
-            url={`/${userId}/reviews`}
+            url={`/${userId}/reviews/timeline`}
         />
     );
 }

@@ -23,7 +23,7 @@ export default function RecentReviews() {
 
     return(
         <GroupReviews groupLabel="RECENT REVIEWS" group={reviews} msg="No reviews to show"
-            url={`/${userId}/reviews`}
+            url={`/${userId}/reviews/timeline`}
         />
     );
 }
