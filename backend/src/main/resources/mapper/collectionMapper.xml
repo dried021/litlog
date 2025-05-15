@@ -91,8 +91,6 @@
         ORDER BY like_count DESC
     </select>
 
-
-
     <select id="selectAllCollectionsSortedByRecent" resultMap="CollectionWithBooksResultMap">
         SELECT 
             c.id AS collection_id,
@@ -154,6 +152,37 @@
         LEFT JOIN book b ON cb.book_id = b.id
         WHERE c.id = #{id}
 
+    </select>
+
+    <insert id="insertCollection" parameterType="com.bookfox.model.CollectionDto" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO book_collection(user_id, title, content, thumbnail)
+    VALUES (#{userId}, #{title}, #{content}, #{thumbnail})
+    </insert>
+
+    <select id="findBookIdByApiId" resultType="int">
+    SELECT id FROM book WHERE book_api_id = #{bookApiId}
+    </select>
+
+    <insert id="insertBook" parameterType="com.bookfox.model.BookDto" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO book (book_api_id, title, authors, publisher, thumbnail)
+    VALUES (#{bookApiId}, #{title}, #{authors}, #{publisher}, #{thumbnail})
+    </insert>
+
+    <insert id="insertCollectionBook">
+    INSERT INTO book_collection_book (collection_id, book_id, thumbnail)
+    VALUES (#{collectionId}, #{bookId}, #{thumbnail})
+    </insert>
+
+    <select id="getBooksByCollectionId" resultType="com.bookfox.model.BookDto">
+    SELECT * FROM book_collection_book b
+    JOIN book ON b.book_id = book.id
+    WHERE b.collection_id = #{collectionId}
+    ORDER BY b.id
+    LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <select id="getBookCountByCollectionId" resultType="int">
+    SELECT COUNT(*) FROM book_collection_book WHERE collection_id = #{collectionId}
     </select>
 
 </mapper>
