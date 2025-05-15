@@ -86,12 +86,20 @@ public class BooksAdd {
     @PostMapping("/review")
     public ResponseEntity<Map<String, Object>> addReview(@RequestBody Map<String, Object> request){
         //세션에서 가져오기
-        String userId = "user01";
+        String userId = "user20";
+
+        Map<String, Object> response = new HashMap<>();
+        boolean isAlreadyReviewed = bookService.checkReviewed(userId, (String) request.get("bookApiId"));
+        if (isAlreadyReviewed){
+            response.put("success", false);
+            response.put("message", "You already Reviewed");
+            response.put("isAlreadyReviewed", isAlreadyReviewed);
+            return ResponseEntity.ok(response);
+        }
 
         String content = (String) request.get("content");
         int rating = Integer.parseInt(String.valueOf(request.get("rating")));
         String bookApiId = (String) request.get("bookApiId");
-
 
         boolean exists = bookService.exists(bookApiId);
 
@@ -106,18 +114,15 @@ public class BooksAdd {
 
         int bookId = bookService.getIdByBookApiId(bookApiId);
 
-        Map<String, Object> response = new HashMap<>();
         int reviewId =bookService.addReview(bookId, userId, content, rating);
         response.put("success", true);
         response.put("reviewId", reviewId);
         response.put("userId", userId);
         response.put("message", "Review added successfully.");
+        response.put("isAlreadyReviewed", isAlreadyReviewed);
         return ResponseEntity.ok(response);
     }
     
-
-
-
     private BookDto mapToBookDto(Map<String, Object> book) {
         BookDto bookDto = new BookDto();
         
