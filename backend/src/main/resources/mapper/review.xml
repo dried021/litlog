@@ -26,9 +26,9 @@
       ) AS like_count,
       EXISTS (
         SELECT 1 FROM like_list l
-        WHERE l.target_id = r.id
+        WHERE l.target_id = b.id
           AND l.user_id = #{loginUserId}
-          AND l.like_type = 1
+          AND l.like_type = 2
       ) AS isLiked
     FROM book_review r
     JOIN book b ON r.book_id = b.id
@@ -69,10 +69,11 @@
     SELECT
       r.id,
       r.user_id AS userId,
-      u.profile_img AS userProfile,
       r.book_id,
       b.book_api_id,
       b.title,
+      b.authors,
+      COALESCE(b.thumbnail, '') AS thumbnail,
       r.content,
       r.rating,
       r.creation_date,
@@ -80,18 +81,12 @@
       CASE 
         WHEN EXISTS (
           SELECT 1 FROM like_list l 
-          WHERE l.target_id = r.id AND l.user_id = #{userId} AND l.like_type = 1
+          WHERE l.target_id = b.id AND l.user_id = #{userId} AND l.like_type = 2
         ) THEN TRUE
         ELSE FALSE
-      END AS isLiked,
-      COALESCE(b.thumbnail, '') AS thumbnail,
-      b.published_date,
-      b.authors,
-      b.publisher,
-      b.page_count
+      END AS isLiked
     FROM book_review r
     JOIN book b ON r.book_id = b.id
-    JOIN user u ON r.user_id = u.id
     WHERE r.user_id = #{userId}
     ORDER BY r.creation_date DESC
   </select>

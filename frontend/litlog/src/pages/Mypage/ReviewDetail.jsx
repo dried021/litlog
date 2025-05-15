@@ -23,7 +23,10 @@ const ReviewDetail = () => {
 
   const fetchReviewDetail = async () => {
     try {
-      const res = await axios.get(`http://localhost:9090/api/members/${userId}/reviews/${reviewId}`);
+      const res = await axios.get(
+        `http://localhost:9090/api/members/${userId}/reviews/${reviewId}`,
+        { withCredentials: true } 
+      );
       setReview(res.data);
     } catch (err) {
       console.error('Fail to load', err);
@@ -147,6 +150,9 @@ const ReviewDetail = () => {
                     />
                   ))
                 : renderStars(review.rating)}
+                {review.isLiked && (
+                  <img src="/icons/heart_filled.svg" alt="책 좋아요" className={styles.bookLikeIcon}/>
+                )}
             </span>
             <span>Logged on {formatDate(review.creationDate)}</span>
           </div>
@@ -165,7 +171,7 @@ const ReviewDetail = () => {
 
           <div className={styles.footerRow}>
             <div className={styles.likes}>
-              <img src="/icons/heart_filled.svg" alt="좋아요" />
+              <img src="/icons/heart_gray.svg" alt="좋아요" />
               <span>{review.likeCount ?? 0} Likes</span>
             </div>
 

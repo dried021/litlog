@@ -98,7 +98,11 @@ const ReviewTimeline = () => {
   };
 
   const handleTabChange = (tab) => {
-    setActiveTab(tab);
+    if (tab === "timeline") {
+      navigate(`/${userId}/reviews/timeline`);
+    } else {
+      navigate(`/${userId}/reviews/list`);
+    }
   };
 
   const handleToggleLiked = () => {
