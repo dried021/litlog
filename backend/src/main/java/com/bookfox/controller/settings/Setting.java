@@ -24,16 +24,21 @@ public class Setting {
     private SettingService settingService;
 
     @GetMapping("/user")
-    public ResponseEntity<String> getUserId(){
+    public ResponseEntity<Map<String, Object>> getUserId(){
          //session에서 user 가져오기
-         String id = "user01";
+         String id = "user18";
+         
+         Boolean isAdmin = settingService.checkIsAdmin(id);
 
-         return ResponseEntity.ok(id);
+         Map<String, Object> response = new HashMap<>();
+         response.put("id", id);
+         response.put("isAdmin", isAdmin);
+
+         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/userinfo")
     public ResponseEntity<UserDto> getUserInfo(@RequestParam String userId){
-        System.out.println();
         return ResponseEntity.ok(settingService.getUserInfo(userId));
     }
 
@@ -44,6 +49,30 @@ public class Setting {
         boolean success = settingService.updateUser(userDto);
 
         response.put("success", success);
+        response.put("message", success ? "success" : "fail");
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/withdraw")
+    public ResponseEntity<Map<String, Object>> withdrawUser(@RequestBody UserDto userDto){
+        System.out.println("syso"+userDto.getId()+userDto.getPwd());
+        Map<String, Object> response = new HashMap<>();
+
+        boolean isPwdCorrect = settingService.checkPassword(userDto);
+        System.out.println("isPwdCorrect"+isPwdCorrect);
+        if (!isPwdCorrect) {
+            response.put("incorrectPwd", true);
+            response.put("success", false);
+            return ResponseEntity.ok(response);
+        }
+
+        boolean success = settingService.withdrawUser(userDto);
+
+        if (success){
+            //로그아웃 절차 진행
+        }
+
+        response.put("success", success ? "1" : "0");
         response.put("message", success ? "success" : "fail");
         return ResponseEntity.ok(response);
     }

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
-import ReviewEntry from "./ReviewEntry";
+import TimelineEntry from "./TimelineEntry";
 import ReviewHeader from "../../components/Mypage/ReviewHeader";
 import TabMenu from "../../components/Mypage/TabMenu";
-import styles from './MyReview.module.css';
+import styles from './MyReviews.module.css';
 import "../../components/Mypage/tooltip.css";
 
 const ReviewTimeline = () => {
@@ -91,9 +91,9 @@ const ReviewTimeline = () => {
     const newYear = e.target.value;
     setSelectedYear(newYear);
     if (newYear) {
-      navigate(`/${userId}/reviews/${newYear}`);
+      navigate(`/${userId}/reviews/timeline/${newYear}`);
     } else {
-      navigate(`/${userId}/reviews`);
+      navigate(`/${userId}/reviews/timeline`);
     }
   };
 
@@ -125,7 +125,7 @@ const ReviewTimeline = () => {
     setWithContentOnly(false);
     setRatingFilter(0);
     setSearchParams({});
-    navigate(`/${userId}/reviews`, { replace: true });
+    navigate(`/${userId}/reviews/timeline`, { replace: true });
   };
 
   const filteredReviews = reviews.filter((review) => {
@@ -178,7 +178,7 @@ const ReviewTimeline = () => {
             const showMonth = !prev || prevMonth !== currMonth;
 
             return (
-              <ReviewEntry
+              <TimelineEntry
                 key={review.id}
                 review={review}
                 showMonth={showMonth}

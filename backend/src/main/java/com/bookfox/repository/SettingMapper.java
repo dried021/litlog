@@ -8,4 +8,7 @@ import com.bookfox.model.UserDto;
 public interface SettingMapper {
     public UserDto getUserInfo(String userId);
     public int updateUser(UserDto userDto);
+    public int checkIsAdmin(String id);
+    public int checkPassword(UserDto userDto);
+    public int withdrawUser(UserDto userDto);
 }

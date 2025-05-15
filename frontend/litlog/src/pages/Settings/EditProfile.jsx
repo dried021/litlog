@@ -6,6 +6,7 @@ import UpdateUserForm from '../../components/Setting/UpdateUserForm';
 
 const EditProfile = () => {
     const [userId, setUserId] = useState("");
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(()=>{
         getUserId();
@@ -15,8 +16,9 @@ const EditProfile = () => {
         try {
           const response = await axios.get(`http://localhost:9090/setting/user`);
     
-          const id = response.data;
+          const {id, isAdmin} = response.data;
           setUserId(id);
+          setIsAdmin(isAdmin);
         } catch (error) {
           console.error("Fail to load userId:", error);
           setUserId("");
@@ -27,8 +29,9 @@ const EditProfile = () => {
         <h2 className={styles.title}>Update My Info</h2>
         <div className={styles.container}>
             
-        <SideMenu isAdmin={true} />
+        <SideMenu isAdmin={isAdmin} />
         <UpdateUserForm userId={userId}/>
+
         </div>
         </>
     );

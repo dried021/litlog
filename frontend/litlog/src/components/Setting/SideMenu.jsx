@@ -12,10 +12,12 @@ const SideMenu = ({ isAdmin }) => {
           Update My Info
         </NavLink>
         
-        <NavLink to="/withdraw" className={styles.menuItem}>
+        {!isAdmin && (
+          <NavLink to="/withdraw" className={styles.menuItem}>
           <FaTrashAlt className={styles.icon} />
-          Delete Account
-        </NavLink>
+            Delete Account
+          </NavLink>
+        )}
 
         {isAdmin && (
           <NavLink to="/admin" className={styles.menuItem}>
