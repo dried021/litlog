@@ -64,4 +64,35 @@
     DELETE FROM book_review
     WHERE id = #{reviewId}
   </delete>
+
+  <select id="getReviewList" resultType="com.bookfox.model.BookReviewDto" parameterType="string">
+    SELECT
+      r.id,
+      r.user_id AS userId,
+      u.profile_img AS userProfile,
+      r.book_id,
+      b.book_api_id,
+      b.title,
+      r.content,
+      r.rating,
+      r.creation_date,
+      (SELECT COUNT(*) FROM like_list l WHERE l.target_id = r.id AND l.like_type = 1) AS likeCount,
+      CASE 
+        WHEN EXISTS (
+          SELECT 1 FROM like_list l 
+          WHERE l.target_id = r.id AND l.user_id = #{userId} AND l.like_type = 1
+        ) THEN TRUE
+        ELSE FALSE
+      END AS isLiked,
+      COALESCE(b.thumbnail, '') AS thumbnail,
+      b.published_date,
+      b.authors,
+      b.publisher,
+      b.page_count
+    FROM book_review r
+    JOIN book b ON r.book_id = b.id
+    JOIN user u ON r.user_id = u.id
+    WHERE r.user_id = #{userId}
+    ORDER BY r.creation_date DESC
+  </select>
 </mapper>
