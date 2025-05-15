@@ -135,6 +135,14 @@
         WHERE user_id = #{userId} AND target_id = #{bookId} AND like_type = 2 
     </delete>
 
+    <select id="checkReviewed" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM book_review br
+        JOIN book b ON br.book_id = b.id
+        WHERE br.user_id = #{userId}
+        AND b.book_api_id = #{bookApiId}
+    </select>
+
     <insert id="addReview" parameterType="map" useGeneratedKeys="true" keyProperty="id">
         insert into book_review (user_id, book_id, content, rating)
         values (#{userId}, #{bookId}, #{content}, #{rating})

@@ -37,6 +37,8 @@ public interface BookMapper {
     public List<BookListDto> getPopularBookList();
     public List<BookListDto> getJustReviewedBookList();
     public List<BookReviewListDTO> getPopularReviewList(int currentPage);
+
+    public int checkReviewed(Map<String, Object> params);
 }
 
 

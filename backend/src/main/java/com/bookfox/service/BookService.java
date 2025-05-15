@@ -92,6 +92,11 @@ public class BookService {
         bookMapper.unlike(params);
     }
 
+    public boolean checkReviewed(String userId, String bookApiId){
+        Map<String, Object> params = Map.of("userId", userId, "bookApiId", bookApiId);
+        return bookMapper.checkReviewed(params) > 0;
+    }
+
     public int addReview(int bookId, String userId, String content, int rating){
         Map<String, Object> params = new HashMap<>();
         params.put("bookId", bookId);
