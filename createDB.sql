@@ -205,10 +205,6 @@ CREATE TABLE book_collection(
     thumbnail VARCHAR(300), 
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
-<<<<<<< HEAD
-
-=======
->>>>>>> sunho
 CREATE TABLE book_collection_book(
 	id INT AUTO_INCREMENT PRIMARY KEY,			-- 이건 프리메리
     collection_id INT NOT NULL, 		-- collection 분류. 같은 collection이면 같은 collection id
