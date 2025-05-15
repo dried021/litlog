@@ -27,9 +27,9 @@ function AddToBookshelfButton({bookApiId, handleClick}) {
 
 
   const options = [
-    { label: "Currently Reading", value: 1 },
-    { label: "Finished Reading", value: 2 },
-    { label: "To Read", value: 3 },
+    { label: "To Read", value: 1 },
+    { label: "Currently Reading", value: 2 },
+    { label: "Finished Reading", value: 3 },
   ];
 
   useEffect(()=> {

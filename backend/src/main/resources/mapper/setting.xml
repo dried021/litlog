@@ -4,6 +4,10 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bookfox.repository.SettingMapper">
+    <select id="checkIsAdmin" parameterType="String" resultType="int">
+        select count(*) from user where id=#{id} and user_type = 1
+    </select>
+
     <select id="getUserInfo" parameterType="String" resultType="com.bookfox.model.UserDto">
         SELECT * FROM user where id = #{userId}
     </select>
@@ -16,5 +20,30 @@
             email = #{email}
         WHERE id = #{id}
     </update>
+
+    <update id="withdrawUser" parameterType="com.bookfox.model.UserDto">
+        UPDATE user
+        SET
+            name = 'withdrawn user',
+            tel = NULL,
+            nickname = CONCAT('withdrawn_', #{id}),
+            nickname_reset_at = NOW(),
+            profile_image = NULL,
+            profile_image_origin = NULL,
+            pwd = '',
+            pwd_reset_at = NOW(),
+            email = '',
+            bio = NULL,
+            user_type = NULL,
+            user_status = 3
+        WHERE id = #{id}  
+    </update>
+
+    <select id="checkPassword" parameterType="com.bookfox.model.UserDto" resultType="int">
+        SELECT COUNT(*)
+        FROM user
+        WHERE id = #{id}
+        AND pwd = #{pwd}
+    </select>
 
 </mapper>
