@@ -5,7 +5,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-export default function BookStackBook({title, pageCount}) {
+export default function BookStackBook({title, pageCount, creationDate}) {
     const minWidth = 170;
     const maxWidth = 200;
     const minHeight = 15;
@@ -23,18 +23,24 @@ export default function BookStackBook({title, pageCount}) {
     
     let titleSliced = (title.length > charLimit) ? `${title.slice(0, charLimit)}...` : title;
 
+    const date = new Date(creationDate).toLocaleDateString('en-GB', {
+        day: '2-digit', month: 'short', year: 'numeric'
+    });
     return (
-        <div className={styles.book}
-            style={{
-                width: `${width}px`,
-                height: `${height}px`,
-                lineHeight: `${height}px`,
-                backgroundColor: colors[color],
-                color: (color === 1 || color === 2) ? "black" : "white",
-                marginLeft: `${margin}px`
-            }}
-        >
-            {titleSliced}
+        <div className={styles.tooltip}>
+            <div className={styles.book}
+                style={{
+                    width: `${width}px`,
+                    height: `${height}px`,
+                    lineHeight: `${height}px`,
+                    backgroundColor: colors[color],
+                    color: (color === 1 || color === 2) ? "black" : "white",
+                    marginLeft: `${margin}px`
+                }}
+            >
+                {titleSliced}
+            </div>
+            <span className={styles.tooltiptext}>{date}</span>
         </div>
     );
 }
