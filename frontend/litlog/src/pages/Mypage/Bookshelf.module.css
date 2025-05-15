@@ -57,13 +57,26 @@ button.active {
     flex-direction: column;
 }
 
+.thumbnailContainer {
+    position:relative;
+}
 
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    font-style: italic;
+    font-family: 'Times New Roman', serif;
+    text-align: center;
+    color: white; /*#F4E3B2*/
+}
 
 .bookThumbnail {
     width: 100px; /* 140px */
     height: 160px; /* 200px */
     object-fit: cover;
-    border-radius: 8px;
     display: block;
     margin: 0 auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);

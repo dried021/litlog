@@ -19,7 +19,8 @@
             END AS likeStatus,
             b.published_date AS publishedDate,
             b.thumbnail,
-            b.page_count AS pageCount
+            b.page_count AS pageCount,
+            b.title
         FROM book_shelf bs
         LEFT JOIN like_list ll 
             ON bs.book_id = ll.target_id 
@@ -46,7 +47,8 @@
             b.published_date AS publishedDate,
             b.thumbnail,
             br.rating AS rating,
-            b.page_count AS pageCount
+            b.page_count AS pageCount,
+            b.title
         FROM book_shelf bs
         LEFT JOIN like_list ll 
             ON bs.book_id = ll.target_id 
@@ -76,7 +78,8 @@
             END AS likeStatus,
             b.published_date AS publishedDate,
             b.thumbnail,
-            b.page_count AS pageCount
+            b.page_count AS pageCount,
+            b.title
         FROM book_shelf bs
         LEFT JOIN like_list ll 
             ON bs.book_id = ll.target_id 
@@ -100,7 +103,8 @@
             br.rating,
             b.published_date AS publishedDate,
             b.thumbnail,
-            b.page_count AS pageCount
+            b.page_count AS pageCount,
+            b.title
         FROM like_list ll
         LEFT JOIN book b 
             ON ll.target_id = b.id

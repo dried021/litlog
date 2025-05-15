@@ -143,9 +143,9 @@ INSERT INTO like_list VALUES
 
 /* MORE BOOKS */
 INSERT INTO book VALUES
-(15,NULL,'title',NULL,NULL,NULL,'2005-11-15',NULL,NULL, NULL ,NULL),
-(16,NULL,'title',NULL,NULL,NULL,'2005-11-15',NULL,NULL, NULL ,NULL),
-(17,NULL,'title',NULL,NULL,NULL,'2005-11-15',NULL,NULL, NULL ,NULL),
+(15,NULL,"Harry Potter and the Sorcerer's Stone",NULL,NULL,NULL,'2005-11-15',NULL,NULL, NULL ,NULL),
+(16,NULL,"How to Kill a Mockingbird",NULL,NULL,NULL,'2005-11-15',NULL,NULL, NULL ,NULL),
+(17,NULL,"Secret Garden",NULL,NULL,NULL,'2005-11-15',NULL,NULL, NULL ,NULL),
 (18,NULL,'title',NULL,NULL,NULL,'2005-11-15',NULL,NULL, NULL ,NULL),
 (19,NULL,'title',NULL,NULL,NULL,'2005-11-15',NULL,NULL, NULL ,NULL),
 (20,NULL,'title',NULL,NULL,NULL,'2005-11-15',NULL,NULL, NULL ,NULL),
@@ -237,4 +237,7 @@ INSERT INTO book_shelf (book_id, user_id, shelf_type, progress) VALUES
 (3, 'aaa', 3, 100)
 ;
 
+/*
 select * from book_shelf where user_id="user01";
+select * from book where id=56;
+*/
