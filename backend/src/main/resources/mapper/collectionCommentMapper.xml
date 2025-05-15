@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.bookfox.repository.CollectionCommentMapper">
+
+    <select id="getCommentsByCollectionId" resultType="com.bookfox.model.CollectionCommentDto">
+        SELECT c.id, c.user_id, u.nickname, c.content, c.creation_date
+        FROM book_collection_comment c
+        JOIN user u ON c.user_id = u.id
+        WHERE c.collection_id = #{collectionId}
+        ORDER BY c.creation_date ASC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <select id="getCommentCountByCollectionId" resultType="int">
+        SELECT COUNT(*)
+        FROM book_collection_comment
+        WHERE collection_id = #{collectionId}
+    </select>
+    
+    <insert id="insertComment" parameterType="com.bookfox.model.CollectionCommentDto">
+        INSERT INTO book_collection_comment (user_id, collection_id, content)
+        VALUES (#{userId}, #{collectionId}, #{content})
+    </insert>
+
+    <select id="getCommentById" resultType="com.bookfox.model.CollectionCommentDto">
+        SELECT * FROM book_collection_comment WHERE id = #{commentId}
+    </select>
+
+    <delete id="deleteComment">
+        DELETE FROM book_collection_comment WHERE id = #{commentId}
+    </delete>
+
+    <update id="updateCommentContent">
+        UPDATE book_collection_comment
+        SET content = #{content}
+        WHERE id = #{commentId}
+    </update>
+</mapper>

@@ -1,10 +1,12 @@
 package com.bookfox.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.bookfox.model.BookDto;
 import com.bookfox.model.CollectionDto;
 
 @Mapper
@@ -13,5 +15,21 @@ public interface CollectionMapper {
     List<CollectionDto> selectAllCollectionsSortedByLikes();
     List<CollectionDto> selectAllCollectionsSortedByRecent();
     List<CollectionDto> selectCollectionById(int id);
+     // 1. 콜렉션 저장
+    void insertCollection(CollectionDto dto);
+
+    // 2. 책 존재 여부 확인
+    Integer findBookIdByApiId(String bookApiId);
+
+    // 3. 책 저장
+    void insertBook(BookDto book);
+
+    // 4. 콜렉션-책 연결 저장
+    void insertCollectionBook(@Param("collectionId") int collectionId,
+                              @Param("bookId") int bookId,
+                              @Param("thumbnail") String thumbnail);
+
+    List<BookDto> getBooksByCollectionId(Map<String, Object> params);
+    int getBookCountByCollectionId(int collectionId);
 }
 
