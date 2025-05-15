@@ -137,7 +137,7 @@
   filter: brightness(0.3);
 }
 
-/* 툴팁 */
+/* 툴팁 
 .tooltip-container {
   position: relative;
   display: inline-block;
@@ -175,3 +175,4 @@
   visibility: visible;
   opacity: 1;
 }
+  */
