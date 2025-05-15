@@ -56,21 +56,35 @@ button.active {
     display: flex;
     flex-direction: column;
 }
-
+/*
 .thumbnailContainer {
     position:relative;
 }
 
 .center {
+    width: 100px;
+    height: 160px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 14px;
-    font-style: italic;
-    font-family: 'Times New Roman', serif;
+    font-size: 15px;
     text-align: center;
-    color: white; /*#F4E3B2*/
+    color: transparent;
+    background-color: transparent;
+}
+
+.center:hover {
+    background-color: rgba(255, 255, 255, .8) ;
+    color: black; 
+}
+*/
+
+.center:hover p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .bookThumbnail {
@@ -145,3 +159,48 @@ button.active {
 }
 
 /* BOOK STYLING - END */
+
+
+/* TOOLTIP CONTAINER */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  }
+  
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+   
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+    font-size: 12px;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    width: 120px;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+    margin-bottom: 10px;
+  }
+
+  .tooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
