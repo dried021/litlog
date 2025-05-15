@@ -153,7 +153,7 @@ CREATE TABLE book_review(
 	FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE SET NULL,
 	FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE SET NULL
 );
-select * from book_shelf;
+
 CREATE TABLE book_shelf(
 	id INT AUTO_INCREMENT PRIMARY KEY,
     book_id INT,
@@ -199,8 +199,6 @@ CREATE TABLE book_collection(
     thumbnail VARCHAR(300), 
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
-SELECT * from book;
-SELECT * from book_collection_book;
 
 CREATE TABLE book_collection_book(
 	id INT AUTO_INCREMENT PRIMARY KEY,			-- 이건 프리메리

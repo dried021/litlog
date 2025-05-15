@@ -22,4 +22,5 @@ public class BookshelfDto {
     private Timestamp publishedDate;
     private String thumbnail;
     private int pageCount;
+    private String title;
 }

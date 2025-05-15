@@ -152,11 +152,14 @@ const Bookshelf = ({shelfType}) => {
                         {currentBooks.map(book => (
                             <li key={book.bookId} className={styles.bookCard}>
                                 <a href={`/books/${book.bookApiId}`}>
-                                    <img 
-                                        src={book.thumbnail ? book.thumbnail : defaultThumbnail}
-                                        alt={book.title}
-                                        className={styles.bookThumbnail}
-                                    />
+                                    <div className={styles.thumbnailContainer}>
+                                        <img 
+                                            src={book.thumbnail ? book.thumbnail : defaultThumbnail}
+                                            alt={book.title}
+                                            className={styles.bookThumbnail}
+                                        />
+                                        {!book.thumbnail && <div className={styles.center}>{book.title ? book.title : "Untitled"}</div>}
+                                    </div>
                                 </a>
                                 <div className={styles.bookInfo}>
                                     {[...Array(5)].map((_, index) => (
