@@ -5,12 +5,13 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.bookfox.model.UserDto;
+import com.bookfox.model.AdminUserDto;
 
 @Mapper
 public interface AdminMapper {
-    public int getCount(String searchName);
-    public int countAll();
-    public int countByName(String searchName);
-    public List<UserDto > getUsers(Map<String, Object> map);
+    public List<AdminUserDto> selectUsers(Map<String, Object> params);
+    public int countUsers(String searchName);
+    public int countReviews(String id);
+    public int countCollections(String id);
+    public int countComments(String id);
 }

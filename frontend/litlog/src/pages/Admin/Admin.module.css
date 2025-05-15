@@ -1,0 +1,16 @@
+.title{
+    margin: 16px 0 35px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+
+  .container {
+    display: flex;
+    gap: 2rem; /* 메뉴와 내용 사이 간격 */
+    padding: 2rem;
+  }
+  
+  .content {
+    flex: 1; /* 나머지 영역 다 차지 */
+  }

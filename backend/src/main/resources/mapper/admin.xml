@@ -4,24 +4,36 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bookfox.repository.AdminMapper">
-    <select id="countAll" resultType="int">
-        SELECT COUNT(*) FROM user
-    </select>
+    <select id="selectUsers" resultType="com.bookfox.model.AdminUserDto">
+    SELECT id, name, nickname, email, profile_image AS profile, user_type AS userType, user_status AS userStatus, tel, reg_date as regDate
+    FROM user
+    <where>
+      <if test="searchName != null and searchName != ''">
+        nickname LIKE CONCAT('%', #{searchName}, '%')
+      </if>
+    </where>
+    ORDER BY reg_date DESC
+    LIMIT #{userPerPage} OFFSET #{offset}
+  </select>
 
-    <select id="countByName" parameterType="String" resultType="int">
-        SELECT COUNT(*) 
-        FROM user
-        WHERE name LIKE CONCAT('%', #{searchName}, '%')
-    </select>
+  <select id="countUsers" resultType="int">
+    SELECT COUNT(*) FROM user
+    <where>
+      <if test="searchName != null and searchName != ''">
+          nickname LIKE CONCAT('%', #{searchName}, '%')
+      </if>
+    </where>
+  </select>
 
-    <select id="getUsers" resultType="com.bookfox.model.UserDto" parameterType="map">
-        SELECT *
-        FROM user
-        <where>
-            <if test="searchName != null and searchName != ''">
-                name LIKE CONCAT('%', #{searchName}, '%')
-            </if>
-        </where>
-        LIMIT #{pageSize} OFFSET #{start};
-    </select>
+  <select id="countReviews" parameterType="String" resultType="int">
+    SELECT COUNT(*) FROM book_review WHERE user_id = #{id}
+  </select>
+
+  <select id="countCollections" parameterType="String" resultType="int">
+    SELECT COUNT(*) FROM book_collection WHERE user_id = #{id}
+  </select>
+
+  <select id="countComments" parameterType="String" resultType="int">
+    SELECT COUNT(*) FROM book_collection_comment WHERE user_id = #{id}
+  </select>
 </mapper>

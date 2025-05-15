@@ -1,0 +1,98 @@
+.userSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 600px;
+    margin: 0 auto;
+  }
+
+  .title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+  
+  .userList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .userItem {
+    display: flex;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 10px;
+    position: relative;
+  }
+  
+  .userRank {
+    width: 60px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .userRankP {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  .userInfo {
+    flex-grow: 1;
+    margin-right: 1rem;
+  }
+  
+  .userId {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  .userIdGray {
+    color: #888;
+    font-weight: normal;
+  }
+  
+  .userStats {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .stat {
+    font-size: 0.95rem;
+    margin-right: 1rem;
+  }
+  
+  .userProfile {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+  
+  .userProfileImg {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .loading .noData {
+    text-align: center;
+    padding: 40px 0;
+    font-size: 16px;
+    color: #666;
+  }
+
+  .adminSearchBar {
+    width: 600px;
+    margin: 0 auto 20px auto;
+  }
