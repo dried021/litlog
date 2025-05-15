@@ -4,7 +4,8 @@ import axios from "axios";
 import ReviewEntry from "./ReviewEntry";
 import ReviewHeader from "../../components/Mypage/ReviewHeader";
 import TabMenu from "../../components/Mypage/TabMenu";
-import "./ReviewTimeline.css";
+import styles from './MyReview.module.css';
+import "../../components/Mypage/tooltip.css";
 
 const ReviewTimeline = () => {
   const { userId, year } = useParams();
@@ -137,7 +138,7 @@ const ReviewTimeline = () => {
   });
 
   return (
-    <div className="review-timeline">
+    <div className={styles["review-timeline"]}>
       <TabMenu userId={userId} />
 
       <ReviewHeader
@@ -157,18 +158,18 @@ const ReviewTimeline = () => {
         totalWrittenReviews={totalWrittenReviews}
       />
 
-      <div className="review-table">
-        <div className="table-header">
+      <div className={styles["review-table"]}>
+        <div className={styles["table-header"]}>
           <div>MONTH</div>
           <div>DAY</div>
-          <div className="book-header">BOOK</div>
-          <div className="rating-header">RATING</div>
+          <div className={styles["book-header"]}>BOOK</div>
+          <div className={styles["rating-header"]}>RATING</div>
           <div>LIKE</div>
           <div>REVIEW</div>
         </div>
 
         {filteredReviews.length === 0 ? (
-          <p className="no-reviews">No Reviews</p>
+          <p className={styles["no-reviews"]}>No Reviews</p>
         ) : (
           filteredReviews.map((review, idx) => {
             const prev = filteredReviews[idx - 1];
