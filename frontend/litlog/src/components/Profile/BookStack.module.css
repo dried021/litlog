@@ -1,6 +1,35 @@
 .bookStack {
-    height: 100px;
-    background-color: #F3F3F3;
+    margin-top: 20px;
     border-radius: 10px;
-    
+    text-align: center;
+}
+
+.bookStack h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.bookList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 240px;
+    padding: 10px;
+}
+
+.book {
+    border-radius: 3px;
+    font-size: 12px;
+    text-align: center;
+    box-shadow: inset 0 0 2px #777;
+    padding: 0 3px;
+}
+
+.book:hover {
+    scale: 1.1;
+}
+
+.bookLink {
+    text-decoration: none;
 }
