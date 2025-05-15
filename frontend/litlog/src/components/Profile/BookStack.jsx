@@ -5,17 +5,6 @@ import { useParams } from "react-router-dom";
 import styles from "./BookStack.module.css";
 import BookStackBook from "./BookStackBook";
 
-
-const colors = ["#636B2F", "#BAC095", "#D4DE95", "#3D4127"];
-
-function getNonRepeatingColor(prevColor) {
-    let newColor;
-    do {
-        newColor = colors[Math.floor(Math.random() * colors.length)];
-    } while (newColor === prevColor);
-    return newColor;
-}
-
 export default function BookStack() {
     const {userId} = useParams();
     const [result, setResult] = useState({
@@ -35,9 +24,9 @@ export default function BookStack() {
         <div className={styles.bookStack}>
             {result.totalCount > 0 && <h2>{new Date().getFullYear()} BOOK STACK</h2>}
             <div className={styles.bookList}>
-                {result.books.map(book => (
-                    <a href={`/books/${book.bookApiId}`} className={styles.bookLink}>
-                    <BookStackBook key={book.id} title={book.title.toUpperCase()} pageCount={book.pageCount}/>
+                {result.books.map((book, index) => (
+                    <a key={index} href={`/books/${book.bookApiId}`} className={styles.bookLink}>
+                        <BookStackBook title={book.title.toUpperCase()} pageCount={book.pageCount}/>
                     </a>
                 ))}
             </div>
