@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./ReviewHeader.module.css";
+import "./tooltip.css";
 import { FormControlLabel, Switch } from "@mui/material";
 import Rating from '@mui/material/Rating';
 
