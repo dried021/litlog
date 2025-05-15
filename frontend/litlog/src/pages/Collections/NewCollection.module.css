@@ -1,0 +1,153 @@
+.wrapper {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  background-color: #fff;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pageTitle {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 24px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+input[type="text"],
+textarea {
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+/* 책 검색 바 */
+.bookSearch {
+  display: flex;
+  gap: 8px;
+}
+
+.bookSearch input {
+  flex: 1;
+}
+
+.bookSearch button {
+  padding: 8px 16px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.bookSearch button:hover {
+  background-color: #222;
+}
+
+/* 검색 결과 */
+.searchResults {
+  padding: 12px;
+  background-color: #f9f9f9;
+  border: 1px dashed #ccc;
+  min-height: 60px;
+  font-size: 14px;
+  color: #888;
+}
+
+/* 추가된 책 리스트 */
+.addedBooks {
+  padding: 16px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.bookCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.bookCard img {
+  width: 50px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 4px;
+  background-color: #eee;
+}
+
+.bookInfo {
+  flex: 1;
+  font-size: 14px;
+  color: #333;
+}
+
+.removeBtn {
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.removeBtn:hover {
+  background-color: #333;
+}
+
+/* 제출 버튼 */
+.submitBtn {
+  background-color: #222;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.submitBtn:hover {
+  background-color: #000;
+}
+.loadMoreBtn {
+  margin-top: 12px;
+  padding: 10px 16px;
+  font-size: 14px;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.loadMoreBtn:hover {
+  background-color: #222;
+}
