@@ -1,10 +1,10 @@
 import React from "react";
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import styles from './MyReview.module.css';
+import styles from './MyReviews.module.css';
 import "../../components/Mypage/tooltip.css";
 
-const ReviewEntry = ({ review, showMonth }) => {
+const TimelineEntry = ({ review, showMonth }) => {
   const date = new Date(review.creationDate);
   const month = date.toLocaleString("en-US", { month: "short" }).toUpperCase();
   const year = date.getFullYear();
@@ -44,7 +44,7 @@ const ReviewEntry = ({ review, showMonth }) => {
       <div className={styles["day-label"]}>{day}</div>
       <div className={styles["book-info"]}>
         <img className={styles["book-thumbnail"]} src={thumbnail} alt="표지 이미지"/>
-        <Link to={`/books/${review.bookApiId}`} className={styles["book-title"]}>
+        <Link to={`/${review.userId}/reviews/detail/${review.id}`} className={styles["book-title"]}>
           {review.title}
         </Link>
       </div>
@@ -85,4 +85,4 @@ const ReviewEntry = ({ review, showMonth }) => {
   );
 };
 
-export default ReviewEntry;
+export default TimelineEntry;

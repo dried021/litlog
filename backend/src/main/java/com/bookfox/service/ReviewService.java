@@ -1,6 +1,7 @@
 package com.bookfox.service;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,13 @@ public class ReviewService {
         int result = reviewMapper.updateReview(reviewId, dto.getContent(), dto.getRating(), now);
         return result > 0;
     }
+
     public boolean deleteReview(int reviewId) {
         int result = reviewMapper.deleteReview(reviewId);
         return result > 0;
+    }
+    
+    public List<BookReviewDto> getReviewList(String userId) {
+        return reviewMapper.getReviewList(userId);
     }
 }

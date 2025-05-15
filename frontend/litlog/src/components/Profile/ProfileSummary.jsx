@@ -68,7 +68,7 @@ export default function ProfileSummary() {
                             <h2 className={styles.nickname}>{profile.nickname}</h2>
                         </a>
                         {(user === userId) && 
-                            <button className={styles.editButton}>
+                            <button className={styles.editButton} onClick={() => {window.location=`/settings`}}>
                                 EDIT PROFILE
                             </button>
                         }
@@ -98,10 +98,10 @@ export default function ProfileSummary() {
                     </a>
                 </div>
                 <div className={styles.statBlock}>
-                    <a href={`/${userId}/reviews`} className={styles.hyperlink}>
+                    <a href={`/${userId}/reviews/timeline`} className={styles.hyperlink}>
                         <span className={styles.statNumber}>{profile.annualBooksReadCount}</span>
                     </a>
-                    <a href={`/${userId}/reviews`} className={styles.hyperlink}>
+                    <a href={`/${userId}/reviews/timeline`} className={styles.hyperlink}>
                         <span className={styles.statLabel}>THIS YEAR</span>
                     </a>
                 </div>

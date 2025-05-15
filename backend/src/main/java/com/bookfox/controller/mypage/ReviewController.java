@@ -1,6 +1,7 @@
 package com.bookfox.controller.mypage;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,5 +78,10 @@ public class ReviewController {
         } else {
             return ResponseEntity.status(500).body("Review Delete Failed");
         }
+    }
+
+    @GetMapping("/{userId}/reviews/review-list")
+    public List<BookReviewDto> getReviewList(@PathVariable String userId) {
+        return reviewService.getReviewList(userId);
     }
 }

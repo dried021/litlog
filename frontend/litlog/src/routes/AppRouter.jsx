@@ -24,6 +24,7 @@ import Profile from '../pages/Mypage/Profile';
 import Network from '../pages/Mypage/Network';
 import Bookshelf from '../pages/Mypage/Bookshelf';
 import ReviewTimeline from '../pages/Mypage/ReviewTimeline';
+import ReviewList from '../pages/Mypage/ReviewList';
 import ReviewDetail from '../pages/Mypage/ReviewDetail';
 import CollectionList from '../pages/Mypage/CollectionList';
 
@@ -72,7 +73,8 @@ const AppRouter = () => {
             <Route path="/:userId/bookshelf" element={<Bookshelf />} />
             <Route path="/:userId/following" element={<Network type="following"/>} />
             <Route path="/:userId/followers" element={<Network type="followers"/>} />
-            <Route path="/:userId/reviews/:year?" element={<ReviewTimeline />} />
+            <Route path="/:userId/reviews/timeline/:year?" element={<ReviewTimeline />} />
+            <Route path="/:userId/reviews/list/:year?" element={<ReviewList />} />
             <Route path="/:userId/reviews/detail/:reviewId" element={<ReviewDetail />} />
             <Route path="/:userId/collections" element={<CollectionList />} />
     
