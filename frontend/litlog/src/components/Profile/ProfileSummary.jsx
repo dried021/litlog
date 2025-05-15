@@ -68,7 +68,7 @@ export default function ProfileSummary() {
                             <h2 className={styles.nickname}>{profile.nickname}</h2>
                         </a>
                         {(user === userId) && 
-                            <button className={styles.editButton}>
+                            <button className={styles.editButton} onClick={() => {window.location=`/settings`}}>
                                 EDIT PROFILE
                             </button>
                         }
