@@ -26,7 +26,7 @@ public class Setting {
     @GetMapping("/user")
     public ResponseEntity<Map<String, Object>> getUserId(){
          //session에서 user 가져오기
-         String id = "user18";
+         String id = "admin01";
          
          Boolean isAdmin = settingService.checkIsAdmin(id);
 

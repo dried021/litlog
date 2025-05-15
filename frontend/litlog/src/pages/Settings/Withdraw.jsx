@@ -28,7 +28,7 @@ const Withdraw = () => {
 
     return(
         <>
-        <h2 className={styles.title}>Update My Info</h2>
+        <h2 className={styles.title}>Delete Account</h2>
         <div className={styles.container}>
             
         <SideMenu isAdmin={isAdmin} />
