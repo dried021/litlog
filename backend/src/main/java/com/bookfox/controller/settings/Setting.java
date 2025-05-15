@@ -24,16 +24,21 @@ public class Setting {
     private SettingService settingService;
 
     @GetMapping("/user")
-    public ResponseEntity<String> getUserId(){
+    public ResponseEntity<Map<String, Object>> getUserId(){
          //session에서 user 가져오기
          String id = "user01";
+         
+         Boolean isAdmin = settingService.checkIsAdmin(id);
 
-         return ResponseEntity.ok(id);
+         Map<String, Object> response = new HashMap<>();
+         response.put("id", id);
+         response.put("isAdmin", isAdmin);
+
+         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/userinfo")
     public ResponseEntity<UserDto> getUserInfo(@RequestParam String userId){
-        System.out.println();
         return ResponseEntity.ok(settingService.getUserInfo(userId));
     }
 

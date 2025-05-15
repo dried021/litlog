@@ -136,7 +136,7 @@ const UpdateUserForm = ({ userId }) => {
             <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.formGroupFull}>
                     <label>ID</label>
-                    <input type="text" value={userId} disabled />
+                    <input type="text" value={userId} disabled autoComplete="userid"/>
                 </div>
 
                 <div className={styles.formRow}>
@@ -159,19 +159,19 @@ const UpdateUserForm = ({ userId }) => {
                 <div className={styles.formRow}>
                     <div className={styles.formGroup}>
                         <label>Your Name</label>
-                        <input type="text" value={name} disabled />
+                        <input type="text" value={name} disabled autoComplete="username"/>
                     </div>
 
                     <div className={styles.formGroup}>
                         <label>Phone Number</label>
-                        <input type="text" value={tel} disabled />
+                        <input type="text" value={tel} disabled autoComplete="tel" />
                     </div>
                 </div>
 
                 <div className={styles.formRow}>
                     <div className={styles.formGroup}>
                         <label>Current Password</label>
-                        <input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
+                        <input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} autoComplete="current-password"/>
                     </div>
                 </div>
 

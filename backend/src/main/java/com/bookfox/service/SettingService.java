@@ -11,6 +11,10 @@ public class SettingService {
     @Autowired
     private SettingMapper settingMapper;
 
+    public boolean checkIsAdmin(String id){
+        return settingMapper.checkIsAdmin(id) > 0;
+    }
+
     public UserDto getUserInfo(String userId){
         return settingMapper.getUserInfo(userId);
     }
