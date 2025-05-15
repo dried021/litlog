@@ -16,8 +16,9 @@ const TabMenu = () => {
           to={`/${userId}/reviews/timeline`}
           className={({ isActive }) =>
             location.pathname.startsWith(`/${userId}/reviews/timeline`) || location.pathname.startsWith(`/${userId}/reviews/list`) 
-            ? "active" : ""}>My Reviews</NavLink>
-        <NavLink to={`/${userId}/collections`}>My Collections</NavLink>
+            ? "active" : ""}>Reviews</NavLink>
+        <NavLink to={`/${userId}/collections`}>Collections</NavLink>
+        <NavLink to={`/${userId}/activity`}>Activity</NavLink>
       </nav>
     </div>
   );

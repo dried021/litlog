@@ -27,6 +27,7 @@ import ReviewTimeline from '../pages/Mypage/ReviewTimeline';
 import ReviewList from '../pages/Mypage/ReviewList';
 import ReviewDetail from '../pages/Mypage/ReviewDetail';
 import CollectionList from '../pages/Mypage/CollectionList';
+import Activity from '../pages/Mypage/Activity';
 
 import EditProfile from '../pages/Settings/EditProfile';
 import Withdraw from '../pages/Settings/Withdraw';
@@ -77,6 +78,7 @@ const AppRouter = () => {
             <Route path="/:userId/reviews/list/:year?" element={<ReviewList />} />
             <Route path="/:userId/reviews/detail/:reviewId" element={<ReviewDetail />} />
             <Route path="/:userId/collections" element={<CollectionList />} />
+            <Route path="/:userId/activity" element={<Activity/>}/>
     
             {/* Setting */}
             <Route path="/settings" element={<EditProfile />} />
