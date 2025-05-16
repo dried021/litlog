@@ -3,7 +3,10 @@ package com.bookfox.controller.admin;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,5 +28,15 @@ public class Admin {
     ) {
         
         return adminService.getUsers(pageNum, searchName, sortOption);
+    }
+
+    @PostMapping("/user")
+    public ResponseEntity<?> changeUserOption(@RequestBody Map<String, Object> payload){
+        Integer option = (Integer) payload.get("option");
+        String buttonType = (String) payload.get("buttonType");
+        String id = (String) payload.get("id");
+
+        adminService.changeUsers(id, option, buttonType);
+        return ResponseEntity.ok().body("updated");
     }
 }
