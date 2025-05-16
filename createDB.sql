@@ -154,10 +154,7 @@ CREATE TABLE book_review(
 	FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE SET NULL
 );
 
-<<<<<<< HEAD
-=======
 select * from book_shelf;
->>>>>>> sunho
 CREATE TABLE book_shelf(
 	id INT AUTO_INCREMENT PRIMARY KEY,
     book_id INT,
