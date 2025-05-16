@@ -149,7 +149,7 @@ const ReviewHeader = ({
           </span>
           {openDropdown === "rating" && (
             <div className={styles.dropdownMenu}>
-              <div className={styles.dropdownItem} onClick={() => onRatingChange({ target: { value: "" } })}>
+              <div className={styles.dropdownItem} onClick={() => onRatingChange(0)}>
                 Any rating
               </div>
               <div className={styles.dropdownItem}>
@@ -157,7 +157,7 @@ const ReviewHeader = ({
                   <Rating name="interactive-rating" value={Number(selectedRating) || 0}
                     onChange={(event, newValue) => {
                       if (newValue !== null) {
-                        onRatingChange({ target: { value: newValue } });
+                        onRatingChange(newValue);
                       }
                     }} precision={1} size="small"
                   />
