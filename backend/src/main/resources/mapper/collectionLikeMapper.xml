@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bookfox.repository.CollectionLikeMapper">
+
+    <insert id="insertLike" parameterType="com.bookfox.model.CollectionLikeDto">
+        INSERT INTO like_list (user_id, target_id, like_type)
+        VALUES (#{userId}, #{targetId}, #{likeType})
+    </insert>
+
+    <delete id="deleteLike" parameterType="com.bookfox.model.CollectionLikeDto">
+        DELETE FROM like_list
+        WHERE user_id = #{userId}
+          AND target_id = #{targetId}
+          AND like_type = #{likeType}
+    </delete>
+
+    <select id="countLikesForCollection" resultType="int">
+        SELECT COUNT(*)
+        FROM like_list
+        WHERE target_id = #{collectionId}
+          AND like_type = 3
+    </select>
+
+    <select id="hasUserLikedCollection" parameterType="com.bookfox.model.CollectionLikeDto" resultType="boolean">
+        SELECT EXISTS (
+            SELECT 1
+            FROM like_list
+            WHERE user_id = #{userId}
+              AND target_id = #{targetId}
+              AND like_type = #{likeType}
+        )
+    </select>
+
+</mapper>
