@@ -5,6 +5,7 @@ import Pagination from '../../components/Pagination/Pagination';
 import styles from './ManageUser.module.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SortOptionButton from './SortOptionButton';
+import SwitchButton from '../Button/SwitchButton';
 
 function ManageUser() {
   const [searchParams] = useSearchParams();
@@ -43,8 +44,9 @@ function ManageUser() {
 
   const handlePageChange = (pageNum) => {
     setCurrentPage(pageNum);
-    nnavigate(`/admin?pageNum=${pageNum}&searchName=${encodeURIComponent(searchName)}`);
+    navigate(`/admin?pageNum=${pageNum}&searchName=${encodeURIComponent(searchName)}`);
   };
+
 
   return (
     <div className={styles.userSection}>
@@ -107,7 +109,7 @@ function ManageUser() {
                           <p>{user.email}</p>
                         </div>
                         <div className={styles.userStatusRow}>
-                          <p>Type: {user.userStatus === 1 ? 'GENERAL' : 'ADMIN'}</p>
+                          <p>Type: {user.userType === 1 ? 'ADMIN' : 'USER'}</p>
                           <p>Status: {user.userStatus === 1 ? 'ACTIVE' : (
                               user.userStatus === 2 ? 'BANNED' :'WITHDRAWN')}</p>
                         </div>
@@ -121,15 +123,7 @@ function ManageUser() {
                           <p className={styles.stat}>{user.comments ?? 0}</p>
                         </div>
 
-                        <div className={styles.userToggleRow}>
-                          <button onClick={() => toggleUserType(user.id, user.userType)}>
-                            {user.userType === 1 ? 'General' : 'Admin'}
-                          </button>
-                          <button onClick={() => toggleUserStatus(user.id, user.userStatus)}>
-                            {user.userStatus === 1 ? 'Active' : (
-                              user.userStatus === 2 ? 'Banned' :'WITHDRAWN')}
-                          </button>
-                        </div>
+                        
 
                       </div>
                       <div className={styles.userProfile}>
@@ -138,6 +132,32 @@ function ManageUser() {
                           src={user.profile || "/icons/profile.svg"}
                           alt="profile"
                         />
+                        <div className={styles.userToggleRow}>
+                          <SwitchButton
+                            userId = {user.id}
+                            buttonType="userType"
+                            currentOption={user.userType}
+                            onOptionChange={(newType) => {
+                              const updatedUsers = users.map(u =>
+                                u.id === user.id ? { ...u, userType: newType } : u
+                              );
+                              setUsers(updatedUsers);
+                            }}/>
+                        </div>
+
+                        <div className={styles.userToggleRow}>
+                          <SwitchButton
+                            userId = {user.id}
+                            buttonType="userStatus"
+                            currentOption={user.userStatus}
+                            onOptionChange={(newStatus) => {
+                              newStatus === 3 && navigate(0);
+                              const updatedUsers = users.map(u =>
+                                u.id === user.id ? { ...u, userStatus: newStatus } : u
+                              );
+                              setUsers(updatedUsers);
+                            }}/>
+                        </div>
                       </div>
                     </div>
                   );

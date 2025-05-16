@@ -38,4 +38,14 @@ public class AdminService {
         result.put("totalCount", totalCount);
         return result;
     }
+
+    public void changeUsers(String id, Integer option, String buttonType){
+        if ("userStatus".equals(buttonType) && option == 3){
+            adminMapper.adminDeleteUser(id);
+            return;
+        }
+
+        Map<String, Object> params = Map.of("option", option, "buttonType", buttonType, "id", id);
+        adminMapper.changeUsers(params);
+    }
 }
