@@ -4,10 +4,8 @@ import styles from './SearchBar.module.css';
 const SearchBar = ({ className = "", handleSearch, value, onChange, placeholder = "Search..." }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formattedKeyword = value.trim();
-    if (formattedKeyword) {
-      handleSearch(formattedKeyword);
-    }
+    console.log(value.trim());
+    handleSearch(value.trim());
   };
 
   return (

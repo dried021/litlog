@@ -55,7 +55,11 @@ function ManageComment() {
         className={styles.adminSearchBar}
         handleSearch={(searchKeyword)=>{
             const trimmed = searchKeyword.trim();
-            if (trimmed) {
+            if(!trimmed){
+              setSearchKeyword(trimmed);
+              setCurrentPage(1);
+              navigate(`/admin/comments`);
+            }else{
               setSearchKeyword(trimmed);
               setCurrentPage(1);
               navigate(`/admin/comments?pageNum=1&searchKeyword=${encodeURIComponent(trimmed)}`);
