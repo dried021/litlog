@@ -109,7 +109,7 @@
 
     <select id="getIncomingActivityFeed" resultType="com.bookfox.model.ActivityDto" parameterType="map">
         SELECT
-            fl.follow_user_id AS followUserId,
+            fl.user_id AS followUserId,
             u.nickname AS followUsername,
             u.profile_image AS profileImage,
             NULL AS bookApiId,
@@ -121,8 +121,8 @@
             fl.creation_date AS creationDate,
             "recent_followers" AS activityType
         FROM follow_list fl
-            JOIN user u ON u.id = fl.follow_user_id
-        WHERE fl.user_id = #{userId}
+            JOIN user u ON u.id = fl.user_id
+        WHERE fl.follow_user_id = #{userId}
             AND fl.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
         UNION ALL
         SELECT
