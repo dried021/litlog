@@ -9,6 +9,9 @@ import com.bookfox.model.BookReviewDto;
 
 @Mapper
 public interface ReviewMapper {
+    List<BookReviewDto> getReviewListAll(@Param("userId") String userId);
+    List<BookReviewDto> getReviewList(@Param("userId") String userId, @Param("year") int year);
+
     BookReviewDto getReviewDetailById(
         @Param("reviewId") int reviewId,
         @Param("loginUserId") String loginUserId
@@ -24,6 +27,4 @@ public interface ReviewMapper {
         @Param("creationDate") java.sql.Timestamp creationDate
     );
     int deleteReview(@Param("reviewId") int reviewId);
-
-    List<BookReviewDto> getReviewList(String userId);
 }

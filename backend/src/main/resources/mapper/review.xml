@@ -4,6 +4,59 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bookfox.repository.ReviewMapper">
+  <select id="getReviewListAll" resultType="com.bookfox.model.BookReviewDto">
+    SELECT
+      r.id,
+      r.user_id AS userId,
+      r.book_id,
+      b.book_api_id,
+      b.title,
+      b.authors,
+      COALESCE(b.thumbnail, '') AS thumbnail,
+      r.content,
+      r.rating,
+      r.creation_date,
+      (SELECT COUNT(*) FROM like_list l WHERE l.target_id = r.id AND l.like_type = 1) AS likeCount,
+      CASE 
+        WHEN EXISTS (
+          SELECT 1 FROM like_list l 
+          WHERE l.target_id = b.id AND l.user_id = #{userId} AND l.like_type = 2
+        ) THEN TRUE
+        ELSE FALSE
+      END AS isLiked
+    FROM book_review r
+    JOIN book b ON r.book_id = b.id
+    WHERE r.user_id = #{userId}
+    ORDER BY r.creation_date DESC
+  </select>
+
+  <select id="getReviewList" resultType="com.bookfox.model.BookReviewDto">
+    SELECT
+      r.id,
+      r.user_id AS userId,
+      r.book_id,
+      b.book_api_id,
+      b.title,
+      b.authors,
+      COALESCE(b.thumbnail, '') AS thumbnail,
+      r.content,
+      r.rating,
+      r.creation_date,
+      (SELECT COUNT(*) FROM like_list l WHERE l.target_id = r.id AND l.like_type = 1) AS likeCount,
+      CASE 
+        WHEN EXISTS (
+          SELECT 1 FROM like_list l 
+          WHERE l.target_id = b.id AND l.user_id = #{userId} AND l.like_type = 2
+        ) THEN TRUE
+        ELSE FALSE
+      END AS isLiked
+    FROM book_review r
+    JOIN book b ON r.book_id = b.id
+    WHERE r.user_id = #{userId}
+      AND YEAR(r.creation_date) = #{year}
+    ORDER BY r.creation_date DESC
+  </select>
+
   <select id="getReviewDetailById" resultType="com.bookfox.model.BookReviewDto">
     SELECT
       r.id,
@@ -64,30 +117,4 @@
     DELETE FROM book_review
     WHERE id = #{reviewId}
   </delete>
-
-  <select id="getReviewList" resultType="com.bookfox.model.BookReviewDto" parameterType="string">
-    SELECT
-      r.id,
-      r.user_id AS userId,
-      r.book_id,
-      b.book_api_id,
-      b.title,
-      b.authors,
-      COALESCE(b.thumbnail, '') AS thumbnail,
-      r.content,
-      r.rating,
-      r.creation_date,
-      (SELECT COUNT(*) FROM like_list l WHERE l.target_id = r.id AND l.like_type = 1) AS likeCount,
-      CASE 
-        WHEN EXISTS (
-          SELECT 1 FROM like_list l 
-          WHERE l.target_id = b.id AND l.user_id = #{userId} AND l.like_type = 2
-        ) THEN TRUE
-        ELSE FALSE
-      END AS isLiked
-    FROM book_review r
-    JOIN book b ON r.book_id = b.id
-    WHERE r.user_id = #{userId}
-    ORDER BY r.creation_date DESC
-  </select>
 </mapper>

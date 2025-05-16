@@ -15,6 +15,14 @@ public class ReviewService {
     @Autowired
     private ReviewMapper reviewMapper;
 
+    public List<BookReviewDto> getReviewListAll(String userId) {
+        return reviewMapper.getReviewListAll(userId);
+    }
+
+    public List<BookReviewDto> getReviewList(String userId, int year) {
+        return reviewMapper.getReviewList(userId, year);
+    }
+
     public BookReviewDto getReviewDetailById(int reviewId, String loginUserId) {
         return reviewMapper.getReviewDetailById(reviewId, loginUserId);
     }
@@ -36,9 +44,5 @@ public class ReviewService {
     public boolean deleteReview(int reviewId) {
         int result = reviewMapper.deleteReview(reviewId);
         return result > 0;
-    }
-    
-    public List<BookReviewDto> getReviewList(String userId) {
-        return reviewMapper.getReviewList(userId);
     }
 }

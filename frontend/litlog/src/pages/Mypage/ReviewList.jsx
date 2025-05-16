@@ -25,7 +25,10 @@ const ReviewList = () => {
   const [withContentOnly, setWithContentOnly] = useState(searchParams.get("withReview") === "true");
 
   const [filteredReviews, setFilteredReviews] = useState([]);
-  const [sortOption, setSortOption] = useState("latest");
+  const [sortOption, setSortOption] = useState({
+    field: "date",        
+    direction: "desc",   
+  });
 
   const [totalTimelineBooks, setTotalTimelineBooks] = useState(0);
   const [totalWrittenReviews, setTotalWrittenReviews] = useState(0);
@@ -78,22 +81,28 @@ const ReviewList = () => {
   }, [userId]);
 
   useEffect(() => {
+    const { field, direction } = sortOption;
     let filtered = reviews.filter((review) => {
       const matchesYear = !selectedYear || new Date(review.creationDate).getFullYear().toString() === selectedYear;
       const matchesRating = selectedRating === 0 || review.rating === selectedRating;
-      const matchesLiked = !likedOnly || review.liked === true;
+      const matchesLiked = !likedOnly || review.isLiked === true;
       const matchesContent = !withContentOnly || (typeof review.content === "string" && review.content.trim().length > 0);
 
       return matchesYear && matchesRating && matchesLiked && matchesContent;
     });
 
-    if (sortOption === "likes") {
-      filtered.sort((a, b) => b.likeCount - a.likeCount);
-    } else if (sortOption === "rating") {
-      filtered.sort((a, b) => b.rating - a.rating);
-    } else {
-      filtered.sort((a, b) => new Date(b.creationDate) - new Date(a.creationDate));
-    }
+    filtered.sort((a, b) => {
+      if (field === "date") {
+        return direction === "desc"
+          ? new Date(b.creationDate) - new Date(a.creationDate)
+          : new Date(a.creationDate) - new Date(b.creationDate);
+      } else if (field === "popularity") {
+        return direction === "desc" ? b.likeCount - a.likeCount : a.likeCount - b.likeCount;
+      } else if (field === "rating") {
+        return direction === "desc" ? b.rating - a.rating : a.rating - b.rating;
+      }
+      return 0;
+    });
 
     setFilteredReviews(filtered);
   }, [reviews, selectedYear, selectedRating, likedOnly, withContentOnly, sortOption]);
@@ -115,11 +124,10 @@ const ReviewList = () => {
     setSearchParams(newParams);
   };
 
-  const handleYearChange = (e) => {
-    const newYear = e.target.value;
-    setSelectedYear(newYear);
-    if (newYear) {
-      navigate(`/${userId}/reviews/list/${newYear}`);
+  const handleYearChange = (value) => {
+    setSelectedYear(value);
+    if (value) {
+      navigate(`/${userId}/reviews/list/${value}`);
     } else {
       navigate(`/${userId}/reviews/list`);
     }
@@ -153,9 +161,9 @@ const ReviewList = () => {
     setSelectedRating(0);
     setLikedOnly(false);
     setWithContentOnly(false);
+    setSortOption({ field: "date", direction: "desc" });
     setSearchParams({});
     navigate(`/${userId}/reviews/list`, { replace: true });
-    setSortOption("latest");
   };
 
   return (

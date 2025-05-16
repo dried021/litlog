@@ -16,5 +16,6 @@ public class TimelineDto {
     private int rating;           
     private String content;       
     private String creationDate;  
-    private boolean liked;       
+    private boolean liked;      
+    private int likeCount; 
 }

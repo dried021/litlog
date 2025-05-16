@@ -24,7 +24,13 @@ const ReviewTimeline = () => {
   const [selectedRating, setSelectedRating] = useState(parseInt(searchParams.get("rating")) || 0);
   const [likedOnly, setLikedOnly] = useState(searchParams.get("liked") === "true");
   const [withContentOnly, setWithContentOnly] = useState(searchParams.get("withReview") === "true");
-  
+
+  const [filteredReviews, setFilteredReviews] = useState([]);
+  const [sortOption, setSortOption] = useState({
+    field: "date",     
+    direction: "desc", 
+  });
+    
   const [totalTimelineBooks, setTotalTimelineBooks] = useState(0);
   const [totalWrittenReviews, setTotalWrittenReviews] = useState(0);
 
@@ -75,6 +81,33 @@ const ReviewTimeline = () => {
       });
   }, [userId]);
 
+  useEffect(() => {
+    const { field, direction } = sortOption;
+    let filtered = reviews.filter((review) => {
+      const matchesYear = !selectedYear || new Date(review.creationDate).getFullYear().toString() === selectedYear;
+      const matchesRating = selectedRating === 0 || review.rating === selectedRating;
+      const matchesLiked = !likedOnly || review.liked === true;
+      const matchesContent = !withContentOnly || (typeof review.content === "string" && review.content.trim().length > 0);
+
+      return matchesYear && matchesRating && matchesLiked && matchesContent;
+    });
+
+    filtered.sort((a, b) => {
+      if (field === "date") {
+        return direction === "desc"
+          ? new Date(b.creationDate) - new Date(a.creationDate)
+          : new Date(a.creationDate) - new Date(b.creationDate);
+      } else if (field === "popularity") {
+        return direction === "desc" ? b.likeCount - a.likeCount : a.likeCount - b.likeCount;
+      } else if (field === "rating") {
+        return direction === "desc" ? b.rating - a.rating : a.rating - b.rating;
+      }
+      return 0;
+    });
+
+    setFilteredReviews(filtered);
+  }, [reviews, selectedYear, selectedRating, likedOnly, withContentOnly, sortOption]);
+
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     navigate(`/${userId}/reviews/${tab}`);
@@ -92,11 +125,10 @@ const ReviewTimeline = () => {
     setSearchParams(newParams);
   };
 
-  const handleYearChange = (e) => {
-    const newYear = e.target.value;
-    setSelectedYear(newYear);
-    if (newYear) {
-      navigate(`/${userId}/reviews/timeline/${newYear}`);
+  const handleYearChange = (value) => {
+    setSelectedYear(value);
+    if (value) {
+      navigate(`/${userId}/reviews/timeline/${value}`);
     } else {
       navigate(`/${userId}/reviews/timeline`);
     }
@@ -121,23 +153,19 @@ const ReviewTimeline = () => {
     updateSearchParams({ withReview: updated });
   };
 
+  const handleSortChange = (value) => {
+    setSortOption(value);
+  };
+
   const handleResetFilters = () => {
     setSelectedYear("");
     setSelectedRating(0);
     setLikedOnly(false);
     setWithContentOnly(false);
+    setSortOption({ field: "date", direction: "desc" });
     setSearchParams({});
     navigate(`/${userId}/reviews/timeline`, { replace: true });
   };
-
-  const filteredReviews = reviews.filter((review) => {
-    const content = review.content;
-    const meetsRating = selectedRating === 0 || review.rating === selectedRating;
-    const meetsLiked = !likedOnly || review.liked === true;
-    const meetsContent =
-      !withContentOnly || (typeof content === "string" && content.trim().length > 0);
-    return meetsRating && meetsLiked && meetsContent;
-  });
 
   return (
     <div className={styles["review-timeline"]}>
@@ -158,6 +186,8 @@ const ReviewTimeline = () => {
         onResetFilters={handleResetFilters}
         totalTimelineBooks={totalTimelineBooks}
         totalWrittenReviews={totalWrittenReviews}
+        sortOption={sortOption}
+        onSortChange={handleSortChange}
       />
 
       <div className={styles["review-table"]}>
