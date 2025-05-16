@@ -1,0 +1,154 @@
+.commentSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 600px;
+    margin: 0 auto;
+  }
+  
+  .commentList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .commentItem {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 10px;
+    position: relative;
+    justify-content: center;
+  }
+  
+  .commentRank {
+    width: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+  }
+  
+  .commentRankP {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  .commentInfo {
+    flex-grow: 1;
+    cursor: pointer;
+    width: 400px;
+  }
+  
+  .commentId {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  .searchResultP{
+    width: 100%;
+    padding: 8px 16px;
+    font-size: 1rem;
+    margin-bottom: 0px;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+
+  .leftContainer {
+    flex:1;
+    margin: 0px;
+    padding: 0px;
+  }
+  
+  .rightContainer {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .commentIdGray {
+    color: #777;
+    font-weight: 400;
+    font-size: 0.9rem;
+  }
+
+  .commentInfo2{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: #444;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .commentInfo2 p{
+    display: flex;
+    align-items: center;
+    margin: 0; 
+    line-height: 1.5;
+  }
+
+  .content p{
+    display: flex;
+    align-items: center;
+    margin: 0; 
+    line-height: 1.5;
+    margin-top: 10px;
+  }
+
+  .commentButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 110px;
+    flex-direction: column;
+  }
+
+  .loading,
+  .noData {
+    text-align: center;
+    padding: 40px 0;
+    font-size: 16px;
+    color: #666;
+  }
+
+  .adminSearchBar {
+    width: 600px;
+    margin: 0 auto 20px auto;
+  }
+
+  .option-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+  }
+  
+  .option {
+    cursor: pointer;
+    padding: 8px 12px;
+    font-size: 15px;
+    color: #555;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+  }
+
+  
+  .optionActive {
+    color: #000;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
+  .option:hover {
+    background-color: #9a9a9a;
+    color: #fff;
+  }

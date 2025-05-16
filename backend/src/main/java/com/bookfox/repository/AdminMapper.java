@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.bookfox.model.AdminCommentDto;
 import com.bookfox.model.AdminUserDto;
 
 @Mapper
@@ -15,6 +16,12 @@ public interface AdminMapper {
     public int countCollections(String id);
     public int countComments(String id);
 
+    public List<AdminCommentDto> selectComments(Map<String, Object> params);
+    public int countCollectionComments(String searchKeyword);
+    
     public void changeUsers(Map<String, Object> params);
     public void adminDeleteUser(String id);
+
+    public void deleteCommentById(String id);
+    public void deleteCollectionById(String id);
 }
