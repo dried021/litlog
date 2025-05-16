@@ -1,12 +1,30 @@
-.message span {
+.message span  {
     color: #555;
     font-size: 13px;
     line-height: 45px; /* ROW HEIGHT */
 }
 
+.message {
+    display: flex;
+    line-height: 45px; /* ROW HEIGHT */
+    justify-content: space-between;
+    align-items: center;
+    width: 93%;
+}
+.left {
+    display: flex;
+    flex-wrap: wrap;
+}
+.right {
+    white-space: nowrap;
+    color: gray;
+    font-size: 0.85rem;
+}
+
+
 .hyperlink {
     text-decoration: none;
-    margin: 5px;
+    margin: 0 5px;
 }
 
 .username {

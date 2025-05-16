@@ -18,7 +18,6 @@ export default function Activity() {
         activities: []
     });
     const [loading, setLoading] = useState(true);
-    let innerText = "";
 
     useEffect(()=>{
         fetch(`http://localhost:9090/members/${userId}/activity/${activeTab}?limit=${limit}&offset=${offset}`)
@@ -63,11 +62,13 @@ export default function Activity() {
                         {result.activities.map((activity, index) => (
                             <li key={index}>
                                 <div className={styles.activity}>
-                                    <div className={styles.center}><img
-                                        src={activity.profileImage ? activity.profileImage : defaultProfile}
-                                        alt="profile"
-                                        className={styles.profileImg}
-                                    /></div>
+                                    <div className={styles.center}>
+                                        <img
+                                            src={activity.profileImage ? activity.profileImage : defaultProfile}
+                                            alt="profile"
+                                            className={styles.profileImg}
+                                        />
+                                    </div>
                                     <ActivityMessage activity={activity}></ActivityMessage>
                                 </div>
                             </li>

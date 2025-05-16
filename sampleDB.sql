@@ -236,8 +236,3 @@ INSERT INTO book_shelf (book_id, user_id, shelf_type, progress) VALUES
 (2, 'aaa', 3, 100),
 (3, 'aaa', 3, 100)
 ;
-
-/*
-select * from book_shelf where user_id="user01";
-select * from book where id=56;
-*/

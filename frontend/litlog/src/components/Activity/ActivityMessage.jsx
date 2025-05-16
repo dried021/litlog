@@ -3,11 +3,6 @@ import React from "react";
 import styles from "./ActivityMessage.module.css";
 
 export default function ActivityMessage({activity}) {
-    // TODO: date to string
-    function getDate() {
-        return 0;
-    }
-
     function getMessage() {
         switch (activity.activityType) {
             case "to_read":
@@ -102,13 +97,36 @@ export default function ActivityMessage({activity}) {
         }
     }
 
+    function timeAgo(dateString) {
+        const date = new Date(dateString); // Parse timestamp
+        const now = new Date();
+        const diff = Math.floor((now - date) / 1000); // Difference in seconds
+    
+        if (diff < 60) return "just now";
+        if (diff < 3600) {
+            let time = Math.floor(diff / 60);
+            return (time === 1 ? `${time} minute` : `${time} minutes`)
+        }
+        if (diff < 86400) {
+            let time = Math.floor(diff / 3600);
+            return (time === 1 ? `${time} hour` : `${time} hours`)
+        }
+        if (diff < 2592000) {
+            let time = Math.floor(diff / 86400);
+            return (time === 1 ? `${time} day` : `${time} days`)
+        }
+        return "";
+    }
 
     return (
-        <span className={styles.message}>
-            <a href={`/${activity.followUserId}`} className={styles.hyperlink}>
-                <span className={styles.username}>{activity.followUsername}</span>
-            </a>
-            {getMessage()}
-        </span>
+        <div className={styles.message}>
+            <span className={styles.left}>
+                <a href={`/${activity.followUserId}`} className={styles.hyperlink}>
+                    <span className={styles.username}>{activity.followUsername}</span>
+                </a>
+                {getMessage()}
+            </span>
+            <span className={styles.left}>{timeAgo(activity.creationDate)}</span>
+        </div>
     );
 }
