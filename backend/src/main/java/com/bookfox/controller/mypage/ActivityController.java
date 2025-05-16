@@ -35,7 +35,7 @@ public class ActivityController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/following")
+    @GetMapping("/incoming")
     public ResponseEntity<Map<String,Object>> getIncomingActivityFeed(
         @RequestParam String userId,
         @RequestParam(defaultValue = "10") int limit,
