@@ -1,0 +1,34 @@
+.message span {
+    color: #555;
+    font-size: 13px;
+    line-height: 45px; /* ROW HEIGHT */
+}
+
+.hyperlink {
+    text-decoration: none;
+    margin: 5px;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.username:hover {
+    color: #BAC095;
+}
+
+.book {
+    font-style: italic;
+}
+
+.book:hover {
+    color: black;
+}
+
+.content {
+    font-weight: bold;
+}
+
+.content:hover {
+    color: black;
+}
