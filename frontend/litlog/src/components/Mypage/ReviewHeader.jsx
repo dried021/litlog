@@ -19,22 +19,22 @@ const ReviewHeader = ({
   onResetFilters,
   totalTimelineBooks,
   totalWrittenReviews,
+  sortOption,
+  onSortChange,
 }) => {
   const [showTimelineTooltip, setShowTimelineTooltip] = useState(false);
   const [showReviewTooltip, setShowReviewTooltip] = useState(false);
-
   const [openDropdown, setOpenDropdown] = useState(null);
   const dropdownRef = useRef(null);
-
-  const toggleDropdown = (name) => {
-    setOpenDropdown((prev) => (prev === name ? null : name));
-  };
+  const timeoutRef = useRef(null);
 
   const formatNumber = (num) => {
     return num?.toLocaleString?.() ?? "0";
   };
 
-  const timeoutRef = useRef(null);
+  const toggleDropdown = (name) => {
+    setOpenDropdown((prev) => (prev === name ? null : name));
+  };
 
   const handleMouseEnter = (setFn) => {
     return () => {
@@ -48,6 +48,17 @@ const ReviewHeader = ({
       clearTimeout(timeoutRef.current);
       setFn(false);
     };
+  };
+
+  const getSortLabel = (field, direction) => {
+    if (field === "date") {
+      return direction === "desc" ? "Newest First" : "Oldest First";
+    } else if (field === "popularity") {
+      return direction === "desc" ? "Most Liked" : "Least Liked";
+    } else if (field === "rating") {
+      return direction === "desc" ? "Highest Rated" : "Lowest Rated";
+    }
+    return "Sort";
   };
 
   useEffect(() => {
@@ -109,20 +120,17 @@ const ReviewHeader = ({
       <div className={styles.filterGroup} ref={dropdownRef}>
         {/* Year */}
         <div className={styles.dropdownWrapper}>
-          <span
-            className={`${styles.tabButton} ${styles.filterTab} ${openDropdown === "year" ? styles.active : ""}`}
-            onClick={() => toggleDropdown("year")}
-          > 
+          <span className={`${styles.tabButton} ${styles.filterTab} ${openDropdown === "year" ? styles.active : ""}`} onClick={() => toggleDropdown("year")}>
             {selectedYear || "Year"} ▾
           </span>
           {openDropdown === "year" && (
             <div className={styles.dropdownMenu}>
-              <div className={styles.dropdownItem} onClick={() => onYearChange({ target: { value: "" } })}>
+              <div className={styles.dropdownItem} onClick={() => onYearChange("")}>
                 Any year
               </div>
               <div className={styles.scrollArea}>
                 {years.map((year) => (
-                  <div key={year} className={styles.dropdownItem} onClick={() => onYearChange({ target: { value: year } })}>
+                  <div key={year} className={styles.dropdownItem} onClick={() => onYearChange(year)}>
                     {year}
                   </div>
                 ))}
@@ -179,6 +187,46 @@ const ReviewHeader = ({
                   label={<span className={styles.filterLabel}>With Review</span>}
                 />
               )}
+            </div>
+          )}
+        </div>
+        
+        {/* Sort */}
+        <div className={styles.dropdownWrapper}>
+          <span className={`${styles.tabButton} ${styles.filterTab} ${openDropdown === "sort" ? styles.active : ""}`} onClick={() => toggleDropdown("sort")}>
+            Sort by: {getSortLabel(sortOption.field, sortOption.direction)} ▾
+          </span>
+          {openDropdown === "sort" && (
+            <div className={styles.dropdownMenu}>
+              <div className={styles.dropdownSection}>
+                <div className={styles.dropdownTitle}>Logged Date</div>
+                <div className={styles.dropdownItem} onClick={() => onSortChange({ field: "date", direction: "desc" })}>
+                  Newest First
+                </div>
+                <div className={styles.dropdownItem} onClick={() => onSortChange({ field: "date", direction: "asc" })}>
+                  Oldest First
+                </div>
+              </div>
+
+              <div className={styles.dropdownSection}>
+                <div className={styles.dropdownTitle}>Popularity</div>
+                <div className={styles.dropdownItem} onClick={() => onSortChange({ field: "popularity", direction: "desc" })}>
+                  Most Liked
+                </div>
+                <div className={styles.dropdownItem} onClick={() => onSortChange({ field: "popularity", direction: "asc" })}>
+                  Least Liked
+                </div>
+              </div>
+
+              <div className={styles.dropdownSection}>
+                <div className={styles.dropdownTitle}>Your Rating</div>
+                <div className={styles.dropdownItem} onClick={() => onSortChange({ field: "rating", direction: "desc" })}>
+                  Highest First
+                </div>
+                <div className={styles.dropdownItem} onClick={() => onSortChange({ field: "rating", direction: "asc" })}>
+                  Lowest First
+                </div>
+              </div>
             </div>
           )}
         </div>
