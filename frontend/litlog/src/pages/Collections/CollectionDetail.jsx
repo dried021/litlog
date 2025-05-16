@@ -93,8 +93,32 @@ const CollectionDetail = () => {
         </div>
         {user === collection.userId && (
           <div className={styles.modifyDelete}>
-            <button className={styles.editBtn}>Modify</button>
-            <button className={styles.deleteBtn}>Delete</button>
+            <button 
+              className={styles.editBtn}
+              onClick={() => navigate(`/collections/${collection.id}/edit`)}
+            >
+                Modify
+            </button>
+            <button
+              className={styles.deleteBtn}
+              onClick={async () => {
+                const confirmDelete = window.confirm('정말 삭제하시겠습니까?');
+                if (!confirmDelete) return;
+
+                try {
+                  await axios.delete(`http://localhost:9090/collections/${collection.id}`, {
+                    withCredentials: true,
+                  });
+                  alert('삭제되었습니다.');
+                  navigate('/collections'); // 삭제 후 목록으로 이동
+                } catch (err) {
+                  console.error('삭제 실패:', err);
+                  alert('삭제 중 오류가 발생했습니다.');
+                }
+              }}
+            >
+              Delete
+          </button>
           </div>
         )}
       </div>

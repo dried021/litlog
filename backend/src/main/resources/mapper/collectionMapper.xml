@@ -185,4 +185,20 @@
     SELECT COUNT(*) FROM book_collection_book WHERE collection_id = #{collectionId}
     </select>
 
+    <update id="updateCollectionMeta">
+        UPDATE book_collection
+        SET title = #{title}, content = #{content}, thumbnail = #{thumbnail}
+        WHERE id = #{id} AND user_id = #{userId}
+    </update>
+
+    <delete id="deleteBooksByCollectionId">
+        DELETE FROM book_collection_book
+        WHERE collection_id = #{collectionId}
+    </delete>
+
+    <delete id="deleteCollection">
+        DELETE FROM book_collection
+        WHERE id = #{collectionId} AND user_id = #{userId} <!-- 본인만 삭제 가능 -->
+    </delete>
+
 </mapper>
