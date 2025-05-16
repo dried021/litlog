@@ -48,8 +48,10 @@ Books 검색 결과    /books/search/{bookId}
 /user 그냥 유저 id 가져오는거 param X return userId
 
 컬렉션 메인    /collections
-컬렉션 상세 페이지    /collections/detail
+컬렉션 상세 페이지    /collections/{collectionId}
 컬렉션 생성 페이지    /collections/new
+이번주 인기 컬렉션 more     /collections/list
+컬렉션 수정     /collections/:collectionId/edit
 랭킹 (유저들)    /readers
 회원 프로필 정보    /{userId}
 책장    /{userId}/bookshelf
