@@ -22,6 +22,5 @@ public class ActivityDto {
     private int rating;
     
     private Timestamp creationDate;
-    private int activityType;
-    private String date;
+    private String activityType;
 }
