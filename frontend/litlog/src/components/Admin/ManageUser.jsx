@@ -115,12 +115,18 @@ function ManageUser() {
                         </div>
                         
                         <div className={styles.userStats}>
-                          <img className={styles.icon} src="/icons/bookshelf.svg" alt="reviews" />
-                          <p className={styles.stat}>{user.reviews ?? 0}</p>
-                          <img className={styles.icon} src="/icons/collections.svg" alt="collections" />
-                          <p className={styles.stat}>{user.collections ?? 0}</p>
-                          <img className={styles.icon} src="/icons/collections.svg" alt="comments" />
-                          <p className={styles.stat}>{user.comments ?? 0}</p>
+                          <div className={styles.statItem} onClick={()=>{}}>
+                            <img className={styles.icon} src="/icons/bookshelf.svg" alt="reviews" />
+                            <p className={styles.stat}>{user.reviews ?? 0}</p>
+                          </div>
+                          <div className={styles.statItem}>
+                            <img className={styles.icon} src="/icons/collections.svg" alt="collections" />
+                            <p className={styles.stat}>{user.collections ?? 0}</p>
+                          </div>
+                          <div className={styles.statItem}>
+                            <img className={styles.icon} src="/icons/collections.svg" alt="comments" />
+                            <p className={styles.stat}>{user.comments ?? 0}</p>
+                          </div>
                         </div>
 
                         
