@@ -1,10 +1,15 @@
-import React, { useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './NewCollection.module.css';
-import { UserContext } from '../../libs/UserContext';
 import { useRequireAuth } from '../../libs/useRequireAuth';
 import { useSubmitCollection } from './useSubmitCollection';
 
-const NewCollection = () => {
+const NewCollection = ({
+  mode = 'create', // 'edit'이면 수정 모드
+  collectionId,
+  initialTitle = '',
+  initialContent = '',
+  initialBooks = []
+}) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -15,6 +20,16 @@ const NewCollection = () => {
   const [hasMore, setHasMore] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const user = useRequireAuth();
+  const userId = user;
+
+  // 초기 데이터 반영
+  useEffect(() => {
+    setTitle(initialTitle);
+    setContent(initialContent);
+    setSelectedBooks(initialBooks);
+  }, []);
+
   const resetForm = () => {
     setTitle('');
     setContent('');
@@ -23,20 +38,18 @@ const NewCollection = () => {
     setSelectedBooks([]);
   };
 
-  const user = useRequireAuth();
-  const userId = user;
-
   const { handleSubmit } = useSubmitCollection(
     title,
     content,
     selectedBooks,
-    resetForm
+    resetForm,
+    mode,
+    collectionId
   );
-  console.log('[submit payload] userId:', userId);
-  console.log('[User object]', user);
+
   if (user === undefined) return <div>로그인 확인 중...</div>;
   if (user === null) return null;
-  
+
   const handleSearch = async () => {
     if (!searchQuery.trim()) return;
 
@@ -49,11 +62,11 @@ const NewCollection = () => {
         title: item.volumeInfo.title || 'No Title',
         authors: item.volumeInfo.authors?.join(', ') || 'Unknown Author',
         publisher: item.volumeInfo.publisher || 'Unknown Publisher',
-        thumbnail: item.volumeInfo.imageLinks?.thumbnail || '/images/covernotavailable.png  ',
+        thumbnail: item.volumeInfo.imageLinks?.thumbnail || '/images/covernotavailable.png',
       })) || [];
 
       setSearchResults(books);
-      setPage(1); // 다음 페이지를 위한 startIndex = 10
+      setPage(1);
       setHasMore((data.totalItems || 0) > books.length);
     } catch (err) {
       console.error('Google Books API Error:', err);
@@ -100,10 +113,11 @@ const NewCollection = () => {
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.pageTitle}>Create a New Collection</h2>
+      <h2 className={styles.pageTitle}>
+        {mode === 'edit' ? 'Edit Your Collection' : 'Create a New Collection'}
+      </h2>
 
       <form className={styles.form} onSubmit={handleSubmit}>
-        {/* 1. Collection Name */}
         <label>Collection Name</label>
         <input
           type="text"
@@ -112,7 +126,6 @@ const NewCollection = () => {
           placeholder="Enter collection name"
         />
 
-        {/* 2. Description */}
         <label>Description</label>
         <textarea
           value={content}
@@ -120,25 +133,22 @@ const NewCollection = () => {
           placeholder="Enter description"
         />
 
-        {/* 3. Book Search */}
-        {/* 바깥 form 유지 */}
-          {/* 내부 form → div 로 수정 */}
-          <div className={styles.bookSearch}>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search Books…"
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  e.preventDefault();
-                  handleSearch();
-                }
-              }}
-            />
-            <button type="button" onClick={handleSearch}>Search</button>
-          </div>
-        {/* 4. Search Results (출력 조건부) */}
+        <div className={styles.bookSearch}>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search Books…"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleSearch();
+              }
+            }}
+          />
+          <button type="button" onClick={handleSearch}>Search</button>
+        </div>
+
         {searchResults.length > 0 && (
           <>
             <div className={styles.searchResultsBox}>
@@ -153,7 +163,6 @@ const NewCollection = () => {
               ))}
             </div>
 
-            {/*Load More 버튼 */}
             {hasMore && (
               <button type="button" onClick={loadMore} className={styles.loadMoreBtn}>
                 {isLoading ? 'Loading...' : 'Load More'}
@@ -162,7 +171,6 @@ const NewCollection = () => {
           </>
         )}
 
-        {/* 5. Added Books List */}
         <div className={styles.addedBooks}>
           <p>Added Books List</p>
           {selectedBooks.length === 0 ? (
@@ -188,8 +196,9 @@ const NewCollection = () => {
           )}
         </div>
 
-        {/* 6. Submit */}
-        <button type="submit" className={styles.submitBtn}>Submit</button>
+        <button type="submit" className={styles.submitBtn}>
+          {mode === 'edit' ? 'Update' : 'Submit'}
+        </button>
       </form>
     </div>
   );

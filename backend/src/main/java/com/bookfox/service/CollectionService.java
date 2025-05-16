@@ -73,4 +73,30 @@ public class CollectionService {
         return collectionMapper.getBookCountByCollectionId(collectionId);
     }
     
+    public void updateCollection(CollectionDto dto) {
+        // 1. 기존 책들 삭제
+        collectionMapper.deleteBooksByCollectionId(dto.getId());
+
+        // 2. 컬렉션 제목/내용 업데이트
+        collectionMapper.updateCollectionMeta(dto);
+
+        // 3. 새 책들 추가
+        for (BookDto book : dto.getBooks()) {
+            Integer bookId = collectionMapper.findBookIdByApiId(book.getBookApiId());
+            if (bookId == null) {
+                collectionMapper.insertBook(book);
+                bookId = book.getId(); // useGeneratedKeys로 자동 생성됨
+            }
+            collectionMapper.insertCollectionBook(dto.getId(), bookId, book.getThumbnail());
+        }
+    }
+
+    public void deleteCollection(int collectionId, String userId) {
+        // 1. 연결된 책 삭제
+        collectionMapper.deleteBooksByCollectionId(collectionId);
+
+        // 2. 컬렉션 자체 삭제
+        collectionMapper.deleteCollection(collectionId, userId);
+    }
+
 }

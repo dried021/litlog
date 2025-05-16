@@ -16,6 +16,7 @@ import CollectionMain from '../pages/Collections/CollectionMain';
 import CollectionPopularList from '../pages/Collections/CollectionPopularList';
 import CollectionDetail from '../pages/Collections/CollectionDetail';
 import NewCollection from '../pages/Collections/NewCollection';
+import EditCollection from '../pages/Collections/EditCollection';
 
 import ReadersMain from '../pages/Readers/ReadersMain'; 
 import SearchReaders from '../pages/Readers/SearchReaders';
@@ -65,6 +66,8 @@ const AppRouter = () => {
             <Route path="/collections/list" element={<CollectionPopularList />} />
             <Route path="/collections/new" element={<NewCollection />} />
             <Route path="/collections/:collectionId" element={<CollectionDetail />} />
+            <Route path="/collections/:collectionId/edit" element={<EditCollection />} />
+
 
             {/* Readers */}
             <Route path="/readers" element={<ReadersMain />} />

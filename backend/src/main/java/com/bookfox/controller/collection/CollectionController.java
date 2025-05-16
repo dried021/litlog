@@ -78,6 +78,46 @@ public class CollectionController {
         return result;
     }
 
+    @PutMapping("/{collectionId}")
+    public ResponseEntity<?> updateCollection(
+        @PathVariable int collectionId,
+        @RequestBody CollectionDto dto,
+        HttpSession session
+    ) {
+        String userId = (String) session.getAttribute("loginUser");
+        if (userId == null) {
+            return ResponseEntity.status(401).body("로그인이 필요합니다.");
+        }
 
+        dto.setId(collectionId);
+        dto.setUserId(userId);
+
+        try {
+            collectionService.updateCollection(dto);
+            return ResponseEntity.ok("수정 성공");
+        } catch (Exception e) {
+            e.printStackTrace(); // ✅ 서버 콘솔에 전체 오류 출력
+            return ResponseEntity.status(500).body("수정 실패");
+        }
+    }
+
+    @DeleteMapping("/{collectionId}")
+    public ResponseEntity<?> deleteCollection(
+        @PathVariable int collectionId,
+        HttpSession session
+    ) {
+        String userId = (String) session.getAttribute("loginUser");
+        if (userId == null) {
+            return ResponseEntity.status(401).body("로그인이 필요합니다.");
+        }
+
+        try {
+            collectionService.deleteCollection(collectionId, userId);
+            return ResponseEntity.ok("삭제 완료");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("삭제 실패");
+        }
+    }
 }
 
