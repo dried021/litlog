@@ -26,7 +26,8 @@ import Bookshelf from '../pages/Mypage/Bookshelf';
 import ReviewTimeline from '../pages/Mypage/ReviewTimeline';
 import ReviewList from '../pages/Mypage/ReviewList';
 import ReviewDetail from '../pages/Mypage/ReviewDetail';
-import CollectionList from '../pages/Mypage/CollectionList';
+import CreatedCollection from '../pages/Mypage/CreatedCollection';
+import LikedCollection from '../pages/Mypage/LikedCollection';
 import Activity from '../pages/Mypage/Activity';
 
 import EditProfile from '../pages/Settings/EditProfile';
@@ -77,7 +78,8 @@ const AppRouter = () => {
             <Route path="/:userId/reviews/timeline/:year?" element={<ReviewTimeline />} />
             <Route path="/:userId/reviews/list/:year?" element={<ReviewList />} />
             <Route path="/:userId/reviews/detail/:reviewId" element={<ReviewDetail />} />
-            <Route path="/:userId/collections" element={<CollectionList />} />
+            <Route path="/:userId/collections/created" element={<CreatedCollection />} />
+            <Route path="/:userId/collections/liked" element={<LikedCollection />} />
             <Route path="/:userId/activity" element={<Activity/>}/>
     
             {/* Setting */}
