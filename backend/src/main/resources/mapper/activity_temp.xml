@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bookfox.repository.ActivityTempMapper">
+    <select id="getFollowingActivity" resultType="com.bookfox.model.ActivityDto" parameterType="map">
+    
+    </select>
+
+    <select id="getFollowingToReadActivity" resultType="com.bookfox.model.ActivityDto" parameterType="String">
+        SELECT
+            fl.follow_user_id AS followUserId,
+            u.nickname AS followUsername,
+            u.profile_image AS profileImage,
+            b.book_api_id AS bookApiId,
+            b.title AS bookTitle,
+            bs.creation_date AS creationDate
+        FROM follow_list fl
+            JOIN user u ON u.id = fl.follow_user_id
+            JOIN book_shelf bs ON bs.user_id = fl.follow_user_id
+            JOIN book b ON b.id = bs.book_id
+        WHERE fl.user_id = #{userId}
+            AND bs.shelf_type = 1
+            AND bs.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    </select>
+    <select id="getFollowingReadingActivity" resultType="com.bookfox.model.ActivityDto" parameterType="String">
+        SELECT
+            fl.follow_user_id AS followUserId,
+            u.nickname AS followUsername,
+            u.profile_image AS profileImage,
+            b.book_api_id AS bookApiId,
+            b.title AS bookTitle,
+            bs.creation_date AS creationDate
+        FROM follow_list fl
+            JOIN user u ON u.id = fl.follow_user_id
+            JOIN book_shelf bs ON bs.user_id = fl.follow_user_id
+            JOIN book b ON b.id = bs.book_id
+        WHERE fl.user_id = #{userId}
+            AND bs.shelf_type = 2
+            AND bs.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    </select>
+    <select id="getFollowingReadActivity" resultType="com.bookfox.model.ActivityDto" parameterType="String">
+        SELECT
+            fl.follow_user_id AS followUserId,
+            u.nickname AS followUsername,
+            u.profile_image AS profileImage,
+            b.book_api_id AS bookApiId,
+            b.title AS bookTitle,
+            bs.creation_date AS creationDate
+        FROM follow_list fl
+            JOIN user u ON u.id = fl.follow_user_id
+            JOIN book_shelf bs ON bs.user_id = fl.follow_user_id
+            JOIN book b ON b.id = bs.book_id
+        WHERE fl.user_id = #{userId}
+            AND bs.shelf_type = 3
+            AND bs.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    </select>
+    <select id="getFollowingReviewActivity" resultType="com.bookfox.model.ActivityDto" parameterType="String">
+        SELECT
+            fl.follow_user_id AS followUserId,
+            u.nickname AS followUsername,
+            u.profile_image AS profileImage,
+            b.book_api_id AS bookApiId,
+            b.title AS bookTitle,
+            br.id AS reviewId,
+            br.rating,
+            br.creation_date AS creationDate
+        FROM follow_list fl
+            JOIN user u ON u.id = fl.follow_user_id
+            JOIN book_review br ON br.user_id = fl.follow_user_id
+            JOIN book b ON b.id = br.book_id
+        WHERE fl.user_id = #{userId}
+            AND br.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    </select>
+    <select id="getFollowingLikedBookActivity" resultType="com.bookfox.model.ActivityDto" parameterType="String">
+        SELECT
+            fl.follow_user_id AS followUserId,
+            u.nickname AS followUsername,
+            u.profile_image AS profileImage,
+            b.book_api_id AS bookApiId,
+            b.title AS bookTitle,
+            ll.creation_date AS creationDate
+        FROM follow_list fl
+            JOIN user u ON u.id = fl.follow_user_id
+            JOIN like_list ll ON ll.user_id = fl.follow_user_id
+            JOIN book b ON b.id = ll.target_id
+        WHERE fl.user_id = #{userId}
+            AND ll.like_type = 2
+            AND ll.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    </select>
+    <select id="getRecentFollowers" resultType="com.bookfox.model.ActivityDto" parameterType="String">
+        SELECT
+            fl.follow_user_id AS followUserId,
+            u.nickname AS followUsername,
+            u.profile_image AS profileImage,
+            fl.creation_date AS creationDate
+        FROM follow_list fl
+            JOIN user u ON u.id = fl.follow_user_id
+        WHERE fl.user_id = #{userId}
+            AND fl.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    </select>
+    <select id="getMyReviewLikedActivity" resultType="com.bookfox.model.ActivityDto" parameterType="String">
+        SELECT
+            u.id AS followUserId,
+            u.nickname AS followUsername,
+            u.profile_image AS profileImage,
+            b.book_api_id AS bookApiId,
+            b.title AS bookTitle,
+            ll.creation_date AS creationDate
+        FROM book_review br
+            JOIN book b ON b.id = br.book_id
+            JOIN like_list ll ON ll.target_id = br.id
+            JOIN user u ON u.id = ll.user_id
+        WHERE br.user_id = #{userId}
+            AND ll.like_type = 1
+            AND u.id != #{userId}
+            AND ll.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    </select>
+    <select id="getMyCollectionLikedActivity" resultType="com.bookfox.model.ActivityDto" parameterType="String">
+        SELECT
+            u.id AS followUserId,
+            u.nickname AS followUsername,
+            u.profile_image AS profileImage,
+            bc.id AS collectionId,
+            bc.title AS collectionTitle,
+            ll.creation_date AS creationDate
+        FROM book_collection bc
+            JOIN like_list ll ON ll.target_id = bc.id
+            JOIN user u ON u.id = ll.user_id
+        WHERE bc.user_id = #{userId}
+            AND ll.like_type = 3
+            AND u.id != #{userId}
+            AND ll.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+    </select>
+</mapper>
