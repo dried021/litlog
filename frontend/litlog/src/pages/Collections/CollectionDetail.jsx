@@ -1,25 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from './CollectionDetail.module.css';
 import Pagination from "../../components/Pagination/Pagination";
 import CollectionCommentSection from './CollectionCommentSection';
+import { UserContext } from '../../libs/UserContext';
 
 const CollectionDetail = () => {
   const { collectionId } = useParams();
-  const [collection, setCollection] = useState(null);        // 메타 정보
-  const [books, setBooks] = useState([]);                    // 현재 페이지 책
-  const [totalBooks, setTotalBooks] = useState(0);           // 전체 책 수
+  const [collection, setCollection] = useState(null);
+  const [books, setBooks] = useState([]);
+  const [totalBooks, setTotalBooks] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const booksPerPage = 12;
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const booksPerPage = 12;
 
+  // 📌 메타 정보 & 좋아요 상태 불러오기 (병렬 처리)
   useEffect(() => {
-    axios.get(`http://localhost:9090/collections/${collectionId}`)
-      .then(res => setCollection(res.data))
-      .catch(err => console.error('불러오기 실패', err));
+    const fetchMetaAndLike = async () => {
+      try {
+        const [metaRes, likedRes] = await Promise.all([
+          axios.get(`http://localhost:9090/collections/${collectionId}`, { withCredentials: true }),
+          axios.get(`http://localhost:9090/collections/${collectionId}/like-status`, { withCredentials: true })
+        ]);
+
+        setCollection(metaRes.data);
+        setLikeCount(metaRes.data.likeCount);
+        setLiked(likedRes.data);
+      } catch (err) {
+        console.error('콜렉션 정보 또는 좋아요 상태 불러오기 실패', err);
+      }
+    };
+
+    fetchMetaAndLike();
   }, [collectionId]);
 
+
+  // 📚 책 목록 페이징 조회
   useEffect(() => {
     axios.get(`http://localhost:9090/collections/${collectionId}/books`, {
       params: {
@@ -34,67 +54,91 @@ const CollectionDetail = () => {
       .catch(err => console.error('책 목록 불러오기 실패', err));
   }, [collectionId, currentPage]);
 
+  // 좋아요 토글
+  const handleLikeToggle = async () => {
+    if (!user) {
+      navigate(`/sign-in?redirect=${encodeURIComponent(window.location.pathname)}`);
+      return;
+    }
+
+    if (collection && user === collection.userId) {
+      alert("자신의 콜렉션에는 좋아요를 누를 수 없습니다.");
+      return;
+    }
+
+    try {
+      const res = await axios.post(`http://localhost:9090/collections/${collectionId}/like`, {}, {
+        withCredentials: true
+      });
+
+      setLiked(res.data.liked);
+      setLikeCount(res.data.likeCount);
+    } catch (err) {
+      console.error("좋아요 처리 실패:", err);
+    }
+  };
+
+
   if (!collection) return <p>로딩 중...</p>;
 
   return (
-    
     <div className={styles.outerWrapper}>
-      
-      {/* 좌측 좋아요/댓글수 / 우측 수정/삭제 버튼 */}
+      {/* 상단 좋아요/댓글수 및 수정/삭제 */}
       <div className={styles.topBar}>
         <div className={styles.likeComment}>
-          ❤️ {collection.likeCount} ・ 💬 {collection.commentCount}
+          <span onClick={handleLikeToggle} style={{ cursor: 'pointer' }}>
+            {liked ? '❤️' : '🤍'} {likeCount}
+          </span>
+          <span> ・ 💬 {collection.commentCount}</span>
         </div>
-        <div className={styles.modifyDelete}>
-          <button className={styles.editBtn}>Modify</button>
-          <button className={styles.deleteBtn}>Delete</button>
-        </div>
+        {user === collection.userId && (
+          <div className={styles.modifyDelete}>
+            <button className={styles.editBtn}>Modify</button>
+            <button className={styles.deleteBtn}>Delete</button>
+          </div>
+        )}
       </div>
 
-      {/* 전체 콘텐츠 박스 감싸기 */}
+      {/* 메타 정보 */}
       <div className={styles.container}>
-        
-        {/* 박스 1: Collection Info */}
         <div className={styles.cardBox}>
           <h2 className={styles.title}>{collection.title}</h2>
           <p className={styles.content}>{collection.content}</p>
           <p className={styles.author}>작성자: {collection.nickname}</p>
         </div>
 
-        {/* 박스 2: 책 목록 + 페이지네이션 */}        
-          <div className={styles.bookGrid}>
-            {books.map(book => (
-              <div
-                key={book.id}
-                className={styles.bookCard}
-                onClick={() => navigate(`/books/${book.bookApiId}`)}
-              >
-                <img src={book.thumbnail} alt={book.title} className={styles.thumbnail} />
-                <div className={styles.overlay}>{book.title}</div>
-              </div>
-            ))}
-          </div>
+        {/* 책 목록 */}
+        <div className={styles.bookGrid}>
+          {books.map(book => (
+            <div
+              key={book.id}
+              className={styles.bookCard}
+              onClick={() => navigate(`/books/${book.bookApiId}`)}
+            >
+              <img src={book.thumbnail} alt={book.title} className={styles.thumbnail} />
+              <div className={styles.overlay}>{book.title}</div>
+            </div>
+          ))}
+        </div>
 
-          <div className={styles.bookPagination}>
-            <Pagination
-              currentPage={currentPage}
-              pageBlock={5}
-              pageCount={Math.ceil(totalBooks / booksPerPage)}
-              onPageChange={(pageNum) => setCurrentPage(pageNum)}
-            />
-          </div>
+        <div className={styles.bookPagination}>
+          <Pagination
+            currentPage={currentPage}
+            pageBlock={5}
+            pageCount={Math.ceil(totalBooks / booksPerPage)}
+            onPageChange={setCurrentPage}
+          />
+        </div>
 
-        {/* 박스 3: 댓글 */}
+        {/* 댓글 영역 */}
         <div className={styles.commentSection}>
           <div className={styles.cardBox}>
             <CollectionCommentSection collectionId={collectionId} />
           </div>
         </div>
-
       </div>
     </div>
   );
-
 };
 
 export default CollectionDetail;
