@@ -11,8 +11,12 @@
             u.profile_image AS profileImage,
             b.book_api_id AS bookApiId,
             b.title AS bookTitle,
+            NULL AS collectionId,
+            NULL AS collectionTitle,
+            NULL AS reviewId,
+            NULL as rating,
             bs.creation_date AS creationDate,
-            1 AS activityType
+            "to_read" AS activityType
         FROM follow_list fl
             JOIN user u ON u.id = fl.follow_user_id
             JOIN book_shelf bs ON bs.user_id = fl.follow_user_id
@@ -20,17 +24,19 @@
         WHERE fl.user_id = #{userId}
             AND bs.shelf_type = 1
             AND bs.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
-        
         UNION ALL
-
         SELECT
             fl.follow_user_id AS followUserId,
             u.nickname AS followUsername,
             u.profile_image AS profileImage,
             b.book_api_id AS bookApiId,
             b.title AS bookTitle,
+            NULL AS collectionId,
+            NULL AS collectionTitle,
+            NULL AS reviewId,
+            NULL as rating,
             bs.creation_date AS creationDate,
-            2 AS activityType
+            "reading" AS activityType
         FROM follow_list fl
             JOIN user u ON u.id = fl.follow_user_id
             JOIN book_shelf bs ON bs.user_id = fl.follow_user_id
@@ -38,17 +44,19 @@
         WHERE fl.user_id = #{userId}
             AND bs.shelf_type = 2
             AND bs.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
-
         UNION ALL
-
         SELECT
             fl.follow_user_id AS followUserId,
             u.nickname AS followUsername,
             u.profile_image AS profileImage,
             b.book_api_id AS bookApiId,
             b.title AS bookTitle,
+            NULL AS collectionId,
+            NULL AS collectionTitle,
+            NULL AS reviewId,
+            NULL as rating,
             bs.creation_date AS creationDate,
-            3 AS activityType
+            "read" AS activityType
         FROM follow_list fl
             JOIN user u ON u.id = fl.follow_user_id
             JOIN book_shelf bs ON bs.user_id = fl.follow_user_id
@@ -56,36 +64,38 @@
         WHERE fl.user_id = #{userId}
             AND bs.shelf_type = 3
             AND bs.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
-
         UNION ALL
-
         SELECT
             fl.follow_user_id AS followUserId,
             u.nickname AS followUsername,
             u.profile_image AS profileImage,
             b.book_api_id AS bookApiId,
             b.title AS bookTitle,
+            NULL AS collectionId,
+            NULL AS collectionTitle,
             br.id AS reviewId,
             br.rating,
             br.creation_date AS creationDate,
-            4 AS activityType
+            "review" AS activityType
         FROM follow_list fl
             JOIN user u ON u.id = fl.follow_user_id
             JOIN book_review br ON br.user_id = fl.follow_user_id
             JOIN book b ON b.id = br.book_id
         WHERE fl.user_id = #{userId}
             AND br.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
-        
         UNION ALL
-
         SELECT
             fl.follow_user_id AS followUserId,
             u.nickname AS followUsername,
             u.profile_image AS profileImage,
             b.book_api_id AS bookApiId,
             b.title AS bookTitle,
+            NULL AS collectionId,
+            NULL AS collectionTitle,
+            NULL AS reviewId,
+            NULL AS rating,
             ll.creation_date AS creationDate,
-            5 AS activityType
+            "liked_book" AS activityType
         FROM follow_list fl
             JOIN user u ON u.id = fl.follow_user_id
             JOIN like_list ll ON ll.user_id = fl.follow_user_id
@@ -93,7 +103,6 @@
         WHERE fl.user_id = #{userId}
             AND ll.like_type = 2
             AND ll.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
-
         ORDER BY creationDate DESC
         LIMIT #{limit} OFFSET #{offset}
     </select>
@@ -103,23 +112,31 @@
             fl.follow_user_id AS followUserId,
             u.nickname AS followUsername,
             u.profile_image AS profileImage,
+            NULL AS bookApiId,
+            NULL AS bookTitle,
+            NULL AS collectionId,
+            NULL AS collectionTitle,
+            NULL AS reviewId,
+            NULL AS rating,
             fl.creation_date AS creationDate,
-            6 AS activityType
+            "recent_followers" AS activityType
         FROM follow_list fl
             JOIN user u ON u.id = fl.follow_user_id
         WHERE fl.user_id = #{userId}
             AND fl.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
-
         UNION ALL
-
         SELECT
             u.id AS followUserId,
             u.nickname AS followUsername,
             u.profile_image AS profileImage,
             b.book_api_id AS bookApiId,
             b.title AS bookTitle,
+            NULL AS collectionId,
+            NULL AS collectionTitle,
+            br.id AS reviewId,
+            br.rating AS rating,
             ll.creation_date AS creationDate,
-            7 AS activityType
+            "review_liked" AS activityType
         FROM book_review br
             JOIN book b ON b.id = br.book_id
             JOIN like_list ll ON ll.target_id = br.id
@@ -128,17 +145,19 @@
             AND ll.like_type = 1
             AND u.id != #{userId}
             AND ll.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
-        
         UNION ALL
-
         SELECT
             u.id AS followUserId,
             u.nickname AS followUsername,
             u.profile_image AS profileImage,
+            NULL AS bookApiId,
+            NULL AS bookTitle,
             bc.id AS collectionId,
             bc.title AS collectionTitle,
+            NULL AS reviewId,
+            NULL AS rating,
             ll.creation_date AS creationDate,
-            8 AS activityType
+            "collection_liked" AS activityType
         FROM book_collection bc
             JOIN like_list ll ON ll.target_id = bc.id
             JOIN user u ON u.id = ll.user_id
@@ -146,7 +165,6 @@
             AND ll.like_type = 3
             AND u.id != #{userId}
             AND ll.creation_date &gt;= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
-
         ORDER BY creationDate DESC
         LIMIT #{limit} OFFSET #{offset}
     </select>
