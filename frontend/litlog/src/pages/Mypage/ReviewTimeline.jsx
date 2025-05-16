@@ -9,22 +9,28 @@ import "../../components/Mypage/tooltip.css";
 
 const ReviewTimeline = () => {
   const { userId, year } = useParams();
-  const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(year || "");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  
+  const [years, setYears] = useState([]);
+  const currentYear = new Date().getFullYear();
+  
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState("timeline");
 
-  const [showLikedOnly, setShowLikedOnly] = useState(searchParams.get("liked") === "true");
+  const [selectedRating, setSelectedRating] = useState(parseInt(searchParams.get("rating")) || 0);
+  const [likedOnly, setLikedOnly] = useState(searchParams.get("liked") === "true");
   const [withContentOnly, setWithContentOnly] = useState(searchParams.get("withReview") === "true");
-  const [ratingFilter, setRatingFilter] = useState(parseInt(searchParams.get("rating")) || 0);
 
-  const [years, setYears] = useState([]);
-
+  const [filteredReviews, setFilteredReviews] = useState([]);
+  const [sortOption, setSortOption] = useState({
+    field: "date",     
+    direction: "desc", 
+  });
+    
   const [totalTimelineBooks, setTotalTimelineBooks] = useState(0);
   const [totalWrittenReviews, setTotalWrittenReviews] = useState(0);
 
@@ -75,6 +81,38 @@ const ReviewTimeline = () => {
       });
   }, [userId]);
 
+  useEffect(() => {
+    const { field, direction } = sortOption;
+    let filtered = reviews.filter((review) => {
+      const matchesYear = !selectedYear || new Date(review.creationDate).getFullYear().toString() === selectedYear;
+      const matchesRating = selectedRating === 0 || review.rating === selectedRating;
+      const matchesLiked = !likedOnly || review.liked === true;
+      const matchesContent = !withContentOnly || (typeof review.content === "string" && review.content.trim().length > 0);
+
+      return matchesYear && matchesRating && matchesLiked && matchesContent;
+    });
+
+    filtered.sort((a, b) => {
+      if (field === "date") {
+        return direction === "desc"
+          ? new Date(b.creationDate) - new Date(a.creationDate)
+          : new Date(a.creationDate) - new Date(b.creationDate);
+      } else if (field === "popularity") {
+        return direction === "desc" ? b.likeCount - a.likeCount : a.likeCount - b.likeCount;
+      } else if (field === "rating") {
+        return direction === "desc" ? b.rating - a.rating : a.rating - b.rating;
+      }
+      return 0;
+    });
+
+    setFilteredReviews(filtered);
+  }, [reviews, selectedYear, selectedRating, likedOnly, withContentOnly, sortOption]);
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    navigate(`/${userId}/reviews/${tab}`);
+  };
+
   const updateSearchParams = (updates) => {
     const newParams = new URLSearchParams(searchParams);
     Object.entries(updates).forEach(([key, value]) => {
@@ -87,23 +125,24 @@ const ReviewTimeline = () => {
     setSearchParams(newParams);
   };
 
-  const handleYearChange = (e) => {
-    const newYear = e.target.value;
-    setSelectedYear(newYear);
-    if (newYear) {
-      navigate(`/${userId}/reviews/timeline/${newYear}`);
+  const handleYearChange = (value) => {
+    setSelectedYear(value);
+    if (value) {
+      navigate(`/${userId}/reviews/timeline/${value}`);
     } else {
       navigate(`/${userId}/reviews/timeline`);
     }
   };
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
+  const handleRatingChange = (value) => {
+    const finalVal = isNaN(value) ? 0 : value;
+    setSelectedRating(finalVal);
+    updateSearchParams({ rating: finalVal });
   };
 
   const handleToggleLiked = () => {
-    const updated = !showLikedOnly;
-    setShowLikedOnly(updated);
+    const updated = !likedOnly
+    setLikedOnly(updated);
     updateSearchParams({ liked: updated });
   };
 
@@ -113,29 +152,19 @@ const ReviewTimeline = () => {
     updateSearchParams({ withReview: updated });
   };
 
-  const handleRatingChange = (e) => {
-    const val = parseInt(e.target.value);
-    const finalVal = isNaN(val) ? 0 : val;
-    setRatingFilter(finalVal);
-    updateSearchParams({ rating: finalVal });
+  const handleSortChange = (value) => {
+    setSortOption(value);
   };
 
   const handleResetFilters = () => {
-    setShowLikedOnly(false);
+    setSelectedYear("");
+    setSelectedRating(0);
+    setLikedOnly(false);
     setWithContentOnly(false);
-    setRatingFilter(0);
+    setSortOption({ field: "date", direction: "desc" });
     setSearchParams({});
     navigate(`/${userId}/reviews/timeline`, { replace: true });
   };
-
-  const filteredReviews = reviews.filter((review) => {
-    const content = review.content;
-    const meetsRating = ratingFilter === 0 || review.rating === ratingFilter;
-    const meetsLiked = !showLikedOnly || review.liked === true;
-    const meetsContent =
-      !withContentOnly || (typeof content === "string" && content.trim().length > 0);
-    return meetsRating && meetsLiked && meetsContent;
-  });
 
   return (
     <div className={styles["review-timeline"]}>
@@ -147,15 +176,17 @@ const ReviewTimeline = () => {
         years={years}
         activeTab={activeTab}
         onTabChange={handleTabChange}
-        selectedRating={ratingFilter}
+        selectedRating={selectedRating}
         onRatingChange={handleRatingChange}
-        likedOnly={showLikedOnly}
+        likedOnly={likedOnly}
         onToggleLiked={handleToggleLiked}
         withContentOnly={withContentOnly}
         onToggleContent={handleToggleContent}
         onResetFilters={handleResetFilters}
         totalTimelineBooks={totalTimelineBooks}
         totalWrittenReviews={totalWrittenReviews}
+        sortOption={sortOption}
+        onSortChange={handleSortChange}
       />
 
       <div className={styles["review-table"]}>

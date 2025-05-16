@@ -154,6 +154,7 @@ CREATE TABLE book_review(
 	FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE SET NULL
 );
 
+select * from book_shelf;
 CREATE TABLE book_shelf(
 	id INT AUTO_INCREMENT PRIMARY KEY,
     book_id INT,
@@ -185,10 +186,12 @@ CREATE TABLE like_list(
 	FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
     FOREIGN KEY (like_type) REFERENCES like_type(value)
 );
-
 -- ('REVIEW', 1),
 -- ('BOOK', 2),
 -- ('BOOK_COLLECTION', 3)
+
+SELECT * from book_collection;
+SELECT * from book_collection_book;
 
 CREATE TABLE book_collection(
 	id INT AUTO_INCREMENT PRIMARY KEY,			-- 이건 프리메리
@@ -199,7 +202,6 @@ CREATE TABLE book_collection(
     thumbnail VARCHAR(300), 
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
-
 CREATE TABLE book_collection_book(
 	id INT AUTO_INCREMENT PRIMARY KEY,			-- 이건 프리메리
     collection_id INT NOT NULL, 		-- collection 분류. 같은 collection이면 같은 collection id
