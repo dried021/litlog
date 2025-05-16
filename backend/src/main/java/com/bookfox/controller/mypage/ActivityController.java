@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,14 +17,14 @@ import com.bookfox.model.ActivityDto;
 import jakarta.annotation.Resource;
 
 @RestController
-@RequestMapping("activity")
+@RequestMapping("members")
 public class ActivityController {
     @Resource
     private ActivityService activityService;
 
-    @GetMapping("/following")
+    @GetMapping("{userId}/activity/following")
     public ResponseEntity<Map<String,Object>> getFollowingActivityFeed(
-        @RequestParam String userId,
+        @PathVariable String userId,
         @RequestParam(defaultValue = "10") int limit,
         @RequestParam(defaultValue = "0") int offset
     ) {
@@ -35,9 +36,9 @@ public class ActivityController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/incoming")
+    @GetMapping("{userId}/activity/incoming")
     public ResponseEntity<Map<String,Object>> getIncomingActivityFeed(
-        @RequestParam String userId,
+        @PathVariable String userId,
         @RequestParam(defaultValue = "10") int limit,
         @RequestParam(defaultValue = "0") int offset
     ) {
