@@ -133,9 +133,8 @@ const ReviewList = () => {
     }
   };
 
-  const handleRatingChange = (e) => {
-    const val = parseInt(e.target.value);
-    const finalVal = isNaN(val) ? 0 : val;
+  const handleRatingChange = (value) => {
+    const finalVal = isNaN(value) ? 0 : value;
     setSelectedRating(finalVal);
     updateSearchParams({ rating: finalVal });
   };
