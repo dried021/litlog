@@ -35,7 +35,6 @@ import EditProfile from '../pages/Settings/EditProfile';
 import Withdraw from '../pages/Settings/Withdraw';
 import WithdrawResult from '../pages/Settings/WithdrawResult';
 
-import AdminMain from '../pages/Admin/AdminMain';
 import MemberManage from '../pages/Admin/MemberManage';
 import ReviewManage from '../pages/Admin/ReviewManage';
 import CommentManage from '../pages/Admin/CommentManage';

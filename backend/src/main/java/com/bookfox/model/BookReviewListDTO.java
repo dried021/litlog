@@ -21,4 +21,5 @@ public class BookReviewListDTO {
     private int rating;
     private Timestamp creationDate;
     private int likeCount;
+    private String nickname;
 }

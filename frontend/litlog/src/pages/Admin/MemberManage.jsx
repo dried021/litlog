@@ -1,4 +1,7 @@
 import React from 'react';
+import styles from './Admin.module.css'; 
+import AdminSideMenu from '../../components/Admin/AdminSideMenu';
+import ManageUser from '../../components/Admin/ManageUser';
 
 const MemberManage = () => {
     return(

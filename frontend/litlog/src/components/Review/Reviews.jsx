@@ -51,7 +51,7 @@ function Review({ reviews, currentPage, reviewPerPage, handleLikeClick }) {
 
             <div className={styles['review-content']}>
                 <div className={styles['user-id']} onClick={() => handleClickProfile(review.userId)}>
-                    <div className={styles['user-id-p']}>{review.userId}</div>
+                    <div className={styles['user-id-p']}>{review.nickname}</div>
                 </div>
                 <div className={styles['rating']}>
                     <Rating rating={review.rating} />
