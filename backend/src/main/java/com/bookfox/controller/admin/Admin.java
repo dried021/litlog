@@ -38,6 +38,15 @@ public class Admin {
     ) {
         return adminService.getComments(pageNum, searchKeyword, sortOption);
     }
+
+    @GetMapping("/review")
+    public Map<String, Object> getAdminReviews(
+        @RequestParam(defaultValue = "1") int pageNum,
+        @RequestParam(required=false) String searchKeyword,
+        @RequestParam(defaultValue = "1") int sortOption
+    ){
+        return adminService.getReviews(pageNum, searchKeyword, sortOption);
+    }
     
 
     @PostMapping("/user")
@@ -63,4 +72,12 @@ public class Admin {
         adminService.deleteCollectionById(id);
         return ResponseEntity.ok("collection deleted successfully");
     }
+
+    @PostMapping("/review")
+    public ResponseEntity<String> deleteReview(@RequestBody Map<String, Object> payload){
+        String id = payload.get("id").toString();
+        adminService.deleteReviewById(id);
+        return ResponseEntity.ok("review deleted successfully");
+    }
+
 }

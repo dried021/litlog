@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bookfox.model.AdminCommentDto;
 import com.bookfox.model.AdminUserDto;
+import com.bookfox.model.BookReviewListDTO;
 import com.bookfox.repository.AdminMapper;
 
 @Service
@@ -58,6 +59,24 @@ public class AdminService {
         return result;
     }
 
+    public Map<String, Object> getReviews(int pageNum, String searchKeyword, int sortOption){
+        int reviewPerPage = 10;
+        int offset = (pageNum - 1) * reviewPerPage;
+        searchKeyword = (searchKeyword != null) ? searchKeyword : "";
+        Map<String, Object> params = Map.of("offset", offset, "reviewPerPage", reviewPerPage, "searchKeyword", searchKeyword,"sortOption", sortOption);
+        List<BookReviewListDTO> reviews = adminMapper.selectReviews(params);
+
+        int totalCount = adminMapper.countAdminReviews(searchKeyword);
+        int pageCount = (int) Math.ceil((double) totalCount / reviewPerPage);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("reviews", reviews);
+        result.put("pageCount", pageCount);
+        result.put("totalCount", totalCount);
+        return result;
+
+    }
+
     public void changeUsers(String id, Integer option, String buttonType){
         if ("userStatus".equals(buttonType) && option == 3){
             adminMapper.adminDeleteUser(id);
@@ -74,5 +93,9 @@ public class AdminService {
 
     public void deleteCollectionById(String id){
         adminMapper.deleteCollectionById(id);
+    }
+
+    public void deleteReviewById(String id){
+        adminMapper.deleteReviewById(id);
     }
 }

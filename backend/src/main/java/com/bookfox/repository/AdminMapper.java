@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.bookfox.model.AdminCommentDto;
 import com.bookfox.model.AdminUserDto;
+import com.bookfox.model.BookReviewListDTO;
 
 @Mapper
 public interface AdminMapper {
@@ -24,4 +25,9 @@ public interface AdminMapper {
 
     public void deleteCommentById(String id);
     public void deleteCollectionById(String id);
+    public void deleteReviewById(String id);
+
+    public List<BookReviewListDTO> selectReviews(Map<String, Object> params);
+    public int countAdminReviews(String searchKeyword);
+
 }
