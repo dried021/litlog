@@ -54,7 +54,11 @@ function ManageUser() {
         className={styles.adminSearchBar}
         handleSearch={(searchKeyword)=>{
             const trimmed = searchKeyword.trim();
-            if (trimmed) {
+            if (!trimmed) {
+              setSearchName(trimmed);
+              setCurrentPage(1);
+              navigate(`/admin`);
+            }else{
               setSearchName(trimmed);
               setCurrentPage(1);
               navigate(`/admin?pageNum=1&searchName=${encodeURIComponent(trimmed)}`);
