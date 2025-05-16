@@ -14,4 +14,7 @@ public interface AdminMapper {
     public int countReviews(String id);
     public int countCollections(String id);
     public int countComments(String id);
+
+    public void changeUsers(Map<String, Object> params);
+    public void adminDeleteUser(String id);
 }

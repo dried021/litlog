@@ -1,12 +1,17 @@
 package com.bookfox.controller.collection;
 
+import com.bookfox.model.BookDto;
 import com.bookfox.model.CollectionDto;
 import com.bookfox.service.CollectionService;
+
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +44,38 @@ public class CollectionController {
     @GetMapping("/{id}")
     public CollectionDto getCollectionDetail(@PathVariable int id) {
         return collectionService.getCollectionById(id);
+    }
+
+    @PostMapping("/new")
+    public ResponseEntity<?> saveCollection(
+        @RequestBody CollectionDto dto,
+        HttpSession session
+    ) {
+        String userId = (String) session.getAttribute("loginUser");
+        System.out.println("[콜렉션 생성 요청] 세션 userId = " + userId);
+        if (userId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+        }
+
+        dto.setUserId(userId);
+        int collectionId = collectionService.saveCollection(dto);
+        return ResponseEntity.ok(Map.of("collectionId", collectionId));
+    }
+
+    @GetMapping("/{id}/books")
+    public Map<String, Object> getBooksByPage(
+        @PathVariable int id,
+        @RequestParam int page,
+        @RequestParam int size
+    ) {
+        int offset = (page - 1) * size;
+        List<BookDto> books = collectionService.getBooksByCollectionId(id, offset, size);
+        int totalCount = collectionService.getBookCountByCollectionId(id);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("books", books);
+        result.put("totalCount", totalCount);
+        return result;
     }
 
 

@@ -5,12 +5,6 @@
     width: 600px;
     margin: 0 auto;
   }
-
-  .title {
-    font-size: 1.6rem;
-    font-weight: bold;
-    margin-bottom: 1.5rem;
-  }
   
   .userList {
     display: flex;
@@ -20,19 +14,21 @@
   
   .userItem {
     display: flex;
+    align-items: center;
     padding: 1rem;
     border-bottom: 1px solid #ddd;
     background-color: #fff;
     border-radius: 10px;
     position: relative;
+    justify-content: center;
   }
   
   .userRank {
-    width: 60px;
+    width: 40px;
+    font-size: 20px;
+    font-weight: bold;
     text-align: center;
     display: flex;
-    align-items: center;
-    justify-content: center;
   }
   
   .userRankP {
@@ -46,19 +42,91 @@
   }
   
   .userId {
-    font-size: 1.2rem;
+    font-size: 18px;
     font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  .option-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+  }
+  
+   
+  .searchResultP{
+    width: 100%;
+    padding: 8px 16px;
+    font-size: 1rem;
+    margin-bottom: 0px;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+
+  .leftContainer {
+    flex:1;
+    margin: 0px;
+    padding: 0px;
+  }
+  
+  .rightContainer {
+    display: flex;
+    gap: 15px;
   }
   
   .userIdGray {
-    color: #888;
-    font-weight: normal;
+    color: #777;
+    font-weight: 400;
+    margin-left: 8px;
   }
-  
-  .userStats {
+
+  .userInfo2,
+  .userStatusRow {
     display: flex;
     align-items: center;
+    gap: 20px;
+    color: #444;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .userInfo2 p,
+  .userStatusRow p {
+    display: flex;
+    align-items: center;
+    margin: 0; /* 필요 시 */
+    line-height: 1.5;
+  }
+
+  .userToggleRow button {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .userToggleRow button:hover {
+    background-color: #e0e0e0;
+  }
+
+  .userStats {
+    display: flex;
     flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 15px;
+  }
+  
+  .statItem {
+    display: flex;
+    align-items: center;
     gap: 0.5rem;
   }
   
@@ -69,23 +137,32 @@
   
   .stat {
     font-size: 0.95rem;
+    margin: 0;
+  }
+  
+  .stat {
+    font-size: 0.95rem;
     margin-right: 1rem;
   }
   
   .userProfile {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    flex-direction: column;
   }
   
   .userProfileImg {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     object-fit: cover;
+    margin-bottom: 3px;
   }
   
-  .loading .noData {
+  .loading,
+  .noData {
     text-align: center;
     padding: 40px 0;
     font-size: 16px;
@@ -95,4 +172,46 @@
   .adminSearchBar {
     width: 600px;
     margin: 0 auto 20px auto;
+  }
+
+
+  
+  .option-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+  }
+  
+  .leftContainer {
+    flex:1;
+  }
+  
+  .rightContainer {
+    display: flex;
+    gap: 15px;
+  }
+
+  
+  .option {
+    cursor: pointer;
+    padding: 8px 12px;
+    font-size: 15px;
+    color: #555;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+  }
+
+  
+  .optionActive {
+    color: #000;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
+  .option:hover {
+    background-color: #9a9a9a;
+    color: #fff;
   }

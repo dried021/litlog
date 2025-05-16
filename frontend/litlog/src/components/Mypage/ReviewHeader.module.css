@@ -71,6 +71,18 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
+.dropdownSection {
+  margin-bottom: 8px;
+}
+
+.dropdownTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 4px;
+  padding-left: 2px;
+}
+
 .scrollArea {
   max-height: 200px; 
   overflow-y: auto;
@@ -135,6 +147,12 @@
 
 .tabButton:hover .refreshIcon {
   filter: brightness(0.3);
+}
+
+.disabled {
+  color: #999;
+  pointer-events: none;
+  cursor: not-allowed;
 }
 
 /* 툴팁 

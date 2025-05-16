@@ -20,6 +20,16 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
+    @GetMapping("/{userId}/reviews/review-list")
+    public List<BookReviewDto> getReviewListAll(@PathVariable String userId) {
+        return reviewService.getReviewListAll(userId);
+    }
+
+    @GetMapping("/{userId}/reviews/review-list/{year}")
+    public List<BookReviewDto> getReviewList(@PathVariable String userId, @PathVariable int year) {
+        return reviewService.getReviewList(userId, year);
+    }
+
     @GetMapping("/{userId}/reviews/{reviewId}")
     public BookReviewDto getReviewDetail(@PathVariable String userId, @PathVariable int reviewId, HttpSession session) {
         String loginUserId = (String) session.getAttribute("loginUser");
@@ -78,10 +88,5 @@ public class ReviewController {
         } else {
             return ResponseEntity.status(500).body("Review Delete Failed");
         }
-    }
-
-    @GetMapping("/{userId}/reviews/review-list")
-    public List<BookReviewDto> getReviewList(@PathVariable String userId) {
-        return reviewService.getReviewList(userId);
     }
 }

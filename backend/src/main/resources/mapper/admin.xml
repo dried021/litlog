@@ -5,16 +5,51 @@
 
 <mapper namespace="com.bookfox.repository.AdminMapper">
     <select id="selectUsers" resultType="com.bookfox.model.AdminUserDto">
-    SELECT id, name, nickname, email, profile_image AS profile, user_type AS userType, user_status AS userStatus, tel, reg_date as regDate
-    FROM user
-    <where>
-      <if test="searchName != null and searchName != ''">
-        nickname LIKE CONCAT('%', #{searchName}, '%')
-      </if>
-    </where>
-    ORDER BY reg_date DESC
-    LIMIT #{userPerPage} OFFSET #{offset}
-  </select>
+      SELECT 
+        id, name, nickname, email, profile_image AS profile,
+        user_type AS userType, user_status AS userStatus, tel, reg_date AS regDate
+      FROM user
+      <where>
+        <if test="searchName != null and searchName != ''">
+          (
+            nickname LIKE CONCAT('%', #{searchName}, '%')
+            OR name LIKE CONCAT('%', #{searchName}, '%')
+            OR id LIKE CONCAT('%', #{searchName}, '%')
+          )
+        </if>
+      </where>
+
+      <choose>
+        <when test="sortOption == 1">
+          ORDER BY
+            (CASE 
+              WHEN nickname = #{searchName} THEN 9
+              WHEN nickname LIKE CONCAT(#{searchName}, '%') THEN 8
+              WHEN nickname LIKE CONCAT('%', #{searchName}, '%') THEN 6
+              WHEN name = #{searchName} THEN 5
+              WHEN name LIKE CONCAT('%', #{searchName}, '%') THEN 4
+              WHEN id = #{searchName} THEN 3
+              WHEN id LIKE CONCAT('%', #{searchName}, '%') THEN 2
+              ELSE 0
+            END) DESC, reg_date DESC
+        </when>
+
+        <when test="sortOption == 2">
+          ORDER BY reg_date DESC
+        </when>
+
+        <when test="sortOption == 3">
+          ORDER BY reg_date ASC
+        </when>
+
+        <otherwise>
+          ORDER BY reg_date DESC
+        </otherwise>
+      </choose>
+
+      LIMIT #{userPerPage} OFFSET #{offset}
+    </select>
+
 
   <select id="countUsers" resultType="int">
     SELECT COUNT(*) FROM user
@@ -36,4 +71,36 @@
   <select id="countComments" parameterType="String" resultType="int">
     SELECT COUNT(*) FROM book_collection_comment WHERE user_id = #{id}
   </select>
+
+  <update id="changeUsers" parameterType="map">
+    UPDATE user
+    <set>
+      <if test="buttonType == 'userType'">
+        user_type = #{option}
+      </if>
+
+      <if test="buttonType == 'userStatus'">
+        user_status = #{option}
+      </if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+      <update id="adminDeleteUser" parameterType="String">
+        UPDATE user
+        SET
+            name = 'withdrawn user',
+            tel = NULL,
+            nickname = CONCAT('withdrawn_', #{id}),
+            nickname_reset_at = NOW(),
+            profile_image = NULL,
+            profile_image_origin = NULL,
+            pwd = '',
+            pwd_reset_at = NOW(),
+            email = '',
+            bio = NULL,
+            user_type = NULL,
+            user_status = 3
+        WHERE id = #{id}  
+    </update>
 </mapper>
