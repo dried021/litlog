@@ -27,6 +27,11 @@ public class SettingService {
         return settingMapper.checkPassword(userDto) > 0;
     }
     public boolean withdrawUser(UserDto userDto){
+        String id = userDto.getId();
+        settingMapper.deleteReviewByUserId(id);
+        settingMapper.deleteCollectionByUserId(id);
+        settingMapper.deleteCommentByUserId(id);
         return settingMapper.withdrawUser(userDto) >  0;
     }
+    
 }

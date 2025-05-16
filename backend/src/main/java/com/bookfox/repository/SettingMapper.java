@@ -11,4 +11,7 @@ public interface SettingMapper {
     public int checkIsAdmin(String id);
     public int checkPassword(UserDto userDto);
     public int withdrawUser(UserDto userDto);
+    public void deleteReviewByUserId(String id);
+    public void deleteCollectionByUserId(String id);
+    public void deleteCommentByUserId(String id);
 }

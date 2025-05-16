@@ -46,4 +46,15 @@
         AND pwd = #{pwd}
     </select>
 
+    <delete id="deleteReviewByUserId" parameterType="String">
+        DELETE FROM book_review WHERE user_id=#{id}
+    </delete>
+
+    <delete id="deleteCollectionByUserId" parameterType="String">
+        DELETE FROM book_collection WHERE user_id=#{id}
+    </delete>
+
+    <delete id="deleteCommentByUserId" parameterType="String">
+        DELETE FROM book_collection_comment WHERE user_id=#{id}
+    </delete>
 </mapper>
