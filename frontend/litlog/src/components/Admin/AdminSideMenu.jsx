@@ -17,12 +17,12 @@ const AdminSideMenu = () => {
           Manage Members
         </NavLink>
 
-        <NavLink to="/admin/contents/reviews" className={styles.menuItem}>
+        <NavLink to="/admin/reviews" className={styles.menuItem}>
           <FaStar className={styles.icon} />
           Manage Reviews
         </NavLink>
 
-        <NavLink to="/admin/contents/comment" className={styles.menuItem}>
+        <NavLink to="/admin/comments" className={styles.menuItem}>
           <FaCommentDots className={styles.icon} />
           Manage Comments
         </NavLink>

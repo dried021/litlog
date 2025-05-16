@@ -19,7 +19,7 @@ function ManageUser() {
   const [sortOption, setSortOption] = useState(1);
   //1이 관련성 2가 신규순 3이 옛날 유저 순
 
-  const navigate = useNavigate
+  const navigate = useNavigate();
   const userPerPage = 10;
 
   useEffect(() => {

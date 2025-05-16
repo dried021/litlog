@@ -30,6 +30,16 @@ public class Admin {
         return adminService.getUsers(pageNum, searchName, sortOption);
     }
 
+    @GetMapping("/comment")
+    public Map<String, Object> getAdminComments(
+        @RequestParam(defaultValue = "1") int pageNum,
+        @RequestParam(required=false) String searchKeyword,
+        @RequestParam(defaultValue = "1") int sortOption
+    ) {
+        return adminService.getComments(pageNum, searchKeyword, sortOption);
+    }
+    
+
     @PostMapping("/user")
     public ResponseEntity<?> changeUserOption(@RequestBody Map<String, Object> payload){
         Integer option = (Integer) payload.get("option");
@@ -38,5 +48,19 @@ public class Admin {
 
         adminService.changeUsers(id, option, buttonType);
         return ResponseEntity.ok().body("updated");
+    }
+
+    @PostMapping("/comment")
+    public ResponseEntity<String> deleteComment(@RequestBody Map<String, Object> payload){
+        String id = payload.get("id").toString();
+        adminService.deleteCommentById(id);
+        return ResponseEntity.ok("comment deleted successfully");
+    }
+
+    @PostMapping("/collection")
+    public ResponseEntity<String> deleteCollection(@RequestBody Map<String, Object> payload){
+        String id = payload.get("id").toString();
+        adminService.deleteCollectionById(id);
+        return ResponseEntity.ok("collection deleted successfully");
     }
 }

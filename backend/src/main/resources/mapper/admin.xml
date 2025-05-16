@@ -55,9 +55,13 @@
     SELECT COUNT(*) FROM user
     <where>
       <if test="searchName != null and searchName != ''">
+        (
           nickname LIKE CONCAT('%', #{searchName}, '%')
+          OR name LIKE CONCAT('%', #{searchName}, '%')
+          OR id LIKE CONCAT('%', #{searchName}, '%')
+        )
       </if>
-    </where>
+  </where>
   </select>
 
   <select id="countReviews" parameterType="String" resultType="int">
@@ -103,4 +107,95 @@
             user_status = 3
         WHERE id = #{id}  
     </update>
+
+
+  <select id="selectComments" resultType="com.bookfox.model.AdminCommentDto">
+    SELECT 
+      cc.id, 
+      cc.user_id AS userId, 
+      u2.nickname AS nickname,
+      cc.collection_id AS collectionId, 
+      cc.content, 
+      cc.creation_date AS creationDate,
+      c.id AS collectionId, 
+      c.title AS collectionTitle, 
+      u.nickname AS collectionAuthor, 
+      c.creation_date AS collectionCreationDate 
+    FROM book_collection_comment cc
+    JOIN book_collection c ON cc.collection_id = c.id
+    JOIN user u ON u.id = c.user_id
+    JOIN user u2 ON u2.id = cc.user_id
+
+    <where>
+      <if test="searchKeyword != null and searchKeyword != ''">
+        (
+          u.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+          OR cc.user_id LIKE CONCAT('%', #{searchKeyword}, '%')
+          OR cc.content LIKE CONCAT('%', #{searchKeyword}, '%')
+          OR c.title LIKE CONCAT('%', #{searchKeyword}, '%')
+          OR u.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+        )
+      </if>
+    </where>
+
+    <choose>
+      <when test="sortOption == 1">
+        ORDER BY
+          (CASE 
+            WHEN u.nickname = #{searchKeyword} THEN 9
+            WHEN u.nickname LIKE CONCAT(#{searchKeyword}, '%') THEN 8
+            WHEN u.nickname LIKE CONCAT('%', #{searchKeyword}, '%') THEN 7
+            WHEN cc.user_id = #{searchKeyword} THEN 6
+            WHEN cc.user_id LIKE CONCAT('%', #{searchKeyword}, '%') THEN 5
+            WHEN cc.content = #{searchKeyword} THEN 4
+            WHEN cc.content LIKE CONCAT('%', #{searchKeyword}, '%') THEN 3
+            WHEN c.title = #{searchKeyword} THEN 2
+            WHEN c.title LIKE CONCAT('%', #{searchKeyword}, '%') THEN 1
+            ELSE 0
+          END) DESC, cc.creation_date DESC
+      </when>
+
+      <when test="sortOption == 2">
+        ORDER BY cc.creation_date DESC
+      </when>
+
+      <when test="sortOption == 3">
+        ORDER BY cc.creation_date ASC
+      </when>
+
+      <otherwise>
+        ORDER BY cc.creation_date DESC
+      </otherwise>
+    </choose>
+
+    LIMIT #{commentPerPage} OFFSET #{offset}
+  </select>
+
+  <select id="countCollectionComments" resultType="int">
+    SELECT COUNT(*)
+    FROM book_collection_comment cc
+    JOIN book_collection c ON cc.collection_id = c.id
+    JOIN user u ON u.id = c.user_id
+
+    <where>
+      <if test="searchKeyword != null and searchKeyword != ''">
+        (
+          u.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+          OR cc.user_id LIKE CONCAT('%', #{searchKeyword}, '%')
+          OR cc.content LIKE CONCAT('%', #{searchKeyword}, '%')
+          OR c.title LIKE CONCAT('%', #{searchKeyword}, '%')
+          OR u.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+        )
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteCommentById">
+    DELETE FROM book_collection_comment WHERE id=#{id}
+  </delete>
+
+  <delete id="deleteCollectionById">
+    DELETE FROM book_collection WHERE id=#{id}
+  </delete>
+
 </mapper>

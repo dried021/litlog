@@ -1,10 +1,18 @@
 import React from 'react';
+import styles from './Admin.module.css'; 
+import AdminSideMenu from '../../components/Admin/AdminSideMenu';
+import ManageComment from '../../components/Admin/ManageComment';
+
 
 const CommentManage = () => {
     return(
-        <div>
-            <h2> 관리자 - 댓글(컬렉션의) 관리 </h2>
+            <>
+        <h2 className={styles.title}>Manage Comments</h2>
+        <div className={styles.container}>
+            <AdminSideMenu />
+            <ManageComment/>
         </div>
+        </>
     );
 };
 

@@ -1,0 +1,22 @@
+.deleteButton {
+    padding: 5px 10px;
+    background-color: #f1f1f1;
+    height: 55px;  /* 높이 */
+    width: 100px;
+    font-size: 1.0rem;
+    margin: 5px;
+    color: #000000;
+    border: 0px;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 0.9rem;
+    line-height:1.5;
+    align-items: center;    
+    justify-content: center; 
+  }
+  
+  .deleteButton:hover {
+    background-color: #9f9f9f;
+    color: #fff;
+  }

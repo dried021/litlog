@@ -89,8 +89,8 @@ const AppRouter = () => {
             {/* Admin */}
             <Route path="/admin" element={<AdminMain />} />
             <Route path="/admin/members" element={<MemberManage />} />
-            <Route path="/admin/contents/reviews" element={<ReviewManage />} />
-            <Route path="/admin/contents/comment" element={<CommentManage />} />
+            <Route path="/admin/reviews" element={<ReviewManage />} />
+            <Route path="/admin/comments" element={<CommentManage />} />
 
             {/* 404 */}
             <Route path="*" element={<NotFound />} />
