@@ -64,7 +64,7 @@ function Review({ reviews, currentPage, reviewPerPage}) {
                 </div>
 
                 <div className={styles['user-id']} onClick={() => handleClickProfile(review.userId)}>
-                  <div className={styles['user-id-p']}>{review.userId}</div>
+                  <div className={styles['user-id-p']}>{review.nickname}</div>
                   {review.creationDate ? <div className={styles['separator']}>|</div> : null}
                   <div className={styles['creation-date']}>{formatDate(review.creationDate)}</div>
                 </div>

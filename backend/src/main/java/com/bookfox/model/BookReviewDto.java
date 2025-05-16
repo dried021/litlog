@@ -12,6 +12,7 @@ import lombok.Setter;
 public class BookReviewDto {
     private int id;
     private String userId;
+    private String nickname;
     private String userProfile;
     private int bookId;
     private String bookApiId;

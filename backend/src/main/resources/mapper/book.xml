@@ -64,6 +64,7 @@
             br.content,
             br.rating,
             br.creation_date AS creationDate,
+            u.nickname AS nickname,
 
             (SELECT COUNT(*) 
             FROM like_list ll1 
@@ -80,6 +81,9 @@
             ON br.id = ll2.target_id 
             AND ll2.like_type = 1 
             AND ll2.user_id = #{userId}
+        
+        LEFT JOIN user u
+            ON u.id = br.user_id
 
         WHERE br.book_id = #{id}
 
@@ -188,6 +192,7 @@
         SELECT 
             b.id,
             b.title,
+            u.nickname AS nickname,
             b.thumbnail AS image,
 
             (SELECT COUNT(*) 
@@ -204,6 +209,9 @@
 
         FROM book b
 
+        LEFT JOIN user u
+            ON u.id = br.user_id
+
         ORDER BY 
             (SELECT MAX(br.creation_date) 
             FROM book_review br 
@@ -214,6 +222,7 @@
     <select id="getPopularReviewList" parameterType="int" resultType="com.bookfox.model.BookReviewListDTO">
         SELECT 
             br.id,
+            u.nickname AS nickname,
             br.user_id AS userId,
             br.book_id AS bookId,
             b.book_api_id AS bookApiId,
@@ -226,6 +235,8 @@
             COALESCE(likeCount.likeCount, 0) AS likeCount
         FROM book_review br
         LEFT JOIN book b ON b.id = br.book_id
+        LEFT JOIN user u
+            ON u.id = br.user_id
         LEFT JOIN (
             SELECT target_id, COUNT(*) AS likeCount 
             FROM like_list 
