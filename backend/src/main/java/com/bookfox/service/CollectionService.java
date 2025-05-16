@@ -1,12 +1,16 @@
 package com.bookfox.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.bookfox.model.BookDto;
 import com.bookfox.model.CollectionDto;
 import com.bookfox.repository.CollectionMapper;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -28,13 +32,45 @@ public class CollectionService {
     }
 
     public CollectionDto getCollectionById(int id) {
-    List<CollectionDto> list = collectionMapper.selectCollectionById(id);
-    if (list.isEmpty()) {
-        return null;
+        List<CollectionDto> list = collectionMapper.selectCollectionById(id);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0); // 병합된 하나의 CollectionDto 객체
     }
-    return list.get(0); // 병합된 하나의 CollectionDto 객체
-}
 
+    @Transactional
+    public int saveCollection(CollectionDto dto) {
+        // 1. book_collection INSERT
+        collectionMapper.insertCollection(dto); // insert + useGeneratedKeys
+        int collectionId = dto.getId(); // MyBatis로 auto-increment된 ID 받음
 
+        for (BookDto book : dto.getBooks()) {
+            Integer bookId = collectionMapper.findBookIdByApiId(book.getBookApiId());
+
+            if (bookId == null) {
+                collectionMapper.insertBook(book);
+                bookId = book.getId(); // 새로 생성된 book.id
+            }
+
+            collectionMapper.insertCollectionBook(collectionId, bookId, book.getThumbnail());
+        }
+
+        return collectionId;
+    }
+
+    // 책 목록 페이징 조회
+    public List<BookDto> getBooksByCollectionId(int collectionId, int offset, int size) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("collectionId", collectionId);
+        params.put("offset", offset);
+        params.put("size", size);
+        return collectionMapper.getBooksByCollectionId(params);
+    }
+
+    // 총 책 개수 조회
+    public int getBookCountByCollectionId(int collectionId) {
+        return collectionMapper.getBookCountByCollectionId(collectionId);
+    }
     
 }
