@@ -31,5 +31,16 @@ public interface CollectionMapper {
 
     List<BookDto> getBooksByCollectionId(Map<String, Object> params);
     int getBookCountByCollectionId(int collectionId);
+
+    // 메타 정보 수정
+    void updateCollectionMeta(CollectionDto dto);
+
+    // 기존 책들 삭제
+    void deleteBooksByCollectionId(@Param("collectionId") int collectionId);
+
+    void deleteCollection(@Param("collectionId") int collectionId,
+                      @Param("userId") String userId);
+
+
 }
 

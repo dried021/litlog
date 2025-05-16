@@ -1,6 +1,13 @@
 import axios from 'axios';
 
-export const useSubmitCollection = (title, content, selectedBooks, resetForm) => {
+export const useSubmitCollection = (
+  title,
+  content,
+  selectedBooks,
+  resetForm,
+  mode = 'create',       // 추가됨
+  collectionId = null    // 추가됨
+) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -23,11 +30,19 @@ export const useSubmitCollection = (title, content, selectedBooks, resetForm) =>
     };
 
     try {
-      await axios.post('http://localhost:9090/collections/new', payload, {
-        withCredentials: true // 세션 기반 로그인이라면 필수
-      });
-      alert('콜렉션이 생성되었습니다!');
-      resetForm(); // 폼 초기화
+      if (mode === 'edit' && collectionId) {
+        await axios.put(`http://localhost:9090/collections/${collectionId}`, payload, {
+          withCredentials: true
+        });
+        alert('콜렉션이 수정되었습니다!');
+      } else {
+        await axios.post('http://localhost:9090/collections/new', payload, {
+          withCredentials: true
+        });
+        alert('콜렉션이 생성되었습니다!');
+      }
+
+      resetForm();
     } catch (err) {
       console.error('콜렉션 저장 실패:', err);
       alert('콜렉션 저장 중 오류 발생');
