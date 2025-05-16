@@ -161,7 +161,7 @@ function ManageUser() {
                             buttonType="userStatus"
                             currentOption={user.userStatus}
                             onOptionChange={(newStatus) => {
-                              newStatus === 3 && navigate(0);
+                              newStatus === 3 && navigate(`/admin`);
                               const updatedUsers = users.map(u =>
                                 u.id === user.id ? { ...u, userStatus: newStatus } : u
                               );

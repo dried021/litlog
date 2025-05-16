@@ -11,11 +11,15 @@ import com.bookfox.model.AdminCommentDto;
 import com.bookfox.model.AdminUserDto;
 import com.bookfox.model.BookReviewListDTO;
 import com.bookfox.repository.AdminMapper;
+import com.bookfox.repository.SettingMapper;
 
 @Service
 public class AdminService {
     @Autowired
     private AdminMapper adminMapper;
+
+    @Autowired
+    private SettingMapper settingMapper;
 
     public Map<String, Object> getUsers(int pageNum, String searchName, int sortOption){
         int userPerPage = 10;
@@ -80,6 +84,9 @@ public class AdminService {
     public void changeUsers(String id, Integer option, String buttonType){
         if ("userStatus".equals(buttonType) && option == 3){
             adminMapper.adminDeleteUser(id);
+            settingMapper.deleteReviewByUserId(id);
+            settingMapper.deleteCommentByUserId(id);
+            settingMapper.deleteCollectionByUserId(id);
             return;
         }
 
