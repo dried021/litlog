@@ -13,7 +13,10 @@ const CollectionCommentSection = ({ collectionId }) => {
 
   const fetchComments = () => {
     axios.get(`http://localhost:9090/collections/${collectionId}/comments`, {
-      params: { page: commentPage },
+      params: { 
+        page: commentPage,
+        size: commentsPerPage
+      },
       withCredentials: true
     })
       .then(res => {
@@ -58,7 +61,10 @@ const CollectionCommentSection = ({ collectionId }) => {
 
       <CommentList comments={comments} onRefresh={() => {
         axios.get(`http://localhost:9090/collections/${collectionId}/comments`, {
-          params: { page: commentPage },
+          params: { 
+            page: commentPage, 
+            size: commentsPerPage 
+          },
           withCredentials: true
         })
           .then(res => {
