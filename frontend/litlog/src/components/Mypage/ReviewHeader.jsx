@@ -129,11 +129,20 @@ const ReviewHeader = ({
                 Any year
               </div>
               <div className={styles.scrollArea}>
-                {years.map((year) => (
-                  <div key={year} className={styles.dropdownItem} onClick={() => onYearChange(year)}>
-                    {year}
-                  </div>
-                ))}
+                {years.map((year) => {
+                  const isSelected = selectedYear === String(year);
+                  return (
+                    <div
+                      key={year}
+                      className={`${styles.dropdownItem} ${isSelected ? styles.disabled : ""}`}
+                      onClick={() => {
+                        if (!isSelected) onYearChange(String(year));
+                      }}
+                    >
+                      {year}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}

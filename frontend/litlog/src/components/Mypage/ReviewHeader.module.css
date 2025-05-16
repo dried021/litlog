@@ -149,6 +149,12 @@
   filter: brightness(0.3);
 }
 
+.disabled {
+  color: #999;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 /* 툴팁 
 .tooltip-container {
   position: relative;
