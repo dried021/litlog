@@ -4,7 +4,7 @@ import axios from 'axios';
 import Pagination from "../../components/Pagination/Pagination";
 import { useNavigate } from 'react-router-dom';
 
-function Rating({ rating }) {
+export function Rating({ rating }) {
   return (
     <div>
       {Array.from({ length: rating }, (_, index) => (

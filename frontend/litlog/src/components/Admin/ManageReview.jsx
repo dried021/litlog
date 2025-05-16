@@ -6,6 +6,7 @@ import styles from './ManageReview.module.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SortOptionButton from './SortOptionButton';
 import DeleteReviewButton from '../Button/DeleteReviewButton';
+import { Rating } from '../Review/ReviewList';
 
 function ManageReview() {
   const [searchParams] = useSearchParams();
@@ -31,7 +32,7 @@ function ManageReview() {
       const response = await axios.get(`http://localhost:9090/admin/review`, {
         params: { pageNum: page, searchKeyword, sortOption },
       });
-      setReviews(response.data.comments || []);
+      setReviews(response.data.reviews || []);
       setPageCount(response.data.pageCount || 1);
       setTotalCount(response.data.totalCount || 0);
     } catch (err) {
@@ -105,25 +106,26 @@ function ManageReview() {
                       </div>
                       <div className={styles.reviewInfo} onClick={() => navigate(`/books/${review.bookApiId}`)}>
                         <h3 className={styles.reviewId}>
-                          {review.title} <span className={styles.reviewIdGray}>({review.bookApiId} | {review.authors})</span>
+                          {review.title} 
                         </h3>
+                        <p className={styles.reviewIdGray}>({review.bookApiId} | {review.authors})</p>
 
                         <div className={styles.reviewInfo2}>
                             <p>{review.userId} | {review.nickname} | {review.creationDate?.substring(0, 10)}</p>
                         </div>
                         <div className={styles.content}>
-                            <p>{review.rating}</p>
+                            <p>{review.content}</p>
                         </div>
                         <div className={styles.content}>
-                            <p>{review.content}</p>
+                          <Rating rating={review.rating}/>
                         </div>
 
                       </div>
                       <div className={styles.reviewButton}>
                         <DeleteReviewButton
-                            collectionId={review.collectionId}
-                            onDelete={(collectionId) => {
-                                setreviews(prev => prev.filter(c => c.collectionId !== collectionId));
+                            reviewId={review.id}
+                            onDelete={(id) => {
+                                setReviews(prev => prev.filter(c => c.id !== id));
                                 }}/>
                       </div>
                     </div>

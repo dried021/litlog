@@ -203,4 +203,86 @@
     DELETE FROM book_collection WHERE id=#{id}
   </delete>
 
+  <delete id="deleteReviewById">
+    DELETE FROM book_review WHERE id=#{id}
+  </delete>
+
+  <select id="selectReviews" resultType="com.bookfox.model.BookReviewListDTO">
+      SELECT 
+        br.id,
+        br.user_id AS userId, 
+        u.nickname,
+        b.id AS bookId,
+        b.book_api_id AS bookApiId,
+        b.title,
+        b.authors,
+        br.content,
+        br.rating,
+        br.creation_date AS creationDate
+
+      FROM book_review br
+      JOIN book b ON b.id = br.book_id
+      JOIN user u ON br.user_id = u.id
+
+      <where>
+        <if test="searchKeyword != null and searchKeyword != ''">
+          (
+            u.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+            OR u.id LIKE CONCAT('%', #{searchKeyword}, '%')
+            OR b.title LIKE CONCAT('%', #{searchKeyword}, '%')
+            OR br.content LIKE CONCAT('%', #{searchKeyword}, '%')
+          )
+        </if>
+      </where>
+
+      <choose>
+        <when test="sortOption == 1">
+          ORDER BY
+            (CASE 
+              WHEN u.nickname = #{searchKeyword} THEN 8
+              WHEN u.nickname LIKE CONCAT('%', #{searchKeyword}, '%') THEN 7
+              WHEN u.id = #{searchKeyword} THEN 6
+              WHEN u.id LIKE CONCAT('%', #{searchKeyword}, '%') THEN 5
+              WHEN b.title = #{searchKeyword} THEN 4
+              WHEN b.title LIKE CONCAT('%', #{searchKeyword}, '%') THEN 3
+              WHEN br.content = #{searchKeyword} THEN 2
+              WHEN br.content LIKE CONCAT('%', #{searchKeyword}, '%') THEN 1
+              ELSE 0
+            END) DESC, br.creation_date DESC
+        </when>
+
+        <when test="sortOption == 2">
+          ORDER BY br.creation_date DESC
+        </when>
+
+        <when test="sortOption == 3">
+          ORDER BY br.creation_date ASC
+        </when>
+
+        <otherwise>
+          ORDER BY br.creation_date DESC
+        </otherwise>
+      </choose>
+
+      LIMIT #{reviewPerPage} OFFSET #{offset}
+    </select>
+
+    <select id="countAdminReviews" resultType="int">
+    SELECT COUNT(*)
+    FROM book_review br
+    JOIN book b ON b.id = br.book_id
+    JOIN user u ON br.user_id = u.id
+
+    <where>
+      <if test="searchKeyword != null and searchKeyword != ''">
+        (
+            u.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+            OR u.id LIKE CONCAT('%', #{searchKeyword}, '%')
+            OR b.title LIKE CONCAT('%', #{searchKeyword}, '%')
+            OR br.content LIKE CONCAT('%', #{searchKeyword}, '%')
+        )
+      </if>
+    </where>
+  </select>
+
 </mapper>

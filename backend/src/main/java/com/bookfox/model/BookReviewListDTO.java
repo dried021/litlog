@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 public class BookReviewListDTO {
     private int id;
+    private String nickname;
     private String userId;
     private String userProfile;
     private int bookId;
@@ -21,5 +22,4 @@ public class BookReviewListDTO {
     private int rating;
     private Timestamp creationDate;
     private int likeCount;
-    private String nickname;
 }
