@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bookfox.repository.MyCollectionsMapper">
+    <select id="getCreatedCollections" resultType="com.bookfox.model.MyCollectionsDto">
+        SELECT 
+            bc.id,
+            bc.title,
+            bc.content,
+            u.nickname,
+            bc.creation_date AS creationDate,
+            (SELECT COUNT(*) FROM like_list l 
+             WHERE l.target_id = bc.id AND l.like_type = 3) AS likeCount,
+            (SELECT COUNT(*) FROM book_collection_comment c 
+             WHERE c.collection_id = bc.id) AS commentCount,
+            (SELECT COUNT(*) 
+             FROM book_collection_book bcb 
+             WHERE bcb.collection_id = bc.id) AS bookCount,
+            (SELECT GROUP_CONCAT(b.thumbnail)
+             FROM book_collection_book bcb
+             JOIN book b ON bcb.book_id = b.id
+             WHERE bcb.collection_id = bc.id
+             ORDER BY bcb.id
+             LIMIT 5) AS thumbnailsOrigin
+        FROM book_collection bc
+        JOIN user u ON bc.user_id = u.id
+        WHERE bc.user_id = #{userId}
+        ORDER BY bc.creation_date DESC
+    </select>
+
+    <select id="getLikedCollections" resultType="com.bookfox.model.MyCollectionsDto">
+        SELECT 
+            bc.id,
+            bc.title,
+            bc.content,
+            u.nickname,
+            bc.creation_date AS creationDate,
+            (SELECT COUNT(*) FROM like_list l 
+             WHERE l.target_id = bc.id AND l.like_type = 3) AS likeCount,
+            (SELECT COUNT(*) FROM book_collection_comment c 
+             WHERE c.collection_id = bc.id) AS commentCount,
+            (SELECT COUNT(*) 
+             FROM book_collection_book bcb 
+             WHERE bcb.collection_id = bc.id) AS bookCount,
+            (SELECT GROUP_CONCAT(b.thumbnail)
+             FROM book_collection_book bcb
+             JOIN book b ON bcb.book_id = b.id
+             WHERE bcb.collection_id = bc.id
+             ORDER BY bcb.id
+             LIMIT 5) AS thumbnailsOrigin
+        FROM like_list l
+        JOIN book_collection bc ON l.target_id = bc.id
+        JOIN user u ON bc.user_id = u.id
+        WHERE l.user_id = #{userId}
+        AND l.like_type = 3
+        ORDER BY bc.creation_date DESC
+    </select>
+</mapper>
