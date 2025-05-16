@@ -1,30 +1,24 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './AdminSideMenu.module.css';
-import { FaUsers, FaCommentDots, FaStar, FaHome } from 'react-icons/fa';
 
 const AdminSideMenu = () => {
   return (
     <div className={styles.menuContainer}>
       <nav className={styles.menu}>
         <NavLink to="/admin" className={styles.menuItem}>
-          <FaHome className={styles.icon} />
-          Admin Dashboard
-        </NavLink>
-
-        <NavLink to="/admin/members" className={styles.menuItem}>
-          <FaUsers className={styles.icon} />
+          <img src="/icons/sidebar_user.svg" className={styles.menuItem}/>
           Manage Members
         </NavLink>
 
         <NavLink to="/admin/reviews" className={styles.menuItem}>
-          <FaStar className={styles.icon} />
+        <img src="/icons/sidebar_menu.svg" className={styles.menuItem}/>
           Manage Reviews
         </NavLink>
 
         <NavLink to="/admin/comments" className={styles.menuItem}>
-          <FaCommentDots className={styles.icon} />
-          Manage Comments
+        <img src="/icons/sidebar_comment.svg" className={styles.menuItem}/>
+          Manage Collections &Comments
         </NavLink>
       </nav>
     </div>
