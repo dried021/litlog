@@ -37,8 +37,9 @@
   }
   
   .icon {
+    width: 20px;
     font-size: 1.2rem;
-    margin: 1rem;
+    margin: 0.3rem;
   }
   
   .bottomMenu {

@@ -131,9 +131,10 @@
         (
           u.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
           OR cc.user_id LIKE CONCAT('%', #{searchKeyword}, '%')
+          OR u2.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+          OR c.user_id LIKE CONCAT('%', #{searchKeyword}, '%')
           OR cc.content LIKE CONCAT('%', #{searchKeyword}, '%')
           OR c.title LIKE CONCAT('%', #{searchKeyword}, '%')
-          OR u.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
         )
       </if>
     </where>
@@ -142,15 +143,19 @@
       <when test="sortOption == 1">
         ORDER BY
           (CASE 
-            WHEN u.nickname = #{searchKeyword} THEN 9
-            WHEN u.nickname LIKE CONCAT(#{searchKeyword}, '%') THEN 8
-            WHEN u.nickname LIKE CONCAT('%', #{searchKeyword}, '%') THEN 7
-            WHEN cc.user_id = #{searchKeyword} THEN 6
-            WHEN cc.user_id LIKE CONCAT('%', #{searchKeyword}, '%') THEN 5
-            WHEN cc.content = #{searchKeyword} THEN 4
-            WHEN cc.content LIKE CONCAT('%', #{searchKeyword}, '%') THEN 3
-            WHEN c.title = #{searchKeyword} THEN 2
-            WHEN c.title LIKE CONCAT('%', #{searchKeyword}, '%') THEN 1
+            WHEN u.nickname = #{searchKeyword} THEN 11
+            WHEN u.nickname LIKE CONCAT(#{searchKeyword}, '%') THEN 10
+            WHEN u.nickname LIKE CONCAT('%', #{searchKeyword}, '%') THEN 9
+            WHEN cc.user_id = #{searchKeyword} THEN 8
+            WHEN cc.user_id LIKE CONCAT('%', #{searchKeyword}, '%') THEN 7
+            WHEN u2.nickname = #{searchKeyword} THEN 6
+            WHEN u2.nickname LIKE CONCAT('%', #{searchKeyword}, '%') THEN 5
+            WHEN c.user_id = #{searchKeyword} THEN 4
+            WHEN c.user_id LIKE CONCAT('%', #{searchKeyword}, '%') THEN 3
+            WHEN cc.content = #{searchKeyword} THEN 2
+            WHEN cc.content LIKE CONCAT('%', #{searchKeyword}, '%') THEN 1
+            WHEN c.title = #{searchKeyword} THEN 0.5
+            WHEN c.title LIKE CONCAT('%', #{searchKeyword}, '%') THEN 0.25
             ELSE 0
           END) DESC, cc.creation_date DESC
       </when>
