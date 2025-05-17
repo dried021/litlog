@@ -41,6 +41,6 @@ public interface CollectionMapper {
     void deleteCollection(@Param("collectionId") int collectionId,
                       @Param("userId") String userId);
 
-
+    String findUserIdByCollectionId(@Param("collectionId") int collectionId);
 }
 
