@@ -12,14 +12,16 @@ const CreatedCollection = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [selectedYear, setSelectedYear] = useState("");
-  const [sortOption, setSortOption] = useState({ field: "date", direction: "desc" });
-  const years = [2025, 2024, 2023]; 
+  const [sortOption, setSortOption] = useState({
+    field: "date",
+    direction: "desc",
+  });
 
-  const handleYearChange = (year) => setSelectedYear(year);
-  const handleSortChange = (option) => setSortOption(option);
+  const handleSortChange = (option) => {
+    setSortOption(option);
+  };
+
   const handleResetFilters = () => {
-    setSelectedYear("");
     setSortOption({ field: "date", direction: "desc" });
   };
 
@@ -27,14 +29,7 @@ const CreatedCollection = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:9090/api/members/${userId}/collections/created`,
-          {
-            params: {
-              year: selectedYear,
-              sortField: sortOption.field,
-              sortDir: sortOption.direction,
-            },
-          }
+          `http://localhost:9090/api/members/${userId}/collections/created`
         );
         setCollections(res.data);
         setError(null);
@@ -47,7 +42,27 @@ const CreatedCollection = () => {
     };
 
     fetchData();
-  }, [userId, selectedYear, sortOption]);
+  }, [userId]);
+
+  const sortedCollections = [...collections].sort((a, b) => {
+    const { field, direction } = sortOption;
+
+    if (field === "date") {
+      return direction === "desc"
+        ? new Date(b.creationDate) - new Date(a.creationDate)
+        : new Date(a.creationDate) - new Date(b.creationDate);
+    } else if (field === "like") {
+      return direction === "desc"
+        ? b.likeCount - a.likeCount
+        : a.likeCount - b.likeCount;
+    } else if (field === "comment") {
+      return direction === "desc"
+        ? b.commentCount - a.commentCount
+        : a.commentCount - b.commentCount;
+    }
+
+    return 0;
+  });
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -59,20 +74,16 @@ const CreatedCollection = () => {
       <CollectionHeader
         activeTab="created"
         onTabChange={() => {}}
-        selectedYear={selectedYear}
-        onYearChange={handleYearChange}
-        years={years}
         sortOption={sortOption}
         onSortChange={handleSortChange}
         onResetFilters={handleResetFilters}
       />
 
-      {/* Card Grid */}
       <div className={styles.grid}>
-        {collections.length === 0 ? (
+        {sortedCollections.length === 0 ? (
           <p className={styles["no-collections"]}>No Collections</p>
         ) : (
-          collections.map((collection) => (
+          sortedCollections.map((collection) => (
             <CollectionEntry key={collection.id} collection={collection} />
           ))
         )}

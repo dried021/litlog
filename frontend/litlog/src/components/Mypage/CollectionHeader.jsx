@@ -4,9 +4,6 @@ import styles from "./CollectionHeader.module.css";
 const CollectionHeader = ({
   activeTab = "created",
   onTabChange,
-  selectedYear,
-  onYearChange,
-  years = [],
   sortOption,
   onSortChange,
   onResetFilters,
@@ -59,44 +56,13 @@ const CollectionHeader = ({
 
       {/* Filters */}
       <div className={styles.filterGroup} ref={dropdownRef}>
-        {/* Year */}
-        <div className={styles.dropdownWrapper}>
-          <span
-            className={`${styles.tabButton} ${styles.filterTab} ${openDropdown === "year" ? styles.active : ""}`}
-            onClick={() => toggleDropdown("year")}
-          >
-            {selectedYear || "Year"} ▾
-          </span>
-          {openDropdown === "year" && (
-            <div className={styles.dropdownMenu}>
-              <div className={styles.dropdownSection}>
-                <div className={styles.dropdownTitle}>Year</div>
-                <div className={styles.dropdownItem} onClick={() => onYearChange("")}>All years</div>
-                <div className={styles.scrollArea}>
-                  {years.map((year) => (
-                    <div
-                      key={year}
-                      className={`${styles.dropdownItem} ${selectedYear === String(year) ? styles.disabled : ""}`}
-                      onClick={() => {
-                        if (selectedYear !== String(year)) onYearChange(String(year));
-                      }}
-                    >
-                      {year}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
         {/* Sort */}
         <div className={styles.dropdownWrapper}>
           <span
             className={`${styles.tabButton} ${styles.filterTab} ${openDropdown === "sort" ? styles.active : ""}`}
             onClick={() => toggleDropdown("sort")}
           >
-            Sort by: {getSortLabel(sortOption.field, sortOption.direction)} ▾
+            Sort by {getSortLabel(sortOption.field, sortOption.direction)} ▾
           </span>
           {openDropdown === "sort" && (
             <div className={styles.dropdownMenu}>
