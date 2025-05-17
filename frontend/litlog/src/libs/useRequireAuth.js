@@ -11,8 +11,10 @@ export function useRequireAuth() {
     if (user === undefined) return;
 
     if (user === null) {
-      const redirectTo = location.pathname;
-      navigate(`/sign-in?redirect=${redirectTo}`);
+      navigate('/sign-in', {
+        state: { from: location.pathname }, 
+        replace: true
+      });
     }
   }, [user]);
 

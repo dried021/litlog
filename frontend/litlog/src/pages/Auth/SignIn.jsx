@@ -11,13 +11,11 @@ const SignIn = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
 
-  const redirectTo = new URLSearchParams(location.search).get('redirect') || '/';
+  const from = location.state?.from || '/';
 
-  useEffect(() => {
-    if (user) {
-      navigate(redirectTo, { replace: true });
-    }
-  }, [user]);
+  // const handleLoginSuccess = () => {
+  //   navigate(from, { replace: true });
+  // };
 
   if (user === undefined) return <div>세션 확인 중...</div>; // 세션 체크 중
   if (user) return null; // 로그인된 상태면 이동 중
@@ -41,7 +39,7 @@ const SignIn = () => {
         const sessionRes = await axios.get('http://localhost:9090/session-check', { withCredentials: true });
         if (sessionRes.data.loggedIn) {
           setUser(sessionRes.data.id);
-          navigate(redirectTo, { replace: true });
+          navigate(from, { replace: true });
         } else {
           alert('세션 설정에 실패했습니다.');
         }

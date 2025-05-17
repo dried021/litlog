@@ -201,4 +201,8 @@
         WHERE id = #{collectionId} AND user_id = #{userId} <!-- 본인만 삭제 가능 -->
     </delete>
 
+    <select id="findUserIdByCollectionId" resultType="string">
+        SELECT user_id FROM book_collection
+        WHERE id = #{collectionId}
+    </select>
 </mapper>
