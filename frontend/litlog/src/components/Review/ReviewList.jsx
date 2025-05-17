@@ -146,7 +146,7 @@ function ReviewList() {
                 />
               </>
             ) : (
-              <p className="no-reviews">No reviews yet</p>
+              <p className="no-reviews">No Reviews</p>
             )}
           </>
         )}
