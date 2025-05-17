@@ -1,0 +1,73 @@
+.container {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.moreBtn {
+  background: none;
+  border: none;
+  color: teal;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.reviewList {
+  list-style: none;
+  padding: 0;
+}
+
+.reviewItem {
+  display: flex;
+  align-items: flex-start;
+  margin: 1rem 0;
+}
+
+.thumbnail {
+  width: 60px;
+  height: 90px;
+  object-fit: cover;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.info {
+  flex: 1;
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: gray;
+}
+
+.rating {
+  color: gold;
+  margin: 0.25rem 0;
+}
+
+.likes {
+  font-size: 0.85rem;
+  color: crimson;
+}
+
+.content {
+  font-size: 0.85rem;
+  color: #333;
+  margin-top: 0.25rem;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

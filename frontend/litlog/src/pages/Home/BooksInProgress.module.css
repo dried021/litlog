@@ -1,0 +1,81 @@
+.container {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h3 {
+  margin-bottom: 0.25rem;
+}
+
+.thumbnailRow {
+  display: flex;
+  flex-direction: row;       /* ✅ 기본값이지만 명시해줘 */
+  justify-content: center;
+  gap: 1rem;                 /* 썸네일 간 간격 */
+  flex-wrap: wrap;           /* 많아지면 줄바꿈 */
+}
+
+.bookItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;              /* 원하는 썸네일 너비 */
+}
+
+.thumbnail {
+  width: 100px;
+  height: 140px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.progressInfo {
+  margin-top: 0.4rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #ccc;
+  line-height: 1.3;
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  color: teal;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.loginMessage {
+  margin: 1rem 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.loginButton {
+  padding: 0.5rem 1rem;
+  background-color: teal;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.progressBarOuter {
+  width: 100%;
+  height: 6px;
+  background-color: #ddd;
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 4px 0;
+}
+
+.progressBarInner {
+  height: 100%;
+  background-color: teal;
+  transition: width 0.3s ease;
+  border-radius: 3px;
+}

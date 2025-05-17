@@ -9,6 +9,9 @@ import AddLikeButton from "../../components/Button/AddLikeButton";
 import AddToBookshelfButton from "../../components/Button/AddToBookshelfButton";
 import BookInfoDiv from "../../components/Book/BookInfo/BookInfoDiv";
 import CustomModal from "../../components/Modal/CustomModal";
+import { useContext } from 'react';
+import { UserContext } from '../../libs/UserContext';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 const BookDetail = () => {
@@ -16,6 +19,9 @@ const BookDetail = () => {
   const [book, setBook] = useState({});
   const [isClose, setIsClose] = useState(true);
   const [likeUpdated, setLikeUpdated] = useState(false);
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
 
   const [modalData, setModalData] = useState({
