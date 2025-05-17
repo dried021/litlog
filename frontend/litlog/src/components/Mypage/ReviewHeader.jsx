@@ -203,7 +203,7 @@ const ReviewHeader = ({
         {/* Sort */}
         <div className={styles.dropdownWrapper}>
           <span className={`${styles.tabButton} ${styles.filterTab} ${openDropdown === "sort" ? styles.active : ""}`} onClick={() => toggleDropdown("sort")}>
-            Sort by: {getSortLabel(sortOption.field, sortOption.direction)} ▾
+            Sort by {getSortLabel(sortOption.field, sortOption.direction)} ▾
           </span>
           {openDropdown === "sort" && (
             <div className={styles.dropdownMenu}>
