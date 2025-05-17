@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import TabMenu from "../../components/Mypage/TabMenu";
 import CollectionHeader from "../../components/Mypage/CollectionHeader";
@@ -7,6 +7,7 @@ import CollectionEntry from "./CollectionEntry";
 import styles from "./MyCollections.module.css";
 
 const CreatedCollection = () => {
+  const navigate = useNavigate();
   const { userId } = useParams();
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,6 +24,10 @@ const CreatedCollection = () => {
 
   const handleResetFilters = () => {
     setSortOption({ field: "date", direction: "desc" });
+  };
+
+  const handleTabChange = (tab) => {
+    navigate(`/${userId}/collections/${tab}`);
   };
 
   useEffect(() => {
@@ -73,7 +78,7 @@ const CreatedCollection = () => {
 
       <CollectionHeader
         activeTab="created"
-        onTabChange={() => {}}
+        onTabChange={handleTabChange}
         sortOption={sortOption}
         onSortChange={handleSortChange}
         onResetFilters={handleResetFilters}
