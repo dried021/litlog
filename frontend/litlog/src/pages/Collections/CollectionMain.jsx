@@ -32,6 +32,14 @@ const CollectionMain = () => {
     }
   };
 
+  const formatDate = (date) => {
+      return new Date(date).toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      });
+    };
+
   const CollectionCard = ({ col, navigate }) => (
   <div key={col.id} className={styles.collectionCard}>
     <div className={styles.thumbnailStack} onClick={() => navigate(`/collections/${col.id}`)}>
@@ -49,6 +57,7 @@ const CollectionMain = () => {
       <h4 className={styles.collectionTitle} onClick={() => navigate(`/collections/${col.id}`)}>{col.title}</h4>
       <p className={styles.collectionAuthor}>@{col.nickname}</p>
       <p className={styles.collectionDesc}>{col.content}</p>
+      <p className={styles.collectionDate}>📅 {formatDate(col.creationDate)}</p>
       <div className={styles.collectionMeta}>
         <span>❤️ {col.likeCount}</span>
         <span>💬 {col.commentCount}</span>
