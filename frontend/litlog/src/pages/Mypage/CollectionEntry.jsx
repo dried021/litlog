@@ -1,7 +1,9 @@
 import React, { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./MyCollections.module.css";
 
 const CollectionEntry = ({ collection }) => {
+  const navigate = useNavigate();
   const thumbnails = collection.thumbnails ?? [];
   const stack = [...thumbnails.slice(0, 5)];
   while (stack.length < 5) {
@@ -16,8 +18,12 @@ const CollectionEntry = ({ collection }) => {
     return { imageWidth, overlapOffset };
   }, []);
 
+  const handleClick = () => {
+    navigate(`/collections/${collection.id}`);
+  };
+
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={handleClick} style={{ cursor: "pointer" }}>
       <div className={styles.thumbnailStack}>
         {stack.map((img, idx) =>
           img ? (
