@@ -51,16 +51,20 @@ const CollectionEntry = ({ collection }) => {
       </div>
 
       <div className={styles.info}>
-        <h3 className={styles.title}>{collection.title}</h3>
-        <p className={styles.meta}>by {collection.nickname}</p>
-        <p className={styles.meta}>{collection.bookCount} books</p>
-        <p className={styles.meta}>
-          <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1}/>
-          {collection.likeCount ?? 0}
-          &nbsp;&nbsp;
-          <img src="/icons/comment_gray.svg" alt="comments" className={styles.icon2}/>
-          {collection.commentCount ?? 0}
-        </p>
+        <div className={styles.topRow}>
+          <h3 className={styles.title}>{collection.title}</h3>
+          <span className={styles.bookCount}>{collection.bookCount} books</span>
+        </div>
+        <div className={styles.bottomRow}>
+          <span className={styles.author}>by {collection.nickname}</span>
+          <span className={styles.meta}>
+            <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1}/>
+            {collection.likeCount ?? 0}
+            &nbsp;&nbsp;
+            <img src="/icons/comment_gray.svg" alt="comments" className={styles.icon2}/>
+            {collection.commentCount ?? 0}
+          </span>
+        </div>
       </div>
     </div>
   );

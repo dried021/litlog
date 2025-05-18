@@ -69,7 +69,14 @@
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  transition: all 0.2s ease-in-out;
+}
+
+.card:hover .title {
+  font-weight: bold;
+  color: #d4a373;
 }
 
 .thumbnailStack {
@@ -104,17 +111,40 @@
 }
 
 .info {
-  margin-top: 10px;
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+
 .title {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: #111;
   margin: 0;
+}
+
+.author {
+  font-size: 13px;
+  color: #777;
+}
+
+.bottomRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bookCount {
+  font-size: 13px;
+  color: #555;
 }
 
 .meta {
