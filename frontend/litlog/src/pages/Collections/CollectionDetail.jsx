@@ -14,6 +14,7 @@ const CollectionDetail = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
+  const [creationDate, setCreationDate] = useState(null);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const booksPerPage = 12;
@@ -28,6 +29,7 @@ const CollectionDetail = () => {
         ]);
 
         setCollection(metaRes.data);
+        setCreationDate(metaRes.data.creationDate);
         setLikeCount(metaRes.data.likeCount);
         setLiked(likedRes.data);
       } catch (err) {
@@ -78,6 +80,13 @@ const CollectionDetail = () => {
     }
   };
 
+  const formatDate = (date) => {
+      return new Date(date).toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      });
+    };
 
   if (!collection) return <p>로딩 중...</p>;
 
@@ -85,6 +94,7 @@ const CollectionDetail = () => {
     <div className={styles.outerWrapper}>
       {/* 상단 좋아요/댓글수 및 수정/삭제 */}
       <div className={styles.topBar}>
+        <p className={styles.collectionDate}>📅 {formatDate(creationDate)}</p>
         <div className={styles.likeComment}>
           <span onClick={handleLikeToggle} style={{ cursor: 'pointer' }}>
             {liked ? '❤️' : '🤍'} {likeCount}
