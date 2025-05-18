@@ -152,6 +152,11 @@
   font-size: 13px;
   color: #888;
 }
+.collectionDate{
+  display: flex;
+  font-size: 13px;
+  color: #888;
+}
 
 .thumbnailStack {
   position: relative;
