@@ -99,4 +99,7 @@ public class CollectionService {
         collectionMapper.deleteCollection(collectionId, userId);
     }
 
+    public String getCollectionOwner(int collectionId) {
+        return collectionMapper.findUserIdByCollectionId(collectionId);
+    }
 }

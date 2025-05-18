@@ -1,0 +1,200 @@
+.headerWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 50px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #111;
+}
+
+.tabGroup {
+  display: flex;
+  gap: 4px; 
+}
+
+.tabButton {
+  font-size: 17px;
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  outline: none;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.mainTab {
+  padding: 4px 12px;
+}
+
+.mainTab:not(.active):hover {
+  color: #444;
+}
+
+.tabButton:focus {
+  outline: none;
+}
+
+.active {
+  color: #d4a373;
+  border-bottom: 2px solid #d4a373;
+}
+
+.filterTab {
+  min-width: 170px;       
+  font-size: 14px;
+  padding: 3px;     
+  white-space: nowrap;     
+  text-align: left;         
+}
+
+.filterTab:hover {
+  color: #444;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dropdownWrapper {
+  position: relative;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 6px 10px;
+  border-radius: 4px;
+  min-width: 140px;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.dropdownSection {
+  margin-bottom: 8px;
+}
+
+.dropdownTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 4px;
+  padding-left: 2px;
+}
+
+.scrollArea {
+  max-height: 200px; 
+  overflow-y: auto;
+}
+.scrollArea::-webkit-scrollbar {
+  width: 3px;
+  background: transparent;
+}
+.scrollArea::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+.scrollArea:hover::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+}
+.scrollArea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dropdownMenu::-webkit-scrollbar {
+  width: 3px;
+}
+.dropdownMenu::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
+.dropdownMenu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.filterLabel {
+  font-size: 13px;
+  color: #333;
+  white-space: nowrap;
+}
+
+.dropdownItem {
+  padding: 4px 8px;
+  cursor: pointer;
+  color: #333;
+  font-size: 13px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  white-space: nowrap; 
+}
+
+.dropdownItem:hover {
+  color: #aaa;
+}
+
+.ratingRow {
+  margin-left: -4px;
+}
+
+.refreshIcon {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  filter: grayscale(1) brightness(0.8);
+  transition: filter 0.2s ease;
+}
+
+.tabButton:hover .refreshIcon {
+  filter: brightness(0.3);
+}
+
+.disabled {
+  color: #999;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* 툴팁
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #555;
+  color: #fff;
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+  z-index: 10;
+}
+
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 4px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+*/
