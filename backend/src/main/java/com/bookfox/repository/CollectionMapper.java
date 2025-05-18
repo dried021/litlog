@@ -11,9 +11,15 @@ import com.bookfox.model.CollectionDto;
 
 @Mapper
 public interface CollectionMapper {
-    List<CollectionDto> selectPopularCollectionsThisWeek();
-    List<CollectionDto> selectAllCollectionsSortedByLikes();
-    List<CollectionDto> selectAllCollectionsSortedByRecent();
+     // 이번 주 인기 컬렉션 (페이징 지원)
+    List<CollectionDto> selectPopularCollectionsThisWeek(@Param("offset") int offset, @Param("size") int size);
+
+    // 이번 주 인기 컬렉션 총 개수
+    int countPopularCollectionsThisWeek();
+    
+    List<CollectionDto> selectCollectionsSortedByLikes(@Param("offset") int offset, @Param("size") int size);
+    List<CollectionDto> selectCollectionsSortedByRecent(@Param("offset") int offset, @Param("size") int size);
+    int countAllCollections();
     List<CollectionDto> selectCollectionById(int id);
      // 1. 콜렉션 저장
     void insertCollection(CollectionDto dto);
