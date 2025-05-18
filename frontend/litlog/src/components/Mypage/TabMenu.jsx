@@ -1,10 +1,13 @@
 import React from "react";
+import { useContext } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import "./TabMenu.css";
 import { useParams } from "react-router-dom";
+import { UserContext } from "../../libs/UserContext";
 
 const TabMenu = () => {
-  const userId = useParams().userId;
+  const {user} = useContext(UserContext); /* 로그인된 user */
+  const userId = useParams().userId; /* 현재 페이지 주인 */
   const location = useLocation();
 
   return (
@@ -27,7 +30,9 @@ const TabMenu = () => {
         >
           My Collections
         </NavLink>
-        <NavLink to={`/${userId}/activity`}>Activity</NavLink>
+        {(user && user===userId) && (
+          <NavLink to={`/${userId}/activity`}>Activity</NavLink>
+        )}
       </nav>
     </div>
   );
