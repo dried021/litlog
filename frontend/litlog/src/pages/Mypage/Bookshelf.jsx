@@ -6,7 +6,7 @@ import TabMenu from '../../components/Mypage/TabMenu';
 import SelectMenu from '../../components/Select/SelectMenu';
 import styles from './Bookshelf.module.css';
 import defaultThumbnail from '../../assets/default_thumbnail.png';
-import heart from '../../assets/heart_light.svg';
+import heart from '../../assets/heart.svg';
 
 import Pagination from '../../components/Pagination/Pagination';
 
