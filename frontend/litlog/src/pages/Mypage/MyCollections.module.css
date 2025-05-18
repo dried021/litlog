@@ -100,6 +100,30 @@
   box-sizing: border-box;
 }
 
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.6);
+  color: #fff;
+  font-size: 13px;
+  padding: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 11;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
 .placeholderBox {
   position: absolute;
   width: 90px;
@@ -114,7 +138,7 @@
   margin-top: 15px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .topRow {
@@ -123,17 +147,20 @@
   align-items: baseline;
 }
 
-
 .title {
+  font-weight: bold;
   font-size: 16px;
-  font-weight: 600;
   color: #111;
   margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .author {
+  font-weight: bold;
   font-size: 13px;
-  color: #777;
+  color: #888;
 }
 
 .bottomRow {
@@ -145,12 +172,14 @@
 .bookCount {
   font-size: 13px;
   color: #555;
+  white-space: nowrap;
 }
 
 .meta {
   font-size: 13px;
   color: #666;
   margin: 0;
+  white-space: nowrap;
 }
 
 .icon1 {

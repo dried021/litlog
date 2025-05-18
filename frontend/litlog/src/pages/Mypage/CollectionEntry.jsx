@@ -48,6 +48,10 @@ const CollectionEntry = ({ collection }) => {
             />
           )
         )}
+        {/* 설명 오버레이 */}
+        <div className={styles.overlay}>
+          <p>{collection.content}</p>
+        </div>
       </div>
 
       <div className={styles.info}>
