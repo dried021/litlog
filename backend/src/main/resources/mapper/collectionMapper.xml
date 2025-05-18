@@ -26,98 +26,91 @@
 
 
 
-    <select id="selectPopularCollectionsThisWeek" resultMap="CollectionWithBooksResultMap">
-        SELECT 
-            c.id AS collection_id,
-            c.user_id,
-            u.nickname,
-            c.title,
-            c.content,
-            c.thumbnail,
-            c.creation_date,
-            l.like_count,
-            COUNT(DISTINCT cm.id) AS comment_count,
-            b.id AS book_id,
-            b.title AS book_title,
-            b.thumbnail AS book_thumbnail
-        FROM (
-            SELECT target_id AS collection_id
-            FROM like_list
-            WHERE like_type = 3 AND YEARWEEK(creation_date, 1) = YEARWEEK(NOW(), 1)
-            GROUP BY target_id
-            ORDER BY COUNT(*) DESC
-        ) AS top
-        JOIN book_collection c ON c.id = top.collection_id
-        LEFT JOIN user u ON c.user_id = u.id
-        LEFT JOIN (
-            SELECT target_id, COUNT(*) AS like_count
-            FROM like_list
-            WHERE like_type = 3 AND YEARWEEK(creation_date, 1) = YEARWEEK(NOW(), 1)
-            GROUP BY target_id
-        ) l ON c.id = l.target_id
-        LEFT JOIN book_collection_comment cm ON c.id = cm.collection_id
-        LEFT JOIN book_collection_book cb ON c.id = cb.collection_id
-        LEFT JOIN book b ON cb.book_id = b.id
-        GROUP BY c.id, b.id
-        ORDER BY like_count DESC
+    <!-- 인기순 컬렉션 (이번 주 기준, 페이징 적용) -->
+    <select id="selectPopularCollectionsThisWeek" resultType="com.bookfox.model.CollectionDto">
+    SELECT 
+        c.id AS id,
+        c.user_id AS userId,
+        u.nickname,
+        c.title,
+        c.content,
+        c.thumbnail,
+        c.creation_date AS creationDate,
+        l.like_count AS likeCount,
+        COUNT(DISTINCT cm.id) AS commentCount
+    FROM (
+        SELECT target_id AS collection_id
+        FROM like_list
+        WHERE like_type = 3 AND YEARWEEK(creation_date, 1) = YEARWEEK(NOW(), 1)
+        GROUP BY target_id
+        ORDER BY COUNT(*) DESC
+        LIMIT #{size} OFFSET #{offset}
+    ) AS top
+    JOIN book_collection c ON c.id = top.collection_id
+    LEFT JOIN user u ON c.user_id = u.id
+    LEFT JOIN (
+        SELECT target_id, COUNT(*) AS like_count
+        FROM like_list
+        WHERE like_type = 3 AND YEARWEEK(creation_date, 1) = YEARWEEK(NOW(), 1)
+        GROUP BY target_id
+    ) l ON c.id = l.target_id
+    LEFT JOIN book_collection_comment cm ON c.id = cm.collection_id
+    GROUP BY c.id
+    ORDER BY likeCount DESC
     </select>
 
-    <select id="selectAllCollectionsSortedByLikes" resultMap="CollectionWithBooksResultMap">
-        SELECT 
-            c.id AS collection_id,
-            c.user_id, 
-            u.nickname, 
-            c.title, 
-            c.content, 
-            c.thumbnail, 
-            c.creation_date,
-            l.like_count,
-            COUNT(DISTINCT cm.id) AS comment_count,
-            b.id AS book_id, 
-            b.title AS book_title, 
-            b.thumbnail AS book_thumbnail
-        FROM book_collection c
-        LEFT JOIN user u ON c.user_id = u.id
-        LEFT JOIN (
-            SELECT target_id AS collection_id, COUNT(*) AS like_count
-            FROM like_list
-            WHERE like_type = 3
-            GROUP BY target_id
-        ) l ON c.id = l.collection_id
-        LEFT JOIN book_collection_comment cm ON c.id = cm.collection_id
-        LEFT JOIN book_collection_book cb ON c.id = cb.collection_id
-        LEFT JOIN book b ON cb.book_id = b.id
-        GROUP BY c.id, b.id
-        ORDER BY like_count DESC
+    <!-- 전체 개수 (이번 주 인기 컬렉션 수) -->
+    <select id="countPopularCollectionsThisWeek" resultType="int">
+    SELECT COUNT(DISTINCT target_id)
+    FROM like_list
+    WHERE like_type = 3 AND YEARWEEK(creation_date, 1) = YEARWEEK(NOW(), 1)
     </select>
 
-    <select id="selectAllCollectionsSortedByRecent" resultMap="CollectionWithBooksResultMap">
-        SELECT 
-            c.id AS collection_id,
-            c.user_id, 
-            u.nickname, 
-            c.title, 
-            c.content, 
-            c.thumbnail, 
-            c.creation_date,
-            l.like_count,
-            COUNT(DISTINCT cm.id) AS comment_count,
-            b.id AS book_id, 
-            b.title AS book_title, 
-            b.thumbnail AS book_thumbnail
-        FROM book_collection c
-        LEFT JOIN user u ON c.user_id = u.id
-        LEFT JOIN (
-            SELECT target_id AS collection_id, COUNT(*) AS like_count
-            FROM like_list
-            WHERE like_type = 3
-            GROUP BY target_id
-        ) l ON c.id = l.collection_id
-        LEFT JOIN book_collection_comment cm ON c.id = cm.collection_id
-        LEFT JOIN book_collection_book cb ON c.id = cb.collection_id
-        LEFT JOIN book b ON cb.book_id = b.id
-        GROUP BY c.id, b.id
-        ORDER BY c.creation_date DESC
+    <!-- 최신순 정렬 (creation_date 기준 DESC) -->
+    <select id="selectCollectionsSortedByRecent" resultType="com.bookfox.model.CollectionDto">
+    SELECT
+        c.id AS id,
+        c.user_id AS userId,
+        u.nickname AS nickname,
+        c.title AS title,
+        c.content AS content,
+        c.thumbnail AS thumbnail,
+        c.creation_date AS creationDate,
+        COUNT(DISTINCT l.id) AS likeCount,
+        COUNT(DISTINCT cm.id) AS commentCount
+    FROM book_collection c
+    LEFT JOIN user u ON c.user_id = u.id
+    LEFT JOIN like_list l ON c.id = l.target_id AND l.like_type = 3
+    LEFT JOIN book_collection_comment cm ON c.id = cm.collection_id
+    GROUP BY c.id
+    ORDER BY c.creation_date DESC
+    LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <!-- 좋아요순 정렬 (likeCount DESC) -->
+    <select id="selectCollectionsSortedByLikes" resultType="com.bookfox.model.CollectionDto">
+    SELECT
+        c.id AS id,
+        c.user_id AS userId,
+        u.nickname AS nickname,
+        c.title AS title,
+        c.content AS content,
+        c.thumbnail AS thumbnail,
+        c.creation_date AS creationDate,
+        COUNT(DISTINCT l.id) AS likeCount,
+        COUNT(DISTINCT cm.id) AS commentCount
+    FROM book_collection c
+    LEFT JOIN user u ON c.user_id = u.id
+    LEFT JOIN like_list l ON c.id = l.target_id AND l.like_type = 3
+    LEFT JOIN book_collection_comment cm ON c.id = cm.collection_id
+    GROUP BY c.id
+    ORDER BY likeCount DESC
+    LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <!-- 전체 콜렉션 개수 (페이징 계산용) -->
+    <select id="countAllCollections" resultType="int">
+    SELECT COUNT(*) FROM book_collection
     </select>
 
     <select id="selectCollectionById" parameterType="int" resultMap="CollectionWithBooksResultMap">
@@ -174,11 +167,14 @@
     </insert>
 
     <select id="getBooksByCollectionId" resultType="com.bookfox.model.BookDto">
-    SELECT * FROM book_collection_book b
-    JOIN book ON b.book_id = book.id
-    WHERE b.collection_id = #{collectionId}
-    ORDER BY b.id
-    LIMIT #{size} OFFSET #{offset}
+    SELECT b.*
+    FROM book_collection_book cb
+    JOIN book b ON cb.book_id = b.id
+    WHERE cb.collection_id = #{collectionId}
+    ORDER BY cb.id
+    <if test="limit != null">
+        LIMIT #{limit}
+    </if>
     </select>
 
     <select id="getBookCountByCollectionId" resultType="int">

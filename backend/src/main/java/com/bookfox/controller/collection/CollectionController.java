@@ -25,20 +25,49 @@ public class CollectionController {
 
     // 이번 주 인기순
     @GetMapping("/popular")
-    public List<CollectionDto> getPopularCollectionsThisWeek() {
-        return collectionService.getWeeklyPopularCollections();
-    }
+    public ResponseEntity<?> getWeeklyPopularCollections(
+        @RequestParam(defaultValue = "1") int page,
+        @RequestParam(defaultValue = "12") int size) {
+
+    int offset = (page - 1) * size;
+
+    List<CollectionDto> list = collectionService.getPopularCollectionsThisWeek(offset, size);
+    int totalCount = collectionService.countPopularCollectionsThisWeek();
+
+    int totalPages = (int) Math.ceil((double) totalCount / size);
+
+    return ResponseEntity.ok(Map.of(
+        "book_collections", list,
+        "totalPages", totalPages
+    ));
+}
 
     // 전체 컬렉션 인기/최신 정렬
-    @GetMapping //
-    public ResponseEntity<?> getCollections(@RequestParam(defaultValue = "popular") String sort) {
+    @GetMapping
+    public ResponseEntity<?> getCollections(
+            @RequestParam(defaultValue = "popular") String sort,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "12") int size) {
+
+        int offset = (page - 1) * size;
+
         List<CollectionDto> list;
+        int totalCount;
+
         if ("recent".equals(sort)) {
-            list = collectionService.getAllCollectionsSortedByRecent();
+            list = collectionService.getCollectionsSortedByRecent(offset, size);
+            totalCount = collectionService.countAllCollections(); // 정렬 상관없이 총 개수
         } else {
-            list = collectionService.getAllCollectionsSortedByLikes();
+            list = collectionService.getCollectionsSortedByLikes(offset, size);
+            totalCount = collectionService.countAllCollections();
         }
-        return ResponseEntity.ok(Map.of("book_collections", list));
+
+        int totalPages = (int) Math.ceil((double) totalCount / size);
+
+        return ResponseEntity.ok(Map.of(
+                "book_collections", list,
+                "totalPages", totalPages
+        ));
     }
 
     @GetMapping("/{id}")
