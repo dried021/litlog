@@ -4,7 +4,7 @@ import { exists } from "../../../libs/book/exists";
 import axios from 'axios';
 import CustomModal from "../../Modal/CustomModal";
 
-function BookInfoDiv({ bookApiId, likeUpdated }) {
+function BookInfoDiv({ bookApiId, likeTrigger }) {
   const [bookshelfCount, setBookshelfcount] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
@@ -41,7 +41,7 @@ function BookInfoDiv({ bookApiId, likeUpdated }) {
       };
       checkCounts();
     }
-  }, [bookApiId, likeUpdated]);
+  }, [bookApiId, likeTrigger]);
 
   const getCounts = async (bookApiId) => {
     try {
@@ -63,7 +63,7 @@ function BookInfoDiv({ bookApiId, likeUpdated }) {
   const changeLike = async (bookApiId) => {
     if (isLiked){
       try {
-        const response = await axios.post(`http://localhost:9090/books/unlike`, { bookApiId }, { withCredentials: true });
+        const response = await axios.post(`http://localhost:9090/books/unlike`, { bookApiId, option: 2 }, { withCredentials: true });
         openModal("The book has been successfully unliked.");
         setIsLiked(false);
         setLikeCount((prev) => prev - 1);

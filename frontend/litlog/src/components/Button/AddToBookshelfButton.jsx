@@ -1,36 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./AddToBookshelfButton.css"; 
 import axios from "axios";
-import CustomModal from "../Modal/CustomModal";
 
-function AddToBookshelfButton({bookApiId, handleClick}) {
+function AddToBookshelfButton({bookApiId, handleClick, handleAddedClick}) {
   const [showOptions, setShowOptions] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
-
-  const [modalData, setModalData] = useState({
-    show:false,
-    message: "",
-    mode: "close",
-  });
-
-  const handleCloseModal = () => {
-    setModalData({...modalData, show:false,});
-  };
-
-  const openModal = (message) => {
-    setModalData({
-      show:true,
-      message,
-      mode: "close",
-    });
-  };
-
 
   const options = [
     { label: "To Read", value: 1 },
     { label: "Currently Reading", value: 2 },
     { label: "Finished Reading", value: 3 },
   ];
+
+  const options_added = [
+    { label: "Move to My Bookshelf", value: 1 },
+    { label: "Remove from bookshelf", value: 2 },
+  ]
 
   useEffect(()=> {
     setBookshelf(bookApiId);
@@ -61,22 +46,40 @@ function AddToBookshelfButton({bookApiId, handleClick}) {
     setShowOptions(false);
   };
 
+  const handleOptionAddedClick = async (option) => {
+    try{
+      await handleAddedClick(option);
+      setBookshelf(bookApiId);
+    }catch (err) {
+      console.error("Error removing from bookshelf:", err);
+    }
+  }
+
   return (
     <>
       <div
         className="addtobookshelf-container"
         onMouseEnter={() => setShowOptions(true)}
         onMouseLeave={() => setShowOptions(false)}
-        onClick={() => {
-          if (isAdded) {
-            openModal("The book is already added to the bookshelf.");
-          }
-        }}
       >
         <button className="addtobookshelf-button">
           <img src="/icons/bookshelf.svg" alt="Bookshelf Icon" />
           {" Add to Bookshelf"}
         </button>
+
+        {(showOptions && isAdded) && (
+          <div className="options-dropdown">
+            {options_added.map((option) => (
+              <div
+                key={option.value}
+                className="option-item"
+                onClick={() => handleOptionAddedClick(option.value)}
+              >
+                {option.label}
+              </div>
+            ))}
+          </div>
+        )}
 
         {(showOptions && !isAdded) && (
           <div className="options-dropdown">
@@ -92,15 +95,6 @@ function AddToBookshelfButton({bookApiId, handleClick}) {
           </div>
         )}
       </div>
-      
-      <CustomModal
-        show={modalData.show}
-        onHide={handleCloseModal}
-        successMessage={modalData.message}
-        failMessage={modalData.message}
-        resultValue={"1"}
-        mode="close"
-      />
     </>
   );
 }
