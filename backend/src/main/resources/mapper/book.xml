@@ -209,13 +209,15 @@
 
         FROM book b
 
+        LEFT JOIN book_review br
+            ON br.book_id = b.id
         LEFT JOIN user u
             ON u.id = br.user_id
-
+            
         ORDER BY 
-            (SELECT MAX(br.creation_date) 
-            FROM book_review br 
-            WHERE br.book_id = b.id ) DESC
+            (SELECT MAX(br2.creation_date) 
+            FROM book_review br2 
+            WHERE br2.book_id = b.id ) DESC
         LIMIT 20
     </select>
 

@@ -18,6 +18,7 @@ import com.bookfox.service.BookService;
 import com.bookfox.util.CategoryMapper;
 
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/books")
@@ -26,9 +27,8 @@ public class BooksAdd {
     private BookService bookService;
 
     @PostMapping("/bookshelf")
-    public ResponseEntity<Boolean> addToBookshelf(@RequestBody Map<String, Object> request) {
-        //session에서 user 가져오기
-        String userId = "user01";
+    public ResponseEntity<Boolean> addToBookshelf(@RequestBody Map<String, Object> request, HttpSession session) {
+        String userId = (String) session.getAttribute("loginUser");
 
         String bookApiId = (String) request.get("bookId");
         int option = (int) request.get("option");
@@ -48,9 +48,8 @@ public class BooksAdd {
     }
 
     @PostMapping("/like")
-    public ResponseEntity<Integer> addLike(@RequestBody Map<String, Object> request) {
-        //session에서 user 가져오기
-        String userId = "user01";
+    public ResponseEntity<Integer> addLike(@RequestBody Map<String, Object> request, HttpSession session) {
+        String userId = (String) session.getAttribute("loginUser");
         String bookApiId = (String) request.get("bookId");
         boolean exists = bookService.exists(bookApiId);
 
@@ -73,9 +72,8 @@ public class BooksAdd {
     }
 
     @PostMapping("/unlike")
-    public ResponseEntity<Boolean> unLike(@RequestBody Map<String, Object> request) {
-        //session에서 user 가져오기
-        String userId = "user01";
+    public ResponseEntity<Boolean> unLike(@RequestBody Map<String, Object> request, HttpSession session) {
+        String userId = (String) session.getAttribute("loginUser");
         String bookApiId = (String) request.get("bookApiId");
 
         int bookId = bookService.getIdByBookApiId(bookApiId);
@@ -84,9 +82,8 @@ public class BooksAdd {
     }
 
     @PostMapping("/review")
-    public ResponseEntity<Map<String, Object>> addReview(@RequestBody Map<String, Object> request){
-        //세션에서 가져오기
-        String userId = "user20";
+    public ResponseEntity<Map<String, Object>> addReview(@RequestBody Map<String, Object> request, HttpSession session){
+        String userId = (String) session.getAttribute("loginUser");
 
         Map<String, Object> response = new HashMap<>();
         boolean isAlreadyReviewed = bookService.checkReviewed(userId, (String) request.get("bookApiId"));

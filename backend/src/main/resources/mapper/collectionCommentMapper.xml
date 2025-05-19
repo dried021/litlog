@@ -10,7 +10,7 @@
         FROM book_collection_comment c
         JOIN user u ON c.user_id = u.id
         WHERE c.collection_id = #{collectionId}
-        ORDER BY c.creation_date ASC
+        ORDER BY c.creation_date DESC
         LIMIT #{size} OFFSET #{offset}
     </select>
 

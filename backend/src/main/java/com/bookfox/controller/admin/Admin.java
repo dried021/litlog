@@ -19,7 +19,6 @@ public class Admin {
     @Autowired
     private AdminService adminService;
 
-
     @GetMapping
     public Map<String, Object> getAdminUsers(
             @RequestParam(defaultValue = "1") int pageNum,
@@ -79,5 +78,4 @@ public class Admin {
         adminService.deleteReviewById(id);
         return ResponseEntity.ok("review deleted successfully");
     }
-
 }

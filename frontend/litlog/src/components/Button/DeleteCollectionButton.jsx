@@ -58,6 +58,7 @@ function DeleteCollectionButton({ collectionId, onDelete }) {
     <button className={styles.deleteButton} onClick={handleDelete}>
       Delete Collection
     </button>
+    
     <CustomModal
       show={modalData.show}
       onHide={handleCloseModal}

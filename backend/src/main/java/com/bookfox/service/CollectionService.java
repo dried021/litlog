@@ -19,16 +19,54 @@ public class CollectionService {
 
     private final CollectionMapper collectionMapper;
 
-    public List<CollectionDto> getWeeklyPopularCollections() {
-        return collectionMapper.selectPopularCollectionsThisWeek();
+    public List<CollectionDto> getPopularCollectionsThisWeek(int offset, int size) {
+        List<CollectionDto> collections = collectionMapper.selectPopularCollectionsThisWeek(offset, size);
+        for (CollectionDto col : collections) {
+            List<BookDto> books = collectionMapper.getBooksByCollectionId(Map.of(
+                "collectionId", col.getId(),
+                "limit", 6
+            ));
+            col.setBooks(books);
+        }
+        return collections;
     }
 
-    public List<CollectionDto> getAllCollectionsSortedByLikes() {
-        return collectionMapper.selectAllCollectionsSortedByLikes();
+    public int countPopularCollectionsThisWeek() {
+        return collectionMapper.countPopularCollectionsThisWeek();
     }
 
-    public List<CollectionDto> getAllCollectionsSortedByRecent() {
-        return collectionMapper.selectAllCollectionsSortedByRecent();
+    public List<CollectionDto> getCollectionsSortedByLikes(int offset, int size) {
+        List<CollectionDto> collections = collectionMapper.selectCollectionsSortedByLikes(offset, size);
+
+        // ★ 각 콜렉션에 대해 books 리스트를 직접 붙여주기
+        for (CollectionDto col : collections) {
+            List<BookDto> books = collectionMapper.getBooksByCollectionId(Map.of(
+                "collectionId", col.getId(),
+                "limit", 6  // 썸네일 용도만이므로 최대 6개만
+            ));
+            col.setBooks(books);
+        }
+
+        return collections;
+    }
+
+    public List<CollectionDto> getCollectionsSortedByRecent(int offset, int size) {
+        List<CollectionDto> collections = collectionMapper.selectCollectionsSortedByRecent(offset, size);
+
+        for (CollectionDto col : collections) {
+            List<BookDto> books = collectionMapper.getBooksByCollectionId(Map.of(
+                "collectionId", col.getId(),
+                "limit", 6
+            ));
+            col.setBooks(books);
+        }
+
+        return collections;
+    }
+
+
+    public int countAllCollections() {
+        return collectionMapper.countAllCollections();
     }
 
     public CollectionDto getCollectionById(int id) {

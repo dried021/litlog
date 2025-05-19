@@ -28,7 +28,7 @@ const EditCollection = () => {
 
         setInitialTitle(res.data.title);
         setInitialContent(res.data.content);
-        setInitialBooks(res.data.books || []); // ✅ 고정 배열
+        setInitialBooks(res.data.books || []); 
         setLoaded(true);
       } catch (err) {
         console.error('콜렉션 불러오기 실패:', err);
@@ -40,14 +40,15 @@ const EditCollection = () => {
   }, [collectionId]);
 
   useEffect(() => {
+    if (!authorized) {
       const timer = setTimeout(() => {
-        navigate(-1); // 🔙 이전 페이지로
-      }, 1500); // 1.5초 후 이동
+        navigate(-1); 
+      }, 1500);
 
-      return () => clearTimeout(timer); // 클린업
-    }, [navigate]);
+      return () => clearTimeout(timer); 
+    }
+  }, [authorized, navigate]);
 
-    
   if (!authorized) {
     return <div>접근 권한이 없습니다. 이전 페이지로 돌아갑니다...</div>;
   }
