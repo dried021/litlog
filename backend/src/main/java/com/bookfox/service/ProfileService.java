@@ -95,7 +95,6 @@ public class ProfileService {
     public boolean updateProfile(String userId, String bio, MultipartFile profileImage) throws IOException {
         Map<String, Object> map = new HashMap<>(); 
         map.put("userId", userId);
-        map.put("profileImage", profileImage);
         map.put("bio", bio);
         boolean success = true;
         if (profileImage != null && !profileImage.isEmpty()) {
