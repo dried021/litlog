@@ -133,7 +133,7 @@ public class Books {
                 dto.setSenderId(userId);
                 dto.setType("REVIEW_LIKE");
                 dto.setTargetId(reviewId);
-                dto.setMessage(userId + "님이 당신의 리뷰를 좋아합니다.");
+                dto.setMessage(userId + " liked your review.");
                 dto.setRead(false);
                 notificationService.sendNotification(dto);
             }

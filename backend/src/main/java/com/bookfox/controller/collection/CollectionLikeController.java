@@ -43,7 +43,7 @@ public class CollectionLikeController {
                 dto.setSenderId(userId);               
                 dto.setType("COLLECTION_LIKE");
                 dto.setTargetId(collectionId);
-                dto.setMessage(userId + "님이 당신의 컬렉션을 좋아합니다.");
+                dto.setMessage(userId + " liked your collection.");
                 dto.setRead(false);
 
                 notificationService.sendNotification(dto);
