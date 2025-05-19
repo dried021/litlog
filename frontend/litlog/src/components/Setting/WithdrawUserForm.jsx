@@ -91,7 +91,7 @@ const AccountDeletionForm = ({ userId }) => {
 
       <div className={styles.formGroupFull}>
         <label>Your ID</label>
-        <input type="text" value={userId} readOnly />
+        <input type="text" value={userId ?? ''} readOnly />
       </div>
 
       <div className={styles.formGroupFull}>
