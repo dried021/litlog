@@ -34,5 +34,10 @@ public class CollectionLikeService {
     public int getCollectionLikeCount(int collectionId) {
         return likeMapper.countLikesForCollection(collectionId);
     }
+
+    // 알림
+    public String getCollectionOwnerId(int collectionId) {
+        return likeMapper.getCollectionOwnerId(collectionId);
+    }
 }
 

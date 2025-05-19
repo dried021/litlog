@@ -1,0 +1,122 @@
+/* 전체 사이드바 패널 */
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100vh;
+  background-color: white;
+  border-left: 1px solid #ccc;
+  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(0);
+}
+
+.hidden {
+  transform: translateX(100%);
+  pointer-events: none;
+}
+
+/* 상단 헤더 영역 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  font-weight: bold;
+  font-size: 18px;
+  border-bottom: 1px solid #eee;
+}
+
+.title {
+  font-size: 16px;
+}
+
+.closeBtn {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+}
+
+.subtext {
+  padding: 8px 16px;
+  font-size: 12px;
+  color: #999;
+  border-bottom: 1px solid #eee;
+}
+
+/* 알림 리스트 영역 */
+.list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.list::-webkit-scrollbar {
+  width: 6px;
+}
+.list::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+.list::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.item {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.item:hover {
+  background-color: #f9f9f9;
+}
+
+/* 안 읽은 알림 */
+.unread {
+  font-weight: 600;
+  background-color: #fff;
+  color: #111;
+}
+
+/* 읽은 알림 */
+.read {
+  font-weight: normal;
+  color: #888;
+}
+
+/* 알림 내용 */
+.message {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* ● 표시 */
+.dot {
+  color: #2196f3;
+  font-size: 16px;
+  margin-right: 6px;
+}
+
+/* 타임스탬프 */
+.time {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+.empty {
+  padding: 24px;
+  text-align: center;
+  color: #bbb;
+  font-size: 14px;
+}

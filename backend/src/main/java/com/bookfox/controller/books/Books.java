@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.bookfox.model.BookReviewDto;
+import com.bookfox.model.NotificationDto;
 import com.bookfox.service.BookService;
+import com.bookfox.service.NotificationService;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpSession;
@@ -23,6 +26,9 @@ import jakarta.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/books")
 public class Books {
+    @Autowired
+    private NotificationService notificationService;
+
     @Resource
     private BookService bookService;
 
@@ -119,6 +125,18 @@ public class Books {
 
         if (isLiked){
             bookService.likeReview(reviewId, userId);
+            // 알림
+            String ownerId = bookService.getReviewAuthorId(reviewId);
+            if (!userId.equals(ownerId)) {
+                NotificationDto dto = new NotificationDto();
+                dto.setUserId(ownerId);
+                dto.setSenderId(userId);
+                dto.setType("REVIEW_LIKE");
+                dto.setTargetId(reviewId);
+                dto.setMessage(userId + "님이 당신의 리뷰를 좋아합니다.");
+                dto.setRead(false);
+                notificationService.sendNotification(dto);
+            }
         }else{
             bookService.unlikeReview(reviewId, userId);
         }

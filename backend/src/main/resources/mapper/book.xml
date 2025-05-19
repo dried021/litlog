@@ -249,5 +249,11 @@
         ORDER BY likeCount DESC
         LIMIT 5 OFFSET #{offset};
     </select>
+
+    <select id="getReviewAuthorId" parameterType="int" resultType="string">
+        SELECT user_id
+        FROM book_review
+        WHERE id = #{reviewId}
+    </select>
     
 </mapper>

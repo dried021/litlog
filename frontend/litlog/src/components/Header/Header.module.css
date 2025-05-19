@@ -59,3 +59,14 @@
 .authMenu:hover {
   background-color: #f9f9f9;
 }
+
+.authContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notifIcon {
+  width: 22px;
+  cursor: pointer;
+}
