@@ -5,6 +5,8 @@ import ListEntry from "./ListEntry";
 import ReviewHeader from "../../components/Mypage/ReviewHeader";
 import TabMenu from "../../components/Mypage/TabMenu";
 import styles from "./MyReviews.module.css";
+import Pagination from "../../components/Pagination/Pagination";
+import ProfileSummary from '../../components/Profile/ProfileSummary';
 
 const ReviewList = () => {
   const { userId, year } = useParams();
@@ -32,6 +34,16 @@ const ReviewList = () => {
 
   const [totalTimelineBooks, setTotalTimelineBooks] = useState(0);
   const [totalWrittenReviews, setTotalWrittenReviews] = useState(0);
+
+  // 페이지네이션
+  const [currentPage, setCurrentPage] = useState(1);
+  const reviewsPerPage = 20;
+  const startIndex = (currentPage - 1) * reviewsPerPage;
+  const endIndex = startIndex + reviewsPerPage;
+  const paginatedReviews = filteredReviews.slice(startIndex, endIndex);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
 
   useEffect(() => {
     setSelectedYear(year || "");
@@ -107,6 +119,10 @@ const ReviewList = () => {
     setFilteredReviews(filtered);
   }, [reviews, selectedYear, selectedRating, likedOnly, withContentOnly, sortOption]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedYear, selectedRating, likedOnly, withContentOnly, sortOption]);
+
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     navigate(`/${userId}/reviews/${tab}`);
@@ -167,6 +183,7 @@ const ReviewList = () => {
 
   return (
     <div className={styles["review-list"]}>
+      <ProfileSummary/>
       <TabMenu userId={userId} />
 
       <ReviewHeader
@@ -192,11 +209,17 @@ const ReviewList = () => {
         {filteredReviews.length === 0 ? (
           <p className={styles["no-reviews"]}>No Reviews</p>
         ) : (
-          filteredReviews.map((review) => (
+          paginatedReviews.map((review) => (
             <ListEntry key={review.id} review={review} />
           ))
         )}
       </div>
+
+      <Pagination
+        currentPage={currentPage}
+        pageCount={Math.ceil(filteredReviews.length / reviewsPerPage)}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };
