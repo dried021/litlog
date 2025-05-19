@@ -93,6 +93,12 @@
   height: 20px;
 }
 
+.starsWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 /* Edit Mode */
 .editModeRating {
   border: 2px dashed #f4c542;
