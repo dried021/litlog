@@ -50,7 +50,11 @@ const CollectionEntry = ({ collection }) => {
         )}
         {/* 설명 오버레이 */}
         <div className={styles.overlay}>
-          <p>{collection.content}</p>
+          <p className={styles.overlayText}>
+            {collection.content.length > 100
+              ? collection.content.slice(0, 100) + "..."
+              : collection.content}
+          </p>
         </div>
       </div>
 
