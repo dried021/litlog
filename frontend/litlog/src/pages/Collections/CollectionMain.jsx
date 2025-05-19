@@ -10,8 +10,8 @@ const CollectionMain = () => {
   const [allCollections, setAllCollections] = useState([]);
   const [sortBy, setSortBy] = useState('popular');
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageCount, setPageCount] = useState(1); // 총 페이지 수
-  const pageSize = 12; // 한 페이지에 표시할 컬렉션 수
+  const [pageCount, setPageCount] = useState(1); 
+  const pageSize = 12; 
 
   
   useEffect(() => {
@@ -27,7 +27,7 @@ const CollectionMain = () => {
       const res = await axios.get('http://localhost:9090/collections/popular');
       setPopularCollections(res.data.book_collections || []);
     } catch (err) {
-      console.error('인기 컬렉션 불러오기 실패', err);
+      console.error('Failed to load popular collections.', err);
     }
   };
 
@@ -35,9 +35,9 @@ const CollectionMain = () => {
     try {
       const res = await axios.get(`http://localhost:9090/collections?sort=${sort}&page=${page}&size=${pageSize}`);
       setAllCollections(res.data.book_collections || []);
-      setPageCount(res.data.totalPages || 1); // 백엔드에서 페이지 수 내려줘야 함
+      setPageCount(res.data.totalPages || 1); 
     } catch (err) {
-      console.error('전체 컬렉션 불러오기 실패', err);
+      console.error('Failed to load all collections.', err);
     }
   };
 
@@ -50,7 +50,7 @@ const CollectionMain = () => {
     };
 
   const CollectionCard = ({ col, navigate }) => {
-    console.log('콜렉션 내용:', col);
+    console.log('Collection content', col);
     return(
   <div key={col.id} className={styles.collectionCard}>
     <div className={styles.thumbnailStack} onClick={() => navigate(`/collections/${col.id}`)}>
@@ -114,7 +114,7 @@ const CollectionMain = () => {
               setCurrentPage(1);
             }}
           >
-            인기순
+            Popular
           </span>
           <span
             className={sortBy === 'recent' ? styles.active : ''}
@@ -123,7 +123,7 @@ const CollectionMain = () => {
               setCurrentPage(1);
             }}
           >
-            최신순
+            Newest
           </span>
         </div>
         <div className={styles.collectionGrid}>

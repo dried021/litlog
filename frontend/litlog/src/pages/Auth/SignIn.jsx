@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../../styles/signIn.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -13,17 +13,13 @@ const SignIn = () => {
 
   const from = location.state?.from || '/';
 
-  // const handleLoginSuccess = () => {
-  //   navigate(from, { replace: true });
-  // };
-
-  if (user === undefined) return <div>세션 확인 중...</div>; // 세션 체크 중
-  if (user) return null; // 로그인된 상태면 이동 중
+  if (user === undefined) return <div>Checking session...</div>; 
+  if (user) return null; 
 
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!id || !password) {
-      alert('아이디와 비밀번호를 입력하세요.');
+      alert('Please enter your ID and password.');
       return;
     }
 
@@ -35,19 +31,18 @@ const SignIn = () => {
 
       const { status, message } = res.data;
       if (status === '성공') {
-        // 세션 재확인 후 setUser
         const sessionRes = await axios.get('http://localhost:9090/session-check', { withCredentials: true });
         if (sessionRes.data.loggedIn) {
           setUser(sessionRes.data.id);
           navigate(from, { replace: true });
         } else {
-          alert('세션 설정에 실패했습니다.');
+          alert('Session setup failed. Please try again.');
         }
       } else {
         alert(message);
       }
     } catch (err) {
-      alert('서버 오류로 로그인에 실패했습니다.');
+      alert('Login failed due to a server error. Please try again later.');
       console.error(err);
     }
   };

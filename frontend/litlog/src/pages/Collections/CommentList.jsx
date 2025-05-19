@@ -9,16 +9,16 @@ const CommentList = ({ comments, onRefresh }) => {
   const [editContent, setEditContent] = useState('');
 
   const handleDelete = async (commentId) => {
-    if (!window.confirm('댓글을 삭제하시겠습니까?')) return;
+    if (!window.confirm('Are you sure you want to delete this comment?')) return;
 
     try {
       await axios.delete(`http://localhost:9090/collections/comments/${commentId}`, {
         withCredentials: true
       });
-      onRefresh(); // 다시 목록 불러오기
+      onRefresh(); 
     } catch (err) {
-      console.error('댓글 삭제 실패:', err);
-      alert('삭제 중 오류가 발생했습니다.');
+      console.error('Failed to delete comment:', err);
+      alert('Failed to delete due to an error.');
     }
   };
 
@@ -33,7 +33,7 @@ const CommentList = ({ comments, onRefresh }) => {
   };
 
   const handleSaveEdit = async (commentId) => {
-    if (!editContent.trim()) return alert('내용을 입력하세요.');
+    if (!editContent.trim()) return alert('Please enter content.');
 
     try {
       await axios.put(`http://localhost:9090/collections/comments/${commentId}`, {
@@ -42,17 +42,17 @@ const CommentList = ({ comments, onRefresh }) => {
 
       setEditingId(null);
       setEditContent('');
-      onRefresh(); // 목록 갱신
+      onRefresh(); 
     } catch (err) {
-      console.error('댓글 수정 실패:', err);
-      alert('수정 중 오류가 발생했습니다.');
+      console.error('Failed to modify comment:', err);
+      alert('Failed to update due to an error.');
     }
   };
 
   return (
     <div className={styles.commentList}>
       {comments.length === 0 ? (
-        <p className={styles.noComment}>작성된 댓글이 없습니다.</p>
+        <p className={styles.noComment}>No comments yet.</p>
       ) : (
         comments.map(comment => (
           <div key={comment.id} className={styles['comment-item']}>

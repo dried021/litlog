@@ -65,10 +65,10 @@ function SignUp() {
             <label>ID</label>
             <div className="signup-input-row">
               <input type="text" value={id} onChange={handleIdChange} />
-              <button type="button" onClick={checkIdDuplicate}>중복확인</button>
+              <button type="button" onClick={checkIdDuplicate}>Check</button>
             </div>
-            {idAvailable === true && <span className="valid">✔ 사용 가능</span>}
-            {idAvailable === false && <span className="invalid">✖ 중복 아이디</span>}
+            {idAvailable === true && <span className="valid">✔ Available</span>}
+            {idAvailable === false && <span className="invalid">✖ ID is already taken.</span>}
           </div>
 
 
@@ -76,10 +76,10 @@ function SignUp() {
             <label>Nickname</label>
             <div className="signup-input-row">
               <input type="text" value={nickname} onChange={handleNicknameChange} />
-              <button type="button" onClick={checkNicknameDuplicate}>중복확인</button>
+              <button type="button" onClick={checkNicknameDuplicate}>Check</button>
             </div>
-            {nicknameAvailable === true && <span className="valid">✔ 사용 가능</span>}
-            {nicknameAvailable === false && <span className="invalid">✖ 중복 닉네임</span>}
+            {nicknameAvailable === true && <span className="valid">✔ Available</span>}
+            {nicknameAvailable === false && <span className="invalid">✖ Nickname is already taken.</span>}
           </div>
 
           <div className="signup-form-group">
@@ -101,24 +101,24 @@ function SignUp() {
             <label>Email</label>
             <div className="signup-input-row">
               <input type="email" value={email} onChange={handleEmailChange} />
-              <button type="button" onClick={sendEmailCode} disabled={timerRunning}>인증하기</button>
+              <button type="button" onClick={sendEmailCode} disabled={timerRunning}>Start Verification</button>
             </div>
-            {timerRunning && <span className="valid">{formatTime(timeLeft)} 남음</span>}
+            {timerRunning && <span className="valid">{formatTime(timeLeft)} remaining</span>}
             {emailAvailable && (
-              <button type="button" onClick={sendEmailCode} disabled={timerRunning}>인증코드 다시 보내기</button>
+              <button type="button" onClick={sendEmailCode} disabled={timerRunning}>Resend Code</button>
             )}
-            {emailAvailable === true && <span className="valid">✔ 인증코드 전송됨</span>}
-            {emailAvailable === false && <span className="invalid">✖ 이미 사용 중</span>}
+            {emailAvailable === true && <span className="valid">✔ Verification code sent.</span>}
+            {emailAvailable === false && <span className="invalid">✖ Email is already taken.</span>}
           </div>
 
           {emailAvailable && (
             <div className="signup-form-group">
-              <label>인증코드 입력</label>
+              <label>Enter verification code</label>
               <div className="signup-input-row">
                 <input type="text" value={emailCode} onChange={(e) => setEmailCode(e.target.value)} />
-                <button type="button" onClick={verifyEmailCode}>인증 확인</button>
+                <button type="button" onClick={verifyEmailCode}>Verify</button>
               </div>
-              {emailVerified && <span className="valid">✔ 인증 완료</span>}
+              {emailVerified && <span className="valid">✔ Verified</span>}
             </div>
           )}
 
@@ -141,7 +141,7 @@ function SignUp() {
       </div>
       <div><a href="/">HOME</a></div>
     </div>
-    {/* 모달 컴포넌트 */}
+
     <CustomModal
             show={modalData.show}
             onHide={handleCloseModal}

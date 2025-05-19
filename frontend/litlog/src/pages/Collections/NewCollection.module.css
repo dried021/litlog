@@ -200,3 +200,25 @@ textarea {
   font-size: 12px;
   color: #666;
 }
+
+.dropdownButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-top: 1px solid #eee;
+  background-color: #fafafa;
+}
+
+.closeDropdownBtn {
+  padding: 8px 16px;
+  background-color: #bbb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.closeDropdownBtn:hover {
+  background-color: #999;
+}
