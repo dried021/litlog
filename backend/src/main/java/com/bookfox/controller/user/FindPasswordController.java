@@ -32,20 +32,38 @@ public class FindPasswordController  {
         String email = body.get("email");
 
         if (id == null || name == null || email == null) {
-            return ResponseEntity.badRequest().body("입력값이 부족합니다.");
+            return ResponseEntity.badRequest().body("\"Incomplete input.");
         }
 
         UserDto user = userService.findById(id);
         if (user == null || !user.getEmail().equals(email) || !user.getName().equals(name)) {
-            return ResponseEntity.badRequest().body("입력한 정보가 일치하지 않습니다.");
+            return ResponseEntity.badRequest().body("Entered information is incorrect.");
         }
 
         String code = String.valueOf((int)(Math.random() * 900000) + 100000); // 6자리 숫자 코드
         session.setAttribute("resetCode", code);
         session.setAttribute("resetId", id);
-        session.setMaxInactiveInterval(300); // 5분
+        session.setMaxInactiveInterval(180); // 3분
 
-        emailService.sendSimpleMessage(email, "비밀번호 재설정 인증코드", "인증코드: " + code);
+        String subject = "Password Reset Verification Code";
+        String bodyText = """
+            Hello,
+
+            We received a request to reset the password for your LitLog account.
+
+            Please use the verification code below to continue:
+
+            Verification Code: %s
+
+            ⚠️ This code is valid for 3 minutes.
+
+            If you did not request a password reset, please ignore this email or contact support.
+
+            Best regards,  
+            LitLog Team
+            """.formatted(code);
+
+        emailService.sendSimpleMessage(email, subject, bodyText);
         return ResponseEntity.ok().build();
     }
 
@@ -58,7 +76,7 @@ public class FindPasswordController  {
             session.setAttribute("resetVerified", true);
             return ResponseEntity.ok().build();
         } else {
-            return ResponseEntity.status(400).body("코드 불일치");
+            return ResponseEntity.status(400).body("Incorrect code.");
         }
     }
 
@@ -68,11 +86,11 @@ public class FindPasswordController  {
         String resetId = (String) session.getAttribute("resetId");
 
         if (verified == null || !verified || resetId == null) {
-            return ResponseEntity.status(403).body("인증되지 않음");
+            return ResponseEntity.status(403).body("Not verified.");
         }
 
         String newPwd = body.get("newPwd");
-        userService.updatePassword(resetId, newPwd); // 실제 업데이트
+        userService.updatePassword(resetId, newPwd);
 
         session.removeAttribute("resetVerified");
         session.removeAttribute("resetId");

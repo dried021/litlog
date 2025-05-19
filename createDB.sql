@@ -19,9 +19,8 @@ DROP TABLE IF EXISTS shelf_type;
 DROP TABLE IF EXISTS book_category;
 DROP TABLE IF EXISTS user_status;
 DROP TABLE IF EXISTS user_type;
-
+DROP TABLE IF EXISTS notification;
 SET FOREIGN_KEY_CHECKS = 1;
-
 
 CREATE TABLE user_type (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -89,6 +88,7 @@ INSERT INTO like_type (name, value) VALUES
 ('REVIEW', 1),
 ('BOOK', 2),
 ('BOOK_COLLECTION', 3);
+SELECT * FROM user;
 
 CREATE TABLE user(
 	id VARCHAR(50) PRIMARY KEY,

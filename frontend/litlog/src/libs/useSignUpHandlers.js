@@ -161,7 +161,7 @@ export function useSignUpHandlers_nickname(openModal) {
         if (prev <= 1) {
           clearInterval(interval);
           setTimerRunning(false);
-          openModal("Verification time has expired.");
+          //openModal("Verification time has expired.");
           return 0;
         }
         return prev - 1;

@@ -4,6 +4,7 @@ import AddComment from './AddComment';
 import CommentList from './CommentList';
 import Pagination from '../../components/Pagination/Pagination';
 import { UserContext } from '../../libs/UserContext';
+import styles from './CollectionCommentSection.module.css';
 
 const CollectionCommentSection = ({ collectionId }) => {
   const { user } = useContext(UserContext); 
@@ -46,12 +47,14 @@ const CollectionCommentSection = ({ collectionId }) => {
       <div className="comment-header">
         <h3>Comments</h3>
         {user && (
-          <button onClick={() => setShowAddForm(prev => !prev)}>
+          <button
+            onClick={() => setShowAddForm(prev => !prev)}
+            className={styles.addCommentToggleBtn}
+          >
             {showAddForm ? 'Cancel' : 'Add Comment'}
           </button>
         )}
       </div>
-
       {showAddForm && user && (
         <AddComment
           onSubmit={handleSubmitComment}
