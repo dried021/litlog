@@ -153,5 +153,19 @@
         ORDER BY likeCount DESC, br.creation_date DESC
         LIMIT #{count}
     </select>
-
+    <update id="updateProfileImage" parameterType="map">
+        UPDATE user
+        SET profile_image = #{profileImage}
+        WHERE id = #{userId}
+    </update>
+    <update id="updateProfileImageOrigin" parameterType="map">
+        UPDATE user
+        SET profile_image_origin = #{profileImageOrigin}
+        WHERE id = #{userId}
+    </update>
+    <update id="updateBio" parameterType="map">
+        UPDATE user
+        SET bio = #{bio}
+        WHERE id = #{userId}
+    </update>
 </mapper>

@@ -1,11 +1,19 @@
 package com.bookfox.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bookfox.model.BookshelfDto;
 import com.bookfox.model.ProfileDto;
@@ -82,5 +90,36 @@ public class ProfileService {
         map.put("userId", userId);
         map.put("count", count);
         return profileMapper.getPopularReviews(map);
+    }
+
+    public boolean updateProfile(String userId, String bio, MultipartFile profileImage) throws IOException {
+        Map<String, Object> map = new HashMap<>(); 
+        map.put("userId", userId);
+        map.put("profileImage", profileImage);
+        map.put("bio", bio);
+        boolean success = true;
+        if (profileImage != null && !profileImage.isEmpty()) {
+            String originalFilename = profileImage.getOriginalFilename();
+            String extension = Optional.ofNullable(originalFilename)
+                .filter(f -> f.contains("."))
+                .map(f -> f.substring(originalFilename.lastIndexOf(".")))
+                .orElse("");
+            String newFilename = UUID.randomUUID() + extension;
+
+            Path imagePath = Paths.get("uploads/profile-images", newFilename);
+            Files.createDirectories(imagePath.getParent());
+            Files.copy(profileImage.getInputStream(), imagePath, StandardCopyOption.REPLACE_EXISTING);
+
+            String imageUrl = "/images/profile/" + newFilename;
+            map.put("profileImage", imageUrl);
+            map.put("profileImageOrigin", originalFilename);
+
+            profileMapper.updateProfileImage(map);
+            profileMapper.updateProfileImageOrigin(map);
+        }
+        if (bio != null) {
+            success = profileMapper.updateBio(map);
+        }
+        return success;
     }
 }
