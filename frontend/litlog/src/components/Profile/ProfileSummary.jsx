@@ -15,6 +15,7 @@ export default function ProfileSummary() {
     const [editMode, setEditMode] = useState(false);
     const [newBio, setNewBio] = useState(profile?.bio || '');
     const [newProfileImage, setNewProfileImage] = useState(null);
+    const [infoChange, setInfoChange] = useState(false);
 
     useEffect(() => {
         fetch(`http://localhost:9090/members/profile-summary/${userId}`, {
@@ -26,7 +27,7 @@ export default function ProfileSummary() {
             setProfile(data);
             setIsFollowing(data.followStatus);
         }).catch(error => console.error(error));
-    }, [userId]);
+    }, [userId, infoChange]);
 
 
     const handleFollow = () => {
@@ -69,6 +70,7 @@ export default function ProfileSummary() {
         })
         .then(res => {
             setEditMode(false);
+            setInfoChange(!infoChange);
         })
         .catch(err => console.error("Error updating profile:", err));
     };
@@ -158,7 +160,7 @@ export default function ProfileSummary() {
                         <h3>Edit Profile</h3>
                         
                         <label>
-                            Profile Picture:
+                            <p>Profile Picture</p>
                             <input
                                 type="file"
                                 accept="image/*"
@@ -167,18 +169,18 @@ export default function ProfileSummary() {
                         </label>
 
                         <label>
-                            Bio:
+                            <p>Bio</p>
                             <textarea
                                 value={newBio}
                                 onChange={(e) => setNewBio(e.target.value)}
                                 rows="4"
-                                style={{ width: "100%" }}
+                                maxLength="90"
                             />
                         </label>
 
                         <div className={styles.modalButtons}>
-                            <button onClick={handleProfileUpdate}>Save</button>
-                            <button onClick={() => setEditMode(false)}>Cancel</button>
+                            <button onClick={handleProfileUpdate} className={styles.saveButton}>Save</button>
+                            <button onClick={() => setEditMode(false)} className={styles.cancelButton}>Cancel</button>
                         </div>
                     </div>
                 </div>
