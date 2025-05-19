@@ -1,4 +1,3 @@
-/* CollectionMain.module.css */
 
 .collectionWrapper {
   padding: 40px;
@@ -61,18 +60,6 @@
   color: #333;
 }
 
-.popularGrid {
-  display: flex;
-  overflow-x: auto;
-  gap: 16px;
-  padding-bottom: 8px;
-  scroll-snap-type: x mandatory;
-}
-
-.popularGrid::-webkit-scrollbar {
-  display: none;
-}
-
 .allSection {
   margin-top: 40px;
 }
@@ -105,91 +92,79 @@
   padding: 20px 0;
 }
 
-.collectionCard {
-  background: white;
+.card {
+  width: 290px;
+  background: #fff;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
 }
 
-.collectionThumbnail img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-
-.collectionBody {
-  padding: 16px;
-}
-
-.collectionTitle {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 6px;
-  line-height: 1.4;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  color: #222;
-  cursor: pointer;
-}
-
-.collectionAuthor {
-  font-size: 13px;
-  color: #888;
-  cursor: pointer;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.collectionAuthor:hover {
-  text-decoration: none;
-}
-
-.collectionDesc {
-  font-size: 14px;
-  color: #555;
-  line-height: 1.5;
-  margin-bottom: 12px;
-  max-height: 3em; 
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; 
-  -webkit-box-orient: vertical;
-}
-
-.collectionMeta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  color: #888;
-}
-.collectionDate{
-  display: flex;
-  font-size: 13px;
-  color: #888;
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  transition: all 0.2s ease-in-out;
 }
 
 .thumbnailStack {
   position: relative;
-  height: 160px;
+  height: 130px;
   margin-bottom: 12px;
+  width: 266px;
+  margin: 0 auto;
+  overflow: hidden;
   cursor: pointer;
 }
 
-.thumbnailImage {
+.stackedImg {
   position: absolute;
-  top: 0;
-  width: 100px;
-  height: 160px;
+  width: 90px;
+  height: 130px;
   object-fit: cover;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+  box-sizing: border-box;
+}
+
+.placeholderBox {
+  position: absolute;
+  width: 90px;
+  height: 130px;
+  background-color: #eee;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  box-sizing: border-box;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.6);
+  color: #fff;
+  font-size: 13px;
+  padding: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 11;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.card:hover .overlay {
+  opacity: 1;
 }
 
 .collectionBookCount {
@@ -198,3 +173,66 @@
   margin-top: 2px;
 }
 
+.info {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 16px;
+  color: #111;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.author {
+  font-weight: bold;
+  font-size: 13px;
+  color: #888;
+  cursor: pointer;
+}
+
+.bottomRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bookCount {
+  font-size: 13px;
+  color: #555;
+  white-space: nowrap;
+}
+
+.meta {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.icon1 {
+  width: 15px;
+  height: 15px;
+  vertical-align: middle;
+  margin-right: 3px;
+}
+
+.icon2 {
+  width: 13px;
+  height: 14px;
+  vertical-align: middle;
+  margin-right: 3px;
+}

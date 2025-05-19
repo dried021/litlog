@@ -25,13 +25,26 @@ public class FindIdController {
         String foundId = userService.findUserId(name, email);
         if (foundId != null) {
             // 아이디 메일로 전송
-            String subject = "[LitLog] 요청하신 아이디입니다.";
-            String text = String.format("요청하신 아이디는 다음과 같습니다:\n\n👉 %s", foundId);
+            String subject = "[LitLog] Your ID request result";
+            String text = String.format("""
+            Hello %s,
+
+            This is the result of your username retrieval request on LitLog.
+
+            The username associated with your information is:
+
+            👉 Username: %s
+
+            If you did not request this, please ignore this email.
+
+            Thank you,  
+            The LitLog Team
+            """, name, foundId);
             emailService.sendSimpleMessage(email, subject, text);
 
-            return ResponseEntity.ok(Map.of("message", "아이디가 이메일로 전송되었습니다."));
+            return ResponseEntity.ok(Map.of("message", "Your ID has been sent to your email."));
         } else {
-            return ResponseEntity.status(404).body(Map.of("message", "해당 정보로 가입된 아이디가 없습니다."));
+            return ResponseEntity.status(404).body(Map.of("message", "No ID is registered with the provided information."));
         }
     }
 

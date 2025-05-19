@@ -18,9 +18,8 @@ DROP TABLE IF EXISTS shelf_type;
 DROP TABLE IF EXISTS book_category;
 DROP TABLE IF EXISTS user_status;
 DROP TABLE IF EXISTS user_type;
-
+DROP TABLE IF EXISTS notification;
 SET FOREIGN_KEY_CHECKS = 1;
-
 
 CREATE TABLE user_type (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -88,6 +87,7 @@ INSERT INTO like_type (name, value) VALUES
 ('REVIEW', 1),
 ('BOOK', 2),
 ('BOOK_COLLECTION', 3);
+SELECT * FROM user;
 
 CREATE TABLE user(
 	id VARCHAR(50) PRIMARY KEY,
@@ -222,7 +222,8 @@ CREATE TABLE notification (
     user_id VARCHAR(50) NOT NULL,        
     sender_id VARCHAR(50),               
     type VARCHAR(50) NOT NULL,            -- 'COLLECTION_LIKE', 'COLLECTION_COMMENT', 'REVIEW_LIKE', 'FOLLOW'
-    target_id INT NOT NULL,               
+    target_id INT NOT NULL,
+    book_api_id VARCHAR(255),                
     message VARCHAR(255),                 
     is_read BOOLEAN DEFAULT FALSE,        
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
