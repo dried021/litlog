@@ -82,7 +82,6 @@ public class ProfileController {
             dto.setSenderId(sessionUserId);   
             dto.setType("FOLLOW");
             dto.setTargetId(0);                
-            dto.setMessage(sessionUserId + " started following you.");
             dto.setRead(false);
             notificationService.sendNotification(dto);
         }

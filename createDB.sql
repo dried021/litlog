@@ -225,7 +225,8 @@ CREATE TABLE notification (
     user_id VARCHAR(50) NOT NULL,        
     sender_id VARCHAR(50),               
     type VARCHAR(50) NOT NULL,            -- 'COLLECTION_LIKE', 'COLLECTION_COMMENT', 'REVIEW_LIKE', 'FOLLOW'
-    target_id INT NOT NULL,               
+    target_id INT NOT NULL, 
+    book_api_id VARCHAR(255) NULL,              
     message VARCHAR(255),                 
     is_read BOOLEAN DEFAULT FALSE,        
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
