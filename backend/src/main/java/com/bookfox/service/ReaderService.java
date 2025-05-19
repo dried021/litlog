@@ -24,9 +24,9 @@ public class ReaderService {
         return readerMapper.getBelovedUserList();
     }
 
-    public List<UserListDto> getRank(int startIndex, int itemsPerPage){
+    public List<UserListDto> getRank(int startIndex, int itemsPerPage, int period){
         int offset = (startIndex) * itemsPerPage;
-        Map<String, Object> params = Map.of("offset", offset, "itemsPerPage", itemsPerPage);
+        Map<String, Object> params = Map.of("offset", offset, "itemsPerPage", itemsPerPage, "period", period);
         return readerMapper.getRank(params);
     }
 

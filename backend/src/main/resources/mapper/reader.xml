@@ -71,26 +71,66 @@
 
         (SELECT COUNT(*)
             FROM book_review br
-            WHERE br.user_id = u.id AND br.creation_date &gt;= NOW() - INTERVAL 1 YEAR) AS reviews,
+            WHERE br.user_id = u.id
+                AND br.creation_date BETWEEN
+                STR_TO_DATE(CONCAT(#{period}, '-01-01'), '%Y-%m-%d') AND
+                CASE
+                    WHEN #{period} = YEAR(NOW()) THEN NOW()
+                    ELSE STR_TO_DATE(CONCAT(#{period}, '-12-31 23:59:59'), '%Y-%m-%d %H:%i:%s')
+                END
+            ) AS reviews,
 
         (SELECT COUNT(*)
             FROM book_collection bc
-            WHERE bc.user_id = u.id AND bc.creation_date &gt;= NOW() - INTERVAL 1 YEAR) AS collections,
+            WHERE bc.user_id = u.id
+                AND bc.creation_date BETWEEN
+                STR_TO_DATE(CONCAT(#{period}, '-01-01'), '%Y-%m-%d') AND
+                CASE
+                    WHEN #{period} = YEAR(NOW()) THEN NOW()
+                    ELSE STR_TO_DATE(CONCAT(#{period}, '-12-31 23:59:59'), '%Y-%m-%d %H:%i:%s')
+                END
+            ) AS collections,
 
         (
         (SELECT COUNT(*)
         FROM like_list ll1
         WHERE ll1.target_id IN (
             SELECT id FROM book_collection 
-            WHERE user_id = u.id AND creation_date &gt;= NOW() - INTERVAL 1 YEAR
-        ) AND ll1.like_type = 3 AND ll1.creation_date &gt;= NOW() - INTERVAL 1 YEAR)
+            WHERE user_id = u.id
+                AND creation_date BETWEEN
+                STR_TO_DATE(CONCAT(#{period}, '-01-01'), '%Y-%m-%d') AND
+                CASE
+                    WHEN #{period} = YEAR(NOW()) THEN NOW()
+                    ELSE STR_TO_DATE(CONCAT(#{period}, '-12-31 23:59:59'), '%Y-%m-%d %H:%i:%s')
+                END
+        ) AND ll1.like_type = 3 
+            AND ll1.creation_date BETWEEN
+                STR_TO_DATE(CONCAT(#{period}, '-01-01'), '%Y-%m-%d') AND
+                CASE
+                    WHEN #{period} = YEAR(NOW()) THEN NOW()
+                    ELSE STR_TO_DATE(CONCAT(#{period}, '-12-31 23:59:59'), '%Y-%m-%d %H:%i:%s')
+                END
+                )
         +
         (SELECT COUNT(*)
         FROM like_list ll2
         WHERE ll2.target_id IN (
             SELECT id FROM book_review 
-            WHERE user_id = u.id AND creation_date &gt;= NOW() - INTERVAL 1 YEAR
-        ) AND ll2.like_type = 1 AND ll2.creation_date &gt;= NOW() - INTERVAL 1 YEAR)
+            WHERE user_id = u.id
+            AND creation_date BETWEEN
+            STR_TO_DATE(CONCAT(#{period}, '-01-01'), '%Y-%m-%d') AND
+            CASE
+                WHEN #{period} = YEAR(NOW()) THEN NOW()
+                ELSE STR_TO_DATE(CONCAT(#{period}, '-12-31 23:59:59'), '%Y-%m-%d %H:%i:%s')
+            END
+        ) AND ll2.like_type = 1 
+        AND ll2.creation_date BETWEEN
+            STR_TO_DATE(CONCAT(#{period}, '-01-01'), '%Y-%m-%d') AND
+            CASE
+                WHEN #{period} = YEAR(NOW()) THEN NOW()
+                ELSE STR_TO_DATE(CONCAT(#{period}, '-12-31 23:59:59'), '%Y-%m-%d %H:%i:%s')
+            END
+            )
         ) AS likes,
 
         (SELECT COUNT(*)
@@ -99,27 +139,69 @@
 
         (
             (SELECT COUNT(*) FROM book_collection bc 
-            WHERE bc.user_id = u.id AND bc.creation_date &gt;= NOW() - INTERVAL 1 YEAR) +
-
+            WHERE bc.user_id = u.id 
+            AND bc.creation_date BETWEEN 
+                STR_TO_DATE(CONCAT(#{period}, '-01-01'), '%Y-%m-%d') AND
+                CASE
+                    WHEN #{period} = YEAR(NOW()) THEN NOW()
+                    ELSE STR_TO_DATE(CONCAT(#{period}, '-12-31 23:59:59'), '%Y-%m-%d %H:%i:%s')
+                END
+            )
+        +
             (SELECT COUNT(*) FROM book_review br 
-            WHERE br.user_id = u.id AND br.creation_date &gt;= NOW() - INTERVAL 1 YEAR) +
+            WHERE br.user_id = u.id 
+                AND br.creation_date BETWEEN 
+                    STR_TO_DATE(CONCAT(#{period}, '-01-01'), '%Y-%m-%d') AND
+                    CASE
+                        WHEN #{period} = YEAR(NOW()) THEN NOW()
+                        ELSE STR_TO_DATE(CONCAT(#{period}, '-12-31 23:59:59'), '%Y-%m-%d %H:%i:%s')
+                    END
+                )
+            +
 
             (SELECT COUNT(*) FROM like_list ll1 
             WHERE ll1.target_id IN (
             SELECT id FROM book_collection 
-            WHERE user_id = u.id AND creation_date &gt;= NOW() - INTERVAL 1 YEAR
-            ) AND ll1.like_type = 3 AND ll1.creation_date &gt;= NOW() - INTERVAL 1 YEAR) +
-
+            WHERE user_id = u.id 
+                AND creation_date BETWEEN 
+                    STR_TO_DATE(CONCAT(#{period}, '-01-01'), '%Y-%m-%d') AND
+                    CASE
+                        WHEN #{period} = YEAR(NOW()) THEN NOW()
+                        ELSE STR_TO_DATE(CONCAT(#{period}, '-12-31 23:59:59'), '%Y-%m-%d %H:%i:%s')
+                    END
+            )  
+            AND ll1.like_type = 3  
+            AND ll1.creation_date BETWEEN 
+                STR_TO_DATE(CONCAT(#{period}, '-01-01'), '%Y-%m-%d') AND
+                    CASE
+                    WHEN #{period} = YEAR(NOW()) THEN NOW()
+                    ELSE STR_TO_DATE(CONCAT(#{period}, '-12-31 23:59:59'), '%Y-%m-%d %H:%i:%s')
+                    END
+                )
+            +
             (SELECT COUNT(*) FROM like_list ll2 
             WHERE ll2.target_id IN (
             SELECT id FROM book_review 
-            WHERE user_id = u.id AND creation_date &gt;= NOW() - INTERVAL 1 YEAR
-            ) AND ll2.like_type = 1 AND ll2.creation_date &gt;= NOW() - INTERVAL 1 YEAR)
+            WHERE user_id = u.id 
+            AND creation_date BETWEEN 
+                STR_TO_DATE(CONCAT(#{period}, '-01-01'), '%Y-%m-%d') AND
+                CASE
+                    WHEN #{period} = YEAR(NOW()) THEN NOW()
+                    ELSE STR_TO_DATE(CONCAT(#{period}, '-12-31 23:59:59'), '%Y-%m-%d %H:%i:%s')
+                END
+            ) AND ll2.like_type = 1
+            AND ll2.creation_date BETWEEN 
+            STR_TO_DATE(CONCAT(#{period}, '-01-01'), '%Y-%m-%d') AND
+                CASE
+                WHEN #{period} = YEAR(NOW()) THEN NOW()
+                ELSE STR_TO_DATE(CONCAT(#{period}, '-12-31 23:59:59'), '%Y-%m-%d %H:%i:%s')
+                END
+            )
         ) AS activityScore
 
         FROM user u
         GROUP BY u.id, u.bio, u.profile_image
-        ORDER BY activityScore DESC
+        ORDER BY activityScore DESC, u.reg_date
         LIMIT #{itemsPerPage} OFFSET #{offset}
     </select>
     
@@ -187,13 +269,13 @@
                 (SELECT COUNT(*) FROM like_list ll1 
                 WHERE ll1.target_id IN (
                 SELECT id FROM book_collection 
-                WHERE user_id = u.id AND creation_date &gt;= NOW() - INTERVAL 1 YEAR
+                WHERE user_id = u.id
                 ) AND ll1.like_type = 3) +
 
                 (SELECT COUNT(*) FROM like_list ll2 
                 WHERE ll2.target_id IN (
                 SELECT id FROM book_review 
-                WHERE user_id = u.id AND creation_date &gt;= NOW() - INTERVAL 1 YEAR
+                WHERE user_id = u.id
                 ) AND ll2.like_type = 1)
             ) AS activityScore
 
