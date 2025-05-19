@@ -73,6 +73,7 @@ const CollectionMain = () => {
       </Link>
       <p className={styles.collectionDesc}>{col.content}</p>
       <p className={styles.collectionDate}>📅 {formatDate(col.creationDate)}</p>
+      <p className={styles.collectionBookCount}>📚 {col.books?.length || 0} book(s)</p>
       <div className={styles.collectionMeta}>
         <span>❤️ {likeDisplay}</span>
         <span>💬 {col.commentCount}</span>

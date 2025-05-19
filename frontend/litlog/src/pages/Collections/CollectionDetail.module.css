@@ -26,12 +26,23 @@
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 2px;
+  word-break: break-word; 
+  white-space: pre-wrap;  
+  overflow-wrap: break-word;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-top: 1rem;
 }
 
 .content {
   font-size: 16px;
   margin-bottom: 2px;
   color: #555;
+  word-break: break-word;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  margin: 0.5rem 0;
+  line-height: 1.5;
 }
 
 .author {
