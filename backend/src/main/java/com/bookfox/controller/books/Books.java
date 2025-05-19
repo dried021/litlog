@@ -18,6 +18,7 @@ import com.bookfox.model.BookReviewDto;
 import com.bookfox.service.BookService;
 
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/books")
@@ -56,9 +57,8 @@ public class Books {
     }
 
     @GetMapping("/counts")
-    public ResponseEntity<Map<String, Object>> bookscount(@RequestParam String bookApiId){
-        //session에서 user 가져오기
-        String userId = "user01";
+    public ResponseEntity<Map<String, Object>> bookscount(@RequestParam String bookApiId, HttpSession session){
+        String userId = (String) session.getAttribute("loginUser");
 
         int id = bookService.getIdByBookApiId(bookApiId);
         int bookshelfCount = bookService.getBookshelfCount(id);
@@ -75,9 +75,8 @@ public class Books {
     }
 
     @GetMapping("/bookshelf")
-    public ResponseEntity<Boolean> checkBookShelf(@RequestParam String bookApiId){
-        //session에서 user 가져오기
-        String userId = "user01";
+    public ResponseEntity<Boolean> checkBookShelf(@RequestParam String bookApiId, HttpSession session){
+        String userId = (String) session.getAttribute("loginUser");
         boolean exists = bookService.exists(bookApiId);
         
         if (!exists){
@@ -91,9 +90,8 @@ public class Books {
 
     @GetMapping("/reviews")
     public ResponseEntity<Map<String, Object>> getReviews(@RequestParam String bookApiId,
-                    @RequestParam int currentPage, @RequestParam boolean isPopularity) {
-        //session에서 user 가져오기
-        String userId = "user01";
+                    @RequestParam int currentPage, @RequestParam boolean isPopularity, HttpSession session) {
+        String userId = (String) session.getAttribute("loginUser");
 
         boolean exists = bookService.exists(bookApiId);
 
@@ -113,9 +111,8 @@ public class Books {
     }
 
     @PostMapping("/reviews/like")
-    public ResponseEntity<Boolean> changeLikeState(@RequestBody Map<String, Object> payload){
-        //session에서 user 가져오기
-        String userId = "user01";
+    public ResponseEntity<Boolean> changeLikeState(@RequestBody Map<String, Object> payload, HttpSession session){
+        String userId = (String) session.getAttribute("loginUser");
 
         int reviewId = (int) payload.get("reviewId");
         boolean isLiked = (boolean) payload.get("isLiked");

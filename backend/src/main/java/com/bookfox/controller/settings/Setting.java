@@ -15,6 +15,7 @@ import com.bookfox.model.UserDto;
 import com.bookfox.service.SettingService;
 
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpSession;
 
 
 @RestController
@@ -24,14 +25,13 @@ public class Setting {
     private SettingService settingService;
 
     @GetMapping("/user")
-    public ResponseEntity<Map<String, Object>> getUserId(){
-         //session에서 user 가져오기
-         String id = "admin01";
+    public ResponseEntity<Map<String, Object>> getUserId(HttpSession session){
+        String userId = (String) session.getAttribute("loginUser");
          
-         Boolean isAdmin = settingService.checkIsAdmin(id);
+         Boolean isAdmin = settingService.checkIsAdmin(userId);
 
          Map<String, Object> response = new HashMap<>();
-         response.put("id", id);
+         response.put("id", userId);
          response.put("isAdmin", isAdmin);
 
          return ResponseEntity.ok(response);
@@ -54,8 +54,7 @@ public class Setting {
     }
 
     @PostMapping("/withdraw")
-    public ResponseEntity<Map<String, Object>> withdrawUser(@RequestBody UserDto userDto){
-        System.out.println("syso"+userDto.getId()+userDto.getPwd());
+    public ResponseEntity<Map<String, Object>> withdrawUser(@RequestBody UserDto userDto, HttpSession session){
         Map<String, Object> response = new HashMap<>();
 
         boolean isPwdCorrect = settingService.checkPassword(userDto);
@@ -69,7 +68,7 @@ public class Setting {
         boolean success = settingService.withdrawUser(userDto);
 
         if (success){
-            //로그아웃 절차 진행
+            session.invalidate();
         }
 
         response.put("success", success ? "1" : "0");

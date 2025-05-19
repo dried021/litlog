@@ -18,7 +18,6 @@ function ManageComment() {
   const [searchInput, setSearchInput] = useState(searchParams.get('searchKeyword') || '');
   const [totalCount, setTotalCount] = useState(0);
   const [sortOption, setSortOption] = useState(1);
-  // -> 1이 관련성 2가 regdate 내림차 3이 오름차
 
   const navigate = useNavigate();
   const commentPerPage = 10;

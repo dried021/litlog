@@ -38,8 +38,6 @@ import MemberManage from '../pages/Admin/MemberManage';
 import ReviewManage from '../pages/Admin/ReviewManage';
 import CommentManage from '../pages/Admin/CommentManage';
 
-import Test from '../pages/Test/Test';
-
 import NotFound from '../pages/NotFound/NotFound'; 
 
 const AppRouter = () => {
@@ -65,7 +63,6 @@ const AppRouter = () => {
             <Route path="/collections/new" element={<NewCollection />} />
             <Route path="/collections/:collectionId" element={<CollectionDetail />} />
             <Route path="/collections/:collectionId/edit" element={<EditCollection />} />
-
 
             {/* Readers */}
             <Route path="/readers" element={<ReadersMain />} />
@@ -94,9 +91,6 @@ const AppRouter = () => {
 
             {/* 404 */}
             <Route path="*" element={<NotFound />} />
-
-            {/* spring 테스트용 */}
-            <Route path="/test" element={<Test/>}/>
         </Routes>
     );
 };
