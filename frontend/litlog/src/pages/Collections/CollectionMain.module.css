@@ -192,4 +192,9 @@
   transition: transform 0.2s;
 }
 
+.collectionBookCount {
+  font-size: 14px;
+  color: #666;
+  margin-top: 2px;
+}
 
