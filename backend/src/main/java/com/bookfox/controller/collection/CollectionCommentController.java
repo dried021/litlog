@@ -83,7 +83,7 @@ public class CollectionCommentController {
             dto.setSenderId(userId);            
             dto.setType("COLLECTION_COMMENT");
             dto.setTargetId(collectionId);
-            dto.setMessage(userId + "님이 당신의 컬렉션에 댓글을 남겼습니다.");
+            dto.setMessage(userId + " commented on your collection.");
             dto.setRead(false);
             notificationService.sendNotification(dto);
         }

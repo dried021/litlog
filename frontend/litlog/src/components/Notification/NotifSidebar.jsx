@@ -38,7 +38,7 @@ const NotifSidebar = ({ onClose }) => {
       navigate(`/collections/${notification.targetId}`);
     }
 
-    handleClose(); // 클릭 시 닫기
+    handleClose(); 
   };
 
   return (
