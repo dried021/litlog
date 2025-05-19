@@ -77,6 +77,7 @@ public class BooksAdd {
         String bookApiId = (String) request.get("bookApiId");
 
         int bookId = bookService.getIdByBookApiId(bookApiId);
+        
         bookService.unlike(bookId, userId);
         return ResponseEntity.ok(true);
     }

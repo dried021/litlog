@@ -18,6 +18,13 @@ const UpdateUserForm = ({ userId }) => {
     const [originalPassword, setOriginalPassword] = useState('');
     const [originalNickname, setOriginalNickname] = useState('');
     const [originalEmail, setOriginalEmail] = useState('');
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+    const [nicknameRecentlyReset, setNicknameRecentlyReset] = useState(false);
+    const [passwordRecentlyReset, setPasswordRecentlyReset] = useState(false);
+    const [nicknameResetAt, setNicknameResetAt] = useState("");
+    const [pwdResetAt, setPwdResetAt] = useState("");
+
 
     const [modalData, setModalData] = useState({
         show:false,
@@ -65,7 +72,7 @@ const UpdateUserForm = ({ userId }) => {
 
     useEffect(() => {
         if (userId) loadUser();
-    }, [userId]);
+    }, [userId, refreshTrigger]);
 
     const loadUser = async () => {
         try {
@@ -79,6 +86,19 @@ const UpdateUserForm = ({ userId }) => {
             setOriginalPassword(userData.pwd ?? '');
             setOriginalNickname(userData.nickname ?? '');
             setOriginalEmail(userData.email ?? '');
+
+            const oneWeekAgo = new Date();
+            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+            const nicknameResetAt = userData.nicknameResetAt ? new Date(userData.nicknameResetAt) : null;
+            const pwdResetAt = userData.pwdResetAt ? new Date(userData.pwdResetAt) : null;
+
+            setNicknameResetAt(nicknameResetAt); 
+            setPwdResetAt(pwdResetAt);
+
+            setNicknameRecentlyReset(nicknameResetAt && nicknameResetAt > oneWeekAgo);
+            setPasswordRecentlyReset(pwdResetAt && pwdResetAt > oneWeekAgo);
+
         } catch (error) {
             console.error("Fail to load user:", error);
             openModal("Failed to load user information.");
@@ -109,12 +129,7 @@ const UpdateUserForm = ({ userId }) => {
                 setCurrentPassword('');
                 setNewPassword('');
                 setConfirmPassword('');
-                setEmailCode('');
-                setEmailChecked(false);
-                setEmailAvailable(null);
-                setEmailVerified(false);
-                setTimerRunning(false);
-                setTimeLeft(0);
+                setRefreshTrigger(prev => prev + 1);
             } else {
                 openModal("Failed to update user information.");
             }
@@ -122,6 +137,13 @@ const UpdateUserForm = ({ userId }) => {
             console.error("Update failed:", error);
         }
     };
+
+    const formatEnglishDate = (date) => {
+        return date.toLocaleDateString('en-US', {
+          month: 'short',  
+          day: '2-digit',   
+        });
+      };
 
     return (
         <>
@@ -132,7 +154,15 @@ const UpdateUserForm = ({ userId }) => {
                 </div>
 
                 <div className={styles.formRow}>
-                    <div className={styles.formGroup}>
+                    <div className={`${styles.formGroup} ${passwordRecentlyReset ? styles.clickable : ''}`}
+                        onClick={() => {
+                            if(nicknameRecentlyReset){
+                                openModal(
+                                    "You can change your nickname after: " +
+                                      formatEnglishDate(new Date(new Date(nicknameResetAt).getTime() + 7 * 24 * 60 * 60 * 1000))
+                                  );
+                            }
+                        }}>
                         <div className={styles.labelRow}>
                             <label className={styles.label}>Nickname</label>
                             {isNicknameChanged && nicknameAvailable !== null && (
@@ -143,7 +173,9 @@ const UpdateUserForm = ({ userId }) => {
                                 )
                             )}
                         </div>
-                        <input type="text" value={nickname ?? ''} onChange={handleNicknameChange} />
+                        <input type="text" value={nickname ?? ''} 
+                            onChange={handleNicknameChange} 
+                            disabled={nicknameRecentlyReset}/>
                     </div>
                     <button type="button" className={styles.buttonSmall} onClick={checkNicknameDuplicate} disabled={!isNicknameChanged}>Check</button>
                 </div>
@@ -169,10 +201,19 @@ const UpdateUserForm = ({ userId }) => {
                 </div>
 
                 <div className={styles.formRow}>
-                    <div className={styles.formGroup}>
+                    <div className={`${styles.formGroup} ${passwordRecentlyReset ? styles.clickable : ''}`}
+                        onClick={() => {
+                            if (passwordRecentlyReset) {
+                              openModal(
+                                "You can change your password after " +
+                                  formatEnglishDate(new Date(new Date(pwdResetAt).getTime() + 7 * 24 * 60 * 60 * 1000))
+                              );
+                            }
+                          }}>
                         <label>New Password</label>
                         <input type="password" value={newPassword ?? ''} 
                             onChange={(e) => setNewPassword(e.target.value)} 
+                            disabled={passwordRecentlyReset}
                             autoComplete="new-password"/>
                     </div>
                 </div>
