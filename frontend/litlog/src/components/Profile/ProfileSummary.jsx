@@ -82,7 +82,11 @@ export default function ProfileSummary() {
                 <div className={styles.profileLeft}>
                     <div className={styles.profileImage}>
                         <img 
-                            src={profile.profileImage ? profile.profileImage : defaultProfile}
+                            src={profile.profileImage ? 
+                                (profile.profileImage.startsWith('http') 
+                                ? profile.profileImage
+                                : `http://localhost:9090${profile.profileImage}`)
+                                : defaultProfile}
                             alt="profile"
                             className={styles.profileImg}
                         />

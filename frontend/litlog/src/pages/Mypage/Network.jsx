@@ -93,8 +93,12 @@ export default function Network({type}) {
                         <div className={styles.profileSummary}>
                             <div className={styles.profileLeft}>
                                 <div className={styles.profileImage}>
-                                    <img
-                                        src={profile.profileImage ? profile.profileImage : defaultProfile}
+                                    <img 
+                                        src={profile.profileImage ? 
+                                            (profile.profileImage.startsWith('http') 
+                                            ? profile.profileImage
+                                            : `http://localhost:9090${profile.profileImage}`)
+                                            : defaultProfile}
                                         alt="profile"
                                         className={styles.profileImg}
                                     />

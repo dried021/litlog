@@ -16,7 +16,7 @@ const Bookshelf = ({shelfType}) => {
     const {userId} = useParams(); // page ownder
     const [loading, setLoading] = useState(true);
     const [shelf, setShelf] = useState(shelfType ? shelfType : "current"); // current, finished, to-read, favorite
-    const [sort, setSort] = useState("added-newest"); /* TODOOOOOOOOOO */
+    const [sort, setSort] = useState("added-newest");
     const [result, setResult] = useState([]);
 
     const [showModal, setShowModal] = useState(false);
