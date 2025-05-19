@@ -23,7 +23,7 @@ const CollectionCommentSection = ({ collectionId }) => {
         setComments(res.data.comments);
         setTotalComments(res.data.totalCount);
       })
-      .catch(err => console.error('댓글 불러오기 실패', err));
+      .catch(err => console.error('Failed to load comments.', err));
   };
 
   useEffect(() => {
@@ -36,10 +36,10 @@ const CollectionCommentSection = ({ collectionId }) => {
     })
       .then(() => {
         setShowAddForm(false);
-        setCommentPage(1); // 새로고침 의미로 1페이지로
-        fetchComments();   // 여기서 새로 불러오기
+        setCommentPage(1); 
+        fetchComments();  
       })
-      .catch(err => console.error('댓글 등록 실패', err));
+      .catch(err => console.error('Failed to post comment.', err));
   };
 
 
@@ -71,7 +71,7 @@ const CollectionCommentSection = ({ collectionId }) => {
             setComments(res.data.comments);
             setTotalComments(res.data.totalCount);
           })
-          .catch(err => console.error('댓글 불러오기 실패', err));
+          .catch(err => console.error('Failed to load comments.', err));
       }} />
 
       <Pagination

@@ -19,7 +19,6 @@ const CollectionDetail = () => {
   const navigate = useNavigate();
   const booksPerPage = 12;
 
-  // 📌 메타 정보 & 좋아요 상태 불러오기 (병렬 처리)
   useEffect(() => {
     const fetchMetaAndLike = async () => {
       try {
@@ -33,15 +32,13 @@ const CollectionDetail = () => {
         setLikeCount(metaRes.data.likeCount);
         setLiked(likedRes.data);
       } catch (err) {
-        console.error('콜렉션 정보 또는 좋아요 상태 불러오기 실패', err);
+        console.error('Failed to load collection information or like status.', err);
       }
     };
 
     fetchMetaAndLike();
   }, [collectionId]);
 
-
-  // 📚 책 목록 페이징 조회
   useEffect(() => {
     axios.get(`http://localhost:9090/collections/${collectionId}/books`, {
       params: {
@@ -53,7 +50,7 @@ const CollectionDetail = () => {
         setBooks(res.data.books);
         setTotalBooks(res.data.totalCount);
       })
-      .catch(err => console.error('책 목록 불러오기 실패', err));
+      .catch(err => console.error('Failed to load book list.', err));
   }, [collectionId, currentPage]);
 
   // 좋아요 토글
@@ -64,7 +61,7 @@ const CollectionDetail = () => {
     }
 
     if (collection && user === collection.userId) {
-      alert("자신의 콜렉션에는 좋아요를 누를 수 없습니다.");
+      alert("You cannot like your own collection.");
       return;
     }
 
@@ -76,7 +73,7 @@ const CollectionDetail = () => {
       setLiked(res.data.liked);
       setLikeCount(res.data.likeCount);
     } catch (err) {
-      console.error("좋아요 처리 실패:", err);
+      console.error("Failed to process like:", err);
     }
   };
 
@@ -88,13 +85,13 @@ const CollectionDetail = () => {
       });
     };
 
-  if (!collection) return <p>로딩 중...</p>;
+  if (!collection) return <p>Loading...</p>;
 
   return (
     <div className={styles.outerWrapper}>
       <div className={styles.container}>
         <div className={styles.cardBox}>
-          {/* 🔽 메타 정보 (날짜 + 좋아요 + 댓글 + 버튼) */}
+          {/* (날짜 + 좋아요 + 댓글 + 버튼) */}
           <div className={styles.topBar}>
             <div className={styles.leftSection}>
               <p className={styles.collectionDate}>📅 {formatDate(creationDate)}</p>
@@ -120,18 +117,18 @@ const CollectionDetail = () => {
                   <button
                     className={styles.deleteBtn}
                     onClick={async () => {
-                      const confirmDelete = window.confirm('정말 삭제하시겠습니까?');
+                      const confirmDelete = window.confirm('Are you sure you want to delete this?');
                       if (!confirmDelete) return;
 
                       try {
                         await axios.delete(`http://localhost:9090/collections/${collection.id}`, {
                           withCredentials: true,
                         });
-                        alert('삭제되었습니다.');
+                        alert('Deleted successfully.');
                         navigate('/collections');
                       } catch (err) {
-                        console.error('삭제 실패:', err);
-                        alert('삭제 중 오류가 발생했습니다.');
+                        console.error('Failed to delete: ', err);
+                        alert('An error occurred during deletion.');
                       }
                     }}>
                     Delete
@@ -141,14 +138,12 @@ const CollectionDetail = () => {
             </div>
           </div>
 
-          {/* 🔽 컬렉션 소개 내용 */}
           <h2 className={styles.title}>{collection.title}</h2>
           <p className={styles.content}>{collection.content}</p>
           <p className={styles.author}>by {collection.nickname}</p>
           <p className={styles.bookCount}>📚 {totalBooks}권</p>
         </div>
 
-        {/* 🔽 책 목록 */}
         <div className={styles.bookGrid}>
           {books.map(book => (
             <div
@@ -162,7 +157,6 @@ const CollectionDetail = () => {
           ))}
         </div>
 
-        {/* 🔽 책 페이지네이션 */}
         <div className={styles.bookPagination}>
           <Pagination
             currentPage={currentPage}
@@ -172,7 +166,6 @@ const CollectionDetail = () => {
           />
         </div>
 
-        {/* 🔽 댓글 영역 */}
         <div className={styles.commentSection}>
           <div className={styles.cardBox}>
             <CollectionCommentSection collectionId={collectionId} />

@@ -15,7 +15,7 @@ const FindPassword = () => {
   const [timerRunning, setTimerRunning] = useState(false);
   const navigate = useNavigate();
 
-  // 인증코드 타이머 동작
+  // 타이머 
   useEffect(() => {
     if (!timerRunning) return;
 
@@ -23,7 +23,7 @@ const FindPassword = () => {
       setTimeLeft(prev => {
         if (prev <= 1) {
           clearInterval(timer);
-          alert("⏰ 인증 시간이 만료되었습니다. 다시 시도해주세요.");
+          alert("⏰ The verification time has expired. Please request a new code.");
           setStep(1);
           setCode('');
           setTimerRunning(false);
@@ -37,47 +37,47 @@ const FindPassword = () => {
   }, [step, timerRunning]);
 
   const handleSendCode = async () => {
-    if (!id || !name || !email) return alert('모든 항목을 입력해주세요.');
+    if (!id || !name || !email) return alert('All fields are required.');
     try {
       await axios.post('http://localhost:9090/find-password/send-code', { id, name, email }, { withCredentials: true });
-      alert('인증코드를 이메일로 보냈습니다.');
+      alert('The verification code has been sent to your email.');
       setStep(2);
       setTimeLeft(180);
-      setTimerRunning(true); // ⬅️ 여기로 이동해야 즉시 반응함
+      setTimerRunning(true); 
     } catch (err) {
-      alert('입력하신 정보로 가입된 계정을 찾을 수 없습니다.');
+      alert('No account was found with the information you provided.');
       console.error(err);
     }
   };
 
   const handleVerifyCode = async () => {
-    if (!code) return alert('인증코드를 입력하세요.');
+    if (!code) return alert('Please enter the verification code.');
     try {
       await axios.post('http://localhost:9090/find-password/verify-code', { id, code }, { withCredentials: true });
-      alert('인증되었습니다. 새 비밀번호를 입력하세요.');
+      alert('Verification successful. Please enter your new password.');
       setStep(3);
     } catch (err) {
-      alert('인증코드가 올바르지 않습니다.');
+      alert('The verification code is incorrect.');
       console.error(err);
     }
   };
 
   const handleResetPassword = async () => {
     if (newPwd.length < 6) {
-      alert("비밀번호는 최소 6자리 이상이어야 합니다.");
+      alert("The password must be at least 6 characters long.");
       return;
     }
     if (newPwd !== confirmPwd) {
-      alert("비밀번호가 일치하지 않습니다.");
+      alert("The passwords you entered do not match.");
       return;
     }
 
     try {
       await axios.post('http://localhost:9090/find-password/submit-new', { id, newPwd }, { withCredentials: true });
-      alert("비밀번호가 재설정되었습니다.");
+      alert("The password has been successfully reset.");
       navigate('/sign-in');
     } catch (err) {
-      alert("비밀번호 변경에 실패했습니다.");
+      alert("Failed to change the password.");
       console.error(err);
     }
   };
@@ -123,7 +123,7 @@ const FindPassword = () => {
         {step === 2 && (
           <>
             <p>Check your email for a verification code.</p>
-            <p className="findpassword-timer-text">⏳ 남은 시간: {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, '0')}</p>
+            <p className="findpassword-timer-text">⏳ Time remaining: {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, '0')}</p>
             <div className="findpassword-form-group">
               <label>Code :</label>
               <input

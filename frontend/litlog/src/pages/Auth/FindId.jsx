@@ -11,16 +11,16 @@ const FindId = () => {
   const navigate = useNavigate();
 
   const handleFindId = async () => {
-    if (!name || !email) return alert('이름과 이메일을 모두 입력하세요.');
+    if (!name || !email) return alert('Please enter both your name and email.');
 
     try {
       await axios.post('http://localhost:9090/find-id', { name, email }, { withCredentials: true });
       setSent(true);
     } catch (err) {
       if (err.response?.status === 404) {
-        alert('해당 정보로 가입된 아이디가 없습니다.');
+        alert('No account found with the provided information.');
       } else {
-        alert('오류가 발생했습니다.');
+        alert('An error has occurred.');
         console.error(err);
       }
     }

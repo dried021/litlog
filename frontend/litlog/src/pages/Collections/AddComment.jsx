@@ -6,7 +6,7 @@ const AddComment = ({ onSubmit, onCancel }) => {
 
   const handleSubmit = () => {
     if (!content.trim()) {
-      alert('댓글 내용을 입력해주세요.');
+      alert('Enter your comment.');
       return;
     }
     onSubmit(content);
