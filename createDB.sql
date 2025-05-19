@@ -219,3 +219,16 @@ CREATE TABLE book_collection_comment(
     FOREIGN KEY (collection_id) REFERENCES book_collection(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
+
+CREATE TABLE notification (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id VARCHAR(50) NOT NULL,        
+    sender_id VARCHAR(50),               
+    type VARCHAR(50) NOT NULL,            -- 'COLLECTION_LIKE', 'COLLECTION_COMMENT', 'REVIEW_LIKE', 'FOLLOW'
+    target_id INT NOT NULL,               
+    message VARCHAR(255),                 
+    is_read BOOLEAN DEFAULT FALSE,        
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY (sender_id) REFERENCES user(id) ON DELETE SET NULL
+);

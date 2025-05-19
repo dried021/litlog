@@ -1,7 +1,9 @@
 import React, { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./MyCollections.module.css";
 
 const CollectionEntry = ({ collection }) => {
+  const navigate = useNavigate();
   const thumbnails = collection.thumbnails ?? [];
   const stack = [...thumbnails.slice(0, 5)];
   while (stack.length < 5) {
@@ -16,8 +18,12 @@ const CollectionEntry = ({ collection }) => {
     return { imageWidth, overlapOffset };
   }, []);
 
+  const handleClick = () => {
+    navigate(`/collections/${collection.id}`);
+  };
+
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={handleClick} style={{ cursor: "pointer" }}>
       <div className={styles.thumbnailStack}>
         {stack.map((img, idx) =>
           img ? (
@@ -42,19 +48,31 @@ const CollectionEntry = ({ collection }) => {
             />
           )
         )}
+        {/* 설명 오버레이 */}
+        <div className={styles.overlay}>
+          <p className={styles.overlayText}>
+            {collection.content.length > 100
+              ? collection.content.slice(0, 100) + "..."
+              : collection.content}
+          </p>
+        </div>
       </div>
 
       <div className={styles.info}>
-        <h3 className={styles.title}>{collection.title}</h3>
-        <p className={styles.meta}>by {collection.nickname}</p>
-        <p className={styles.meta}>{collection.bookCount} books</p>
-        <p className={styles.meta}>
-          <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1}/>
-          {collection.likeCount ?? 0}
-          &nbsp;&nbsp;
-          <img src="/icons/comment_gray.svg" alt="comments" className={styles.icon2}/>
-          {collection.commentCount ?? 0}
-        </p>
+        <div className={styles.topRow}>
+          <h3 className={styles.title}>{collection.title}</h3>
+          <span className={styles.bookCount}>{collection.bookCount} books</span>
+        </div>
+        <div className={styles.bottomRow}>
+          <span className={styles.author}>by {collection.nickname}</span>
+          <span className={styles.meta}>
+            <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1}/>
+            {collection.likeCount ?? 0}
+            &nbsp;&nbsp;
+            <img src="/icons/comment_gray.svg" alt="comments" className={styles.icon2}/>
+            {collection.commentCount ?? 0}
+          </span>
+        </div>
       </div>
     </div>
   );

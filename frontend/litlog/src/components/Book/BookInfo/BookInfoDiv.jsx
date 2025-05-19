@@ -96,7 +96,6 @@ function BookInfoDiv({ bookApiId, likeUpdated }) {
       {" " + likeCount}
     </div>
 
-    {/* 모달 컴포넌트 */}
     <CustomModal
     show={modalData.show}
     onHide={handleCloseModal}

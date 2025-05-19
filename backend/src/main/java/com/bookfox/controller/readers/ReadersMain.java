@@ -1,5 +1,6 @@
 package com.bookfox.controller.readers;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,9 +37,14 @@ public class ReadersMain {
     @GetMapping("rank")
     public ResponseEntity<Map<String, Object>> getRank(
         @RequestParam(defaultValue = "0") int startIndex,
-        @RequestParam(defaultValue = "10 ") int itemsPerPage
+        @RequestParam(defaultValue = "10") int itemsPerPage,
+        @RequestParam(defaultValue = "0") int period
     ){
-        List<UserListDto> users = readerService.getRank(startIndex, itemsPerPage);
+        if (period == 0){
+            period = LocalDate.now().getYear();
+        }
+
+        List<UserListDto> users = readerService.getRank(startIndex, itemsPerPage, period);
         for(UserListDto user : users){
             user.setBooks(readerService.getRankerThumbnail(user.getId()));
         }

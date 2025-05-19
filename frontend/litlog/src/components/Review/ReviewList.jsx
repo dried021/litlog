@@ -31,8 +31,7 @@ function Review({ reviews, currentPage, reviewPerPage}) {
     const navigate = useNavigate();
     
     const handleClickProfile = (userId) => {
-      // 수정 Implement profile redirection logic
-      console.log(userId);
+      navigate(`/${userId}`);
     };
 
     const formatDate = (date) => {

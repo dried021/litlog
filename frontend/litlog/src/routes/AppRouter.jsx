@@ -33,13 +33,10 @@ import Activity from '../pages/Mypage/Activity';
 
 import EditProfile from '../pages/Settings/EditProfile';
 import Withdraw from '../pages/Settings/Withdraw';
-import WithdrawResult from '../pages/Settings/WithdrawResult';
 
 import MemberManage from '../pages/Admin/MemberManage';
 import ReviewManage from '../pages/Admin/ReviewManage';
 import CommentManage from '../pages/Admin/CommentManage';
-
-import Test from '../pages/Test/Test';
 
 import NotFound from '../pages/NotFound/NotFound'; 
 
@@ -67,7 +64,6 @@ const AppRouter = () => {
             <Route path="/collections/:collectionId" element={<CollectionDetail />} />
             <Route path="/collections/:collectionId/edit" element={<EditCollection />} />
 
-
             {/* Readers */}
             <Route path="/readers" element={<ReadersMain />} />
             <Route path="/readers/search" element={<SearchReaders/>}/>
@@ -87,8 +83,6 @@ const AppRouter = () => {
             {/* Setting */}
             <Route path="/settings" element={<EditProfile />} />
             <Route path="/withdraw" element={<Withdraw />} />
-            {/* POST 결과 페이지 URL도 GET으로 접속 가능하게 */}
-            <Route path="/withdraw-result" element={<WithdrawResult />} /> 
     
             {/* Admin */}
             <Route path="/admin" element={<MemberManage />} />
@@ -97,9 +91,6 @@ const AppRouter = () => {
 
             {/* 404 */}
             <Route path="*" element={<NotFound />} />
-
-            {/* spring 테스트용 */}
-            <Route path="/test" element={<Test/>}/>
         </Routes>
     );
 };

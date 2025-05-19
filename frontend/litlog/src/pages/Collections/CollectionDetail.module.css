@@ -84,19 +84,36 @@
   padding: 8px;
 }
 
-/* 마우스 올리면 오버레이 보이게 */
+
 .bookCard:hover .overlay {
   opacity: 1;
 }
 
-/* ===== 상단 좋아요/댓글수 + 수정/삭제 버튼 ===== */
 .topBar {
-  max-width: 1000px;
-  margin: 0 auto 24px auto;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.leftSection {
+  flex: 1;
+}
+
+.topRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.metaInfo {
+  text-align: right;
+}
+
+.collectionDate {
+  font-size: 14px;
+  color: #999;
 }
 
 .likeComment {
@@ -104,8 +121,12 @@
   color: #666;
 }
 
-.modifyDelete button {
-  margin-left: 8px;
+.modifyDelete {
+  display: flex;
+  gap: 8px;
+}
+
+.editBtn, .deleteBtn {
   padding: 6px 12px;
   font-size: 14px;
   border: 1px solid #ccc;
@@ -114,7 +135,8 @@
   border-radius: 4px;
 }
 
-.modifyDelete button:hover {
+.editBtn:hover,
+.deleteBtn:hover {
   background-color: #f0f0f0;
 }
 
@@ -130,6 +152,12 @@
   margin: 40px 0;
   font-size: 14px;
   color: #aaa;
+}
+
+.bookCount {
+  font-size: 14px;
+  color: #888;
+  margin-top: 4px;
 }
 
 /* ===== 댓글 영역 ===== */
