@@ -1,6 +1,7 @@
 use bit;
 SET FOREIGN_KEY_CHECKS = 0;
 
+DROP TABLE IF EXISTS notification;
 DROP TABLE IF EXISTS book_collection_comment;
 DROP TABLE IF EXISTS book_collection_book;
 DROP TABLE IF EXISTS book_collection;
