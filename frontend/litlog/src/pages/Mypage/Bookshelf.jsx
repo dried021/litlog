@@ -211,18 +211,21 @@ const Bookshelf = ({shelfType}) => {
                                 {showModal && (
                                     <div className={styles.modalOverlay}>
                                         <div className={styles.modalContent}>
-                                            <h3>Update progress %</h3>
+                                            <h3>Reading progress (%)</h3>
                                             <input
                                                 type="number"
                                                 min="0"
                                                 max="100"
                                                 value={progress}
-                                                onChange={(e) => setProgress(e.target.value)}
+                                                onChange={(e) => {
+                                                    const val = Math.max(0, Math.min(100, Number(e.target.value)));
+                                                    setProgress(val);
+                                                }}
                                                 placeholder="Enter % read"
                                             />
                                             <div className={styles.modalButtons}>
-                                                <button onClick={() => handleSave(selectedBookId)}>Save</button>
-                                                <button onClick={() => setShowModal(false)}>Cancel</button>
+                                                <button onClick={() => handleSave(selectedBookId)} className={styles.saveButton}>Save</button>
+                                                <button onClick={() => setShowModal(false)} className={styles.cancelButton}>Cancel</button>
                                             </div>
                                         </div>
                                     </div>
