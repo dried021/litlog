@@ -49,8 +49,10 @@ const CollectionMain = () => {
       });
     };
 
-  const CollectionCard = ({ col, navigate }) => {
-    console.log('Collection content', col);
+  const CollectionCard = ({ col, navigate, isWeekly = false}) => {
+    const likeDisplay = isWeekly
+    ? `${col.likeCount} ↑`  // 이번 주 증가분
+    : (col.totalLikeCount !== 0 ? col.totalLikeCount : col.likeCount);
     return(
   <div key={col.id} className={styles.collectionCard}>
     <div className={styles.thumbnailStack} onClick={() => navigate(`/collections/${col.id}`)}>
@@ -66,11 +68,11 @@ const CollectionMain = () => {
     </div>
     <div className={styles.collectionBody}>
       <h4 className={styles.collectionTitle} onClick={() => navigate(`/collections/${col.id}`)}>{col.title}</h4>
-      <p className={styles.collectionAuthor}>@{col.nickname}</p>
+      <p className={styles.collectionAuthor}>by {col.nickname}</p>
       <p className={styles.collectionDesc}>{col.content}</p>
       <p className={styles.collectionDate}>📅 {formatDate(col.creationDate)}</p>
       <div className={styles.collectionMeta}>
-        <span>❤️ {col.likeCount}</span>
+        <span>❤️ {likeDisplay}</span>
         <span>💬 {col.commentCount}</span>
       </div>
     </div>
@@ -99,7 +101,7 @@ const CollectionMain = () => {
 
         <div className={styles.collectionGrid}>  
           {popularCollections.slice(0, 3).map(col => (
-            <CollectionCard key={col.id} col={col} navigate={navigate} />
+            <CollectionCard key={col.id} col={col} navigate={navigate} isWeekly={true} />
           ))}
         </div>
       </section>
