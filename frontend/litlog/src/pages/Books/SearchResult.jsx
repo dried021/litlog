@@ -58,7 +58,7 @@ const SearchResult = () => {
                 setLoadedItems(startIndex + itemsPerPage);
 
                 if (!items){
-                    alert("마지막 결과 페이지입니다.");
+                    alert("Last page.");
                     shouldReload.current = true;
                     navigate(-1);
                 }

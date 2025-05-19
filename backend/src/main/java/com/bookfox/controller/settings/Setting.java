@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookfox.model.UserDto;
@@ -38,7 +37,8 @@ public class Setting {
     }
 
     @GetMapping("/userinfo")
-    public ResponseEntity<UserDto> getUserInfo(@RequestParam String userId){
+    public ResponseEntity<UserDto> getUserInfo(HttpSession session){
+        String userId = (String) session.getAttribute("loginUser");
         return ResponseEntity.ok(settingService.getUserInfo(userId));
     }
 

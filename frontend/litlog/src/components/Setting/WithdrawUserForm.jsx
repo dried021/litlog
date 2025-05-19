@@ -45,7 +45,7 @@ const AccountDeletionForm = ({ userId }) => {
         const response = await axios.post(`http://localhost:9090/setting/withdraw`, {
             id: userId,
             pwd: password,
-          });
+          }, { withCredentials: true });
         
         if (response.data.incorrectPwd){
             openModal("Incorrect password.");
