@@ -12,7 +12,7 @@ const WeeklyPopularReviews = () => {
     axios.get('http://localhost:9090/books/popularReviewList', {
       params: { currentPage: 1 }
     })
-      .then(res => setReviews(res.data.slice(0, 3))) // 상위 3개만 표시
+      .then(res => setReviews(res.data.slice(0, 3))) 
       .catch(err => console.error('Fail to fetch popular reviews:', err));
   }, []);
 
