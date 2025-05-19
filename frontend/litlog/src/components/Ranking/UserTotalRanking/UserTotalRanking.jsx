@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import UserList from '../UserList/UserList';
 import ViewMoreButton from '../../Button/ViewMoreButton';
+import RankPeriod from './RankPeriod';
 import TopButton from '../../Button/TopButton';
 import { Row, Col } from 'react-bootstrap';
 import styles from './UserTotalRanking.module.css';
@@ -15,11 +16,13 @@ const UserTotalRanking = () => {
     const [loadedItems, setLoadedItems] = useState(0);
     const [totalItems, setTotalItems] = useState(0);
     const [isAllLoaded, setIsAllLoaded] = useState(false);
+    const [period, setPeroid] = useState(new Date().getFullYear());
     const itemsPerPage = 10;
+
 
     useEffect(() => {
         loadRanking(0);
-    }, []);
+    }, [period]);
 
     const loadRanking = async (startIndex) => {
         setLoading(true);
@@ -28,6 +31,7 @@ const UserTotalRanking = () => {
                 params: {
                     startIndex,
                     itemsPerPage,
+                    period
                 },
             });
 
@@ -66,10 +70,17 @@ const UserTotalRanking = () => {
     const handleItemClick = (id) => {
         navigate(`/${id}`);
     };
+
+    const handlePeriodChange = (period) => {
+        setPeroid(period);
+    }
     
     return (
         <div>
-            <h2 className={styles["title"]}>Overall User Rank</h2>
+            <div className={styles.headerRow}>
+                <h2 className={styles.title}>Overall User Rank</h2>
+                <RankPeriod period={period} onChange={handlePeriodChange} />
+            </div>
 
             <div className={styles["search-result"]}>
                 {loading && loadedItems === 0 ? (
