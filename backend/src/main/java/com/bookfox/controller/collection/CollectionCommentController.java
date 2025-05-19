@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookfox.model.CollectionCommentDto;
+import com.bookfox.model.NotificationDto;
 import com.bookfox.service.CollectionCommentService;
+import com.bookfox.service.NotificationService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class CollectionCommentController {
-
+    private final NotificationService notificationService;
     @Autowired
     private CollectionCommentService commentService;
 
@@ -72,6 +74,19 @@ public class CollectionCommentController {
         comment.setContent(content);
 
         commentService.insertComment(comment);
+
+        // 알림
+        String ownerId = commentService.getCollectionOwnerId(collectionId);
+        if (!userId.equals(ownerId)) {
+            NotificationDto dto = new NotificationDto();
+            dto.setUserId(ownerId);           
+            dto.setSenderId(userId);            
+            dto.setType("COLLECTION_COMMENT");
+            dto.setTargetId(collectionId);
+            dto.setMessage(userId + "님이 당신의 컬렉션에 댓글을 남겼습니다.");
+            dto.setRead(false);
+            notificationService.sendNotification(dto);
+        }
 
         return ResponseEntity.ok().build();
     }

@@ -16,6 +16,6 @@ public interface CollectionCommentMapper {
     CollectionCommentDto getCommentById(int commentId);
     void deleteComment(int commentId);
     void updateCommentContent(@Param("commentId") int commentId, @Param("content") String content);
-
+    String getCollectionOwnerId(int collectionId); // 알림 
 }
 

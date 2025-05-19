@@ -44,5 +44,9 @@ public class CollectionCommentService {
         commentMapper.updateCommentContent(commentId, content);
     }
 
+    // 알림
+    public String getCollectionOwnerId(int collectionId) {
+        return commentMapper.getCollectionOwnerId(collectionId);
+    }
 }
 

@@ -38,4 +38,10 @@
         SET content = #{content}
         WHERE id = #{commentId}
     </update>
+
+    <select id="getCollectionOwnerId" parameterType="int" resultType="string">
+        SELECT user_id
+        FROM book_collection
+        WHERE id = #{collectionId}
+    </select>
 </mapper>
