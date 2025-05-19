@@ -87,7 +87,7 @@ const BookDetail = () => {
         bookId,
         book,
         option,
-      });
+      }, { withCredentials: true });
       openModal("The book has been successfully added to the bookshelf.");
     } catch (err) {
       console.error("Add to bookshelf error");
@@ -96,7 +96,7 @@ const BookDetail = () => {
   
   const handleAddLikeButton = async () => {
     try {
-      const response = await axios.post(`http://localhost:9090/books/like`, { bookId, book });
+      const response = await axios.post(`http://localhost:9090/books/like`, { bookId, book }, { withCredentials: true });
       const result = response.data;
       openModal(result > 0 ? "You have already liked this book." : "The book has been successfully liked.");
       setLikeUpdated(!likeUpdated);
