@@ -63,8 +63,12 @@ export default function Activity() {
                             <li key={index}>
                                 <div className={styles.activity}>
                                     <div className={styles.center}>
-                                        <img
-                                            src={activity.profileImage ? activity.profileImage : defaultProfile}
+                                        <img 
+                                            src={activity.profileImage ? 
+                                                (activity.profileImage.startsWith('http') 
+                                                ? activity.profileImage
+                                                : `http://localhost:9090${activity.profileImage}`)
+                                                : defaultProfile}
                                             alt="profile"
                                             className={styles.profileImg}
                                         />

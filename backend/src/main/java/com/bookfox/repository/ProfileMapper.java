@@ -22,4 +22,7 @@ public interface ProfileMapper {
     public List<BookshelfDto> getRecentlyReadBooks(Map<String, Object> map);
     public List<ProfileReviewDto> getRecentReviews(Map<String, Object> map);
     public List<ProfileReviewDto> getPopularReviews(Map<String, Object> map);
+    public boolean updateProfileImage(Map<String, Object> map);
+    public boolean updateProfileImageOrigin(Map<String, Object> map);
+    public boolean updateBio(Map<String, Object> map);
 }

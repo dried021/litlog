@@ -68,16 +68,7 @@ export default function ProfileSummary() {
             body: formData
         })
         .then(res => {
-            if (!res.ok) throw new Error("Failed to update profile");
-            return res.json();
-        })
-        .then(data => {
-            setProfile(prev => ({
-                ...prev,
-                bio: newBio,
-                profileImage: data.profileImage // if returned
-            }));
-            setShowEditModal(false);
+            setEditMode(false);
         })
         .catch(err => console.error("Error updating profile:", err));
     };
@@ -91,7 +82,11 @@ export default function ProfileSummary() {
                 <div className={styles.profileLeft}>
                     <div className={styles.profileImage}>
                         <img 
-                            src={profile.profileImage ? profile.profileImage : defaultProfile}
+                            src={profile.profileImage ? 
+                                (profile.profileImage.startsWith('http') 
+                                ? profile.profileImage
+                                : `http://localhost:9090${profile.profileImage}`)
+                                : defaultProfile}
                             alt="profile"
                             className={styles.profileImg}
                         />
