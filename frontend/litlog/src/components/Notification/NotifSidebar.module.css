@@ -58,7 +58,7 @@
 }
 
 .list::-webkit-scrollbar {
-  width: 6px;
+  width: 3px;
 }
 .list::-webkit-scrollbar-thumb {
   background-color: #ccc;
