@@ -5,6 +5,7 @@ import styles from './CollectionDetail.module.css';
 import Pagination from "../../components/Pagination/Pagination";
 import CollectionCommentSection from './CollectionCommentSection';
 import { UserContext } from '../../libs/UserContext';
+import CustomModal from "../../components/Modal/CustomModal";
 
 const CollectionDetail = () => {
   const { collectionId } = useParams();
@@ -18,6 +19,28 @@ const CollectionDetail = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const booksPerPage = 12;
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [modalData, setModalData] = useState({
+    show: false,
+    message: "",
+    mode: "close",
+    resultValue: "1",
+  });
+
+  const openModal = ({ message, mode = "close", resultValue = "1", callbackOnSuccess = null, callbackOnFail = null }) => {
+    setModalData({
+      show: true,
+      message,
+      mode,
+      resultValue,
+      callbackOnSuccess,
+      callbackOnFail
+    });
+  };
+
+  const handleCloseModal = () => {
+    setModalData(prev => ({ ...prev, show: false }));
+  };
 
   useEffect(() => {
     const fetchMetaAndLike = async () => {
@@ -60,7 +83,7 @@ const CollectionDetail = () => {
     }
 
     if (collection && user === collection.userId) {
-      alert("You cannot like your own collection.");
+      openModal({ message:"You cannot like your own collection."});
       return;
     }
 
@@ -84,6 +107,10 @@ const CollectionDetail = () => {
       });
     };
 
+  const toggleExpand = () => {
+    setIsExpanded(prev => !prev);
+  };
+
   if (!collection) return <p>Loading...</p>;
 
   return (
@@ -93,16 +120,26 @@ const CollectionDetail = () => {
           {/* (날짜 + 좋아요 + 댓글 + 버튼) */}
           <div className={styles.topBar}>
             <div className={styles.leftSection}>
-              <p className={styles.collectionDate}>📅 {formatDate(creationDate)}</p>
+              <p className={styles.collectionDate}>
+                <img src="/icons/calendar-check.svg" alt="Date" className={styles.icon} /> 
+                {formatDate(creationDate)}</p>
             </div>
 
             <div className={styles.topRight}>
               <div className={styles.metaInfo}>
                 <div className={styles.likeComment}>
                   <span onClick={handleLikeToggle} style={{ cursor: 'pointer' }}>
-                    {liked ? '❤️' : '🤍'} {likeCount}
+                    <img 
+                      src={liked ? '/icons/heart_filled.svg' : '/icons/heart_gray.svg'} 
+                      alt="heart"
+                      className="heart-icon"
+                      style={{ width: '20px', height: '20px', verticalAlign: 'middle', marginRight: '4px' }} 
+                    />
+                    {likeCount}
                   </span>
-                  <span> ・ 💬 {collection.commentCount}</span>
+                  <span> ・ 
+                    <img src="/icons/comment_gray.svg" alt="Comment" className={styles.icon} /> 
+                    {collection.commentCount}</span>
                 </div>
               </div>
 
@@ -123,11 +160,11 @@ const CollectionDetail = () => {
                         await axios.delete(`http://localhost:9090/collections/${collection.id}`, {
                           withCredentials: true,
                         });
-                        alert('Deleted successfully.');
+                        openModal({ message:'Deleted successfully.'});
                         navigate('/collections');
                       } catch (err) {
                         console.error('Failed to delete: ', err);
-                        alert('An error occurred during deletion.');
+                        openModal({ message:'An error occurred during deletion.'} );
                       }
                     }}>
                     Delete
@@ -138,11 +175,23 @@ const CollectionDetail = () => {
           </div>
 
           <h2 className={styles.title}>{collection.title}</h2>
-          <p className={styles.content}>{collection.content}</p>
+          <p className={`${styles.content} ${!isExpanded && collection.content.length > 10 ? styles.collapsed : ''}`}>
+            {collection.content}
+          </p>
+
+          {collection.content.length > 10 && (
+            <button className={styles.expandBtn} onClick={toggleExpand}>
+              {isExpanded ? 'Show Less' : 'Show More'}
+            </button>
+          )}
+          <br />
           <Link to={`/${collection.userId}`} className={styles.author}>
             by {collection.nickname}
           </Link>
-          <p className={styles.bookCount}>📚 {totalBooks} book(s)</p>
+          <p className={styles.bookCount}>
+            <img src="/icons/book.svg" alt="Book" className={styles.icon} />  
+            {totalBooks} book(s)
+          </p>
         </div>
 
         <div className={styles.bookGrid}>
@@ -173,6 +222,16 @@ const CollectionDetail = () => {
           </div>
         </div>
       </div>
+      <CustomModal
+        show={modalData.show}
+        onHide={handleCloseModal}
+        successMessage={modalData.message}
+        failMessage={modalData.message}
+        resultValue={modalData.resultValue}
+        mode={modalData.mode}
+        callbackOnSuccess={modalData.callbackOnSuccess}
+        callbackOnFail={modalData.callbackOnFail}
+      />
     </div>
   );
 

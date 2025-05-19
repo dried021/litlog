@@ -7,7 +7,7 @@ export function useSignUpSubmit({
   nickname, nicknameChecked, nicknameAvailable,
   name, password, confirmPassword,
   email, emailChecked, emailAvailable, emailVerified,
-  tel1, tel2, tel3, openModal
+  tel1, tel2, tel3, user_type, user_status, openModal
 }) {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -56,6 +56,8 @@ export function useSignUpSubmit({
         pwd: password,
         email,
         tel: tel1 && tel2 && tel3 ? `${tel1}-${tel2}-${tel3}` : null,
+        userType: user_type,
+        userStatus: user_status
       };
 
       await axios.post("http://localhost:9090/sign-up", dto);

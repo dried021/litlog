@@ -27,16 +27,24 @@ const WeeklyPopularBooks = () => {
       </div>
       <div className={styles.bookRow}>
         {books.map(book => (
-        <div key={book.id} className={styles.bookCard} onClick={() => navigate(`/books/${book.link}`)}>
-          <img
-            src={book.image ? book.image : defaultThumbnail}
-            alt={book.title}
-            className={styles.thumbnail}
-          />
-          <div className={styles.title}>{book.title}</div>
-          <div className={styles.authors}>{book.authors}</div>
-        </div>
-      ))}
+          <div key={book.id} className={styles.bookCard} onClick={() => navigate(`/books/${book.link}`)}>
+            <img
+              src={book.image ? book.image : defaultThumbnail}
+              alt={book.title}
+              className={styles.thumbnail}
+            />
+            <div className={styles.title}>{book.title}</div>
+            <div className={styles.authors}>{book.authors}</div>
+            <div className={styles.bookStats}>
+              <img className={styles.icon} src="/icons/bookshelf.svg" alt="Bookshelf" />
+              <p>{book.bookshelves ?? 0}</p>
+              <img className={styles.icon} src="/icons/heart_filled.svg" alt="Like" />
+              <p>{book.likes ?? 0}</p>
+              <img className={styles.icon} src="/icons/star2.svg" alt="Review" />
+              <p>{book.reviews ?? 0}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

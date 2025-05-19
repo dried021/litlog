@@ -41,7 +41,12 @@
     width: 100%;
   }
 
-  .signup-form-group {
+  .signup-form-group button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .signup-input-group {
     display: flex;
     gap: 8px;
     align-items: center;
@@ -83,6 +88,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
 }
 
 .signup-input-row input {
@@ -98,4 +104,22 @@
   padding: 6px 12px;
   font-weight: bold;
   border-radius: 5px;
+}
+
+.signup-form button[type="submit"] {
+  background-color: #333;
+  color: white;
+  padding: 8px 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  margin-top: 16px;
+  cursor: pointer;
+  border: none;
+}
+
+.signup-icon-check {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  vertical-align: middle;
 }
