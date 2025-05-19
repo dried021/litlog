@@ -92,56 +92,63 @@ const CollectionDetail = () => {
 
   return (
     <div className={styles.outerWrapper}>
-      {/* 상단 좋아요/댓글수 및 수정/삭제 */}
-      <div className={styles.topBar}>
-        <p className={styles.collectionDate}>📅 {formatDate(creationDate)}</p>
-        <div className={styles.likeComment}>
-          <span onClick={handleLikeToggle} style={{ cursor: 'pointer' }}>
-            {liked ? '❤️' : '🤍'} {likeCount}
-          </span>
-          <span> ・ 💬 {collection.commentCount}</span>
-        </div>
-        {user === collection.userId && (
-          <div className={styles.modifyDelete}>
-            <button 
-              className={styles.editBtn}
-              onClick={() => navigate(`/collections/${collection.id}/edit`)}
-            >
-                Modify
-            </button>
-            <button
-              className={styles.deleteBtn}
-              onClick={async () => {
-                const confirmDelete = window.confirm('정말 삭제하시겠습니까?');
-                if (!confirmDelete) return;
-
-                try {
-                  await axios.delete(`http://localhost:9090/collections/${collection.id}`, {
-                    withCredentials: true,
-                  });
-                  alert('삭제되었습니다.');
-                  navigate('/collections'); // 삭제 후 목록으로 이동
-                } catch (err) {
-                  console.error('삭제 실패:', err);
-                  alert('삭제 중 오류가 발생했습니다.');
-                }
-              }}
-            >
-              Delete
-          </button>
-          </div>
-        )}
-      </div>
-
-      {/* 메타 정보 */}
       <div className={styles.container}>
         <div className={styles.cardBox}>
+          {/* 🔽 메타 정보 (날짜 + 좋아요 + 댓글 + 버튼) */}
+          <div className={styles.topBar}>
+            <div className={styles.leftSection}>
+              <p className={styles.collectionDate}>📅 {formatDate(creationDate)}</p>
+            </div>
+
+            <div className={styles.topRight}>
+              <div className={styles.metaInfo}>
+                <div className={styles.likeComment}>
+                  <span onClick={handleLikeToggle} style={{ cursor: 'pointer' }}>
+                    {liked ? '❤️' : '🤍'} {likeCount}
+                  </span>
+                  <span> ・ 💬 {collection.commentCount}</span>
+                </div>
+              </div>
+
+              {user === collection.userId && (
+                <div className={styles.modifyDelete}>
+                  <button
+                    className={styles.editBtn}
+                    onClick={() => navigate(`/collections/${collection.id}/edit`)}>
+                    Modify
+                  </button>
+                  <button
+                    className={styles.deleteBtn}
+                    onClick={async () => {
+                      const confirmDelete = window.confirm('정말 삭제하시겠습니까?');
+                      if (!confirmDelete) return;
+
+                      try {
+                        await axios.delete(`http://localhost:9090/collections/${collection.id}`, {
+                          withCredentials: true,
+                        });
+                        alert('삭제되었습니다.');
+                        navigate('/collections');
+                      } catch (err) {
+                        console.error('삭제 실패:', err);
+                        alert('삭제 중 오류가 발생했습니다.');
+                      }
+                    }}>
+                    Delete
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* 🔽 컬렉션 소개 내용 */}
           <h2 className={styles.title}>{collection.title}</h2>
           <p className={styles.content}>{collection.content}</p>
-          <p className={styles.author}>작성자: {collection.nickname}</p>
+          <p className={styles.author}>by {collection.nickname}</p>
+          <p className={styles.bookCount}>📚 {totalBooks}권</p>
         </div>
 
-        {/* 책 목록 */}
+        {/* 🔽 책 목록 */}
         <div className={styles.bookGrid}>
           {books.map(book => (
             <div
@@ -155,6 +162,7 @@ const CollectionDetail = () => {
           ))}
         </div>
 
+        {/* 🔽 책 페이지네이션 */}
         <div className={styles.bookPagination}>
           <Pagination
             currentPage={currentPage}
@@ -164,7 +172,7 @@ const CollectionDetail = () => {
           />
         </div>
 
-        {/* 댓글 영역 */}
+        {/* 🔽 댓글 영역 */}
         <div className={styles.commentSection}>
           <div className={styles.cardBox}>
             <CollectionCommentSection collectionId={collectionId} />
@@ -173,6 +181,7 @@ const CollectionDetail = () => {
       </div>
     </div>
   );
+
 };
 
 export default CollectionDetail;

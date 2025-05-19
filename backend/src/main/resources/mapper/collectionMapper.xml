@@ -171,7 +171,7 @@
     FROM book_collection_book cb
     JOIN book b ON cb.book_id = b.id
     WHERE cb.collection_id = #{collectionId}
-    ORDER BY cb.id
+    ORDER BY cb.id DESC
     <if test="limit != null">
         LIMIT #{limit}
     </if>
