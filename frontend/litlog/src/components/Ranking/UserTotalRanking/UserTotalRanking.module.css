@@ -21,3 +21,17 @@
     text-align: left;
     padding: 0px 30px;
   }
+
+  .headerRow {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap; 
+  }
+  
+  .title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+  }

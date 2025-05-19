@@ -30,7 +30,7 @@ function Rating({ rating }) {
 
 function Review({ reviews, currentPage, reviewPerPage, handleLikeClick }) {
   const handleClickProfile = (userId) => {
-    // 수정 Implement profile redirection logic
+    navigate(`/${userId}`);
     };
 
 
@@ -46,7 +46,7 @@ function Review({ reviews, currentPage, reviewPerPage, handleLikeClick }) {
             </div>
 
             <div className={styles['user-profile']} onClick={() => handleClickProfile(review.userId)}>
-                <img src="/icons/profile.svg" alt="프로필 자리임" />
+                <img src="/icons/profile.svg" alt="prodile" />
             </div>
 
             <div className={styles['review-content']}>
