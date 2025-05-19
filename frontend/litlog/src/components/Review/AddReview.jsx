@@ -79,7 +79,8 @@ const handleSubmit = () => {
           bookApiId,
           content,
           rating,
-        });
+        }, { withCredentials: true }
+      );
 
         const result = response.data;
 
