@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styles from './CollectionMain.module.css'; // 기존 스타일 그대로 사용
+import styles from './CollectionMain.module.css'; 
 import { useNavigate } from 'react-router-dom';
 import Pagination from '../../components/Pagination/Pagination';
 
@@ -9,7 +9,7 @@ const CollectionPopularList = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
-  const pageSize = 12; // 한 페이지에 12개씩
+  const pageSize = 12; 
 
 
   const fetchPopularCollections = async (page = 1) => {
@@ -20,7 +20,7 @@ const CollectionPopularList = () => {
       setCollections(res.data.book_collections || []);
       setPageCount(res.data.totalPages || 1);
     } catch (err) {
-      alert("컬렉션을 불러오는 데 실패했습니다.");
+      alert("Failed to load all collections.");
       console.error(err);
     }
   };

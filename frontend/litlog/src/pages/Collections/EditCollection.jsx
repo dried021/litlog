@@ -31,7 +31,7 @@ const EditCollection = () => {
         setInitialBooks(res.data.books || []); 
         setLoaded(true);
       } catch (err) {
-        console.error('콜렉션 불러오기 실패:', err);
+        console.error('Failed to load collection:', err);
         setAuthorized(false);
       }
     };
@@ -50,10 +50,10 @@ const EditCollection = () => {
   }, [authorized, navigate]);
 
   if (!authorized) {
-    return <div>접근 권한이 없습니다. 이전 페이지로 돌아갑니다...</div>;
+    return <div>Access denied. Returning to the previous page...</div>;
   }
 
-  if (!loaded) return <div>로딩 중...</div>;
+  if (!loaded) return <div>Loading...</div>;
 
   return (
     <NewCollection
