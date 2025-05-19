@@ -64,45 +64,37 @@ const UpdateUserForm = ({ userId }) => {
     const isEmailChanged = email !== originalEmail;
 
     useEffect(() => {
-        loadUser(userId);
+        if (userId) loadUser();
     }, [userId]);
 
-    const loadUser = async (userId) => {
+    const loadUser = async () => {
         try {
-            const response = await axios.get(`http://localhost:9090/setting/userinfo`, {
-                params: { userId },
-            });
+            const response = await axios.get(`http://localhost:9090/setting/userinfo`, { withCredentials: true });
             const userData = response.data;
             setUser(userData);
-            setName(userData.name || '');
-            setTel(userData.tel || '');
-
-            handleNicknameChange({ target: { value: userData.nickname || '' } });
-            handleEmailChange({ target: { value: userData.email || '' } });
-            setOriginalPassword(userData.pwd || '');
-            setOriginalNickname(userData.nickname || '');
-            setOriginalEmail(userData.email || '');
+            setName(userData.name ?? '');
+            setTel(userData.tel ?? '');
+            handleNicknameChange({ target: { value: userData.nickname ?? '' } });
+            handleEmailChange({ target: { value: userData.email ?? '' } });
+            setOriginalPassword(userData.pwd ?? '');
+            setOriginalNickname(userData.nickname ?? '');
+            setOriginalEmail(userData.email ?? '');
         } catch (error) {
             console.error("Fail to load user:", error);
+            openModal("Failed to load user information.");
         }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!currentPassword) return openModal("Please enter your current password.");
-
         if (currentPassword !== originalPassword ) return openModal("Incorrect current password.");
-
         if (isNicknameChanged && (!nicknameChecked || !nicknameAvailable)) return openModal("Please check for duplicate nickname.");
-
         if (isEmailChanged && (!emailChecked || !emailAvailable)) return openModal("Please verify your email.");
-
         if (isEmailChanged && (!emailVerified)) return openModal("Please complete email verification.");
-
         if (newPassword && newPassword.length < 6) return openModal("Password must be at least 6 characters long.");
-
         if (newPassword && confirmPassword && newPassword !== confirmPassword) return openModal("New passwords do not match.");
-
+        
         const requestData = {
             id : userId,
             nickname,
@@ -136,7 +128,7 @@ const UpdateUserForm = ({ userId }) => {
             <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.formGroupFull}>
                     <label>ID</label>
-                    <input type="text" value={userId} disabled autoComplete="userid"/>
+                    <input type="text" value={userId ?? ''} disabled autoComplete="userid"/>
                 </div>
 
                 <div className={styles.formRow}>
@@ -151,7 +143,7 @@ const UpdateUserForm = ({ userId }) => {
                                 )
                             )}
                         </div>
-                        <input type="text" value={nickname} onChange={handleNicknameChange} />
+                        <input type="text" value={nickname ?? ''} onChange={handleNicknameChange} />
                     </div>
                     <button type="button" className={styles.buttonSmall} onClick={checkNicknameDuplicate} disabled={!isNicknameChanged}>Check</button>
                 </div>
@@ -159,39 +151,38 @@ const UpdateUserForm = ({ userId }) => {
                 <div className={styles.formRow}>
                     <div className={styles.formGroup}>
                         <label>Your Name</label>
-                        <input type="text" value={name} disabled autoComplete="username"/>
+                        <input type="text" value={name ?? ''} disabled autoComplete="username"/>
                     </div>
 
                     <div className={styles.formGroup}>
                         <label>Phone Number</label>
-                        <input type="text" value={tel} disabled autoComplete="tel" />
+                        <input type="text" value={tel ?? ''} disabled autoComplete="tel" />
                     </div>
                 </div>
 
                 <div className={styles.formRow}>
                     <div className={styles.formGroup}>
                         <label>Current Password</label>
-                        <input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} autoComplete="current-password"/>
+                        <input type="password" value={currentPassword ?? ''} 
+                            onChange={(e) => setCurrentPassword(e.target.value)} autoComplete="current-password"/>
                     </div>
                 </div>
 
                 <div className={styles.formRow}>
                     <div className={styles.formGroup}>
                         <label>New Password</label>
-                        <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} 
-                        autoComplete="new-password"/>
+                        <input type="password" value={newPassword ?? ''} 
+                            onChange={(e) => setNewPassword(e.target.value)} 
+                            autoComplete="new-password"/>
                     </div>
                 </div>
 
                 {newPassword && (
                     <div className={styles.formGroupFull}>
                         <label>Confirm New Password</label>
-                        <input
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            autoComplete="new-password"
-                        />
+                        <input type="password" value={confirmPassword ?? ''} 
+                            onChange={(e) => setConfirmPassword(e.target.value)} 
+                            autoComplete="new-password"/>
                     </div>
                 )}
 
@@ -202,7 +193,9 @@ const UpdateUserForm = ({ userId }) => {
                         {isEmailChanged && emailAvailable === false && <span className="invalid">✖ Already used</span>}
                         {timerRunning && <span className="valid">{formatTime(timeLeft)} left</span>}
                     </div>
-                        <input type="email" value={email} onChange={handleEmailChange} disabled={timerRunning || emailVerified }/>
+                        <input type="email" value={email ?? ''} 
+                        onChange={handleEmailChange} 
+                        disabled={timerRunning || emailVerified }/>
                     </div>
 
                     <button type="button" className={styles.buttonSmall} onClick={sendEmailCode} disabled={timerRunning || !isEmailChanged}>
@@ -215,8 +208,7 @@ const UpdateUserForm = ({ userId }) => {
                         <div className={styles.formGroup}>
                         {emailVerified ? <label className="valid" >✔ Verified</label>
                             : <label className="valid" >🔒 Unverified</label>}
-                            <input type="text" value={emailCode} onChange={(e) => setEmailCode(e.target.value)} />
-                            
+                            <input type="text" value={emailCode ?? ''} onChange={(e) => setEmailCode(e.target.value)} />
                         </div>
                         
                         <div className={styles.inlineRow}>
