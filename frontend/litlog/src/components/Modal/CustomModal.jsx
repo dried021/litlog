@@ -14,7 +14,6 @@ const CustomModal = ({
 }) => {
   const [userClicked, setUserClicked] = useState(false);
 
-  /** 공통적인 callback 처리 함수 */
   const handleCallback = (isSuccess) => {
     setUserClicked(true);
     onHide();
@@ -26,22 +25,18 @@ const CustomModal = ({
     }
   };
 
-  /** 모달이 닫힐 때 실행되는 함수 */
   const handleClose = () => {
     handleCallback(resultValue === "1");
   };
 
-  /** 확인 버튼 클릭 */
   const handleConfirm = () => {
     handleCallback(true);
   };
 
-  /** 취소 버튼 클릭 */
   const handleCancel = () => {
     handleCallback(false);
   };
 
-  /** 모달이 열릴 때마다 userClicked 초기화 */
   useEffect(() => {
     setUserClicked(false);
   }, [show]);

@@ -10,7 +10,6 @@ const Pagination = ({
 
   if (pageCount === 0) return null;
 
-  // 계산 로직
   const startPage = Math.floor((currentPage - 1) / pageBlock) * pageBlock + 1;
   const endPage = Math.min(startPage + pageBlock - 1, pageCount);
 
@@ -22,7 +21,6 @@ const Pagination = ({
 
   return (
     <div className="pagination-container">
-      {/* 왼쪽 화살표 */}
       {startPage > 1 && (
         <button
           className="pagination-button"
@@ -32,7 +30,6 @@ const Pagination = ({
         </button>
       )}
 
-      {/* 페이지 버튼 */}
       {Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i).map((pageNum) => (
         <button
           key={pageNum}
@@ -43,7 +40,6 @@ const Pagination = ({
         </button>
       ))}
 
-      {/* 오른쪽 화살표 */}
       {endPage < pageCount && (
         <button
           className="pagination-button"
