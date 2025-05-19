@@ -119,14 +119,6 @@ VALUES
 
 -- 11. 책 콜렉션 (book_collection)
 
-SELECT * from book;
-SELECT * from book_collection;
-SELECT * from book_collection_book;
-SELECT * from book_collection_like;
-SELECT collection_id,  COUNT(*) AS 좋아요_수
-FROM book_collection_like
-GROUP BY collection_id;
-
 INSERT INTO book_collection (user_id, creation_date, title, content, thumbnail)
 VALUES
 ('user01', '2025-05-13', '얼음과 불의 노래', '통쾌한 결말을 가진 소설들 모음입니다.', 'http://books.google.com/books/publisher/content?id=bNW-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE733JkpcbfA-7iOsHv4jWjvD_XeBSP3Ta-3rwh4EVkE4UqRK1v13OuElHEyTYoRJCNPVJv6aY-Wqr6IfdFCzMNrQ2meyOiEnYRYA45cAhGU7egvprpPWGDXy4vVostUQ_swB2six&source=gbs_api'),
