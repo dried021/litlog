@@ -189,9 +189,6 @@ CREATE TABLE like_list(
 -- ('BOOK', 2),
 -- ('BOOK_COLLECTION', 3)
 
-SELECT * from book_collection;
-SELECT * from book_collection_book;
-
 CREATE TABLE book_collection(
 	id INT AUTO_INCREMENT PRIMARY KEY,			-- 이건 프리메리
     user_id VARCHAR(50) NOT NULL, 

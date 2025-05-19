@@ -122,16 +122,28 @@ const NewCollection = ({
         <input
           type="text"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value.length <= 255) {
+              setTitle(e.target.value);
+            }
+          }}
+          maxLength={255}
           placeholder="Enter collection name"
         />
+        <small className={styles.charCount}>{title.length} / 255</small>
 
         <label>Description</label>
         <textarea
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value.length <= 1000) {
+              setContent(e.target.value);
+            }
+          }}
+          maxLength={1000}
           placeholder="Enter description"
         />
+        <small className={styles.charCount}>{content.length} / 1000</small>
 
         <div className={styles.bookSearch}>
         <input
