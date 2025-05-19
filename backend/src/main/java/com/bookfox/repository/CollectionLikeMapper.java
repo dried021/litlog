@@ -9,4 +9,5 @@ public interface CollectionLikeMapper {
     void deleteLike(CollectionLikeDto like);
     int countLikesForCollection(int collectionId);
     boolean hasUserLikedCollection(CollectionLikeDto like);
+    String getCollectionOwnerId(int collectionId); // 알림
 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bookfox.model.ProfileDto;
 import com.bookfox.model.ProfileReviewDto;
+import com.bookfox.service.NotificationService;
 import com.bookfox.service.ProfileService;
 import com.bookfox.model.BookshelfDto;
+import com.bookfox.model.NotificationDto;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpSession;
@@ -24,6 +27,9 @@ import jakarta.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/members")
 public class ProfileController {
+    @Autowired
+    private NotificationService notificationService;
+
     @Resource
     private ProfileService profileService;
 
@@ -68,6 +74,18 @@ public class ProfileController {
     public ResponseEntity<Map<String, Object>> followUser(@PathVariable String userId, HttpSession session) {
         String sessionUserId = (String) session.getAttribute("loginUser");
         boolean success = profileService.followUser(sessionUserId, userId);
+
+        // 알림
+        if (success && !sessionUserId.equals(userId)) {
+            NotificationDto dto = new NotificationDto();
+            dto.setUserId(userId);             
+            dto.setSenderId(sessionUserId);   
+            dto.setType("FOLLOW");
+            dto.setTargetId(0);                
+            dto.setMessage(sessionUserId + " started following you.");
+            dto.setRead(false);
+            notificationService.sendNotification(dto);
+        }
 
         Map<String, Object> response = new HashMap<>();
         response.put("success", success);
