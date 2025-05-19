@@ -115,4 +115,10 @@
             ll.user_id = #{userId} 
             AND ll.like_type = 2
     </select>
+    <update id="updateProgress" parameterType="map">
+        UPDATE book_shelf
+        SET progress = #{progress}
+        WHERE user_id = #{userId}
+        AND book_id = #{bookId}
+    </update>
 </mapper>
