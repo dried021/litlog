@@ -127,13 +127,14 @@ public class Books {
             bookService.likeReview(reviewId, userId);
             // 알림
             String ownerId = bookService.getReviewAuthorId(reviewId);
+            String nickname = notificationService.getNicknameByUserId(userId);
             if (!userId.equals(ownerId)) {
                 NotificationDto dto = new NotificationDto();
                 dto.setUserId(ownerId);
                 dto.setSenderId(userId);
                 dto.setType("REVIEW_LIKE");
                 dto.setTargetId(reviewId);
-                dto.setMessage(userId + " liked your review.");
+                dto.setMessage(nickname + " liked your review.");
                 dto.setRead(false);
                 notificationService.sendNotification(dto);
             }

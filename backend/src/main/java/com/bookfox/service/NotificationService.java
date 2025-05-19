@@ -25,4 +25,8 @@ public class NotificationService {
     public void setAsRead(int notificationId) {
         notificationMapper.setNotificationAsRead(notificationId);
     }
+
+    public String getNicknameByUserId(String userId) {
+        return notificationMapper.getNicknameByUserId(userId);
+    }
 }

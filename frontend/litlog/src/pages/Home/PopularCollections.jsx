@@ -20,7 +20,7 @@ const PopularCollections = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <h3>🔥 All-Time Popular Collections</h3>
-        <button className={styles.moreBtn} onClick={() => navigate('/collections/list?sort=popular')}>
+        <button className={styles.moreBtn} onClick={() => navigate('/collections')}>
           More →
         </button>
       </div>

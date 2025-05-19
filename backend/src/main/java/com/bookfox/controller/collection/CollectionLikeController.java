@@ -37,13 +37,14 @@ public class CollectionLikeController {
         // 알림
         if (isLiked) {
             String ownerId = likeService.getCollectionOwnerId(collectionId);
+            String nickname = notificationService.getNicknameByUserId(userId); 
             if (!userId.equals(ownerId)) {
                 NotificationDto dto = new NotificationDto();
                 dto.setUserId(ownerId);                 
                 dto.setSenderId(userId);               
                 dto.setType("COLLECTION_LIKE");
                 dto.setTargetId(collectionId);
-                dto.setMessage(userId + " liked your collection.");
+                dto.setMessage(nickname + " liked your collection."); 
                 dto.setRead(false);
 
                 notificationService.sendNotification(dto);
