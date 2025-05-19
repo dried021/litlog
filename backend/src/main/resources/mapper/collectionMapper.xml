@@ -28,36 +28,53 @@
 
     <!-- 인기순 컬렉션 (이번 주 기준, 페이징 적용) -->
     <select id="selectPopularCollectionsThisWeek" resultType="com.bookfox.model.CollectionDto">
-    SELECT 
-        c.id AS id,
-        c.user_id AS userId,
-        u.nickname,
-        c.title,
-        c.content,
-        c.thumbnail,
-        c.creation_date AS creationDate,
-        l.like_count AS likeCount,
-        COUNT(DISTINCT cm.id) AS commentCount
-    FROM (
-        SELECT target_id AS collection_id
-        FROM like_list
-        WHERE like_type = 3 AND YEARWEEK(creation_date, 1) = YEARWEEK(NOW(), 1)
-        GROUP BY target_id
-        ORDER BY COUNT(*) DESC
-        LIMIT #{size} OFFSET #{offset}
-    ) AS top
-    JOIN book_collection c ON c.id = top.collection_id
-    LEFT JOIN user u ON c.user_id = u.id
-    LEFT JOIN (
-        SELECT target_id, COUNT(*) AS like_count
-        FROM like_list
-        WHERE like_type = 3 AND YEARWEEK(creation_date, 1) = YEARWEEK(NOW(), 1)
-        GROUP BY target_id
-    ) l ON c.id = l.target_id
-    LEFT JOIN book_collection_comment cm ON c.id = cm.collection_id
-    GROUP BY c.id
-    ORDER BY likeCount DESC
+        SELECT 
+            c.id AS id,
+            c.user_id AS userId,
+            u.nickname,
+            c.title,
+            c.content,
+            c.thumbnail,
+            c.creation_date AS creationDate,
+
+            l.like_count AS likeCount,
+
+            COALESCE(total.total_like_count, 0) AS totalLikeCount,
+
+            COUNT(DISTINCT cm.id) AS commentCount
+
+        FROM (
+            SELECT target_id AS collection_id
+            FROM like_list
+            WHERE like_type = 3 AND YEARWEEK(creation_date, 1) = YEARWEEK(NOW(), 1)
+            GROUP BY target_id
+            ORDER BY COUNT(*) DESC
+            LIMIT #{size} OFFSET #{offset}
+        ) AS top
+
+        JOIN book_collection c ON c.id = top.collection_id
+        LEFT JOIN user u ON c.user_id = u.id
+
+        LEFT JOIN (
+            SELECT target_id, COUNT(*) AS like_count
+            FROM like_list
+            WHERE like_type = 3 AND YEARWEEK(creation_date, 1) = YEARWEEK(NOW(), 1)
+            GROUP BY target_id
+        ) l ON c.id = l.target_id
+
+        LEFT JOIN (
+            SELECT target_id, COUNT(*) AS total_like_count
+            FROM like_list
+            WHERE like_type = 3
+            GROUP BY target_id
+        ) total ON c.id = total.target_id
+
+        LEFT JOIN book_collection_comment cm ON c.id = cm.collection_id
+
+        GROUP BY c.id
+        ORDER BY likeCount DESC
     </select>
+
 
     <!-- 전체 개수 (이번 주 인기 컬렉션 수) -->
     <select id="countPopularCollectionsThisWeek" resultType="int">
@@ -194,7 +211,7 @@
 
     <delete id="deleteCollection">
         DELETE FROM book_collection
-        WHERE id = #{collectionId} AND user_id = #{userId} <!-- 본인만 삭제 가능 -->
+        WHERE id = #{collectionId} AND user_id = #{userId} 
     </delete>
 
     <select id="findUserIdByCollectionId" resultType="string">

@@ -19,6 +19,7 @@ public class CollectionDto {
     private String thumbnail;       // 대표 썸네일 (optional)
     private Timestamp creationDate;
     private int likeCount;
+    private int totalLikeCount;
     private int commentCount;       // 댓글 수
     private List<BookDto> books;         // 책 객체로 받을 경우
 }
