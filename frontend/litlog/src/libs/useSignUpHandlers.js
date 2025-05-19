@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { validateIdFormat, validateNicknameFormat, validateEmailFormat } from './validation';
 
-export function useSignUpHandlers_id(openModal) { // 아이디 중복 확인 및 유효성 검사
+export function useSignUpHandlers_id(openModal) { 
   const [id, setId] = useState('');
   const [idChecked, setIdChecked] = useState(false);
   const [idAvailable, setIdAvailable] = useState(null);
@@ -44,11 +44,10 @@ export function useSignUpHandlers_id(openModal) { // 아이디 중복 확인 및
   };
 }
 
-export function useSignUpHandlers_nickname(openModal) { // 닉네임 중복 확인 및 유효성 검사
-    // 닉네임 상태 관리
-    const [nickname, setNickname] = useState(''); // 닉네임 상태
-    const [nicknameChecked, setNicknameChecked] = useState(false); // 닉네임 중복 확인 여부
-    const [nicknameAvailable, setNicknameAvailable] = useState(null); // 닉네임 사용 가능 여부
+export function useSignUpHandlers_nickname(openModal) { 
+    const [nickname, setNickname] = useState(''); 
+    const [nicknameChecked, setNicknameChecked] = useState(false); 
+    const [nicknameAvailable, setNicknameAvailable] = useState(null); 
 
     const handleNicknameChange = (e) => {
     setNickname(e.target.value);
@@ -91,10 +90,9 @@ export function useSignUpHandlers_nickname(openModal) { // 닉네임 중복 확�
   const [email, setEmail] = useState('');
   const [emailChecked, setEmailChecked] = useState(false);
   const [emailAvailable, setEmailAvailable] = useState(null);
-  const [emailVerified, setEmailVerified] = useState(false); // 인증 확인 여부
-  const [emailCode, setEmailCode] = useState('');             // 입력한 인증 코드
+  const [emailVerified, setEmailVerified] = useState(false); 
+  const [emailCode, setEmailCode] = useState('');             
 
-  // 타이머 관련 상태
   const [timeLeft, setTimeLeft] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
 
@@ -117,13 +115,12 @@ export function useSignUpHandlers_nickname(openModal) { // 닉네임 중복 확�
         return;
       }
 
-      // 인증코드 발송
       await axios.post('http://localhost:9090/sign-up/send-code', { email }, { withCredentials: true });
       openModal("Verification code has been sent to your email.");
 
       setEmailAvailable(true);
       setEmailChecked(true);
-      setTimeLeft(300); // 5분
+      setTimeLeft(180); // 3분
       setTimerRunning(true);
     } catch (err) {
       openModal("Failed to send verification code.");
@@ -132,13 +129,19 @@ export function useSignUpHandlers_nickname(openModal) { // 닉네임 중복 확�
   };
 
   const verifyEmailCode = async () => {
+    if (!timerRunning && timeLeft === 0) {
+      openModal('The verification time has expired. Please try again.');
+      setEmailVerified(false);
+      return;
+    }
+
     try {
       const res = await axios.post('http://localhost:9090/sign-up/verify-email', { code: emailCode }, { withCredentials: true });
       if (res.data.verified) {
         openModal('Email verified successfully!');
         setEmailVerified(true);
         setTimerRunning(false);  
-      setTimeLeft(0);      
+        setTimeLeft(0);      
       } else {
         openModal('Incorrect verification code.');
         setEmailVerified(false);
@@ -149,7 +152,7 @@ export function useSignUpHandlers_nickname(openModal) { // 닉네임 중복 확�
     }
   };
 
-  // 타이머 동작
+
   useEffect(() => {
     if (!timerRunning) return;
 

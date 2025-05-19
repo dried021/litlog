@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styles from './NewCollection.module.css';
 import { useRequireAuth } from '../../libs/useRequireAuth';
 import { useSubmitCollection } from './useSubmitCollection';
+import { useNavigate } from 'react-router-dom';
 
 const NewCollection = ({
-  mode = 'create', // 'edit'이면 수정 모드
+  mode = 'create', // 'edit'이면 수정
   collectionId,
   initialTitle = '',
   initialContent = '',
@@ -21,9 +22,8 @@ const NewCollection = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const user = useRequireAuth();
-  const userId = user;
+  const navigate = useNavigate();
 
-  // 초기 데이터 반영
   useEffect(() => {
     setTitle(initialTitle);
     setContent(initialContent);
@@ -44,10 +44,11 @@ const NewCollection = ({
     selectedBooks,
     resetForm,
     mode,
-    collectionId
+    collectionId,
+    navigate  
   );
 
-  if (user === undefined) return <div>로그인 확인 중...</div>;
+  if (user === undefined) return <div>Authenticating...</div>;
   if (user === null) return null;
 
   const handleSearch = async () => {
@@ -94,7 +95,7 @@ const NewCollection = ({
       setPage(prev => prev + 1);
       setHasMore((data.totalItems || 0) > startIndex + books.length);
     } catch (err) {
-      console.error('더 보기 에러:', err);
+      console.error('Failed to load more content:', err);
     } finally {
       setIsLoading(false);
     }
@@ -147,36 +148,45 @@ const NewCollection = ({
         />
         <button type="button" onClick={handleSearch}>Search</button>
 
-        {/* ✅ 드롭다운 형태로 띄우기 */}
         {searchResults.length > 0 && (
-          <div className={styles.searchResultsBox}>
-            {searchResults.map((book, idx) => (
-              <div
-                key={idx}
-                className={styles.resultItem}
-                onClick={() => handleSelectBook(book)}
-              >
-                {book.thumbnail && <img src={book.thumbnail} alt={book.title} />}
-                <div className={styles.resultText}>
-                  <p className={styles.resultTitle}><strong>{book.title}</strong></p>
-                  <p className={styles.resultMeta}>{book.authors} / {book.publisher}</p>
-                </div>
+        <div className={styles.searchResultsBox}>
+          {searchResults.map((book, idx) => (
+            <div key={idx} className={styles.resultItem} onClick={() => handleSelectBook(book)}>
+              {book.thumbnail && <img src={book.thumbnail} alt={book.title} />}
+              <div className={styles.resultText}>
+                <p className={styles.resultTitle}><strong>{book.title}</strong></p>
+                <p className={styles.resultMeta}>{book.authors} / {book.publisher}</p>
               </div>
-            ))}
+            </div>
+          ))}
+
+          <div className={styles.dropdownButtons}>
+            <button
+              type="button"
+              className={styles.closeDropdownBtn}
+              onClick={() => setSearchResults([])}
+            >
+              close
+            </button>
 
             {hasMore && (
-              <button type="button" onClick={loadMore} className={styles.loadMoreBtn}>
+              <button
+                type="button"
+                onClick={loadMore}
+                className={styles.loadMoreBtn}
+              >
                 {isLoading ? 'Loading...' : 'Load More'}
               </button>
             )}
           </div>
-        )}
+        </div>
+      )}
       </div>
 
         <div className={styles.addedBooks}>
           <p>Added Books List</p>
           {selectedBooks.length === 0 ? (
-            <p style={{ color: '#888', marginTop: '8px' }}>아직 추가된 책이 없습니다.</p>
+            <p style={{ color: '#888', marginTop: '8px' }}>No books have been added yet.</p>
           ) : (
             selectedBooks.map((book, index) => (
               <div key={index} className={styles.bookCard}>

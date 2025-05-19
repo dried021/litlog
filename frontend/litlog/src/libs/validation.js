@@ -1,50 +1,50 @@
-export function validateIdFormat(id) { // 아이디 유효성 검사
+export function validateIdFormat(id) { 
     const trimmed = id.trim();
   
     if (trimmed.length < 4) {
-      return { valid: false, message: "아이디는 최소 4자 이상이어야 합니다." };
+      return { valid: false, message: "ID must be at least 4 characters long." };
     }
   
     if (!/^[a-zA-Z0-9_]+$/.test(trimmed)) {
-      return { valid: false, message: "아이디는 영문, 숫자, 언더스코어(_)만 사용 가능합니다." };
+      return { valid: false, message: "ID can only contain letters, numbers, and underscores (_)." };
     }
   
     return { valid: true };
   }
 
-  export function validateNicknameFormat(nickname) { // 닉네임 유효성 검사
+  export function validateNicknameFormat(nickname) { 
     const trimmed = nickname.trim();
   
     if (trimmed.length < 2) {
-      return { valid: false, message: "닉네임은 최소 2자 이상이어야 합니다." };
+      return { valid: false, message: "Nickname must be at least 2 characters long." };
     }
   
     if (!/^[a-zA-Z0-9가-힣_]+$/.test(trimmed)) {
-      return { valid: false, message: "닉네임은 한글, 영문, 숫자, 언더스코어만 사용 가능합니다." };
+      return { valid: false, message: "Nickname can only contain Korean characters, letters, numbers, and underscores (_)." };
     }
   
     return { valid: true };
   }
 
-  export function validateNameFormat(name) { // 이름 유효성 검사  
+  export function validateNameFormat(name) { 
   const trimmed = name.trim();
 
   if (trimmed.length < 2) {
-    return { valid: false, message: "이름은 최소 2자 이상이어야 합니다." };
+    return { valid: false, message: "Name must be at least 2 characters long." };
   }
 
   if (!/^[가-힣a-zA-Z]+$/.test(trimmed)) {
-    return { valid: false, message: "이름은 한글 또는 영문만 입력 가능합니다." };
+    return { valid: false, message: "Name can only contain Korean or English letters." };
   }
 
   return { valid: true };
 }
 
-export function validateEmailFormat(email) { // 이메일 유효성 검사
+export function validateEmailFormat(email) { 
   const trimmed = email.trim();
 
   if (!/\S+@\S+\.\S+/.test(trimmed)) 
-    return { valid: false, message: "유효한 이메일 형식이 아닙니다." };
+    return { valid: false, message: "Please enter a valid email address." };
 
   return { valid: true };
 }

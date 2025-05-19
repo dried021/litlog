@@ -1,4 +1,3 @@
-// src/hooks/useLogout.js (또는 libs 디렉토리 등 원하는 위치)
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -14,7 +13,7 @@ export function useLogout() {
       setUser(null);
       navigate(redirectTo);
     } catch (err) {
-      alert('로그아웃 실패');
+      alert('Logout failed');
       console.error(err);
     }
   };

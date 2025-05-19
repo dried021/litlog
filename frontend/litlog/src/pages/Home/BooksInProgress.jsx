@@ -9,7 +9,7 @@ const BooksInProgress = ({ userId }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userId) return; // 로그인 안 되어 있으면 요청 안 보냄
+    if (!userId) return;
 
     fetch(`http://localhost:9090/members/${userId}/bookshelf/current`)
       .then((res) => res.json())
@@ -27,9 +27,9 @@ const BooksInProgress = ({ userId }) => {
         <div className={styles.header}>
           <h3>Books in Progress</h3>
         </div>
-        <p className={styles.loginMessage}>로그인 후 내가 읽고 있는 책을 확인할 수 있어요.</p>
+        <p className={styles.loginMessage}>Sign in to check the books you're reading.</p>
         <button className={styles.loginButton} onClick={() => navigate('/sign-in')}>
-          로그인 하러 가기 →
+          Sign In Now →
         </button>
       </div>
     );
@@ -41,7 +41,7 @@ const BooksInProgress = ({ userId }) => {
     <div className={styles.container}>
       <div className={styles.header}>
         <h3>Books in Progress</h3>
-        <p>내가 읽고 있는 책 {books.length}권</p>
+        <p>You’re currently reading {books.length} book(s)</p>
       </div>
       
       <div className={styles.thumbnailRow}>

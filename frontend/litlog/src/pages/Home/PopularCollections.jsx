@@ -8,10 +8,10 @@ const PopularCollections = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:9090/collections?sort=popular', { withCredentials: true }) // ✅ 전체 인기순으로 변경
+    axios.get('http://localhost:9090/collections?sort=popular', { withCredentials: true }) 
       .then(res => setCollections((res.data.book_collections || []).slice(0, 3)))
       .catch(err => {
-        console.error("전체 인기 컬렉션 불러오기 실패", err);
+        console.error("Failed to load all popular collections.", err);
         setCollections([]);
       });
   }, []);

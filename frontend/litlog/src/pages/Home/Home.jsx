@@ -5,7 +5,7 @@ import BooksInProgress from './BooksInProgress';
 import WeeklyPopularBooks from './WeeklyPopularBooks';
 import WeeklyPopularReviews from './WeeklyPopularReviews';
 import PopularCollections from './PopularCollections';
-import styles from './Home.module.css'; // 스타일 필요 시 생성
+import styles from './Home.module.css'; 
 
 const Home = () => {
   const { user } = useContext(UserContext);
@@ -13,7 +13,7 @@ const Home = () => {
 
   return (
     <div className={styles.mainWrapper}>
-      <h2 className={styles.title}>📚 메인 페이지</h2>
+      <h2 className={styles.title}>📚 Home</h2>
 
       {/* 내가 읽고 있는 책 */}
       {<BooksInProgress userId={user} />}
@@ -27,8 +27,8 @@ const Home = () => {
       {/* 인기 컬렉션 */}
       <PopularCollections />
 
-      {/* 마이페이지 생기기 전 임시 로그아웃 버튼 */}
-      {user && <button onClick={() => logout('/')}>로그아웃</button>}
+      {/* 로그아웃 버튼 */} 
+      {user && <button onClick={() => logout('/')}>Sign Out</button>}
     </div>
   );
 };
