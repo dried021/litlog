@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './NewCollection.module.css';
 import { useRequireAuth } from '../../libs/useRequireAuth';
 import { useSubmitCollection } from './useSubmitCollection';
 import { useNavigate } from 'react-router-dom';
+import CustomModal from "../../components/Modal/CustomModal";
 
 const NewCollection = ({
   mode = 'create', // 'edit'이면 수정
@@ -23,6 +24,49 @@ const NewCollection = ({
 
   const user = useRequireAuth();
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
+  
+
+  const [modalData, setModalData] = useState({
+    show: false,
+    message: '',
+    mode: 'close',
+    resultValue: '1',
+    callbackOnSuccess: null,
+    callbackOnFail: null,
+  });
+
+  const openModal = ({ message, mode = 'close', resultValue = '1', callbackOnSuccess = null, callbackOnFail = null }) => {
+    setModalData({
+      show: true,
+      message,
+      mode,
+      resultValue,
+      callbackOnSuccess,
+      callbackOnFail,
+    });
+  };
+
+  const handleCloseModal = () => {
+    setModalData(prev => ({ ...prev, show: false }));
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        setSearchResults([]); // 드롭다운 닫기
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
 
   useEffect(() => {
     setTitle(initialTitle);
@@ -39,13 +83,14 @@ const NewCollection = ({
   };
 
   const { handleSubmit } = useSubmitCollection(
-    title,
-    content,
+    title.trim(),
+    content.trim(),
     selectedBooks,
     resetForm,
     mode,
     collectionId,
-    navigate  
+    navigate,
+    openModal 
   );
 
   if (user === undefined) return <div>Authenticating...</div>;
@@ -161,7 +206,7 @@ const NewCollection = ({
         <button type="button" onClick={handleSearch}>Search</button>
 
         {searchResults.length > 0 && (
-        <div className={styles.searchResultsBox}>
+        <div ref={dropdownRef} className={styles.searchResultsBox}>
           {searchResults.map((book, idx) => (
             <div key={idx} className={styles.resultItem} onClick={() => handleSelectBook(book)}>
               {book.thumbnail && <img src={book.thumbnail} alt={book.title} />}
@@ -201,15 +246,28 @@ const NewCollection = ({
             <p style={{ color: '#888', marginTop: '8px' }}>No books have been added yet.</p>
           ) : (
             selectedBooks.map((book, index) => (
-              <div key={index} className={styles.bookCard}>
-                {book.thumbnail && <img src={book.thumbnail} alt={book.title} />}
+              <div
+                key={book.bookApiId}
+                className={styles.bookCard}
+              >
+                <img
+                  src={book.thumbnail}
+                  alt={book.title}
+                  onClick={() => navigate(`/books/${book.bookApiId}`)}
+                  style={{ cursor: 'pointer' }}
+                />
                 <div className={styles.bookInfo}>
-                  <p><strong>{book.title}</strong></p>
+                  <p
+                    onClick={() => navigate(`/books/${book.bookApiId}`)}
+                    style={{ cursor: 'pointer', fontWeight: 'bold' }}
+                    title={book.title}
+                  >
+                    {book.title}
+                  </p>
                   <p>{book.authors}</p>
                   <p>{book.publisher}</p>
                 </div>
                 <button
-                  type="button"
                   className={styles.removeBtn}
                   onClick={() => handleRemoveBook(book.bookApiId)}
                 >
@@ -224,6 +282,16 @@ const NewCollection = ({
           {mode === 'edit' ? 'Update' : 'Submit'}
         </button>
       </form>
+      <CustomModal
+        show={modalData.show}
+        onHide={handleCloseModal}
+        successMessage={modalData.message}
+        failMessage={modalData.message}
+        resultValue={modalData.resultValue}
+        mode={modalData.mode}
+        callbackOnSuccess={modalData.callbackOnSuccess}
+        callbackOnFail={modalData.callbackOnFail}
+      />
     </div>
   );
 };

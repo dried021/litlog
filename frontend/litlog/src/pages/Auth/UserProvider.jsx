@@ -8,7 +8,6 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     axios.get('http://localhost:9090/session-check', { withCredentials: true })
       .then(res => {
-        console.log('[UserProvider] Session response:', res.data);
         if (res.data.loggedIn) {
           setUser(res.data.id);
         } else {

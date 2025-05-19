@@ -3,11 +3,34 @@ import styles from './CommentList.module.css';
 import { UserContext } from '../../libs/UserContext';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import CustomModal from "../../components/Modal/CustomModal";
 
 const CommentList = ({ comments, onRefresh }) => {
   const { user } = useContext(UserContext);
   const [editingId, setEditingId] = useState(null);
   const [editContent, setEditContent] = useState('');
+  const [expandedComments, setExpandedComments] = useState(new Set());
+  const [modalData, setModalData] = useState({
+    show: false,
+    message: "",
+    mode: "close",
+    resultValue: "1",
+  });
+
+  const openModal = ({ message, mode = "close", resultValue = "1", callbackOnSuccess = null, callbackOnFail = null }) => {
+    setModalData({
+      show: true,
+      message,
+      mode,
+      resultValue,
+      callbackOnSuccess,
+      callbackOnFail
+    });
+  };
+
+  const handleCloseModal = () => {
+    setModalData(prev => ({ ...prev, show: false }));
+  };
 
   const handleDelete = async (commentId) => {
     if (!window.confirm('Are you sure you want to delete this comment?')) return;
@@ -19,7 +42,6 @@ const CommentList = ({ comments, onRefresh }) => {
       onRefresh(); 
     } catch (err) {
       console.error('Failed to delete comment:', err);
-      alert('Failed to delete due to an error.');
     }
   };
 
@@ -34,7 +56,7 @@ const CommentList = ({ comments, onRefresh }) => {
   };
 
   const handleSaveEdit = async (commentId) => {
-    if (!editContent.trim()) return alert('Please enter content.');
+    if (!editContent.trim()) return openModal({ message:'Please enter content.'});
 
     try {
       await axios.put(`http://localhost:9090/collections/comments/${commentId}`, {
@@ -46,8 +68,19 @@ const CommentList = ({ comments, onRefresh }) => {
       onRefresh(); 
     } catch (err) {
       console.error('Failed to modify comment:', err);
-      alert('Failed to update due to an error.');
     }
+  };
+
+  const toggleExpand = (commentId) => {
+    setExpandedComments(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(commentId)) {
+        newSet.delete(commentId);
+      } else {
+        newSet.add(commentId);
+      }
+      return newSet;
+    });
   };
 
   return (
@@ -80,7 +113,19 @@ const CommentList = ({ comments, onRefresh }) => {
               </>
             ) : (
               <>
-                <div className={styles['comment-content']}>{comment.content}</div>
+                <div
+                  className={`${styles['comment-content']} ${!expandedComments.has(comment.id) ? styles.collapsed : ''}`}
+                >
+                  {comment.content}
+                </div>
+                {comment.content.length > 200 && (
+                  <button
+                    className={styles.expandBtn}
+                    onClick={() => toggleExpand(comment.id)}
+                  >
+                    {expandedComments.has(comment.id) ? 'Show Less' : 'Show More'}
+                  </button>
+                )}
 
                 {user === comment.userId && (
                   <div className={styles.commentActions}>
@@ -93,6 +138,16 @@ const CommentList = ({ comments, onRefresh }) => {
           </div>
         ))
       )}
+      <CustomModal
+        show={modalData.show}
+        onHide={handleCloseModal}
+        successMessage={modalData.message}
+        failMessage={modalData.message}
+        resultValue={modalData.resultValue}
+        mode={modalData.mode}
+        callbackOnSuccess={modalData.callbackOnSuccess}
+        callbackOnFail={modalData.callbackOnFail}
+      />
     </div>
   );
 };

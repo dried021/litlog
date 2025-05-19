@@ -15,9 +15,9 @@
 
   <insert id="insertUser" parameterType="com.bookfox.model.UserDto">
     INSERT INTO user (
-      id, name, tel, nickname, pwd, email, reg_date
+      id, name, tel, nickname, pwd, email, reg_date, user_type, user_status
     ) VALUES (
-      #{id}, #{name}, #{tel}, #{nickname}, #{pwd}, #{email}, NOW()
+      #{id}, #{name}, #{tel}, #{nickname}, #{pwd}, #{email}, NOW(), #{userType}, #{userStatus}
     )
   </insert>
 

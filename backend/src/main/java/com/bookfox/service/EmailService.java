@@ -21,10 +21,24 @@ public class EmailService {
     private void sendEmail(String to, String code) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
-        message.setSubject("회원가입 인증코드");
-        message.setText("인증코드: " + code);
+        message.setSubject("[LitLog] Verify Your Email Address");
+
+        String content = """
+        Hello,
+
+        Thank you for signing up for LitLog.
+
+        Please enter the verification code below to complete your email verification.
+
+        📌 Verification Code: 527194
+
+        ※ If you did not request this email, please disregard it.
+    """.formatted(code);
+
+        message.setText(content);
         mailSender.send(message);
     }
+
 
     public void sendSimpleMessage(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
