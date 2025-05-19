@@ -18,10 +18,10 @@ const BookDetail = () => {
   const { bookId } = useParams();
   const [book, setBook] = useState({});
   const [isClose, setIsClose] = useState(true);
-  const [likeUpdated, setLikeUpdated] = useState(false);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [likeTrigger, setLikeTrigger] = useState(0);
 
 
   const [modalData, setModalData] = useState({
@@ -99,11 +99,42 @@ const BookDetail = () => {
       const response = await axios.post(`http://localhost:9090/books/like`, { bookId, book }, { withCredentials: true });
       const result = response.data;
       openModal(result > 0 ? "You have already liked this book." : "The book has been successfully liked.");
-      setLikeUpdated(!likeUpdated);
+      setLikeTrigger(prev => prev + 1);
     } catch (err) {
       console.error("Add like error");
     }
   };
+
+  const handleAddedLikeButton = async (option) => {
+    try {
+      const response = await axios.post(`http://localhost:9090/books/unlike`, { bookApiId: bookId, option }, { withCredentials: true });
+      if (option===1&&response!=null){
+        navigate(`/${response.data}/bookshelf`);
+        return;
+      }
+      setLikeTrigger(prev => prev + 1);
+      openModal("The book has been successfully unliked.");
+    } catch (err) {
+      console.error("Remove like error");
+    }
+  };
+
+  const handleAddedBookShelfButton = async (option) => {
+    try {
+      const response = await axios.post(`http://localhost:9090/books/bookshelf/added`, {
+        bookId,
+        book,
+        option,
+      }, { withCredentials: true });
+      if (option===1&&response!=null){
+        navigate(`/${response.data}/bookshelf`);
+        return;
+      }
+      openModal("The book has been successfully removed from the bookshelf.");
+    } catch (err) {
+      console.error("Add to bookshelf error");
+    }
+  }
 
 
   return (
@@ -121,9 +152,9 @@ const BookDetail = () => {
               alt={book.volumeInfo.title}
             />
             <div className={styles["add-buttons"]}>
-                <BookInfoDiv bookApiId={bookId} likeUpdated={likeUpdated}/>
-                <AddToBookshelfButton bookApiId={bookId} handleClick={handleAddToBookShelfButton}/>
-                <AddLikeButton handleClick={handleAddLikeButton}/>
+                <BookInfoDiv bookApiId={bookId} likeTrigger={likeTrigger}/>
+                <AddToBookshelfButton bookApiId={bookId} handleClick={handleAddToBookShelfButton} handleAddedClick={handleAddedBookShelfButton}/>
+                <AddLikeButton bookApiId={bookId} handleClick={handleAddLikeButton} handleAddedClick={handleAddedLikeButton} likeTrigger={likeTrigger}/>
             </div>
           </div>
 
@@ -146,7 +177,7 @@ const BookDetail = () => {
               </p>
 
               <p className={styles['categories']}>
-                {book.volumeInfo?.categories ? book.volumeInfo.categories.join(', ') : '카테고리 정보 없음'}
+                {book.volumeInfo?.categories ? book.volumeInfo.categories.join(', ') : ''}
               </p>
 
               {displayedDescription && (
@@ -180,7 +211,6 @@ const BookDetail = () => {
         <p>Loading book information...</p>
       )}
 
-      {/* 모달 컴포넌트 */}
       <CustomModal
         show={modalData.show}
         onHide={handleCloseModal}

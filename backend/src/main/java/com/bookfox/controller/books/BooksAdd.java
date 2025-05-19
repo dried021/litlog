@@ -47,6 +47,20 @@ public class BooksAdd {
         return ResponseEntity.ok(true);
     }
 
+    @PostMapping("/bookshelf/added")
+    public ResponseEntity<String> removeFromBookshelf(@RequestBody Map<String, Object> request, HttpSession session) {
+        String userId = (String) session.getAttribute("loginUser");
+        String bookApiId = (String) request.get("bookId");
+        int option = (int) request.get("option");
+        if (option==1){
+            return ResponseEntity.ok(userId);
+        }
+       
+        int bookId = bookService.getIdByBookApiId(bookApiId);
+        bookService.removeFromBookshelf(bookId, userId);
+        return ResponseEntity.ok("removed");
+    }
+
     @PostMapping("/like")
     public ResponseEntity<Integer> addLike(@RequestBody Map<String, Object> request, HttpSession session) {
         String userId = (String) session.getAttribute("loginUser");
@@ -57,7 +71,6 @@ public class BooksAdd {
             Map<String, Object> book = (Map<String, Object>) request.get("book");
             if (book != null) {
                 BookDto bookDto = mapToBookDto(book);
-                System.out.println("Book DTO: " + bookDto);
                 bookService.addBook(bookDto);
             }
         }
@@ -72,14 +85,17 @@ public class BooksAdd {
     }
 
     @PostMapping("/unlike")
-    public ResponseEntity<Boolean> unLike(@RequestBody Map<String, Object> request, HttpSession session) {
+    public ResponseEntity<String> unLike(@RequestBody Map<String, Object> request, HttpSession session) {
         String userId = (String) session.getAttribute("loginUser");
         String bookApiId = (String) request.get("bookApiId");
-
+        int option = (int) request.get("option") ;
+        if (option==1){
+            return ResponseEntity.ok(userId);
+        }
         int bookId = bookService.getIdByBookApiId(bookApiId);
         
         bookService.unlike(bookId, userId);
-        return ResponseEntity.ok(true);
+        return ResponseEntity.ok("unlike");
     }
 
     @PostMapping("/review")
