@@ -35,4 +35,12 @@ public class BookshelfService {
 
         return bookshelfMapper.updateProgress(map) > 0;
     }
+    public boolean removeBookshelf(String userId, int bookId, int shelfType) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("bookId", bookId); 
+        map.put("shelfType", shelfType);
+
+        return bookshelfMapper.removeBookshelf(map);
+    }
 }

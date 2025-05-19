@@ -13,4 +13,5 @@ public interface BookshelfMapper {
     public List<BookshelfDto> getToReadBooks(String userId);
     public List<BookshelfDto> getFavoriteBooks(String userId);
     public int updateProgress(Map<String, Object> map);
+    public boolean removeBookshelf(Map<String, Object> map);
 }
