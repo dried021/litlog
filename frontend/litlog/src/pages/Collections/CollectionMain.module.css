@@ -140,7 +140,13 @@
 .collectionAuthor {
   font-size: 13px;
   color: #888;
-  margin-bottom: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.collectionAuthor:hover {
+  text-decoration: none;
 }
 
 .collectionDesc {
@@ -186,7 +192,4 @@
   transition: transform 0.2s;
 }
 
-/* .thumbnailImage:hover {
-  transform: scale(1.05);
-} */
 

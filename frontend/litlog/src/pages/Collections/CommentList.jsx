@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import styles from './CommentList.module.css';
 import { UserContext } from '../../libs/UserContext';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const CommentList = ({ comments, onRefresh }) => {
   const { user } = useContext(UserContext);
@@ -57,7 +58,9 @@ const CommentList = ({ comments, onRefresh }) => {
         comments.map(comment => (
           <div key={comment.id} className={styles['comment-item']}>
             <div className={styles['comment-header']}>
-              <span className={styles['comment-nickname']}>{comment.nickname}</span>
+              <Link to={`/${comment.userId}`} className={styles['comment-nickname']}>
+                {comment.nickname}
+              </Link>
               <span className={styles['comment-date']}>
                 {new Date(comment.creationDate).toLocaleDateString()}
               </span>
