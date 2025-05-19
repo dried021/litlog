@@ -62,6 +62,18 @@
   color: #555;
 }
 
+.comment-content {
+  white-space: pre-wrap;    /* 줄바꿈 문자(\n)도 반영 */
+  word-break: break-word;   /* 긴 단어도 줄바꿈 */
+  overflow-wrap: break-word;
+  max-width: 30em; 
+  max-height: 10em;         /* 최대 높이 제한 (optional) */
+  overflow-y: auto;         /* 너무 길면 스크롤 */
+  padding: 8px;
+  line-height: 1.5;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+}
 
 
 .comment-item {
