@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 const NotifSidebar = ({ onClose }) => {
   const [notifications, setNotifications] = useState([]);
+  const [opening, setOpening] = useState(false);
   const [closing, setClosing] = useState(false); 
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,6 +46,10 @@ const NotifSidebar = ({ onClose }) => {
     };
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => setOpening(true), 0);
+  }, []);
+
   const handleClose = () => {
     setClosing(true);
     setTimeout(onClose, 300); 
@@ -61,7 +66,10 @@ const NotifSidebar = ({ onClose }) => {
       );
     }
 
-    if (notification.type === 'REVIEW_LIKE') {
+    if (notification.type === 'FOLLOW') {
+      navigate(`/${notification.senderId}`);
+      handleClose();
+    } else if (notification.type === 'REVIEW_LIKE') {
       navigate(`/books/${notification.bookApiId}`);
       handleClose();
     } else if (
@@ -77,20 +85,20 @@ const NotifSidebar = ({ onClose }) => {
     const name = noti.senderNickname || 'Someone';
     switch (noti.type) {
       case 'FOLLOW':
-        return `${name} started following you.`;
+        return `${name} is now Following you!`;
       case 'REVIEW_LIKE':
-        return `${name} liked your review.`;
+        return `${name} Liked your Review.`;
       case 'COLLECTION_LIKE':
-        return `${name} liked your collection.`;
+        return `${name} Liked your Collection.`;
       case 'COLLECTION_COMMENT':
-        return `${name} commented on your collection.`;
+        return `${name} Commented on your Collection.`;
       default:
         return 'You have a new notification.';
     }
   };
 
   return (
-    <div ref={sidebarRef} className={`${styles.panel} ${closing ? styles.hidden : ''}`}>
+    <div ref={sidebarRef} className={`${styles.panel} ${closing ? styles.hidden : ''} ${opening ? styles.open : ''}`}>
       <div className={styles.header}>
         <span className={styles.title}>Notifications</span>
         <button className={styles.closeBtn} onClick={handleClose}>×</button>
