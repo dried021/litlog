@@ -130,4 +130,9 @@ public class BookService {
         int offset = (currentPage - 1) * 5;
         return bookMapper.getPopularReviewList(offset);
     }
+
+    // 알림
+    public String getReviewAuthorId(int reviewId) {
+        return bookMapper.getReviewAuthorId(reviewId);
+    }
 }

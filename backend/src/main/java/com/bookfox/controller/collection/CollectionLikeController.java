@@ -1,7 +1,10 @@
 package com.bookfox.controller.collection;
 
 import com.bookfox.model.CollectionLikeDto;
+import com.bookfox.model.NotificationDto;
 import com.bookfox.service.CollectionLikeService;
+import com.bookfox.service.NotificationService;
+
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +16,8 @@ import java.util.Map;
 @RequestMapping("/collections")
 @RequiredArgsConstructor
 public class CollectionLikeController {
-
     private final CollectionLikeService likeService;
+    private final NotificationService notificationService;
 
     @PostMapping("/{collectionId}/like")
     public ResponseEntity<?> toggleCollectionLike(@PathVariable int collectionId, HttpSession session) {
@@ -30,6 +33,22 @@ public class CollectionLikeController {
 
         boolean isLiked = likeService.toggleLike(likeDto);
         int newLikeCount = likeService.getCollectionLikeCount(collectionId);
+
+        // 알림
+        if (isLiked) {
+            String ownerId = likeService.getCollectionOwnerId(collectionId);
+            if (!userId.equals(ownerId)) {
+                NotificationDto dto = new NotificationDto();
+                dto.setUserId(ownerId);                 
+                dto.setSenderId(userId);               
+                dto.setType("COLLECTION_LIKE");
+                dto.setTargetId(collectionId);
+                dto.setMessage(userId + "님이 당신의 컬렉션을 좋아합니다.");
+                dto.setRead(false);
+
+                notificationService.sendNotification(dto);
+            }
+        }
 
         return ResponseEntity.ok(Map.of(
                 "liked", isLiked,

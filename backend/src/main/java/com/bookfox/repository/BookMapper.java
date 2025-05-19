@@ -39,6 +39,8 @@ public interface BookMapper {
     public List<BookReviewListDTO> getPopularReviewList(int currentPage);
 
     public int checkReviewed(Map<String, Object> params);
+
+    public String getReviewAuthorId(int reviewId); // 알림
 }
 
 
