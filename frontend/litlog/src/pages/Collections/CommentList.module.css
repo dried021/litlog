@@ -91,6 +91,13 @@
 .comment-nickname {
   font-weight: bold;
   font-size: 1rem;
+  color: #000000;
+  text-decoration: none;   
+  cursor: pointer;
+}
+
+.comment-nickname:hover {
+  text-decoration: none;   
 }
 
 .comment-date {

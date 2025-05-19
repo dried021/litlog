@@ -38,6 +38,12 @@
   font-size: 14px;
   margin-bottom: 0px;
   color: #888;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.author:hover {
+  text-decoration: none;  
 }
 
 .bookGrid {

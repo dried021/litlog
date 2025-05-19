@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './CollectionMain.module.css';
 import Pagination from '../../components/Pagination/Pagination';  
@@ -68,7 +68,9 @@ const CollectionMain = () => {
     </div>
     <div className={styles.collectionBody}>
       <h4 className={styles.collectionTitle} onClick={() => navigate(`/collections/${col.id}`)}>{col.title}</h4>
-      <p className={styles.collectionAuthor}>by {col.nickname}</p>
+      <Link to={`/${col.userId}`} className={styles.collectionAuthor}>
+        by {col.nickname}
+      </Link>
       <p className={styles.collectionDesc}>{col.content}</p>
       <p className={styles.collectionDate}>📅 {formatDate(col.creationDate)}</p>
       <div className={styles.collectionMeta}>
