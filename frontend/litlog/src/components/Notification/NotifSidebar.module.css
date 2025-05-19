@@ -88,8 +88,8 @@
 
 /* 읽은 알림 */
 .read {
-  font-weight: normal;
-  color: #888;
+  font-weight: 600;
+  color: #999;
 }
 
 /* 알림 내용 */
@@ -105,6 +105,10 @@
   color: #2196f3;
   font-size: 16px;
   margin-right: 6px;
+}
+
+.read .dot {
+  color: #ccc;
 }
 
 /* 타임스탬프 */

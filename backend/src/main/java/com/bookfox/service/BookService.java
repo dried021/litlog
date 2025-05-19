@@ -135,4 +135,7 @@ public class BookService {
     public String getReviewAuthorId(int reviewId) {
         return bookMapper.getReviewAuthorId(reviewId);
     }
+    public String getBookApiIdByReviewId(int reviewId) {
+        return bookMapper.getBookApiIdByReviewId(reviewId);
+    }
 }

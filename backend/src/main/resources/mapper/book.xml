@@ -255,5 +255,11 @@
         FROM book_review
         WHERE id = #{reviewId}
     </select>
-    
+
+    <select id="getBookApiIdByReviewId" parameterType="int" resultType="string">
+        SELECT b.book_api_id
+        FROM book_review br
+        JOIN book b ON br.book_id = b.id
+        WHERE br.id = #{reviewId}
+    </select>
 </mapper>
