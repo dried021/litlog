@@ -77,14 +77,12 @@ public class CollectionCommentController {
 
         // 알림
         String ownerId = commentService.getCollectionOwnerId(collectionId);
-        String nickname = notificationService.getNicknameByUserId(userId);
         if (!userId.equals(ownerId)) {
             NotificationDto dto = new NotificationDto();
             dto.setUserId(ownerId);           
             dto.setSenderId(userId);            
             dto.setType("COLLECTION_COMMENT");
             dto.setTargetId(collectionId);
-            dto.setMessage(nickname + " commented on your collection.");
             dto.setRead(false);
             notificationService.sendNotification(dto);
         }

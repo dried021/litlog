@@ -1,19 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styles from './NotifSidebar.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom'; 
 
 const NotifSidebar = ({ onClose }) => {
   const [notifications, setNotifications] = useState([]);
   const [closing, setClosing] = useState(false); 
   const navigate = useNavigate();
+  const location = useLocation();
+  const prevPath = useRef(location.pathname);
+  const sidebarRef = useRef(null);
 
   useEffect(() => {
     fetch('http://localhost:9090/api/notifications', {
       credentials: 'include',
     })
       .then(res => res.json())
-      .then(data => setNotifications(data || []))
+      .then(data => {
+        const mapped = (data || []).map(n => ({
+          ...n,
+          isRead: n.isRead ?? n.read ?? false 
+        }));
+        setNotifications(mapped);
+      })
       .catch(err => console.error('Failed to fetch notifications:', err));
+  }, []);
+
+  useEffect(() => {
+    if (location.pathname !== prevPath.current) {
+      handleClose();
+      prevPath.current = location.pathname;
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
+        handleClose();
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
   }, []);
 
   const handleClose = () => {
@@ -27,22 +56,41 @@ const NotifSidebar = ({ onClose }) => {
         method: 'PATCH',
         credentials: 'include',
       });
+      setNotifications(prev =>
+        prev.map(n => n.id === notification.id ? { ...n, isRead: true } : n)
+      );
     }
 
     if (notification.type === 'REVIEW_LIKE') {
-      navigate(`/books/detail/${notification.targetId}`);
+      navigate(`/books/${notification.bookApiId}`);
+      handleClose();
     } else if (
       notification.type === 'COLLECTION_LIKE' ||
       notification.type === 'COLLECTION_COMMENT'
     ) {
       navigate(`/collections/${notification.targetId}`);
+      handleClose();
     }
+  };
 
-    handleClose(); 
+  const renderMessage = (noti) => {
+    const name = noti.senderNickname || 'Someone';
+    switch (noti.type) {
+      case 'FOLLOW':
+        return `${name} started following you.`;
+      case 'REVIEW_LIKE':
+        return `${name} liked your review.`;
+      case 'COLLECTION_LIKE':
+        return `${name} liked your collection.`;
+      case 'COLLECTION_COMMENT':
+        return `${name} commented on your collection.`;
+      default:
+        return 'You have a new notification.';
+    }
   };
 
   return (
-    <div className={`${styles.panel} ${closing ? styles.hidden : ''}`}>
+    <div ref={sidebarRef} className={`${styles.panel} ${closing ? styles.hidden : ''}`}>
       <div className={styles.header}>
         <span className={styles.title}>Notifications</span>
         <button className={styles.closeBtn} onClick={handleClose}>×</button>
@@ -59,8 +107,8 @@ const NotifSidebar = ({ onClose }) => {
               onClick={() => handleClick(noti)}
             >
               <div className={styles.message}>
-                {!noti.isRead && <span className={styles.dot}>•</span>}
-                {noti.message}
+                <span className={styles.dot}>•</span>
+                {renderMessage(noti)}
               </div>
               <div className={styles.time}>{formatTimeAgo(noti.createdAt)}</div>
             </div>

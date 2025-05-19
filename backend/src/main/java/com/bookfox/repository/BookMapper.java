@@ -40,7 +40,9 @@ public interface BookMapper {
 
     public int checkReviewed(Map<String, Object> params);
 
-    public String getReviewAuthorId(int reviewId); // 알림
+    // 알림
+    public String getReviewAuthorId(int reviewId); 
+    public String getBookApiIdByReviewId(int reviewId); 
 }
 
 
