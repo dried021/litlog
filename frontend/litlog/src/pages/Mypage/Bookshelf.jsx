@@ -1,6 +1,7 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { UserContext } from '../../libs/UserContext';
 
 import TabMenu from '../../components/Mypage/TabMenu';
 import SelectMenu from '../../components/Select/SelectMenu';
@@ -11,11 +12,46 @@ import heart from '../../assets/heart.svg';
 import Pagination from '../../components/Pagination/Pagination';
 
 const Bookshelf = ({shelfType}) => {
-    const {userId} = useParams();
+    const {user} = useContext(UserContext); // Session User
+    const {userId} = useParams(); // page ownder
     const [loading, setLoading] = useState(true);
     const [shelf, setShelf] = useState(shelfType ? shelfType : "current"); // current, finished, to-read, favorite
     const [sort, setSort] = useState("added-newest"); /* TODOOOOOOOOOO */
     const [result, setResult] = useState([]);
+
+    const [showModal, setShowModal] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const [selectedBookId, setSelectedBookId] = useState();
+
+    const [updateStatus, setUpdateStatus] = useState(false); 
+
+    function handleSave(bookId) {
+        fetch(`http://localhost:9090/members/${userId}/progress`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                bookId: bookId,
+                progress: progress
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to update progress');
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log('Server response:', data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+        setProgress(0);
+        setShowModal(false);
+        setUpdateStatus(!updateStatus);
+    }
 
     /* Pagination */
     const [currentPage, setCurrentPage] = useState(1);
@@ -37,7 +73,7 @@ const Bookshelf = ({shelfType}) => {
             ]
         },
         {
-            label: 'Your Rating',
+            label: 'Rating',
             options: [
                 {value: 'rating-highest', label: 'Highest First'},
                 {value: 'rating-lowest', label: 'Lowest First'}
@@ -73,7 +109,7 @@ const Bookshelf = ({shelfType}) => {
             .then(data => setResult(data))
             .catch(error => console.error("Error fetching books", error))
             .finally(() => setLoading(false));
-    }, [shelf, userId]);
+    }, [shelf, userId, updateStatus]);
 
     useEffect(()=>{
         setCurrentPage(1);
@@ -159,8 +195,39 @@ const Bookshelf = ({shelfType}) => {
                                             className={styles.bookThumbnail}
                                         />
                                         <span className={styles.tooltiptext}>{book.title}</span>
+                                        {(shelf === "current" && user && user === userId) && (
+                                            <button className={styles.overlayButton}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    setSelectedBookId(book.bookId);
+                                                    setShowModal(true);
+                                                }}>
+                                                Update
+                                            </button>
+                                        )}
                                     </div>
                                 </a>
+
+                                {showModal && (
+                                    <div className={styles.modalOverlay}>
+                                        <div className={styles.modalContent}>
+                                            <h3>Update progress %</h3>
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                max="100"
+                                                value={progress}
+                                                onChange={(e) => setProgress(e.target.value)}
+                                                placeholder="Enter % read"
+                                            />
+                                            <div className={styles.modalButtons}>
+                                                <button onClick={() => handleSave(selectedBookId)}>Save</button>
+                                                <button onClick={() => setShowModal(false)}>Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
                                 <div className={styles.bookInfo}>
                                     {[...Array(5)].map((_, index) => (
                                         (index < book.rating && shelf !== "current") && (

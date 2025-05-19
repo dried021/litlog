@@ -1,6 +1,8 @@
 package com.bookfox.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +26,13 @@ public class BookshelfService {
     }
     public List<BookshelfDto> getFavoriteBooks(String userId) {
         return bookshelfMapper.getFavoriteBooks(userId);
+    }
+    public boolean updateProgress(String userId, int bookId, int progress) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("progress", progress);
+        map.put("bookId", bookId);
+
+        return bookshelfMapper.updateProgress(map) > 0;
     }
 }
