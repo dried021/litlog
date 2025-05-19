@@ -26,10 +26,20 @@
     </insert>
 
     <select id="getNotificationsByUserId" parameterType="string" resultType="com.bookfox.model.NotificationDto">
-        SELECT *
-        FROM notification
-        WHERE user_id = #{userId}
-        ORDER BY is_read ASC, created_at DESC
+        SELECT 
+            n.id,
+            n.user_id,
+            n.sender_id,
+            u.nickname AS sender_nickname,
+            n.type,
+            n.target_id,
+            n.message,
+            n.is_read,
+            n.created_at
+        FROM notification n
+        LEFT JOIN user u ON n.sender_id = u.id
+        WHERE n.user_id = #{userId}
+        ORDER BY n.is_read ASC, n.created_at DESC
     </select>
 
     <update id="setNotificationAsRead" parameterType="int">
@@ -37,4 +47,8 @@
         SET is_read = TRUE
         WHERE id = #{id}
     </update>
+
+    <select id="getNicknameByUserId" parameterType="string" resultType="string">
+        SELECT nickname FROM user WHERE id = #{userId}
+    </select>
 </mapper>
