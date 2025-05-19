@@ -10,7 +10,8 @@ import java.sql.Timestamp;
 public class NotificationDto {
     private int id;              
     private String userId;      
-    private String senderId;     
+    private String senderId;    
+    private String senderNickname; 
     private String type;       
     private int targetId;      
     private String message;   
