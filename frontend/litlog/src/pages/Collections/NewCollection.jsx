@@ -104,7 +104,6 @@ const NewCollection = ({
     if (!selectedBooks.find(b => b.bookApiId === book.bookApiId)) {
       setSelectedBooks([...selectedBooks, book]);
     }
-    setSearchResults([]); // 선택하면 결과 숨김
   };
 
   const handleRemoveBook = (bookApiId) => {
@@ -134,42 +133,45 @@ const NewCollection = ({
         />
 
         <div className={styles.bookSearch}>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search Books…"
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault();
-                handleSearch();
-              }
-            }}
-          />
-          <button type="button" onClick={handleSearch}>Search</button>
-        </div>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search Books…"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              handleSearch();
+            }
+          }}
+        />
+        <button type="button" onClick={handleSearch}>Search</button>
 
+        {/* ✅ 드롭다운 형태로 띄우기 */}
         {searchResults.length > 0 && (
-          <>
-            <div className={styles.searchResultsBox}>
-              {searchResults.map((book, idx) => (
-                <div key={idx} className={styles.resultItem} onClick={() => handleSelectBook(book)}>
-                  {book.thumbnail && <img src={book.thumbnail} alt={book.title} />}
-                  <div className={styles.resultText}>
-                    <p className={styles.resultTitle}><strong>{book.title}</strong></p>
-                    <p className={styles.resultMeta}>{book.authors} / {book.publisher}</p>
-                  </div>
+          <div className={styles.searchResultsBox}>
+            {searchResults.map((book, idx) => (
+              <div
+                key={idx}
+                className={styles.resultItem}
+                onClick={() => handleSelectBook(book)}
+              >
+                {book.thumbnail && <img src={book.thumbnail} alt={book.title} />}
+                <div className={styles.resultText}>
+                  <p className={styles.resultTitle}><strong>{book.title}</strong></p>
+                  <p className={styles.resultMeta}>{book.authors} / {book.publisher}</p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
 
             {hasMore && (
               <button type="button" onClick={loadMore} className={styles.loadMoreBtn}>
                 {isLoading ? 'Loading...' : 'Load More'}
               </button>
             )}
-          </>
+          </div>
         )}
+      </div>
 
         <div className={styles.addedBooks}>
           <p>Added Books List</p>
