@@ -46,7 +46,7 @@ function BookInfoDiv({ bookApiId, likeUpdated }) {
   const getCounts = async (bookApiId) => {
     try {
       const response = await axios.get(`http://localhost:9090/books/counts`, {
-        params: { bookApiId },
+        params: { bookApiId }, withCredentials: true
       });
 
       const { bookshelfCount, likeCount, isLiked } = response.data;
@@ -63,7 +63,7 @@ function BookInfoDiv({ bookApiId, likeUpdated }) {
   const changeLike = async (bookApiId) => {
     if (isLiked){
       try {
-        const response = await axios.post(`http://localhost:9090/books/unlike`, { bookApiId });
+        const response = await axios.post(`http://localhost:9090/books/unlike`, { bookApiId }, { withCredentials: true });
         openModal("The book has been successfully unliked.");
         setIsLiked(false);
         setLikeCount((prev) => prev - 1);
@@ -74,7 +74,7 @@ function BookInfoDiv({ bookApiId, likeUpdated }) {
     }else{
       try {
         const bookId = bookApiId;
-        const response = await axios.post(`http://localhost:9090/books/like`, { bookId });
+        const response = await axios.post(`http://localhost:9090/books/like`, { bookId }, { withCredentials: true });
         const result = response.data;
         openModal(result > 0 ? "You have already liked this book." : "The book has been successfully liked.");
         setIsLiked(true);

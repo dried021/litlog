@@ -39,7 +39,7 @@ function AddToBookshelfButton({bookApiId, handleClick}) {
   const setBookshelf = async (bookApiId) => {
     try {
       const response = await axios.get(`http://localhost:9090/books/bookshelf`, {
-        params: { bookApiId },
+        params: { bookApiId }, withCredentials: true
       });
       const result = response.data;
       setIsAdded(result);

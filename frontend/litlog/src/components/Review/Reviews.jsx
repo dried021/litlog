@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Reviews.module.css';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Pagination from "../../components/Pagination/Pagination";
 import AddReview from "./AddReview";
@@ -29,10 +30,7 @@ function Rating({ rating }) {
 
 
 function Review({ reviews, currentPage, reviewPerPage, handleLikeClick }) {
-  const handleClickProfile = (userId) => {
-    navigate(`/${userId}`);
-    };
-
+  const navigate = useNavigate();
 
     return (
     <div className={styles['review-list']}>
@@ -45,12 +43,12 @@ function Review({ reviews, currentPage, reviewPerPage, handleLikeClick }) {
                 <p className={styles['index-box-p']}>{adjustedIndex + 1}</p>
             </div>
 
-            <div className={styles['user-profile']} onClick={() => handleClickProfile(review.userId)}>
+            <div className={styles['user-profile']} onClick={() => navigate(`/${review.userId}/reviews/detail/${review.id}`)}>
                 <img src="/icons/profile.svg" alt="prodile" />
             </div>
 
             <div className={styles['review-content']}>
-                <div className={styles['user-id']} onClick={() => handleClickProfile(review.userId)}>
+                <div className={styles['user-id']} onClick={() => navigate(`/${review.userId}/reviews/detail/${review.id}`)}>
                     <div className={styles['user-id-p']}>{review.nickname}</div>
                 </div>
                 <div className={styles['rating']}>
@@ -100,7 +98,7 @@ function Reviews({ bookApiId }) {
   const getReviews = async (bookApiId, currentPage, isPopularity) => {
     try {
       const response = await axios.get(`http://localhost:9090/books/reviews`, {
-        params: { bookApiId, currentPage, isPopularity},
+        params: { bookApiId, currentPage, isPopularity}, withCredentials: true
       });
       const { reviews, reviewsCount } = response.data;
       setReviews(reviews || []);
@@ -129,7 +127,8 @@ function Reviews({ bookApiId }) {
 
                 axios.post(`http://localhost:9090/books/reviews/like`, {
                     reviewId, isLiked
-                }).catch((err) => console.error("Like update error:", err));
+                }, { withCredentials: true }
+                ).catch((err) => console.error("Like update error:", err));
 
                 return {...review, isLiked, likeCount};
             }
