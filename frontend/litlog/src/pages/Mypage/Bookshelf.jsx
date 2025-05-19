@@ -8,7 +8,7 @@ import SelectMenu from '../../components/Select/SelectMenu';
 import styles from './Bookshelf.module.css';
 import defaultThumbnail from '../../assets/default_thumbnail.png';
 import heart from '../../assets/heart.svg';
-
+import menuIcon from '../../assets/menu.svg'
 import Pagination from '../../components/Pagination/Pagination';
 
 const Bookshelf = ({shelfType}) => {
@@ -25,7 +25,7 @@ const Bookshelf = ({shelfType}) => {
 
     const [updateStatus, setUpdateStatus] = useState(false); 
 
-    function handleSave(bookId) {
+    function updateProgress(bookId) {
         fetch(`http://localhost:9090/members/${userId}/progress`, {
             method: 'POST',
             headers: {
@@ -224,7 +224,7 @@ const Bookshelf = ({shelfType}) => {
                                                 placeholder="Enter % read"
                                             />
                                             <div className={styles.modalButtons}>
-                                                <button onClick={() => handleSave(selectedBookId)} className={styles.saveButton}>Save</button>
+                                                <button onClick={() => updateProgress(selectedBookId)} className={styles.saveButton}>Save</button>
                                                 <button onClick={() => setShowModal(false)} className={styles.cancelButton}>Cancel</button>
                                             </div>
                                         </div>

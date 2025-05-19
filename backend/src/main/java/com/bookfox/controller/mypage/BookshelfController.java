@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookfox.model.BookshelfDto;
+import com.bookfox.service.BookService;
 import com.bookfox.service.BookshelfService;
 
 import jakarta.annotation.Resource;
@@ -23,6 +25,9 @@ import jakarta.annotation.Resource;
 public class BookshelfController {
     @Resource
     private BookshelfService bookshelfService;
+
+    @Resource
+    private BookService bookService;
 
     @GetMapping("/{userId}/bookshelf/current")
     public ResponseEntity<Map<String, Object>> getCurrentlyReadingBooks(@PathVariable String userId) {
@@ -71,6 +76,19 @@ public class BookshelfController {
 
         if (success) {
             return ResponseEntity.ok("Progress updated");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Update failed");
+        }
+    }
+
+    @DeleteMapping("/{userId}/bookshelf")
+    public ResponseEntity<String> deleteBookshelf(@PathVariable String userId, @RequestBody Map<String, Object> request) {
+        int shelfType = (int) request.get("shelfType");
+        int bookId = (int) request.get("bookId");
+        boolean success = bookshelfService.removeBookshelf(userId, bookId, shelfType);
+
+        if (success) {
+            return ResponseEntity.ok("Removed from bookshelf");
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Update failed");
         }

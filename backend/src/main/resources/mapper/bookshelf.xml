@@ -121,4 +121,10 @@
         WHERE user_id = #{userId}
         AND book_id = #{bookId}
     </update>
+    <delete id="removeBookshelf" parameterType="map">
+        DELETE FROM book_shelf
+        WHERE book_id = #{bookId}
+        AND user_id = #{userId}
+        AND shelf_type = #{shelfType}
+    </delete>
 </mapper>
