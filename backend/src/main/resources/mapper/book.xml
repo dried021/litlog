@@ -119,6 +119,11 @@
         VALUES (#{bookId}, #{userId}, #{option})
     </insert>
 
+    <delete id="removeFromBookshelf" parameterType="map">
+        DELETE FROM book_shelf
+        WHERE user_id=#{userId} AND book_id=#{bookId}
+    </delete>
+
     <select id="checkBookshelf" parameterType="map" resultType="int">
         select COUNT(*) from book_shelf
         where book_id = #{bookId} and user_id = #{userId}

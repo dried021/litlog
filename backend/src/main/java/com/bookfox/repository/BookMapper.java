@@ -26,6 +26,7 @@ public interface BookMapper {
 
     public void addBook(BookDto bookDto);
     public void addBookshelf(Map<String, Object> params);
+    public void removeFromBookshelf(Map<String, Object> params);
     public void addLike(Map<String, Object> params);
     
     public int checkBookshelf(Map<String, Object> params);

@@ -6,7 +6,7 @@ import ManageReview from '../../components/Admin/ManageReview';
 const ReviewManage = () => {
     return(
         <>
-        <h2 className={styles.title}>Manage Comments</h2>
+        <h2 className={styles.title}>Manage Reviews</h2>
         <div className={styles.container}>
             <AdminSideMenu />
             <ManageReview/>
