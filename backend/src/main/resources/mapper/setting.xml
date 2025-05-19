@@ -18,6 +18,12 @@
             nickname = #{nickname},
             pwd = #{pwd},
             email = #{email}
+            <if test="nicknameResetAt != null">
+                , nickname_reset_at = #{nicknameResetAt}
+            </if>
+            <if test="pwdResetAt != null">
+                , pwd_reset_at = #{pwdResetAt}
+            </if>
         WHERE id = #{id}
     </update>
 

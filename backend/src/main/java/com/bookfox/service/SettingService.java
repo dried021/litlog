@@ -1,5 +1,7 @@
 package com.bookfox.service;
 
+import java.sql.Timestamp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,15 @@ public class SettingService {
     }
 
     public boolean updateUser(UserDto userDto){
+        UserDto originalUserDto = settingMapper.getUserInfo(userDto.getId());
+
+        if (!originalUserDto.getNickname().equals(userDto.getNickname())) {
+            userDto.setNicknameResetAt(new Timestamp(System.currentTimeMillis()));
+        }
+        if (!originalUserDto.getPwd().equals(userDto.getPwd())) {
+            userDto.setPwdResetAt(new Timestamp(System.currentTimeMillis()));
+        }
+
         return settingMapper.updateUser(userDto) > 0;
     }
 
