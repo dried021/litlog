@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from './CollectionDetail.module.css';
 import Pagination from "../../components/Pagination/Pagination";
@@ -53,7 +53,6 @@ const CollectionDetail = () => {
       .catch(err => console.error('Failed to load book list.', err));
   }, [collectionId, currentPage]);
 
-  // 좋아요 토글
   const handleLikeToggle = async () => {
     if (!user) {
       navigate(`/sign-in?redirect=${encodeURIComponent(window.location.pathname)}`);
@@ -140,8 +139,10 @@ const CollectionDetail = () => {
 
           <h2 className={styles.title}>{collection.title}</h2>
           <p className={styles.content}>{collection.content}</p>
-          <p className={styles.author}>by {collection.nickname}</p>
-          <p className={styles.bookCount}>📚 {totalBooks}권</p>
+          <Link to={`/${collection.userId}`} className={styles.author}>
+            by {collection.nickname}
+          </Link>
+          <p className={styles.bookCount}>📚 {totalBooks} book(s)</p>
         </div>
 
         <div className={styles.bookGrid}>
