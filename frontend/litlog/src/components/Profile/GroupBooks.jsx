@@ -12,7 +12,7 @@ export default function GroupBooks({groupLabel, group, msg, url}) {
             </div>
             <hr className={styles.solid}/>
             {group.totalCount === 0 ? 
-                (<p>{msg}</p>) : 
+                (<p className={styles.msg}>{msg}</p>) : 
                 (
                     <ul className={styles.bookList}>
                         {group.books.map(book => (

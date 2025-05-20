@@ -41,9 +41,8 @@
 /* 컬렉션 없을 때 */
 .no-collections {
   text-align: center;
-  padding: 40px 0;
-  font-size: 16px;
-  color: #ddd;
+  font-style: italic;
+  color: #888;
 }
 
 /* CollectionsEntry */
@@ -75,7 +74,7 @@
 
 .card:hover .title {
   font-weight: bold;
-  color: #d4a373;
+  color: #BAC095;
 }
 
 .thumbnailStack {

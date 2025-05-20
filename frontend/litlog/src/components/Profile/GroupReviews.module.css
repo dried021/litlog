@@ -13,6 +13,12 @@
     width: 90%;
 }
 
+.msg {
+    font-size: 16px;
+    font-style: italic;
+    color: #888;
+}
+
 .groupHeader {
     display: flex;
 }

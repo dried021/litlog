@@ -6,6 +6,12 @@
     width: 960px;
 }
 
+.msg {
+    font-size: 16px;
+    font-style: italic;
+    color: #888;
+}
+
 .tabs {
     margin-top: 40px;
     margin-bottom: 15px;
