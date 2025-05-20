@@ -1,4 +1,3 @@
-// src/components/Header/ProfileDropdown.jsx
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles from './ProfileDropdown.module.css';
