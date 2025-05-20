@@ -1,19 +1,19 @@
 import React, { useContext, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../libs/UserContext';
+import { useLogout } from '../../libs/useLogout';
 import styles from './Header.module.css';
 import NotifSidebar from '../../components/Notification/NotifSidebar';
 import ProfileDropdown from '../../components/Header/ProfileDropdown';
 
 const Header = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const logout = useLogout();
   const [showNotif, setShowNotif] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setUser(null);
-    sessionStorage.removeItem('user');
-    navigate('/');
+    logout('/');
   };
 
   return (
