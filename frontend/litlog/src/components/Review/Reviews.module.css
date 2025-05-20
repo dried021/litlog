@@ -54,10 +54,6 @@
   .addReviewButton:hover {
     background-color: #0056b3;
   }
-  
-  
-
-  
 
 .review-section {
     padding: 1rem;
@@ -67,6 +63,7 @@
     display:flex;
     padding: 1rem 1rem;
     border-bottom: 1px solid #ddd;
+    justify-content: center;
   }
 
   .review-item-last{
@@ -99,6 +96,7 @@
   }
 
   .review-content {
+    max-width: 900px;
     flex-grow: 1;
     cursor: pointer;
   }
@@ -140,6 +138,17 @@
     height: 30px;
   }
   
+  .readmore-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+  }
+  
+  .readmore-button{
+    display: flex;
+    justify-content: flex-end;
+  }
+
   .review-like-count {
     font-size: 14px;
     justify-content: center;

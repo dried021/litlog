@@ -4,7 +4,6 @@ import styles from './SearchBar.module.css';
 const SearchBar = ({ className = "", handleSearch, value, onChange, placeholder = "Search..." }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(value.trim());
     handleSearch(value.trim());
   };
 
@@ -14,7 +13,13 @@ const SearchBar = ({ className = "", handleSearch, value, onChange, placeholder 
         type="text"
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
+        onChange={(e) => {
+          const trimmed = e.target.value.replace(/\s/g, ''); 
+          onChange({ target: { value: trimmed } });
+        }}
+        onKeyDown={(e) => {
+          if (e.key === ' ') e.preventDefault(); 
+        }}
         className={styles.searchInput}
       />
       <button type="submit" className={styles.searchButton}>

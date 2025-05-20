@@ -66,14 +66,21 @@ public class Books {
     public ResponseEntity<Map<String, Object>> bookscount(@RequestParam String bookApiId, HttpSession session){
         String userId = (String) session.getAttribute("loginUser");
 
+        boolean exists = bookService.exists(bookApiId);
+        Map<String, Object> response = new HashMap<>();
+        
+        if (!exists){
+            response.put("bookshelfCount", 0);
+            response.put("likeCount", 0);
+            response.put("isLiked", 0);
+            return ResponseEntity.ok(response);
+        }
+
         int id = bookService.getIdByBookApiId(bookApiId);
         int bookshelfCount = bookService.getBookshelfCount(id);
         int likeCount = bookService.getLikeCount(id);
-        
-        Map<String, Object> response = new HashMap<>();
 
         boolean isLiked = bookService.isLiked(id, userId);
-
         response.put("bookshelfCount", bookshelfCount);
         response.put("likeCount", likeCount);
         response.put("isLiked", isLiked);
