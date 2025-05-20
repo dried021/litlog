@@ -30,7 +30,7 @@ public class EmailService {
 
         Please enter the verification code below to complete your email verification.
 
-        📌 Verification Code: 527194
+        📌 Verification Code: %s
 
         ※ If you did not request this email, please disregard it.
     """.formatted(code);
