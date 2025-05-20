@@ -30,6 +30,8 @@ public class BooksAdd {
     public ResponseEntity<Boolean> addToBookshelf(@RequestBody Map<String, Object> request, HttpSession session) {
         String userId = (String) session.getAttribute("loginUser");
 
+        if (userId==null) return ResponseEntity.ok(false);
+
         String bookApiId = (String) request.get("bookId");
         int option = (int) request.get("option");
         boolean exists = bookService.exists(bookApiId);
@@ -50,6 +52,8 @@ public class BooksAdd {
     @PostMapping("/bookshelf/added")
     public ResponseEntity<String> removeFromBookshelf(@RequestBody Map<String, Object> request, HttpSession session) {
         String userId = (String) session.getAttribute("loginUser");
+        if (userId==null) return ResponseEntity.ok("need login");
+
         String bookApiId = (String) request.get("bookId");
         int option = (int) request.get("option");
         if (option==1){
@@ -64,6 +68,8 @@ public class BooksAdd {
     @PostMapping("/like")
     public ResponseEntity<Integer> addLike(@RequestBody Map<String, Object> request, HttpSession session) {
         String userId = (String) session.getAttribute("loginUser");
+        if (userId==null) return ResponseEntity.ok(0);
+        
         String bookApiId = (String) request.get("bookId");
         boolean exists = bookService.exists(bookApiId);
 
@@ -87,6 +93,8 @@ public class BooksAdd {
     @PostMapping("/unlike")
     public ResponseEntity<String> unLike(@RequestBody Map<String, Object> request, HttpSession session) {
         String userId = (String) session.getAttribute("loginUser");
+        if (userId==null) return ResponseEntity.ok("need login");
+
         String bookApiId = (String) request.get("bookApiId");
         int option = (int) request.get("option") ;
         if (option==1){
@@ -101,6 +109,13 @@ public class BooksAdd {
     @PostMapping("/review")
     public ResponseEntity<Map<String, Object>> addReview(@RequestBody Map<String, Object> request, HttpSession session){
         String userId = (String) session.getAttribute("loginUser");
+        if (userId==null) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", false);
+            response.put("message", "You need to login");
+            response.put("isAlreadyReviewed", false);
+            return ResponseEntity.ok(response);
+        }
 
         Map<String, Object> response = new HashMap<>();
         boolean isAlreadyReviewed = bookService.checkReviewed(userId, (String) request.get("bookApiId"));
