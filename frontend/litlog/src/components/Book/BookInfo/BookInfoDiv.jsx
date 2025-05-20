@@ -4,10 +4,9 @@ import { exists } from "../../../libs/book/exists";
 import axios from 'axios';
 import CustomModal from "../../Modal/CustomModal";
 
-function BookInfoDiv({ bookApiId, change, likeTrigger }) {
+function BookInfoDiv({ bookApiId, isLiked, setIsLiked, change, likeTrigger }) {
   const [bookshelfCount, setBookshelfcount] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
-  const [isLiked, setIsLiked] = useState(false);
 
   const [modalData, setModalData] = useState({
     show:false,
@@ -28,19 +27,29 @@ function BookInfoDiv({ bookApiId, change, likeTrigger }) {
   };
 
   useEffect(() => {
-    if (bookApiId) {
-      const checkCounts = async () => {
+    const fetchCounts = async () => {
+      if (!bookApiId) {
+        setBookshelfcount(0);
+        setLikeCount(0);
+        setIsLiked(false);
+        return;
+      }
+  
+      try {
         const isExists = await exists(bookApiId);
         if (isExists) {
-          getCounts(bookApiId);
+          await getCounts(bookApiId);
         } else {
           setBookshelfcount(0);
           setLikeCount(0);
           setIsLiked(false);
         }
-      };
-      checkCounts();
-    }
+      } catch (error) {
+        console.error("Error in fetchCounts:", error);
+      }
+    };
+  
+    fetchCounts();
   }, [bookApiId, likeTrigger]);
 
   const getCounts = async (bookApiId) => {
@@ -48,7 +57,7 @@ function BookInfoDiv({ bookApiId, change, likeTrigger }) {
       const response = await axios.get(`http://localhost:9090/books/counts`, {
         params: { bookApiId }, withCredentials: true
       });
-
+  
       const { bookshelfCount, likeCount, isLiked } = response.data;
       setBookshelfcount(bookshelfCount);
       setLikeCount(likeCount);
@@ -57,6 +66,7 @@ function BookInfoDiv({ bookApiId, change, likeTrigger }) {
       console.error("Fail to fetch counts:", error);
       setBookshelfcount(0);
       setLikeCount(0);
+      setIsLiked(false);
     }
   };
 
