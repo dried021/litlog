@@ -43,7 +43,7 @@ const About = () => {
         <li>Write Reviews and Rate Books</li>
         <li>Organize your Personal Bookshelf</li>
         <li>Create and Share themed Collections</li>
-        <li>Explore Friends' Profile and Reviews</li>
+        <li>Explore other Users’ Bookshelves and Reviews</li>
         <li>Communicate through Likes and Comments</li>
       </ul>
     </div>

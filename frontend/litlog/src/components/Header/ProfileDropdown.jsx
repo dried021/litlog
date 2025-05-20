@@ -45,7 +45,7 @@ const ProfileDropdown = ({ userId, onLogout }) => {
           <Link to={`/${userId}/activity`}>Activity</Link>
           <div className={styles.divider} />
           <Link to="/settings">Settings</Link>
-          <button onClick={onLogout} className={styles.logout}>Logout</button>
+          <button onClick={onLogout} className={styles.logout}>Sign Out</button>
         </div>
       )}
     </div>
