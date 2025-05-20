@@ -88,7 +88,6 @@ INSERT INTO like_type (name, value) VALUES
 ('REVIEW', 1),
 ('BOOK', 2),
 ('BOOK_COLLECTION', 3);
-SELECT * FROM user;
 
 CREATE TABLE user(
 	id VARCHAR(50) PRIMARY KEY,

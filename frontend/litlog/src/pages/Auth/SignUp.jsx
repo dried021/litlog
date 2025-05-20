@@ -128,8 +128,20 @@ function SignUp() {
           <div className={styles['signup-form-group']}>
             <label>Email</label>
             <div className={styles['signup-input-row']}>
-              <input type="email" value={email} onChange={handleEmailChange} onKeyDown={preventSpace}/>
-              <button type="button" onClick={sendEmailCode} disabled={timerRunning}>Start Verification</button>
+              <input
+                type="email"
+                value={email}
+                onChange={handleEmailChange}
+                onKeyDown={preventSpace}
+                readOnly={emailVerified}
+              />
+              <button
+                type="button"
+                onClick={sendEmailCode}
+                disabled={timerRunning || emailVerified}
+              >
+                Start Verification
+              </button>
             </div>
             {timerRunning && <span className={styles['signup-valid']}>{formatTime(timeLeft)} remaining</span>}
             {emailAvailable === true && (
