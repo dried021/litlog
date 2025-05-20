@@ -14,6 +14,7 @@ public class CollectionDto {
     private int id;
     private String userId;
     private String nickname;        // 작성자 닉네임
+    private String profileImage;
     private String title;
     private String content;
     private String thumbnail;       // 대표 썸네일 (optional)

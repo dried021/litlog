@@ -114,6 +114,17 @@ const CommentList = ({ comments, onRefresh }) => {
           <div key={comment.id} className={styles['comment-item']}>
             <div className={styles['comment-header']}>
               <Link to={`/${comment.userId}`} className={styles['comment-nickname']}>
+                <img
+                  src={
+                    comment.profileImage
+                      ? (comment.profileImage.startsWith('http')
+                          ? comment.profileImage
+                          : `http://localhost:9090${comment.profileImage}`)
+                      : '/assets/default_profile.png'
+                  }
+                  alt="profile"
+                  className={styles.profileIcon}
+                />
                 {comment.nickname}
               </Link>
               <span className={styles['comment-date']}>
