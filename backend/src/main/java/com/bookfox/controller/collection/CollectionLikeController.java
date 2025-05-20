@@ -23,18 +23,18 @@ public class CollectionLikeController {
     public ResponseEntity<?> toggleCollectionLike(@PathVariable int collectionId, HttpSession session) {
         String userId = (String) session.getAttribute("loginUser");
         if (userId == null) {
-            return ResponseEntity.status(401).body("로그인이 필요합니다.");
+            return ResponseEntity.status(401).body("Please log in to access this page.");
         }
 
         CollectionLikeDto likeDto = new CollectionLikeDto();
         likeDto.setUserId(userId);
         likeDto.setTargetId(collectionId);
-        likeDto.setLikeType(3); // 3 = 콜렉션
+        likeDto.setLikeType(3); 
 
         boolean isLiked = likeService.toggleLike(likeDto);
         int newLikeCount = likeService.getCollectionLikeCount(collectionId);
 
-        // 알림
+        
         if (isLiked) {
             String ownerId = likeService.getCollectionOwnerId(collectionId);
             if (!userId.equals(ownerId)) {
@@ -55,7 +55,7 @@ public class CollectionLikeController {
         ));
     }
 
-    @GetMapping("/{collectionId}/like-status") // 이렇게 바꿔!
+    @GetMapping("/{collectionId}/like-status") 
     public ResponseEntity<Boolean> hasUserLiked(
         @PathVariable int collectionId,
         HttpSession session) {
