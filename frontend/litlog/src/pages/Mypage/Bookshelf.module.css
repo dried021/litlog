@@ -14,25 +14,39 @@
 
 .tabs {
     margin-top: 40px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #111;
     display: flex;
 }
 
 .tabs button {
+    font-size: 17px;
+    background: none;
     border: none;
-    background-color: transparent;
-    opacity: 40%;
-    margin-right: 15px;
+    opacity: 50%;
+    cursor: pointer;
+    outline: none;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    margin-right: 10px;
+    padding: 2px 5px;
+    padding-top: 6px;
 }
+
 .tabs button:hover {
     opacity: 100%;
 }
 
-button.active {
-    border-bottom: solid 2px #636B2F; 
+.tabs button.active {
     opacity: 100%;
-    font-weight: bold;
+    border-bottom: 2px solid #636B2F;
 }
+
+button.active {
+    border-bottom: 2px solid #636B2F; 
+    opacity: 100%;
+}
+
 .buttonContainer {
     width: 90%;
 }
@@ -49,6 +63,7 @@ button.active {
     padding-top: 30px;
     padding-bottom: 20px;
     padding-left: 30px;
+    border-bottom: 1px solid #111;
 }
 
 
@@ -69,7 +84,7 @@ button.active {
     display: block;
     margin: 0 auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    transition: width 0.5s, height 0.5s;
+    transition: width 0.5s, height 0.3s;
     border-radius: 5px;
 }
 
@@ -140,7 +155,7 @@ button.active {
 .tooltip {
     position: relative;
     display: flex;
-  }
+}
   
 /* Tooltip text */
 .tooltip .tooltiptext {

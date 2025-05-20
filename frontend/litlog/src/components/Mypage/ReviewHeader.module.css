@@ -16,13 +16,16 @@
   font-size: 17px;
   background: none;
   border: none;
-  opacity: 40%;
+  opacity: 50%;
   cursor: pointer;
   outline: none;
   transition: color 0.2s ease, background-color 0.2s ease;
-  margin-right: 15px;
+  margin-right: 10px;
 }
 
+.mainTab {
+  padding: 2px 5px;
+}
 
 .mainTab:not(.active):hover {
   opacity: 100%;
@@ -34,7 +37,6 @@
 
 .active {
   opacity: 100%;
-  font-weight: bold;
   border-bottom: 2px solid #636B2F;
 }
 
@@ -53,7 +55,7 @@
 .filterGroup {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 5px;
 }
 
 .dropdownWrapper {
@@ -66,7 +68,7 @@
   right: 0;
   background: #f8f8f8;
   border: 1px solid #ddd;
-  padding: 6px 10px;
+  padding: 6px 12px;
   padding-bottom: 0;
   border-radius: 4px;
   min-width: 140px;
@@ -75,7 +77,7 @@
 }
 
 .dropdownSection {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .dropdownTitle {
@@ -133,9 +135,8 @@
   white-space: nowrap; 
 }
 
-.dropdownItem:hover {
-  background-color: #636B2F;
-  color: white;
+.dropdownItem:hover:not(:has(.ratingRow)) {
+  background-color: #cbc6bf;
 }
 
 .ratingRow {
