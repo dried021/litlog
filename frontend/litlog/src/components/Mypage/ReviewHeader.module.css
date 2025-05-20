@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 50px;
+  padding-top: 20px;
   padding-bottom: 16px;
   border-bottom: 1px solid #111;
 }
@@ -16,18 +16,16 @@
   font-size: 17px;
   background: none;
   border: none;
-  color: #aaa;
+  opacity: 40%;
   cursor: pointer;
   outline: none;
   transition: color 0.2s ease, background-color 0.2s ease;
+  margin-right: 15px;
 }
 
-.mainTab {
-  padding: 4px 12px;
-}
 
 .mainTab:not(.active):hover {
-  color: #444;
+  opacity: 100%;
 }
 
 .tabButton:focus {
@@ -35,8 +33,9 @@
 }
 
 .active {
-  color: #d4a373;
-  border-bottom: 2px solid #d4a373;
+  opacity: 100%;
+  font-weight: bold;
+  border-bottom: 2px solid #636B2F;
 }
 
 .filterTab {
@@ -48,7 +47,7 @@
 }
 
 .filterTab:hover {
-  color: #444;
+  opacity: 100%;
 }
 
 .filterGroup {
@@ -68,6 +67,7 @@
   background: #f8f8f8;
   border: 1px solid #ddd;
   padding: 6px 10px;
+  padding-bottom: 0;
   border-radius: 4px;
   min-width: 140px;
   z-index: 1000;
@@ -75,7 +75,7 @@
 }
 
 .dropdownSection {
-  margin-bottom: 8px;
+  margin-bottom: 15px;
 }
 
 .dropdownTitle {
@@ -134,7 +134,8 @@
 }
 
 .dropdownItem:hover {
-  color: #aaa;
+  background-color: #636B2F;
+  color: white;
 }
 
 .ratingRow {
