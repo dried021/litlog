@@ -93,8 +93,6 @@ const BookMenu = ({ book, shelfType, onUpdated }) => {
                 onUpdated();
             })
             .catch((error) => {
-                console.log("bookId: " + bookId);
-                console.log("userId: " + user)
                 console.error("Failed to update", error);
             })
     }
