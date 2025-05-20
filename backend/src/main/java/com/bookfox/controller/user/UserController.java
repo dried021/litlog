@@ -27,7 +27,7 @@ public class UserController {
         String id = body.get("id");
 
         if (id == null || id.trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("아이디가 비어 있습니다.");
+            return ResponseEntity.badRequest().body("Username is required.");
         }
 
         boolean available = !userService.isIdDuplicate(id);
@@ -39,7 +39,7 @@ public class UserController {
         String nickname = body.get("nickname");
 
         if (nickname == null || nickname.trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("닉네임이 비어 있습니다.");
+            return ResponseEntity.badRequest().body("Nickname is required.");
         }
 
         boolean available = !userService.isNicknameDuplicate(nickname);
@@ -50,7 +50,7 @@ public class UserController {
     public ResponseEntity<?> checkEmail(@RequestBody Map<String, String> body) {
         String email = body.get("email");
         if (email == null || email.trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("이메일이 비어 있습니다.");
+            return ResponseEntity.badRequest().body("Email is required.");
         }
         boolean available = !userService.isEmailDuplicate(email);
         return ResponseEntity.ok(Map.of("available", available));
@@ -60,12 +60,12 @@ public class UserController {
     public ResponseEntity<?> sendCode(@RequestBody Map<String, String> body, HttpSession session) {
         String email = body.get("email");
         if (email == null || email.trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("이메일이 비어 있습니다.");
+            return ResponseEntity.badRequest().body("Email is required.");
         }
 
         String code = emailService.generateAndSendCode(email);
         session.setAttribute("emailVerificationCode", code);
-        return ResponseEntity.ok("코드 전송 완료");
+        return ResponseEntity.ok("The code has been sent.");
     }
 
     @PostMapping("/verify-email") // 이메일 인증 코드 확인
@@ -76,17 +76,17 @@ public class UserController {
         if (savedCode != null && savedCode.equals(inputCode)) {
             return ResponseEntity.ok(Map.of("verified", true));
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("인증코드 불일치");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect verification code.");
         }
     }
 
     @PostMapping
     public ResponseEntity<?> register(@RequestBody UserDto user) {
         if (userService.isIdDuplicate(user.getId())) {
-            return ResponseEntity.badRequest().body("이미 존재하는 아이디입니다.");
+            return ResponseEntity.badRequest().body("ID already exists.");
         }
 
         userService.register(user);
-        return ResponseEntity.ok("회원가입 성공");
+        return ResponseEntity.ok("Sign-up successful.");
     }
 }

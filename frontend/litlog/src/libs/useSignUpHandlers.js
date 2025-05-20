@@ -147,8 +147,12 @@ export function useSignUpHandlers_nickname(openModal) {
         setEmailVerified(false);
       }
     } catch (err) {
-      openModal('Server error: Email verification failed.');
-      console.error(err);
+      if (err.response?.status === 401) {
+        openModal("Invalid verification code.");
+      } else {
+        openModal('Server error: Email verification failed.');
+        console.error(err);
+      }
     }
   };
 
@@ -161,7 +165,7 @@ export function useSignUpHandlers_nickname(openModal) {
         if (prev <= 1) {
           clearInterval(interval);
           setTimerRunning(false);
-          openModal("Verification time has expired.");
+          //openModal("Verification time has expired.");
           return 0;
         }
         return prev - 1;

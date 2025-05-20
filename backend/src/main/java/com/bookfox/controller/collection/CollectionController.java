@@ -17,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/collections") // 여기까지만 base 경로로!
+@RequestMapping("/collections") 
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class CollectionController {
 
@@ -56,7 +56,7 @@ public class CollectionController {
 
         if ("recent".equals(sort)) {
             list = collectionService.getCollectionsSortedByRecent(offset, size);
-            totalCount = collectionService.countAllCollections(); // 정렬 상관없이 총 개수
+            totalCount = collectionService.countAllCollections(); 
         } else {
             list = collectionService.getCollectionsSortedByLikes(offset, size);
             totalCount = collectionService.countAllCollections();
@@ -81,9 +81,8 @@ public class CollectionController {
         HttpSession session
     ) {
         String userId = (String) session.getAttribute("loginUser");
-        System.out.println("[콜렉션 생성 요청] 세션 userId = " + userId);
         if (userId == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Please log in to access this page.");
         }
 
         dto.setUserId(userId);
@@ -115,12 +114,12 @@ public class CollectionController {
     ) {
         String userId = (String) session.getAttribute("loginUser");
         if (userId == null) {
-            return ResponseEntity.status(401).body("로그인이 필요합니다.");
+            return ResponseEntity.status(401).body("Please log in to access this page.");
         }
 
         String ownerId = collectionService.getCollectionOwner(collectionId);
         if (!userId.equals(ownerId)) {
-            return ResponseEntity.status(403).body("권한이 없습니다.");
+            return ResponseEntity.status(403).body("You are not authorized to access this page.");
         }
 
         dto.setId(collectionId);
@@ -128,10 +127,10 @@ public class CollectionController {
 
         try {
             collectionService.updateCollection(dto);
-            return ResponseEntity.ok("수정 성공");
+            return ResponseEntity.ok("Update successful.");
         } catch (Exception e) {
-            e.printStackTrace(); // ✅ 서버 콘솔에 전체 오류 출력
-            return ResponseEntity.status(500).body("수정 실패");
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Update failed.");
         }
     }
 
@@ -142,15 +141,15 @@ public class CollectionController {
     ) {
         String userId = (String) session.getAttribute("loginUser");
         if (userId == null) {
-            return ResponseEntity.status(401).body("로그인이 필요합니다.");
+            return ResponseEntity.status(401).body("Please log in to access this page.");
         }
 
         try {
             collectionService.deleteCollection(collectionId, userId);
-            return ResponseEntity.ok("삭제 완료");
+            return ResponseEntity.ok("Delete successful.");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(500).body("삭제 실패");
+            return ResponseEntity.status(500).body("Delete failed.");
         }
     }
 }

@@ -21,6 +21,15 @@ const AdminSideMenu = () => {
           Manage Collections &Comments
         </NavLink>
       </nav>
+
+      <div className={styles.bottomMenu}>
+        <nav className={styles.menu}>
+          <NavLink to="/settings" className={styles.menuItem}>
+              Back to Settings
+          </NavLink>
+        </nav>
+      </div>
+
     </div>
   );
 };

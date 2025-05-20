@@ -5,7 +5,7 @@ import {
   useSignUpHandlers_email
 } from '../../libs/useSignUpHandlers.js';
 import { useSignUpSubmit } from '../../libs/useSignUpSubmit';
-import '../../styles/signUp.css';
+import styles from './signUp.module.css';
 import CustomModal from "../../components/Modal/CustomModal";
 
 function SignUp() {
@@ -15,6 +15,8 @@ function SignUp() {
   const [tel1, setTel1] = useState('');
   const [tel2, setTel2] = useState('');
   const [tel3, setTel3] = useState('');
+  const [user_type, setUserType] = useState(2);
+  const [user_status, setUserStatus] = useState(1); 
   
   const [modalData, setModalData] = useState({
       show:false,
@@ -52,91 +54,145 @@ function SignUp() {
   const { handleSubmit } = useSignUpSubmit({
     id, idChecked, idAvailable, nickname, nicknameChecked, nicknameAvailable,
     name, password, confirmPassword, email, emailVerified, emailAvailable,
-    emailChecked, tel1, tel2, tel3, openModal
+    emailChecked, tel1, tel2, tel3, user_type, user_status ,openModal
   });
+
+  const preventSpace = (e) => {
+    if (e.key === ' ') e.preventDefault();
+  };
+
+  const allowOnlyNumbers = (e, setter) => {
+    const value = e.target.value.replace(/\D/g, '');
+    setter(value);
+  };
 
   return (
     <>
-    <div className="signup-wrapper">
+    <div className={styles['signup-wrapper']}>
       <h2>CREATE ACCOUNT</h2>
-      <div className="signup-box">
-        <form className="signup-form" onSubmit={handleSubmit}>
-          <div className="signup-form-group">
+      <div className={styles['signup-box']}>
+        <form className={styles['signup-form']} onSubmit={handleSubmit}>
+          <div className={styles['signup-form-group']}>
             <label>ID</label>
-            <div className="signup-input-row">
-              <input type="text" value={id} onChange={handleIdChange} />
+            <div className={styles['signup-input-row']}>
+              <input type="text" value={id} onChange={handleIdChange} onKeyDown={preventSpace}/>
               <button type="button" onClick={checkIdDuplicate}>Check</button>
             </div>
-            {idAvailable === true && <span className="valid">✔ Available</span>}
-            {idAvailable === false && <span className="invalid">✖ ID is already taken.</span>}
+            {idAvailable === true && (
+              <span className={styles['signup-valid']}>
+                <img src="/icons/submit.svg" alt="Available" className={styles['signup-icon-check']} />
+                Available
+              </span>
+            )}
+            {idAvailable === false && (
+              <span className={styles['signup-invalid']}>
+                <img src="/icons/x-lg.svg" alt="Inavailable" className={styles['signup-icon-check']} />
+                ID is already taken.
+                </span>)}
           </div>
 
 
-          <div className="signup-form-group">
+          <div className={styles['signup-form-group']}>
             <label>Nickname</label>
-            <div className="signup-input-row">
-              <input type="text" value={nickname} onChange={handleNicknameChange} />
+            <div className={styles['signup-input-row']}>
+              <input type="text" value={nickname} onChange={handleNicknameChange} onKeyDown={preventSpace}/>
               <button type="button" onClick={checkNicknameDuplicate}>Check</button>
             </div>
-            {nicknameAvailable === true && <span className="valid">✔ Available</span>}
-            {nicknameAvailable === false && <span className="invalid">✖ Nickname is already taken.</span>}
+            {nicknameAvailable === true && (
+              <span className={styles['signup-valid']}>
+                <img src="/icons/submit.svg" alt="Available" className={styles['signup-icon-check']} /> 
+                Available
+                </span>
+              )}
+            {nicknameAvailable === false && (
+              <span className={styles['signup-invalid']}>
+                <img src="/icons/x-lg.svg" alt="Inavailable" className={styles['signup-icon-check']} />
+                Nickname is already taken.</span>)}
           </div>
 
-          <div className="signup-form-group">
+          <div className={styles['signup-form-group']}>
             <label>Name</label>
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} onKeyDown={preventSpace}/>
           </div>
 
-          <div className="signup-form-group">
+          <div className={styles['signup-form-group']}>
             <label>Password</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={preventSpace}/>
           </div>
 
-          <div className="signup-form-group">
+          <div className={styles['signup-form-group']}>
             <label>Confirm Password</label>
-            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} onKeyDown={preventSpace}/>
           </div>
 
-          <div className="signup-form-group">
+          <div className={styles['signup-form-group']}>
             <label>Email</label>
-            <div className="signup-input-row">
-              <input type="email" value={email} onChange={handleEmailChange} />
-              <button type="button" onClick={sendEmailCode} disabled={timerRunning}>Start Verification</button>
+            <div className={styles['signup-input-row']}>
+              <input
+                type="email"
+                value={email}
+                onChange={handleEmailChange}
+                onKeyDown={preventSpace}
+                readOnly={emailVerified}
+              />
+              <button
+                type="button"
+                onClick={sendEmailCode}
+                disabled={timerRunning || emailVerified}
+              >
+                Start Verification
+              </button>
             </div>
-            {timerRunning && <span className="valid">{formatTime(timeLeft)} remaining</span>}
-            {emailAvailable && (
-              <button type="button" onClick={sendEmailCode} disabled={timerRunning}>Resend Code</button>
+            {timerRunning && <span className={styles['signup-valid']}>{formatTime(timeLeft)} remaining</span>}
+            {emailAvailable === true && (
+              <span className={styles['signup-valid']}>
+              <img src="/icons/submit.svg" alt="Available" className={styles['signup-icon-check']} />
+              Verification code sent.
+              </span>
             )}
-            {emailAvailable === true && <span className="valid">✔ Verification code sent.</span>}
-            {emailAvailable === false && <span className="invalid">✖ Email is already taken.</span>}
+            {emailAvailable === false && (
+              <span className={styles['signup-invalid']}>
+                <img src="/icons/x-lg.svg" alt="Inavailable" className={styles['signup-icon-check']} />
+                Email is already taken.
+                </span>
+              )}
           </div>
 
-          {emailAvailable && (
-            <div className="signup-form-group">
+          {!emailVerified && emailAvailable && (
+            <div className={styles['signup-form-group']}>
               <label>Enter verification code</label>
-              <div className="signup-input-row">
-                <input type="text" value={emailCode} onChange={(e) => setEmailCode(e.target.value)} />
+              <div className={styles['signup-input-row']}>
+                <input
+                  type="text"
+                  value={emailCode}
+                  onChange={(e) => setEmailCode(e.target.value)}
+                />
                 <button type="button" onClick={verifyEmailCode}>Verify</button>
               </div>
-              {emailVerified && <span className="valid">✔ Verified</span>}
+              {emailVerified && (
+                <span className={styles['valid']}>
+                  <img src="/icons/submit.svg" alt="Available" className={styles['signup-icon-check']}/>
+                  Verified
+                  </span>
+                )}
             </div>
           )}
 
-          <div className="signup-form-group">
+          <div className={styles['signup-form-group']}>
             <label>Phone</label>
-            <div className="signup-phone-inputs">
-              <input type="text" value={tel1} onChange={(e) => setTel1(e.target.value)} maxLength="3" />
+            <div className={styles['signup-phone-inputs']}>
+              <input type="text" value={tel1} onChange={(e) => allowOnlyNumbers(e, setTel1)} maxLength="3" onKeyDown={preventSpace}/>
               <span>-</span>
-              <input type="text" value={tel2} onChange={(e) => setTel2(e.target.value)} maxLength="4" />
+              <input type="text" value={tel2} onChange={(e) => allowOnlyNumbers(e, setTel2)} maxLength="4" onKeyDown={preventSpace}/>
               <span>-</span>
-              <input type="text" value={tel3} onChange={(e) => setTel3(e.target.value)} maxLength="4" />
+              <input type="text" value={tel3} onChange={(e) => allowOnlyNumbers(e, setTel3)} maxLength="4" onKeyDown={preventSpace}/>
             </div>
           </div>
-          <button type="submit">Sign Up</button>
+          <button type="submit" className={styles['signup-form-button']}>Sign Up</button>
         </form>
       </div>
 
-      <div className="form-footer">
+      <div className={styles['form-footer']}>
         Already have an account? <a href="/sign-in">Sign In</a>
       </div>
       <div><a href="/">HOME</a></div>

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Pagination from "../../components/Pagination/Pagination";
 import AddReview from "./AddReview";
+import ReadMoreButton from '../Button/ReadMoreButton';
 
 function Rating({ rating }) {
   return (
@@ -31,11 +32,22 @@ function Rating({ rating }) {
 
 function Review({ reviews, currentPage, reviewPerPage, handleLikeClick }) {
   const navigate = useNavigate();
+  const [expandedReviewIds, setExpandedReviewIds] = useState([]);
+  const toggleViewMore = (id) => {
+    setExpandedReviewIds((prev) =>
+      prev.includes(id) ? prev.filter((rId) => rId !== id) : [...prev, id]
+    );
+  };
 
     return (
     <div className={styles['review-list']}>
         {reviews.map((review, index) => {
         const adjustedIndex = index + (currentPage - 1) * reviewPerPage;
+        const isExpanded = expandedReviewIds.includes(review.id);
+        const shouldTruncate = review.content.length > 500 && !isExpanded;
+        const displayedContent = shouldTruncate
+          ? review.content.slice(0, 300) + '...'
+          : review.content;
         return (
             <div key={review.id} className={((index+1)%5==0)?styles['review-item-last'] : styles['review-item']}>
 
@@ -55,7 +67,15 @@ function Review({ reviews, currentPage, reviewPerPage, handleLikeClick }) {
                     <Rating rating={review.rating} />
                 </div>
                 <div className={styles['content']}>
-                    <div className={styles['content-p']}>{review.content}</div>
+                  <div className={styles['content-p']}>{displayedContent}</div>
+                  {review.content.length > 300 && (
+                    <div className={styles['readmore-container']}>
+                      <ReadMoreButton
+                        isOpen={isExpanded}
+                        handleReadMore={() => toggleViewMore(review.id)}
+                      />
+                    </div>
+                  )}
                 </div>
             </div>
 

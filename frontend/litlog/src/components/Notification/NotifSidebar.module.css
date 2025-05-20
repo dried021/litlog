@@ -13,6 +13,10 @@
   flex-direction: column;
   padding: 20px;
   transition: transform 0.3s ease-in-out;
+  transform: translateX(100%);
+}
+
+.open {
   transform: translateX(0);
 }
 
@@ -54,9 +58,11 @@
 /* 알림 리스트 영역 */
 .list {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
-
+.list:hover {
+  overflow-y: auto; 
+}
 .list::-webkit-scrollbar {
   width: 3px;
 }
@@ -88,8 +94,8 @@
 
 /* 읽은 알림 */
 .read {
-  font-weight: normal;
-  color: #888;
+  font-weight: 600;
+  color: #999;
 }
 
 /* 알림 내용 */
@@ -105,6 +111,10 @@
   color: #2196f3;
   font-size: 16px;
   margin-right: 6px;
+}
+
+.read .dot {
+  color: #ccc;
 }
 
 /* 타임스탬프 */

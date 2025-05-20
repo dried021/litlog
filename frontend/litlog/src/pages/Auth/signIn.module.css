@@ -11,6 +11,8 @@
   border: 1px solid #ccc;
   width: 360px;
   text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 .signin-form .form-group {
@@ -35,15 +37,28 @@
 
 .signin-form button {
   width: 100%;
-  padding: 8px;
-  margin-top: 10px;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
 }
 
-.signin-links {
-  margin-top: 15px;
+.signin-form button:hover {
+  background-color: #555;
 }
 
-.signin-footer {
-  margin-top: 10px;
-  font-size: 0.9em;
+
+.signin-links a,
+.signin-footer a {
+  color: #007bff;
+  text-decoration: none;
 }
+
+.signin-links a:hover,
+.signin-footer a:hover {
+  text-decoration: underline;
+}
+

@@ -79,6 +79,12 @@ public class BookService {
         bookMapper.addBookshelf(params);
     }
 
+    public void removeFromBookshelf(int bookId, String userId){
+        Map<String, Object> params = Map.of("bookId", bookId, "userId", userId);
+        bookMapper.removeFromBookshelf(params);
+        System.out.println("service"+params);
+    }
+
     public int checkLike(int bookId, String userId){
         Map<String, Object> params = Map.of("bookId", bookId, "userId", userId);
         return bookMapper.checkLike(params);
@@ -93,6 +99,10 @@ public class BookService {
     }
 
     public boolean checkReviewed(String userId, String bookApiId){
+        Boolean exists = bookMapper.exists(bookApiId);
+        if(!exists){
+            return false;
+        }
         Map<String, Object> params = Map.of("userId", userId, "bookApiId", bookApiId);
         return bookMapper.checkReviewed(params) > 0;
     }
@@ -101,7 +111,7 @@ public class BookService {
         Map<String, Object> params = new HashMap<>();
         params.put("bookId", bookId);
         params.put("userId", userId);
-        params.put("content", content);
+        params.put("content", content != null ? content : false);
         params.put("rating", rating);        
         bookMapper.addReview(params);
         Object idObject = params.get("id");
@@ -117,6 +127,7 @@ public class BookService {
 
         return generatedId;
     }
+
 
     public List<BookListDto> getPopularBookList(){
         return bookMapper.getPopularBookList();
@@ -134,5 +145,8 @@ public class BookService {
     // 알림
     public String getReviewAuthorId(int reviewId) {
         return bookMapper.getReviewAuthorId(reviewId);
+    }
+    public String getBookApiIdByReviewId(int reviewId) {
+        return bookMapper.getBookApiIdByReviewId(reviewId);
     }
 }
