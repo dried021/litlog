@@ -1,12 +1,12 @@
 .message span  {
     color: #555;
     font-size: 13px;
-    line-height: 45px; /* ROW HEIGHT */
+    line-height: 45px;
 }
 
 .message {
     display: flex;
-    line-height: 45px; /* ROW HEIGHT */
+    line-height: 45px;
     justify-content: space-between;
     align-items: center;
     width: 93%;
@@ -21,9 +21,9 @@
     font-size: 0.85rem;
 }
 
-
 .hyperlink {
     text-decoration: none;
+    color: #BAC095;
     margin: 0 5px;
 }
 

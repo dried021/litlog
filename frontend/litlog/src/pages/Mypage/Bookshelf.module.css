@@ -1,6 +1,5 @@
 .bookshelf {
     width: 960px;
-    padding: 30px 20px;
 }
 
 .results {
@@ -56,39 +55,10 @@ button.active {
     position: relative;
     display: inline-block;
 }
-/*
-.thumbnailContainer {
-    position:relative;
-}
 
-.center {
+.bookThumbnail {
     width: 100px;
     height: 160px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 15px;
-    text-align: center;
-    color: transparent;
-    background-color: transparent;
-}
-
-.center:hover {
-    background-color: rgba(255, 255, 255, .8) ;
-    color: black; 
-}
-
-.center:hover p {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-*/
-.bookThumbnail {
-    width: 100px; /* 140px */
-    height: 160px; /* 200px */
     object-fit: cover;
     display: block;
     margin: 0 auto;
@@ -98,9 +68,8 @@ button.active {
 }
 
 .bookThumbnail:hover {
-    /*border: 4px solid #D4DE95;*/
-    width: 105px; /* 140px */
-    height: 170px; /* 200px */
+    width: 105px;
+    height: 170px;
 }
 
 .bookInfo {
@@ -153,7 +122,7 @@ button.active {
 }
 
 .progressInfo {
-    color: #444; /* F5ECD5 */
+    color: #444;
     font-size: 12px;
     margin-right: 6px;
 }
@@ -167,8 +136,8 @@ button.active {
     display: flex;
   }
   
-  /* Tooltip text */
-  .tooltip .tooltiptext {
+/* Tooltip text */
+.tooltip .tooltiptext {
     visibility: hidden;
     width: 120px;
     background-color: #555;
@@ -176,24 +145,21 @@ button.active {
     text-align: center;
     padding: 5px 3px;
     border-radius: 6px;
-   
-    /* Position the tooltip text - see examples below! */
     position: absolute;
     z-index: 1;
     font-size: 12px;
-  }
+}
   
-  /* Show the tooltip text when you mouse over the tooltip container */
-  .tooltip:hover .tooltiptext {
+.tooltip:hover .tooltiptext {
     visibility: visible;
     width: 120px;
     bottom: 100%;
     left: 50%;
     margin-left: -60px;
     margin-bottom: 10px;
-  }
+}
 
-  .tooltip .tooltiptext::after {
+.tooltip .tooltiptext::after {
     content: " ";
     position: absolute;
     top: 100%; /* At the bottom of the tooltip */
@@ -202,7 +168,7 @@ button.active {
     border-width: 5px;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
-  }
+}
 
 .overlayButton {
     position: absolute;

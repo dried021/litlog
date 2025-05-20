@@ -76,7 +76,7 @@ export default function ProfileSummary() {
     };
 
 
-    if (!profile) return <div>Loading...</div>
+    if (!profile) return <div className={styles.profileSummary}></div>
 
     return(
         <>
