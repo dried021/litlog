@@ -218,8 +218,18 @@ const CollectionDetail = () => {
           )}
           <br />
           <Link to={`/${collection.userId}`} className={styles.author}>
-            by {collection.nickname}
-          </Link>
+            <img
+              src={
+                collection.profileImage
+                  ? (collection.profileImage.startsWith('http')
+                      ? collection.profileImage
+                      : `http://localhost:9090${collection.profileImage}`)
+                  : '/assets/default_profile.png'
+              }
+              alt="profile"
+              className={styles.profileIcon}
+            />{collection.nickname}
+        </Link>
           <p className={styles.bookCount}>
             <img src="/icons/book.svg" alt="Book" className={styles.icon} />  
             {totalBooks} book(s)

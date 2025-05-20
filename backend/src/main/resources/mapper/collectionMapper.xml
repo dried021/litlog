@@ -8,6 +8,7 @@
         <id property="id" column="collection_id"/>
         <result property="userId" column="user_id"/>
         <result property="nickname" column="nickname"/>
+        <result property="profileImage" column="profile_image"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="thumbnail" column="thumbnail"/>
@@ -32,6 +33,7 @@
             c.id AS id,
             c.user_id AS userId,
             u.nickname,
+            u.profile_image,
             c.title,
             c.content,
             c.thumbnail,
@@ -89,6 +91,7 @@
         c.id AS id,
         c.user_id AS userId,
         u.nickname AS nickname,
+        u.profile_image AS profile_image,
         c.title AS title,
         c.content AS content,
         c.thumbnail AS thumbnail,
@@ -110,6 +113,7 @@
         c.id AS id,
         c.user_id AS userId,
         u.nickname AS nickname,
+        u.profile_image AS profile_image,
         c.title AS title,
         c.content AS content,
         c.thumbnail AS thumbnail,
@@ -135,6 +139,7 @@
         c.id AS collection_id,
         c.user_id,
         u.nickname,
+        u.profile_image,
         c.title,
         c.content,
         c.thumbnail,

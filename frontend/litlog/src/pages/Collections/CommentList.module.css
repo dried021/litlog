@@ -89,12 +89,22 @@
 }
 
 .comment-nickname {
+  display: flex;
+  align-items: center;
   font-weight: bold;
-  font-size: 1rem;
-  color: #000000;
-  text-decoration: none;   
-  cursor: pointer;
+  color: #333;
+  gap: 4px;
+  text-decoration: none;
+  font-size: 14px;
 }
+
+.profileIcon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 
 .comment-nickname:hover {
   text-decoration: none;   
@@ -114,7 +124,7 @@
 
 .collapsed {
   display: -webkit-box;
-  -webkit-line-clamp: 3;  /* 최대 3줄 */
+  -webkit-line-clamp: 3;  
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
