@@ -106,6 +106,7 @@ function Reviews({ bookApiId }) {
   const [isPopularity, setIsPopularity] = useState(true);
   const [isAddingReview, setIsAddingReview] = useState(false);
   const reviewPerPage = 5;
+  
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
