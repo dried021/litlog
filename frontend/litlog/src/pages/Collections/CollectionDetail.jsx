@@ -78,12 +78,24 @@ const CollectionDetail = () => {
 
   const handleLikeToggle = async () => {
     if (!user) {
-      navigate(`/sign-in?redirect=${encodeURIComponent(window.location.pathname)}`);
+      openModal({
+        message: "You need to sign in before using this feature.",
+        mode: "confirm",
+        resultValue: "1",
+        callbackOnSuccess: () => {
+          navigate('/sign-in', {
+            state: { from: location.pathname },
+            replace: true
+          });
+        },
+        callbackOnFail: () => {
+        }
+      });
       return;
     }
 
     if (collection && user === collection.userId) {
-      openModal({ message:"You cannot like your own collection."});
+      openModal({ message: "You cannot like your own collection." });
       return;
     }
 
