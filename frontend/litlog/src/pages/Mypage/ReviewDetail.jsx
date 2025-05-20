@@ -1,15 +1,18 @@
 import { Link } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from './ReviewDetail.module.css'; 
 import TabMenu from "../../components/Mypage/TabMenu";
 import CustomModal from "../../components/Modal/CustomModal";
+import { UserContext } from '../../libs/UserContext'; 
 
 const ReviewDetail = () => {
   const { userId, reviewId } = useParams();
   const navigate = useNavigate();
+  const { user } = useContext(UserContext); 
+  const isOwner = user === userId;
+
   const [review, setReview] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState("");
@@ -87,11 +90,11 @@ const ReviewDetail = () => {
           withCredentials: true 
         }
       );
-      setResultValue("1");  // 성공
+      setResultValue("1");  
       setShowModal(true);
     } catch (err) {
       console.error("Update failed", err);
-      setResultValue("0");  // 실패
+      setResultValue("0");  
       setShowModal(true);
     }
   };
@@ -104,11 +107,11 @@ const ReviewDetail = () => {
           withCredentials: true
         }
       );
-      setDeleteResultValue("1"); // 성공
+      setDeleteResultValue("1"); 
       setShowDeleteResultModal(true);
     } catch (err) {
       console.error("Delete failed", err);
-      setDeleteResultValue("0"); // 실패
+      setDeleteResultValue("0"); 
       setShowDeleteResultModal(true);
     }
   };
@@ -162,7 +165,6 @@ const ReviewDetail = () => {
             <span>Logged on {formatDate(review.creationDate)}</span>
           </div>
 
-
           <div className={styles.content}>
             {isEditing ? (
               <textarea
@@ -181,34 +183,38 @@ const ReviewDetail = () => {
               <span>{review.likeCount ?? 0} Likes</span>
             </div>
 
-            <div className={styles.actions}>
-              {isEditing ? (
-                <>
-                  <div className={styles.tooltipContainer}>
-                    <img src="/icons/submit.svg" alt="Submit" className={styles.iconButton1} onClick={() => setShowConfirmModal(true)}/>
-                    <div className={styles.tooltipText}>Submit</div>
-                  </div>
-                  <div className={styles.tooltipContainer}>
-                    <img src="/icons/cancel.svg" alt="Cancel" className={styles.iconButton2} onClick={cancelEdit}/>
-                    <div className={styles.tooltipText}>Cancel</div>
-                  </div>
-                </>
-              ) : 
-              ( <>
-                  <div className={styles.tooltipContainer}>
-                    <img src="/icons/edit.svg" alt="Edit" className={styles.iconButton1} onClick={() => setIsEditing(true)}/>
-                    <div className={styles.tooltipText}>Edit</div>
-                  </div>
-                  <div className={styles.tooltipContainer}>
-                    <img src="/icons/delete.svg" alt="Delete" className={styles.iconButton2} onClick={() => setShowDeleteConfirmModal(true)}/>
-                    <div className={styles.tooltipText}>Delete</div>
-                  </div>
-                </>
-              )}
-            </div>
+            {isOwner && ( 
+              <div className={styles.actions}>
+                {isEditing ? (
+                  <>
+                    <div className={styles.tooltipContainer}>
+                      <img src="/icons/submit.svg" alt="Submit" className={styles.iconButton1} onClick={() => setShowConfirmModal(true)} />
+                      <div className={styles.tooltipText}>Submit</div>
+                    </div>
+                    <div className={styles.tooltipContainer}>
+                      <img src="/icons/cancel.svg" alt="Cancel" className={styles.iconButton2} onClick={cancelEdit} />
+                      <div className={styles.tooltipText}>Cancel</div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={styles.tooltipContainer}>
+                      <img src="/icons/edit.svg" alt="Edit" className={styles.iconButton1} onClick={() => setIsEditing(true)} />
+                      <div className={styles.tooltipText}>Edit</div>
+                    </div>
+                    <div className={styles.tooltipContainer}>
+                      <img src="/icons/delete.svg" alt="Delete" className={styles.iconButton2} onClick={() => setShowDeleteConfirmModal(true)} />
+                      <div className={styles.tooltipText}>Delete</div>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
+
+      {/* 모달들 */}
       <CustomModal
         show={showModal}
         onHide={() => setShowModal(false)}
