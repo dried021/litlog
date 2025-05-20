@@ -10,6 +10,7 @@ import lombok.Setter;
 public class CollectionCommentDto {
     private int id;
     private String userId;
+    private String profileImage;
     private int collectionId;
     private String content;
     private Timestamp creationDate;
