@@ -5,6 +5,7 @@ import TabMenu from "../../components/Mypage/TabMenu";
 import CollectionHeader from "../../components/Mypage/CollectionHeader";
 import CollectionEntry from "./CollectionEntry"; 
 import styles from "./MyCollections.module.css";
+import ProfileSummary from '../../components/Profile/ProfileSummary';
 
 const CreatedCollection = () => {
   const navigate = useNavigate();
@@ -74,6 +75,7 @@ const CreatedCollection = () => {
 
   return (
     <div className={styles.wrapper}>
+      <ProfileSummary/>
       <TabMenu userId={userId} />
 
       <CollectionHeader

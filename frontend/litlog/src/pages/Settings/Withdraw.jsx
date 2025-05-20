@@ -15,7 +15,7 @@ const Withdraw = () => {
 
     const getUserId = async () => {
         try {
-          const response = await axios.get(`http://localhost:9090/setting/user`);
+          const response = await axios.get(`http://localhost:9090/setting/user`, { withCredentials: true });
     
           const {id, isAdmin} = response.data;
           setUserId(id);
@@ -31,8 +31,12 @@ const Withdraw = () => {
         <h2 className={styles.title}>Delete Account</h2>
         <div className={styles.container}>
             
-        <SideMenu isAdmin={isAdmin} />
-        <WithdrawUserForm userId={userId}/>
+        <SideMenu isAdmin={isAdmin} activeMenu={"withdraw"}/>
+        {userId ? (
+            <WithdrawUserForm userId={userId}/>
+          ) : (
+            <p>Loading user information...</p>
+          )}
         </div>
         </>
     );

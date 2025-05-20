@@ -19,34 +19,90 @@ const PopularCollections = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h3>🔥 All-Time Popular Collections</h3>
+        <h3>
+          <img 
+            src="/icons/hand-thumbs-up-fill.svg" 
+            alt="Popular This Week" 
+            style={{ width: '25px', height: '25px', verticalAlign: 'middle', marginRight: '8px' }} 
+          /> 
+          All-Time Popular Collections
+        </h3>
         <button className={styles.moreBtn} onClick={() => navigate('/collections')}>
           More →
         </button>
       </div>
       <div className={styles.collectionList}>
-        {collections.map((col) => (
-          <div key={col.id} className={styles.card} onClick={() => navigate(`/collections/${col.id}`)}>
-            <div className={styles.thumbnailStack}>
-              {(col.books || []).slice(0, 4).map((book, i) => (
-                <img
-                  key={i}
-                  src={book.thumbnail}
-                  alt="book"
-                  className={styles.thumbnail}
-                  style={{ left: `${i * 20}px`, zIndex: 10 - i }}
-                />
-              ))}
-            </div>
-            <div className={styles.info}>
-              <div className={styles.title}>{col.title}</div>
-              <div className={styles.meta}>
-                <span>by {col.nickname}</span>
-                <span className={styles.likes}>❤️ {col.likeCount}</span>
+        {collections.map((col) => {
+          const thumbnails = (col.books || []).map(book => book.thumbnail);
+          const stack = thumbnails.slice(0, 5);
+
+          // 부족한 수만큼 null 추가
+          while (stack.length < 5) {
+            stack.push(null);
+          }
+
+          const imageWidth = 90;
+          const stackMaxWidth = 266;
+          const overlapCount = 5;
+          const overlapOffset = (imageWidth * overlapCount - stackMaxWidth) / (overlapCount - 1);
+
+          const likeDisplay = col.likeCount || 0;
+
+          return (
+            <div key={col.id} className={styles.card}>
+              <div className={styles.thumbnailStack} onClick={() => navigate(`/collections/${col.id}`)}>
+                {stack.map((img, idx) =>
+                  img ? (
+                    <img
+                      key={idx}
+                      src={img}
+                      alt={`thumbnail-${idx}`}
+                      className={styles.stackedImg}
+                      style={{
+                        left: `${idx * (imageWidth - overlapOffset)}px`,
+                        zIndex: 10 - idx,
+                      }}
+                    />
+                  ) : (
+                    <div
+                      key={idx}
+                      className={styles.placeholderBox}
+                      style={{
+                        left: `${idx * (imageWidth - overlapOffset)}px`,
+                        zIndex: 10 - idx,
+                      }}
+                    />
+                  )
+                )}
+                <div className={styles.overlay}>
+                  <p className={styles.overlayText}>
+                    {col.content?.length > 100 ? col.content.slice(0, 100) + '...' : col.content}
+                  </p>
+                </div>
+              </div>
+
+              <div className={styles.info}>
+                <div className={styles.topRow}>
+                  <h3 className={styles.title} onClick={() => navigate(`/collections/${col.id}`)}>{col.title}</h3>
+                  <span className={styles.bookCount}>
+                    {col.bookCount ?? col.books?.length ?? 0} books
+                  </span>
+                </div>
+                <div className={styles.bottomRow}>
+                  <span className={styles.author} onClick={() => navigate(`/${col.userId}`)}>by {col.nickname}</span>
+                  <span className={styles.meta}>
+                    <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1} />
+                    {likeDisplay}
+                    &nbsp;&nbsp;
+                    <img src="/icons/comment_gray.svg" alt="comments" className={styles.icon2} />
+                    {col.commentCount ?? 0}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
+
       </div>
     </div>
   );

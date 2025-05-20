@@ -6,7 +6,7 @@ import ManageUser from '../../components/Admin/ManageUser';
 const MemberManage = () => {
     return(
         <>
-            <h2 className={styles.title}>Manage Reviews</h2>
+            <h2 className={styles.title}>Manage Members</h2>
             <div className={styles.container}>
     
             <AdminSideMenu />

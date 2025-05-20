@@ -1,109 +1,35 @@
-/* 외곽 회색 배경 + 중앙 정렬 */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
 .outerWrapper {
   background-color: #f5f5f5;
   min-height: 100vh;
-  padding: 40px 0px;
+  padding: 40px 0;
 }
 
-/* 안쪽 흰색 카드 박스 */
+.container {
+  min-width: 650px;
+  max-width: 650px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 .cardBox {
   background-color: #fff;
   padding: 32px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  padding: 0 20px;
-}
-
-.title {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 2px;
-  word-break: break-word; 
-  white-space: pre-wrap;  
-  overflow-wrap: break-word;
-  font-size: 1.4rem;
-  font-weight: bold;
-  margin-top: 1rem;
-}
-
-.content {
-  font-size: 16px;
-  margin-bottom: 2px;
-  color: #555;
+  width: 100%;
+  overflow-x: hidden;
   word-break: break-word;
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-  margin: 0.5rem 0;
-  line-height: 1.5;
-}
-
-.author {
-  font-size: 14px;
-  margin-bottom: 0px;
-  color: #888;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.author:hover {
-  text-decoration: none;  
-}
-
-.bookGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  justify-items: center;
-}
-
-.bookCard {
-  position: relative;
-  width: 120px;
-  min-height: 10px;
-  cursor: pointer;
-  overflow: hidden;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease;
-}
-
-.thumbnail {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* 오버레이 */
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5); /* 반투명한 검정 */
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  font-size: 14px;
-  text-align: center;
-  padding: 8px;
-}
-
-
-.bookCard:hover .overlay {
-  opacity: 1;
 }
 
 .topBar {
@@ -128,14 +54,19 @@
   text-align: right;
 }
 
-.collectionDate {
-  font-size: 14px;
-  color: #999;
-}
-
+.collectionDate,
 .likeComment {
   font-size: 14px;
   color: #666;
+}
+
+.collectionDate img,
+.likeComment img {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-right: 4px;
+  margin-bottom: 2px;
 }
 
 .modifyDelete {
@@ -143,7 +74,8 @@
   gap: 8px;
 }
 
-.editBtn, .deleteBtn {
+.editBtn,
+.deleteBtn {
   padding: 6px 12px;
   font-size: 14px;
   border: 1px solid #ccc;
@@ -157,18 +89,34 @@
   background-color: #f0f0f0;
 }
 
-/* ===== Collection Info ===== */
-.collectionInfo {
-  text-align: center;
-  margin-bottom: 40px;
+.title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 1rem 0 0.5rem;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
-/* ===== Book Pagination ===== */
-.bookPagination {
-  text-align: center;
-  margin: 40px 0;
+.content {
+  font-size: 16px;
+  color: #555;
+  margin: 0.5rem 0;
+  line-height: 1.5;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.author {
   font-size: 14px;
-  color: #aaa;
+  color: #888;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.author:hover {
+  text-decoration: none;
 }
 
 .bookCount {
@@ -177,9 +125,82 @@
   margin-top: 4px;
 }
 
-/* ===== 댓글 영역 ===== */
+.icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-right: 4px;
+  margin-bottom: 2px;
+}
+
+.bookGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  justify-items: start;
+  margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+  .bookGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .bookGrid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.bookCard {
+  position: relative;
+  width: 120px;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  font-size: 14px;
+  text-align: center;
+  padding: 8px;
+}
+
+.bookCard:hover .overlay {
+  opacity: 1;
+}
+
+.bookPagination {
+  text-align: center;
+  margin: 40px 0;
+  font-size: 14px;
+  color: #aaa;
+}
+
 .commentSection {
-  border-top: 1px solid lch(0% 0 0 / 0.402);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 32px;
   margin-top: 40px;
 }
@@ -224,4 +245,25 @@
   text-align: center;
   font-size: 14px;
   color: #aaa;
+}
+
+.collapsed {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;      /* 최대 4줄 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.expandBtn {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-top: 4px;
+  padding: 0;
+}
+
+.expandBtn:hover {
+  text-decoration: underline;
 }

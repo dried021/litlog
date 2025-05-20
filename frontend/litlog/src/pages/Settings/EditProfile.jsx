@@ -27,7 +27,7 @@ const EditProfile = () => {
     return (<>
         <h2 className={styles.title}>Update My Info</h2>
         <div className={styles.container}>
-          {isAdmin && <SideMenu isAdmin={isAdmin} />}
+          <SideMenu isAdmin={isAdmin} activeMenu={"settings"}/>
           {userId ? (
             <UpdateUserForm userId={userId} />
           ) : (

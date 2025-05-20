@@ -137,8 +137,10 @@ const ReviewDetail = () => {
           </div>
 
           <div className={styles.header}>
-            <span className={`${styles.stars} ${isEditing ? styles.editModeRating : ''}`}>
-              {isEditing ? Array.from({ length: 5 }, (_, i) => (
+            <div className={styles.starsWrapper}>
+              <span className={`${styles.stars} ${isEditing ? styles.editModeRating : ''}`}>
+                {isEditing ? (
+                  Array.from({ length: 5 }, (_, i) => (
                     <img
                       key={i}
                       src={i < editedRating ? '/icons/star.svg' : '/icons/star_gray.svg'}
@@ -149,13 +151,17 @@ const ReviewDetail = () => {
                       style={{ cursor: 'pointer' }}
                     />
                   ))
-                : renderStars(review.rating)}
-                {review.isLiked && (
-                  <img src="/icons/heart_filled.svg" alt="책 좋아요" className={styles.bookLikeIcon}/>
+                ) : (
+                  renderStars(review.rating)
                 )}
-            </span>
+              </span>
+              {review.isLiked && (
+                <img src="/icons/heart_filled.svg" alt="책 좋아요" className={styles.bookLikeIcon} />
+              )}
+            </div>
             <span>Logged on {formatDate(review.creationDate)}</span>
           </div>
+
 
           <div className={styles.content}>
             {isEditing ? (
@@ -244,7 +250,7 @@ const ReviewDetail = () => {
         failMessage="Failed to delete the review."
         mode="close"
         callbackOnSuccess={() => {
-          navigate(`/${userId}/reviews`); 
+          navigate(`/${userId}/reviews/timeline`); 
         }}
       />
       <CustomModal

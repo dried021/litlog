@@ -60,12 +60,12 @@ public class CollectionCommentController {
     ) {
         String userId = (String) session.getAttribute("loginUser");
         if (userId == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Please log in to access this page.");
         }
 
         String content = request.get("content");
         if (content == null || content.trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("내용을 입력해주세요.");
+            return ResponseEntity.badRequest().body("Please enter content.");
         }
 
         CollectionCommentDto comment = new CollectionCommentDto();
@@ -77,14 +77,12 @@ public class CollectionCommentController {
 
         // 알림
         String ownerId = commentService.getCollectionOwnerId(collectionId);
-        String nickname = notificationService.getNicknameByUserId(userId);
         if (!userId.equals(ownerId)) {
             NotificationDto dto = new NotificationDto();
             dto.setUserId(ownerId);           
             dto.setSenderId(userId);            
             dto.setType("COLLECTION_COMMENT");
             dto.setTargetId(collectionId);
-            dto.setMessage(nickname + " commented on your collection.");
             dto.setRead(false);
             notificationService.sendNotification(dto);
         }
@@ -96,16 +94,16 @@ public class CollectionCommentController {
     public ResponseEntity<?> deleteComment(@PathVariable int commentId, HttpSession session) {
         String userId = (String) session.getAttribute("loginUser");
         if (userId == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Please log in to access this page.");
         }
 
         CollectionCommentDto comment = commentService.getCommentById(commentId);
         if (comment == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("댓글이 존재하지 않습니다.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No comments yet.");
         }
 
         if (!userId.equals(comment.getUserId())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("삭제 권한이 없습니다.");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You do not have permission to delete this.");
         }
 
         commentService.deleteComment(commentId);
@@ -120,21 +118,21 @@ public class CollectionCommentController {
 
         String userId = (String) session.getAttribute("loginUser");
         if (userId == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Please log in to access this page.");
         }
 
         String content = request.get("content");
         if (content == null || content.trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("내용을 입력해주세요.");
+            return ResponseEntity.badRequest().body("Please enter content.");
         }
 
         CollectionCommentDto existing = commentService.getCommentById(commentId);
         if (existing == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("댓글이 존재하지 않습니다.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No comments yet.");
         }
 
         if (!userId.equals(existing.getUserId())) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("수정 권한이 없습니다.");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("You do not have permission to update this.");
         }
 
         commentService.updateCommentContent(commentId, content);

@@ -17,4 +17,5 @@ public class NotificationDto {
     private String message;   
     private boolean isRead;      
     private Timestamp createdAt; 
+    private String bookApiId; 
 }
