@@ -11,6 +11,7 @@ import heart from '../../assets/heart.svg';
 import menuIcon from '../../assets/menu.svg'
 import Pagination from '../../components/Pagination/Pagination';
 import BookMenu from '../../components/Bookshelf/BookMenu';
+import ProfileSummary from '../../components/Profile/ProfileSummary';
 
 const Bookshelf = ({shelfType}) => {
     const {user} = useContext(UserContext); // Session User
@@ -131,6 +132,7 @@ const Bookshelf = ({shelfType}) => {
 
     return(
         <div className={styles.bookshelf}>
+            <ProfileSummary/>
             <TabMenu/>
             <div className={styles.tabs}>
                 <div className={styles.buttonContainer}>

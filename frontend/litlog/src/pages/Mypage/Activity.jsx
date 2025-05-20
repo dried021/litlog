@@ -6,6 +6,7 @@ import TabMenu from "../../components/Mypage/TabMenu";
 import styles from "./Activity.module.css";
 import defaultProfile from "../../assets/default_profile.png";
 import ActivityMessage from "../../components/Activity/ActivityMessage";
+import ProfileSummary from "../../components/Profile/ProfileSummary";
 
 export default function Activity() {
     const {userId} = useParams();
@@ -44,7 +45,8 @@ export default function Activity() {
     
     return (
         <div className={styles.page}>
-            <TabMenu></TabMenu>
+            <ProfileSummary/>
+            <TabMenu/>
             <div className={styles.activities}>
                 <div className={styles.tabs}>
                     <button onClick={() => setActiveTab("following")} className={`${activeTab === "following" ? styles.active : ""}`}>

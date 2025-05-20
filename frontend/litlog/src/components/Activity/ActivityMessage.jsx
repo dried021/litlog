@@ -82,12 +82,11 @@ export default function ActivityMessage({activity}) {
                     </span>
                 );
                 break;
-            // TODO: add collection link
             case "collection_liked":
                 return (
                     <span>
                         liked your
-                        <a href={`/${activity.followUserId}/collection`} className={styles.hyperlink}>
+                        <a href={`/collections/${activity.collectionId}`} className={styles.hyperlink}>
                             {activity.collectionTitle}
                         </a>
                         collection
@@ -98,9 +97,9 @@ export default function ActivityMessage({activity}) {
     }
 
     function timeAgo(dateString) {
-        const date = new Date(dateString); // Parse timestamp
+        const date = new Date(dateString);
         const now = new Date();
-        const diff = Math.floor((now - date) / 1000); // Difference in seconds
+        const diff = Math.floor((now - date) / 1000);
     
         if (diff < 60) return "just now";
         if (diff < 3600) {
@@ -111,11 +110,13 @@ export default function ActivityMessage({activity}) {
             let time = Math.floor(diff / 3600);
             return (time === 1 ? `${time} hour` : `${time} hours`)
         }
-        if (diff < 2592000) {
-            let time = Math.floor(diff / 86400);
-            return (time === 1 ? `${time} day` : `${time} days`)
+        if (diff < 604800) {
+            const days = Math.floor(diff / 86400);
+            return `${days} day${days === 1 ? '' : 's'}`;
         }
-        return "";
+
+        const options = { month: 'short', day: 'numeric' };
+        return date.toLocaleDateString(undefined, options);
     }
 
     return (
