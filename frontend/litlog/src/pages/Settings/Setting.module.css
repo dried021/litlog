@@ -4,13 +4,12 @@
     text-align: center;
   }
 
-
   .container {
     display: flex;
-    gap: 2rem; /* 메뉴와 내용 사이 간격 */
+    gap: 2rem; 
     padding: 2rem;
   }
   
   .content {
-    flex: 1; /* 나머지 영역 다 차지 */
+    flex: 1; 
   }
