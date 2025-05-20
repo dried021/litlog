@@ -84,7 +84,7 @@ const WeeklyPopularReviews = () => {
               </div>
 
               <div className={styles["user-id"]} onClick={() => navigate(`/${review.userId}`)}>
-                <div className={styles["user-id-p"]}>{review.userId}</div>
+                <div className={styles["user-id-p"]}>{review.nickname}</div>
                 <div className={styles["separator"]}>|</div>
                 <div className={styles["creation-date"]}>{formatDate(review.creationDate)}</div>
               </div>

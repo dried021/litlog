@@ -1,6 +1,4 @@
-package com.bookfox.interceptor;
-// package com.project.interceptor;
-
+// package com.bookfox.interceptor;
 // import java.util.Date;
 
 // import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +6,8 @@ package com.bookfox.interceptor;
 // import org.springframework.stereotype.Component;
 // import org.springframework.web.servlet.HandlerInterceptor;
 
-// import com.project.model.UserDto;
-// import com.project.service.UserService;
+// import com.bookfox.model.UserDto;
+// import com.bookfox.service.UserService;
 
 // import jakarta.servlet.http.HttpServletRequest;
 // import jakarta.servlet.http.HttpServletResponse;
