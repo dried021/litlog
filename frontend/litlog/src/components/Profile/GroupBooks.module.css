@@ -2,13 +2,13 @@
     padding: 5px;
     width: 650px;
     margin: 5 auto;
-    margin-top: 25px;
+    margin-top: 30px;
     font-family: Arial, sans-serif;
 }
 
 .groupBooks h2 {
     font-size: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     color: #333;
     width: 90%;
 }
@@ -21,7 +21,7 @@
     font-size: 14px;
     color: #888; /* MORE BUTTON COLOR */
     text-decoration: none; 
-    height: 24px; 
+    height: 15px; 
 }
 
 .groupHeader {

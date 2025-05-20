@@ -2,13 +2,13 @@
     padding: 5px;
     width: 650px;
     margin: 5 auto;
-    margin-top: 25px;
+    margin-top: 40px;
     font-family: Arial, sans-serif;
 }
 
 .groupReviews h2 {
     font-size: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     color: #333;
     width: 90%;
 }
@@ -21,7 +21,7 @@
     font-size: 14px;
     color: #888; /* MORE BUTTON COLOR */
     text-decoration: none; 
-    height: 24px; 
+    height: 15px; 
 }
 
 .groupHeader a:hover {
@@ -34,13 +34,11 @@
 
 .reviewCard {
     display: flex;
-    background-color: #2f333c; /* backgroud color 74070E */
+    background-color: #2f333c;
     padding: 16px;
     border-radius: 8px;
     margin-bottom: 25px;
     padding-bottom: 30px;
-    /*box-shadow: 0 3px 5px 0 #E0E0E0;*/
-    /*border-bottom: 2px solid #b9beb6;*/
 }
 
 .reviewCard.noBorder {
@@ -64,7 +62,7 @@
 }
 
 .title {
-    color: 	white; /*#EDE1D2*/
+    color: 	white;
     font-size: 20px;
     font-weight: bold;
     margin: 0;
@@ -88,11 +86,11 @@
     font-size: 15px;
     margin-right: 3px;
     width: 8px;
-    color: 	#ccc/*#EDE1D2;*/
+    color: 	#ccc;
 }
 
 .star.filled {
-    color: 	#ccc; /*#2e2d2b;*/
+    color: 	#ccc;
 }
 
 .icon {
@@ -104,7 +102,7 @@
 
 .date {
     font-size: 14px;
-    color: #ccc; /* 555 */
+    color: #ccc;
     margin-left: 3px;
 }
 
@@ -112,7 +110,7 @@
     font-size: 15px;
     margin-top: 8px;
     margin-bottom: 12px;
-    color: 	white; /*EDE1D2*/
+    color: 	white;
 }
 
 .moreButton {
@@ -130,7 +128,7 @@
     align-items: center;
     gap: 6px;
     font-size: 14px;
-    color: #a3a3a3; /* a3a3a3 */
+    color: #a3a3a3;
 }
 
 .hyperlink {
