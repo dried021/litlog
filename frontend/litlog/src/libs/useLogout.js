@@ -11,6 +11,7 @@ export function useLogout() {
     try {
       await axios.post('http://localhost:9090/sign-out', {}, { withCredentials: true });
       setUser(null);
+      sessionStorage.removeItem('user');
       navigate(redirectTo);
     } catch (err) {
       alert('Logout failed');

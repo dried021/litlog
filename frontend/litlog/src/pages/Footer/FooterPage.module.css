@@ -1,0 +1,62 @@
+.container {
+  max-width: 800px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+/* 상단 페이지 제목 */
+.pageHeader {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.pageTitle {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #3e264a;
+  margin-left: 3px;
+}
+
+.pageDivider {
+  border: none;
+  border-bottom: 1px solid #666;
+  margin-bottom: 20px;
+}
+
+/* 본문 타이틀 */
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #3e264a;
+  margin-bottom: 10px;
+}
+
+/* 본문 텍스트 */
+.paragraph {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 15px;
+  color: #111;
+  line-height: 1.7;
+  margin-bottom: 25px;
+  padding-bottom: 25px; 
+  border-bottom: 1px solid #eee;
+}
+
+.paragraph2 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 15px;
+  color: #111;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+/* 리스트 */
+.list {
+  margin-left: 20px;
+  padding-left: 16px;
+  list-style-type: disc;
+  color: #666;
+  font-size: 15px;
+  line-height: 1.6;
+}

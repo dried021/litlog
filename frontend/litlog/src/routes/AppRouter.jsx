@@ -38,6 +38,11 @@ import MemberManage from '../pages/Admin/MemberManage';
 import ReviewManage from '../pages/Admin/ReviewManage';
 import CommentManage from '../pages/Admin/CommentManage';
 
+import About from '../pages/Footer/About';
+import Terms from '../pages/Footer/Terms';
+import PrivacyPolicy from '../pages/Footer/PrivacyPolicy';
+import Credits from '../pages/Footer/Credits';
+
 import NotFound from '../pages/NotFound/NotFound'; 
 
 const AppRouter = () => {
@@ -88,6 +93,12 @@ const AppRouter = () => {
             <Route path="/admin" element={<MemberManage />} />
             <Route path="/admin/reviews" element={<ReviewManage />} />
             <Route path="/admin/comments" element={<CommentManage />} />
+
+            {/* Footer Pages */}
+            <Route path="/about" element={<About />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/credits" element={<Credits />} />
 
             {/* 404 */}
             <Route path="*" element={<NotFound />} />
