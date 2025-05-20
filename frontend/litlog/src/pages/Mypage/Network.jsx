@@ -125,7 +125,7 @@ export default function Network({type}) {
                                     </a>
                                 </div>
                                 <div className={styles.statBlock}>
-                                    <a href={`/${profile.id}/reviews`} className={styles.hyperlink}>
+                                    <a href={`/${profile.id}/reviews/timeline`} className={styles.hyperlink}>
                                         <span className={styles.statNumber}>
                                             <img src={reviewIcon} className={styles.icon}/>
                                             {profile.userReviewsCount}
@@ -133,7 +133,7 @@ export default function Network({type}) {
                                     </a>
                                 </div>
                                 <div className={styles.statBlock}>
-                                    <a href={`/${profile.id}/collections`} className={styles.hyperlink}>
+                                    <a href={`/${profile.id}/collections/created`} className={styles.hyperlink}>
                                         <span className={styles.statNumber}>
                                             <img src={collectionIcon} className={styles.icon}/>
                                             {profile.userCollectionsCount}
