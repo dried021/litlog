@@ -35,12 +35,26 @@ public class BookshelfService {
 
         return bookshelfMapper.updateProgress(map) > 0;
     }
-    public boolean removeBookshelf(String userId, int bookId, int shelfType) {
+    public boolean removeBookshelf(String userId, int bookId) {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
-        map.put("bookId", bookId); 
-        map.put("shelfType", shelfType);
+        map.put("bookId", bookId);
 
         return bookshelfMapper.removeBookshelf(map);
+    }
+    public boolean moveBookshelf(String userId, int bookId, int bookshelfType) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("bookId", bookId);
+        map.put("bookshelfType", bookshelfType);
+
+        return bookshelfMapper.moveBookshelf(map);
+    }
+    public boolean unlikeBook(String userId, int bookId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("bookId", bookId);
+
+        return bookshelfMapper.unlikeBook(map);
     }
 }

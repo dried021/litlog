@@ -10,6 +10,7 @@ import defaultThumbnail from '../../assets/default_thumbnail.png';
 import heart from '../../assets/heart.svg';
 import menuIcon from '../../assets/menu.svg'
 import Pagination from '../../components/Pagination/Pagination';
+import BookMenu from '../../components/Bookshelf/BookMenu';
 
 const Bookshelf = ({shelfType}) => {
     const {user} = useContext(UserContext); // Session User
@@ -19,39 +20,10 @@ const Bookshelf = ({shelfType}) => {
     const [sort, setSort] = useState("added-newest");
     const [result, setResult] = useState([]);
 
-    const [showModal, setShowModal] = useState(false);
-    const [progress, setProgress] = useState(0);
     const [selectedBookId, setSelectedBookId] = useState();
 
     const [updateStatus, setUpdateStatus] = useState(false); 
 
-    function updateProgress(bookId) {
-        fetch(`http://localhost:9090/members/${userId}/progress`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                bookId: bookId,
-                progress: progress
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to update progress');
-            }
-            return response.text();
-        })
-        .then(data => {
-            console.log('Server response:', data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-        setProgress(0);
-        setShowModal(false);
-        setUpdateStatus(!updateStatus);
-    }
 
     /* Pagination */
     const [currentPage, setCurrentPage] = useState(1);
@@ -188,49 +160,18 @@ const Bookshelf = ({shelfType}) => {
                         {currentBooks.map(book => (
                             <li key={book.bookId} className={styles.bookCard}>
                                 <a href={`/books/${book.bookApiId}`}>
-                                    <div className={styles.tooltip}>
+                                    <div className={styles.tooltip}>                   
                                         <img 
                                             src={book.thumbnail ? book.thumbnail : defaultThumbnail}
                                             alt={book.title}
                                             className={styles.bookThumbnail}
                                         />
                                         <span className={styles.tooltiptext}>{book.title}</span>
-                                        {(shelf === "current" && user && user === userId) && (
-                                            <button className={styles.overlayButton}
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    setSelectedBookId(book.bookId);
-                                                    setShowModal(true);
-                                                }}>
-                                                Update
-                                            </button>
-                                        )}
                                     </div>
                                 </a>
-
-                                {showModal && (
-                                    <div className={styles.modalOverlay}>
-                                        <div className={styles.modalContent}>
-                                            <h3>Reading progress (%)</h3>
-                                            <input
-                                                type="number"
-                                                min="0"
-                                                max="100"
-                                                value={progress}
-                                                onChange={(e) => {
-                                                    const val = Math.max(0, Math.min(100, Number(e.target.value)));
-                                                    setProgress(val);
-                                                }}
-                                                placeholder="Enter % read"
-                                            />
-                                            <div className={styles.modalButtons}>
-                                                <button onClick={() => updateProgress(selectedBookId)} className={styles.saveButton}>Save</button>
-                                                <button onClick={() => setShowModal(false)} className={styles.cancelButton}>Cancel</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-
+                                {(user && user === userId) &&
+                                    <BookMenu book={book} shelfType={shelf} onUpdated={() => setUpdateStatus(prev => !prev)}/>
+                                }
                                 <div className={styles.bookInfo}>
                                     {[...Array(5)].map((_, index) => (
                                         (index < book.rating && shelf !== "current") && (
