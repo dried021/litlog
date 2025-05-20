@@ -262,3 +262,9 @@ textarea {
   background-color: #999;
 }
 
+.charCount {
+  font-size: 12px;
+  color: #888;
+  text-align: right;
+  margin-top: 4px;
+}
