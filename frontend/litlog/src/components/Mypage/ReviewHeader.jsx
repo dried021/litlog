@@ -84,7 +84,7 @@ const ReviewHeader = ({
             className={`${styles.tabButton} ${styles.mainTab} ${activeTab === "timeline" ? styles.active : ""}`}
             onClick={() => onTabChange("timeline")}
           >
-            Timeline
+            TIMELINE
           </button>
           <div className="tooltip-text"
             style={{
@@ -104,7 +104,7 @@ const ReviewHeader = ({
             className={`${styles.tabButton} ${styles.mainTab} ${activeTab === "list" ? styles.active : ""}`}
             onClick={() => onTabChange("list")}
           >
-            List
+            LIST
           </button>
           <div className="tooltip-text"
             style={{
@@ -208,7 +208,7 @@ const ReviewHeader = ({
           {openDropdown === "sort" && (
             <div className={styles.dropdownMenu}>
               <div className={styles.dropdownSection}>
-                <div className={styles.dropdownTitle}>Logged Date</div>
+                <div className={styles.dropdownTitle}>LOGGED DATE</div>
                 <div className={styles.dropdownItem} onClick={() => onSortChange({ field: "date", direction: "desc" })}>
                   Newest First
                 </div>
@@ -218,7 +218,7 @@ const ReviewHeader = ({
               </div>
 
               <div className={styles.dropdownSection}>
-                <div className={styles.dropdownTitle}>Popularity</div>
+                <div className={styles.dropdownTitle}>POPULARITY</div>
                 <div className={styles.dropdownItem} onClick={() => onSortChange({ field: "popularity", direction: "desc" })}>
                   Most Liked
                 </div>
@@ -228,7 +228,7 @@ const ReviewHeader = ({
               </div>
 
               <div className={styles.dropdownSection}>
-                <div className={styles.dropdownTitle}>Your Rating</div>
+                <div className={styles.dropdownTitle}>YOUR RATING</div>
                 <div className={styles.dropdownItem} onClick={() => onSortChange({ field: "rating", direction: "desc" })}>
                   Highest First
                 </div>

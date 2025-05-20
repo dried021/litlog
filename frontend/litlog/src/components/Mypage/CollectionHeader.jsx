@@ -44,13 +44,13 @@ const CollectionHeader = ({
           className={`${styles.tabButton} ${styles.mainTab} ${activeTab === "created" ? styles.active : ""}`}
           onClick={() => onTabChange("created")}
         >
-          Created
+          CREATED
         </button>
         <button
           className={`${styles.tabButton} ${styles.mainTab} ${activeTab === "liked" ? styles.active : ""}`}
           onClick={() => onTabChange("liked")}
         >
-          Liked
+          LIKED
         </button>
       </div>
 
@@ -67,7 +67,7 @@ const CollectionHeader = ({
           {openDropdown === "sort" && (
             <div className={styles.dropdownMenu}>
               <div className={styles.dropdownSection}>
-                <div className={styles.dropdownTitle}>Created Date</div>
+                <div className={styles.dropdownTitle}>CREATED DATE</div>
                 <div className={styles.dropdownItem} onClick={() => onSortChange({ field: "date", direction: "desc" })}>
                   Newest First
                 </div>
@@ -76,7 +76,7 @@ const CollectionHeader = ({
                 </div>
               </div>
               <div className={styles.dropdownSection}>
-                <div className={styles.dropdownTitle}>Popularity</div>
+                <div className={styles.dropdownTitle}>POPULARITY</div>
                 <div className={styles.dropdownItem} onClick={() => onSortChange({ field: "like", direction: "desc" })}>
                   Most Liked
                 </div>
@@ -85,7 +85,7 @@ const CollectionHeader = ({
                 </div>
               </div>
               <div className={styles.dropdownSection}>
-                <div className={styles.dropdownTitle}>Comments</div>
+                <div className={styles.dropdownTitle}>COMMENTS</div>
                 <div className={styles.dropdownItem} onClick={() => onSortChange({ field: "comment", direction: "desc" })}>
                   Most Commented
                 </div>

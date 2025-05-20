@@ -5,16 +5,15 @@ export default function SelectMenu({placeholder, options, action}) {
     const customStyles = {
         control: (base, state) => ({
             ...base,
-            width: '160px',
+            width: '140px',
             backgroundColor: '#fff',
-            borderColor: state.isFocused ? '#BAC095' : '#BAC095',
             boxShadow: state.isFocused ? '#BAC095' : 'none',
-            border: '2px solid #3D4127',
+            border: 'transparent',
             '&:hover': {
-                borderColor: '#BAC095',
+                borderBottom: '2px solid #636B2F'
             },
-            borderRadius: '6px',
-            fontSize: '1rem',
+            borderRadius: '0',
+            fontSize: '14px',
         }),
         option: (base, state) => ({
             ...base,
@@ -22,10 +21,14 @@ export default function SelectMenu({placeholder, options, action}) {
                 ? '#636B2F'
                 : state.isFocused
                 ? '#636B2F'
-                : 'white',
+                : '#f8f8f8',
             color: state.isSelected ? 'white' : 'black',
-            padding: '5px 15px',
-            fontSize: '15px',
+            padding: '4px 8px',
+            marginLeft: '8px',
+            width: '115px',
+            borderRadius: '4px',
+            fontSize: '13px',
+            transition: 'backgroundColor 0.2s ease',
             cursor: 'pointer',
             ':hover': {
                 color: 'white',
@@ -36,24 +39,24 @@ export default function SelectMenu({placeholder, options, action}) {
         }),
         menu: (base) => ({
             ...base,
-            width: '160px',
-            borderRadius: '6px',
-            marginTop: '4px',
-            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+            width: '143px',
+            borderRadius: '4px',
+            backgroundColor: '#f8f8f8',
+            border: '1px solid #ddd',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.15)',
         }),
         groupHeading: (base) => ({
             ...base,
-            color: '#888',
-            fontWeight: 'bold',
-            fontSize: '0.85rem',
-            padding: '6px 12px',
+            color: '#333',
+            fontSize: '12px',
+            fontWeight: '600',
+            marginLeft: '2px',
+            whiteSpace: `nowrap`
         }),
-        indicatorSeparator: () => ({ display: 'none' }), // removes vertical divider
+        indicatorSeparator: () => ({ display: 'none' }),
         placeholder: (base) => ({
             ...base,
-            color: '#999',        // 🖋️ placeholder text color
-            fontStyle: 'italic',  // optional
-            fontSize: '0.95rem',
+            fontSize: '14px',
         })
     };
       
