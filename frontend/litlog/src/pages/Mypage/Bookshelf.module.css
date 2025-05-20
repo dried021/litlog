@@ -40,6 +40,7 @@
 .tabs button.active {
     opacity: 100%;
     border-bottom: 2px solid #636B2F;
+    font-weight: 500;
 }
 
 button.active {
@@ -209,4 +210,91 @@ button.active {
 
 .tooltip:hover .overlayButton {
     opacity: 1;
+}
+
+
+/* sort dropdown */
+.tabButton {
+  font-size: 17px;
+  background: none;
+  border: none;
+  opacity: 50%;
+  cursor: pointer;
+  outline: none;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  margin-right: 10px;
+}
+
+.tabButton:hover {
+  opacity: 100%;
+}
+
+.active {
+  opacity: 100%;
+  border-bottom: 2px solid #636B2F;
+}
+
+.filterTab {
+  min-width: 170px;
+  font-size: 14px;
+  white-space: nowrap;
+  text-align: left;
+  position: relative;
+  top: 8px; 
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dropdownWrapper {
+  position: relative;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  border-radius: 4px;
+  min-width: 140px;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.dropdownSection {
+  margin-bottom: 15px;
+}
+
+.dropdownTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.dropdownItem {
+  padding: 4px 8px;
+  cursor: pointer;
+  color: #333;
+  font-size: 13px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.dropdownItem:hover {
+  background-color: #cbc6bf;
+}
+
+.arrow {
+  font-size: 20px;        
+  margin-left: 1px;        
+  vertical-align: middle;
+  position: relative;
+  top: -3px;             
 }
