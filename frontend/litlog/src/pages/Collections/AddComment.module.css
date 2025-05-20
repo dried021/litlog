@@ -58,3 +58,12 @@
 .cancelButton:hover {
   background-color: #c0392b;
 }
+
+.charCount {
+  font-size: 12px;
+  color: #888;
+  text-align: right;
+  margin-top: 4px;
+  display: block;
+}
+

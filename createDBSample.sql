@@ -41,18 +41,6 @@ VALUES
 ('user20', '윤지호', '010-1111-1130', '지호20', 'pwd123', 'yoon20@example.com', 2, 1),
 ('admin01', '관리자', '010-0000-0000', 'admin', 'adminpwd', 'admin@example.com', 1, 1);
 
--- 3. 이메일 인증 (email_veri)
-INSERT INTO email_veri(email, code, isVerified) 
-VALUES 
-('hong@example.com', '123456', TRUE),
-('admin@example.com', '654321', TRUE);
-
--- 4. 약관 (term)
-INSERT INTO term(title, content)
-VALUES
-('이용약관', '이 약관은 ...'),
-('개인정보 처리방침', '귀하의 개인정보는 ...');
-
 -- 5. 책 (book)
 INSERT INTO book(id, book_api_id, title, subtitle, authors, publisher, published_date, description, page_count, book_category)
 VALUES 
