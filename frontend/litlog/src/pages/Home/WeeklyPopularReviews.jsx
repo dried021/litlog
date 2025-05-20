@@ -46,8 +46,10 @@ const WeeklyPopularReviews = () => {
     });
   };
 
-  const truncate = (text, maxLength = 20) =>
-    text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+  const truncate = (text, maxLength = 20) => {
+    if (typeof text !== 'string') return '';
+    return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+};
 
   return (
     <div className={styles["container"]}>
