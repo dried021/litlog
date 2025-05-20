@@ -1,9 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './SideMenu.module.css';
-import { FaUserEdit, FaTrashAlt, FaUserShield } from 'react-icons/fa';
+import { FaUserEdit, FaTrashAlt, FaUserShield, FaSignOutAlt } from 'react-icons/fa';
+import { useLogout } from '../../libs/useLogout';
 
 const SideMenu = ({ isAdmin, activeMenu }) => {
+  const logout = useLogout(); 
   return (
     <div className={styles.menuContainer}>
       <nav className={styles.menu}>
@@ -26,12 +28,14 @@ const SideMenu = ({ isAdmin, activeMenu }) => {
           </NavLink>
         )}
 
-        <button className={`${styles.menuItem} ${styles.logoutButton}`} onClick={() => logout('/')}>
-                Sign Out
-      </button>
       </nav>
+      <div className={styles.bottomMenu}>
+          <button className={`${styles.logoutButton}`} onClick={() => logout('/')}>
+            <FaSignOutAlt className={styles.icon} />
+            Sign Out
+          </button>
+        </div>
 
-      
     </div>
   );
 };
