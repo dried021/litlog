@@ -28,14 +28,14 @@
 }
 
 button.active {
-    border-bottom: solid 2px #636B2F; 
+    border-bottom: solid 2px #5C5346; 
     opacity: 100%;
     font-weight: bold;
 }
 /* LIST HEADER START */
 .listHeader {
     display: flex;
-    background-color: #E8E8E8;
+    background-color: #F7E7CE;
     border-radius: 5px;
     padding: 3px;
     font-size: 12px;
@@ -59,7 +59,7 @@ button.active {
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: #3D4127; /*#F3F3F3;*/
+    background-color: #5C5346;
     width: 960px;
     height: 65px; /* ROW HEIGHT */
     border-top: 1px solid #EDE1D2;
