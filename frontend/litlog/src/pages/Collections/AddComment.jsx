@@ -42,8 +42,15 @@ const AddComment = ({ onSubmit, onCancel }) => {
         className={styles.textarea}
         placeholder="Write your comment here..."
         value={content}
-        onChange={(e) => setContent(e.target.value)}
+        onChange={(e) => {
+            if (e.target.value.length <= 1000) {
+              setContent(e.target.value);
+            }
+          }}
+        maxLength={1000}
       />
+      <small className={styles.charCount}>{content.length} / 1000</small>
+      
       <div className={styles.buttonsContainer}>
         <button className={styles.button} onClick={handleSubmit}>Submit</button>
         <button className={`${styles.button} ${styles.cancelButton}`} onClick={onCancel}>Cancel</button>
