@@ -147,8 +147,12 @@ export function useSignUpHandlers_nickname(openModal) {
         setEmailVerified(false);
       }
     } catch (err) {
-      openModal('Server error: Email verification failed.');
-      console.error(err);
+      if (err.response?.status === 401) {
+        openModal("Invalid verification code.");
+      } else {
+        openModal('Server error: Email verification failed.');
+        console.error(err);
+      }
     }
   };
 

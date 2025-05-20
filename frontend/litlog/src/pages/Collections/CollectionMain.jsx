@@ -93,7 +93,7 @@
         )}
         <div className={styles.overlay}>
           <p className={styles.overlayText}>
-            {col.content?.length > 100 ? col.content.slice(0, 100) + "..." : col.content}
+            {col.content?.length > 30 ? col.content.slice(0, 30) + "..." : col.content}
           </p>
         </div>
       </div>
