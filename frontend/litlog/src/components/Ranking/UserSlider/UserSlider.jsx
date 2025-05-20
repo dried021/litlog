@@ -2,6 +2,8 @@ import React from 'react';
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 import './UserSlider.css';
+import defaultProfile from "../../../assets/default_profile.png";
+
 function NextArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -69,7 +71,13 @@ function NextArrow(props) {
             <div className="user-card" key={user.id}>
 
               <Link to={`/${user.id}`}>
-                <img src={user.profile ?? '/icons/profile.svg'}  alt={user.title} className="user-profile" />
+                <img src={user.profile ?
+                  (user.profile.startsWith('http')
+                  ? user.profile
+                  : `http://localhost:9090${user.profile}`)
+                  :defaultProfile}  
+                  alt={user.title} className="user-profile" 
+                />
                 <h5 className="user-id">{user.nickname}</h5>
                 {(type=="avid")?  
 
