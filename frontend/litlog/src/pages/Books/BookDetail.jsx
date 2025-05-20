@@ -22,6 +22,7 @@ const BookDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [likeTrigger, setLikeTrigger] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
 
 
   const [modalData, setModalData] = useState({
@@ -43,8 +44,20 @@ const BookDetail = () => {
   };
 
   useEffect(() => {
+    const fetchInitialStatus = async () => {
+      try {
+        const res = await axios.get("http://localhost:9090/books/counts", {
+          params: { bookApiId: bookId },
+          withCredentials: true
+        });
+        setIsLiked(res.data.isLiked);
+      } catch (err) {
+        console.error("Initial like fetch error");
+      }
+    };
     if (bookId) {
       loadBook(bookId);
+      fetchInitialStatus();
     }
   }, [bookId]);
 
@@ -99,6 +112,7 @@ const BookDetail = () => {
       const response = await axios.post(`http://localhost:9090/books/like`, { bookId, book }, { withCredentials: true });
       const result = response.data;
       openModal(result > 0 ? "You have already liked this book." : "The book has been successfully liked.");
+      setIsLiked(true);
       setLikeTrigger(prev => prev + 1);
     } catch (err) {
       console.error("Add like error");
@@ -112,6 +126,7 @@ const BookDetail = () => {
         navigate(`/${response.data}/bookshelf`);
         return;
       }
+      setIsLiked(false);
       setLikeTrigger(prev => prev + 1);
       openModal("The book has been successfully unliked.");
     } catch (err) {
@@ -156,9 +171,15 @@ const BookDetail = () => {
               alt={book.volumeInfo.title}
             />
             <div className={styles["add-buttons"]}>
-                <BookInfoDiv bookApiId={bookId} change={handleChange} likeTrigger={likeTrigger}/>
+                <BookInfoDiv bookApiId={bookId}  isLiked={isLiked}
+                  setIsLiked={setIsLiked}
+                  change={handleChange} likeTrigger={likeTrigger}/>
                 <AddToBookshelfButton bookApiId={bookId} handleClick={handleAddToBookShelfButton} handleAddedClick={handleAddedBookShelfButton}/>
-                <AddLikeButton bookApiId={bookId} handleClick={handleAddLikeButton} handleAddedClick={handleAddedLikeButton} likeTrigger={likeTrigger}/>
+                <AddLikeButton bookApiId={bookId} isLiked={isLiked}
+                    setIsLiked={setIsLiked}
+                    handleClick={handleAddLikeButton} 
+                    handleAddedClick={handleAddedLikeButton} 
+                    likeTrigger={likeTrigger}/>
             </div>
           </div>
 
