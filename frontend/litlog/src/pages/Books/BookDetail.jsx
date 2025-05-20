@@ -136,6 +136,10 @@ const BookDetail = () => {
     }
   }
 
+  const handleChange = () => {
+    setLikeTrigger(prev => prev + 1);
+  }
+
 
   return (
     <div>
@@ -152,7 +156,7 @@ const BookDetail = () => {
               alt={book.volumeInfo.title}
             />
             <div className={styles["add-buttons"]}>
-                <BookInfoDiv bookApiId={bookId} likeTrigger={likeTrigger}/>
+                <BookInfoDiv bookApiId={bookId} change={handleChange} likeTrigger={likeTrigger}/>
                 <AddToBookshelfButton bookApiId={bookId} handleClick={handleAddToBookShelfButton} handleAddedClick={handleAddedBookShelfButton}/>
                 <AddLikeButton bookApiId={bookId} handleClick={handleAddLikeButton} handleAddedClick={handleAddedLikeButton} likeTrigger={likeTrigger}/>
             </div>

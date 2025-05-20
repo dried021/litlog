@@ -68,14 +68,25 @@ function NextArrow(props) {
             <div className="book-card" key={book.id}>
               <Link to={book.link}>
                 <img src={book.image ?? '/images/covernotavailable.png'}  alt={book.title} className="book-image" />
-                <h5 className="bookslider-booktitle">{
-                splitTextIntoLines(book.title, 9).map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    <br />
-                  </React.Fragment>
-                ))  
-                }</h5>
+                <h5 className="bookslider-booktitle">
+                  {(() => {
+                    const lines = splitTextIntoLines(book.title, 9);
+                    const slicedLines = lines.length > 2 ? lines.slice(0, 2) : lines;
+                  
+
+                    return (
+                      <>
+                        {slicedLines.map((line, index) => (
+                          <React.Fragment key={index}>
+                            {line}
+                            {index === 1 && lines.length > 2 ? ' ...' : ''}
+                            <br />
+                          </React.Fragment>
+                        ))}
+                      </>
+                    );
+                  })()}
+                </h5>
                 <div className="book-stats">
                   <img className="bookshelf" src="/icons/bookshelf.svg" alt="Bookshelf" />
                   <p>{" " + book.bookshelves + " "}</p>

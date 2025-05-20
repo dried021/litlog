@@ -58,8 +58,8 @@ function AddLikeButton({bookApiId, handleClick, handleAddedClick, likeTrigger}) 
               handleLikeClick();
             }
           }}>
-          <img src="/icons/heart_filled.svg"/>
-          {" Add Like"}
+          <img src="/icons/heart_filled.svg" alt=""/>
+          <span>Add Like</span>
         </button>
 
         {(showOptions && isLiked) && (
