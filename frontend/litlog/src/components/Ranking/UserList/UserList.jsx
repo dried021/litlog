@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './UserList.module.css';
+import defaultProfile from "../../../assets/default_profile.png";
 
 function UserList({ users, onItemClick, isRank, currentPage=1 }) {
   return (
@@ -53,7 +54,13 @@ function UserList({ users, onItemClick, isRank, currentPage=1 }) {
 
                 <div className={styles['user-profile']}>
                     <img className={styles['user-profile-img']}
-                    src={user.profile || "/icons/profile.svg"} alt={"profile"}/>
+                      src = {user.profile ?
+                        (user.profile.startsWith('http')
+                        ? user.profile
+                        : `http://localhost:9090${user.profile}`)
+                        :defaultProfile}  
+                      alt={"profile"}
+                    />
                 </div>
             </div>
         );
