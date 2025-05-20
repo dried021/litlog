@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styles from './Reviews.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Pagination from "../../components/Pagination/Pagination";
 import AddReview from "./AddReview";
 import ReadMoreButton from '../Button/ReadMoreButton';
+import { UserContext } from '../../libs/UserContext';
+import CustomModal from "../Modal/CustomModal"; 
+
+
 
 function Rating({ rating }) {
   return (
@@ -102,6 +106,36 @@ function Reviews({ bookApiId }) {
   const [isPopularity, setIsPopularity] = useState(true);
   const [isAddingReview, setIsAddingReview] = useState(false);
   const reviewPerPage = 5;
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [modalData, setModalData] = useState({
+      show:false,
+      message: "",
+      mode: "close",
+    });
+  
+    const handleCloseModal = () => {
+      setModalData({...modalData, show:false,});
+    };
+  
+    const openModal = (
+        successMessage, 
+        failMessage = "", 
+        resultValue="1",  
+        mode="close",
+        callbackOnSuccess=null,
+        callbackOnFail=null) => {
+      setModalData({
+        show:true,
+        successMessage,
+        failMessage, 
+        resultValue, 
+        mode,
+        callbackOnSuccess, 
+        callbackOnFail
+      });
+    };
 
   const handleOptionClick = (option) => {
     setIsPopularity(option === "popularity");
@@ -160,9 +194,26 @@ function Reviews({ bookApiId }) {
     }
   };
 
-  const handleAddReview = () => {
-    setIsAddingReview(true);    
-  }
+  const handleAddReview = (e) => {
+    e.preventDefault();
+    if (user === null) {
+      openModal(
+        "You need to sign in before adding review",
+        "",
+        "1",
+        "confirm",
+        () => {
+          navigate('/sign-in', {
+            state: { from: location.pathname }, 
+            replace: true
+          });
+        },
+        null
+      );
+    } else {
+      setIsAddingReview(true);    
+    }
+  };
 
   const handleCancelAddReview = () => {
     setIsAddingReview(false);
@@ -226,6 +277,16 @@ function Reviews({ bookApiId }) {
           ) : (
             <p className={styles.reviewstext}>No reviews yet</p>
           )}
+
+          <CustomModal
+            show={modalData.show}
+            onHide={handleCloseModal}
+            successMessage={modalData.successMessage}
+            failMessage={modalData.failMessage}
+            resultValue={modalData.resultValue}
+            mode={modalData.mode}
+            callbackOnSuccess={modalData.callbackOnSuccess}
+            callbackOnFail={modalData.callbackOnFail}/>
         </>
       )}
     </div>
