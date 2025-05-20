@@ -26,11 +26,13 @@
   font-size: 15px;
   font-weight: 500;
   color: inherit;
+  margin-top: -3px;
 }
 
 .dropdown {
   font-size: 15px;
-  color: #555;
+  color: #666;
+  margin-top: -3px;
 }
 
 .menu {
