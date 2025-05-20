@@ -1,4 +1,3 @@
-
 .collectionWrapper {
   padding: 40px;
   font-family: 'Arial', sans-serif;
@@ -86,122 +85,98 @@
 }
 
 .collectionGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 24px;
-  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .card {
-  width: 290px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  padding: 16px;
+  gap: 20px;
   background: #fff;
   border: 1px solid #ddd;
-  border-radius: 3px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
+  border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
   transition: transform 0.2s ease;
-  flex-shrink: 0;
 }
 
 .card:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
-  transition: all 0.2s ease-in-out;
 }
 
 .thumbnailStack {
+  flex-shrink: 0;
   position: relative;
-  height: 130px;
-  margin-bottom: 12px;
   width: 266px;
-  margin: 0 auto;
+  height: 130px;
+  margin: 0;
   overflow: hidden;
   cursor: pointer;
 }
 
-.stackedImg {
+.stackedImg,
+.placeholderBox {
   position: absolute;
   width: 90px;
   height: 130px;
   object-fit: cover;
   border-radius: 5px;
   background-color: #f2f2f2;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease;
   box-sizing: border-box;
 }
 
 .placeholderBox {
-  position: absolute;
-  width: 90px;
-  height: 130px;
   background-color: #eee;
-  border-radius: 5px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-  box-sizing: border-box;
 }
 
-.overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(20, 20, 20, 0.6);
-  color: #fff;
-  font-size: 13px;
-  padding: 12px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 11;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  border-radius: 5px;
-}
-
-.card:hover .overlay {
-  opacity: 1;
-}
-
-.collectionBookCount {
-  font-size: 14px;
-  color: #666;
-  margin-top: 2px;
+.author{
+  cursor: pointer;
 }
 
 .info {
-  margin-top: 15px;
+  flex: 1;
+  min-width: 0; 
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  justify-content: space-between;
+  gap: 8px;
 }
 
-.topRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
 
 .title {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px;
   color: #111;
   margin: 0;
+  cursor: pointer;
+
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  cursor: pointer;
+  max-width: 60%;
 }
 
-.author {
-  font-weight: bold;
-  font-size: 13px;
-  color: #888;
-  cursor: pointer;
+.description {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 60%;
+
+  word-break: break-word;     
+  white-space: normal;      
+  text-overflow: ellipsis;  
 }
 
 .bottomRow {
@@ -210,17 +185,17 @@
   align-items: center;
 }
 
-.bookCount {
-  font-size: 13px;
-  color: #555;
-  white-space: nowrap;
-}
-
+.bookCount,
 .meta {
   font-size: 13px;
   color: #666;
-  margin: 0;
   white-space: nowrap;
+}
+
+.collectionBookCount {
+  font-size: 14px;
+  color: #666;
+  margin-top: 2px;
 }
 
 .icon1 {
