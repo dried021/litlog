@@ -152,20 +152,40 @@ const CollectionDetail = () => {
                   </button>
                   <button
                     className={styles.deleteBtn}
-                    onClick={async () => {
-                      const confirmDelete = window.confirm('Are you sure you want to delete this?');
-                      if (!confirmDelete) return;
+                    onClick={() => {
+                      openModal({
+                        message: 'Are you sure you want to delete this collection?',
+                        mode: 'confirm',
+                        resultValue: '1',
+                        callbackOnSuccess: async () => {
+                          try {
+                            await axios.delete(`http://localhost:9090/collections/${collection.id}`, {
+                              withCredentials: true,
+                            });
 
-                      try {
-                        await axios.delete(`http://localhost:9090/collections/${collection.id}`, {
-                          withCredentials: true,
-                        });
-                        openModal({ message:'Deleted successfully.'});
-                        navigate('/collections');
-                      } catch (err) {
-                        console.error('Failed to delete: ', err);
-                        openModal({ message:'An error occurred during deletion.'} );
-                      }
+                            setModalData({
+                              show: true,
+                              message: 'Deleted successfully.',
+                              mode: 'close',
+                              resultValue: '1',
+                            });
+                            
+                            setTimeout(() => {
+                              navigate('/collections');
+                            }, 1000);
+                          } catch (err) {
+                            console.error('Failed to delete: ', err);
+                            setModalData({
+                              show: true,
+                              message: 'An error occurred during deletion.',
+                              mode: 'close',
+                              resultValue: '0',
+                            });
+                          }
+                        },
+                        callbackOnFail: () => {
+                        }
+                      });
                     }}>
                     Delete
                   </button>
