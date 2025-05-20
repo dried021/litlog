@@ -69,7 +69,7 @@ public class Books {
         boolean exists = bookService.exists(bookApiId);
         Map<String, Object> response = new HashMap<>();
         
-        if (!exists){
+        if (!exists || userId == null){
             response.put("bookshelfCount", 0);
             response.put("likeCount", 0);
             response.put("isLiked", 0);
@@ -92,7 +92,7 @@ public class Books {
         String userId = (String) session.getAttribute("loginUser");
         boolean exists = bookService.exists(bookApiId);
         
-        if (!exists){
+        if (!exists || userId == null){
             return ResponseEntity.ok(false);
         }
         
@@ -109,7 +109,7 @@ public class Books {
         boolean exists = bookService.exists(bookApiId);
 
         Map<String, Object> response = new HashMap<>();
-        if (exists) {
+        if (exists && userId!=null) {
             int bookId = bookService.getIdByBookApiId(bookApiId);
             List<BookReviewDto> reviews = bookService.getReviews(bookId, currentPage, userId, isPopularity);
             int reviewsCount = bookService.getReviewCount(bookId);
@@ -127,6 +127,9 @@ public class Books {
     public ResponseEntity<Boolean> changeLikeState(@RequestBody Map<String, Object> payload, HttpSession session){
         String userId = (String) session.getAttribute("loginUser");
 
+        if (userId == null){
+            return ResponseEntity.ok(false);
+        }
         int reviewId = (int) payload.get("reviewId");
         boolean isLiked = (boolean) payload.get("isLiked");
 
