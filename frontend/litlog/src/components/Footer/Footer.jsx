@@ -12,7 +12,7 @@ const Footer = () => {
         <Link to="/credits">Credits</Link>
       </div>
       <p className={styles.copy}>
-        © 2025 LitLog All Rights Reserved. Made by Book Fox Team with Love for Readers. Book data from Google Books API.
+        © 2025 LitLog All Rights Reserved. Made by Team Book Fox with Love for Readers. Book data from Google Books API.
       </p>
     </footer>
   );
