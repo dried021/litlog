@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,  useContext } from 'react';
 import styles from './BookInfoDiv.module.css';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { exists } from "../../../libs/book/exists";
 import axios from 'axios';
 import CustomModal from "../../Modal/CustomModal";
+import { UserContext } from '../../../libs/UserContext'; 
 
 function BookInfoDiv({ bookApiId, isLiked, setIsLiked, change, likeTrigger }) {
   const [bookshelfCount, setBookshelfcount] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
+
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [modalData, setModalData] = useState({
     show:false,
@@ -18,13 +24,23 @@ function BookInfoDiv({ bookApiId, isLiked, setIsLiked, change, likeTrigger }) {
     setModalData({...modalData, show:false,});
   };
 
-  const openModal = (message) => {
-    setModalData({
-      show:true,
-      message,
-      mode: "close",
-    });
-  };
+  const openModal = (
+    successMessage, 
+    failMessage = "", 
+    resultValue="1",  
+    mode="close",
+    callbackOnSuccess=null,
+    callbackOnFail=null) => {
+  setModalData({
+    show:true,
+    successMessage,
+    failMessage, 
+    resultValue, 
+    mode,
+    callbackOnSuccess, 
+    callbackOnFail
+  });
+};
 
   useEffect(() => {
     const fetchCounts = async () => {
@@ -71,31 +87,54 @@ function BookInfoDiv({ bookApiId, isLiked, setIsLiked, change, likeTrigger }) {
   };
 
   const changeLike = async (bookApiId) => {
-    if (isLiked){
-      try {
-        const response = await axios.post(`http://localhost:9090/books/unlike`, { bookApiId, option: 2 }, { withCredentials: true });
-        openModal("The book has been successfully unliked.");
-        setIsLiked(false);
-        setLikeCount((prev) => prev - 1);
-        change();
-      } catch (err) {
-        console.error("Add unlike error");
-      }
-
-    }else{
-      try {
-        const bookId = bookApiId;
-        const response = await axios.post(`http://localhost:9090/books/like`, { bookId }, { withCredentials: true });
-        const result = response.data;
-        openModal(result > 0 ? "You have already liked this book." : "The book has been successfully liked.");
-        setIsLiked(true);
-        setLikeCount((prev) => prev + 1);
-      } catch (err) {
-        console.error("Add like error");
-      }
-    }
-
+  if (!user) {
+    openModal(
+      "You need to sign in before using this feature.",
+      "",
+      "1",
+      "confirm",
+      () => {
+        navigate('/sign-in', {
+          state: { from: location.pathname },
+          replace: true
+        });
+      },
+      null
+    );
+    return;
   }
+
+  if (isLiked) {
+    try {
+      const response = await axios.post(
+        `http://localhost:9090/books/unlike`,
+        { bookApiId, option: 2 },
+        { withCredentials: true }
+      );
+      openModal("The book has been successfully unliked.");
+      setIsLiked(false);
+      setLikeCount((prev) => prev - 1);
+      change(); 
+    } catch (err) {
+      console.error("Add unlike error");
+    }
+  } else {
+    try {
+      const bookId = bookApiId;
+      const response = await axios.post(
+        `http://localhost:9090/books/like`,
+        { bookId },
+        { withCredentials: true }
+      );
+      const result = response.data;
+      openModal(result > 0 ? "You have already liked this book." : "The book has been successfully liked.");
+      setIsLiked(true);
+      setLikeCount((prev) => prev + 1);
+    } catch (err) {
+      console.error("Add like error");
+    }
+  }
+};
 
   return (
     <>
@@ -107,13 +146,15 @@ function BookInfoDiv({ bookApiId, isLiked, setIsLiked, change, likeTrigger }) {
       {" " + likeCount}
     </div>
 
-    <CustomModal
-    show={modalData.show}
-    onHide={handleCloseModal}
-    successMessage={modalData.message}
-    failMessage={modalData.message}
-    resultValue={"1"}
-    mode="close"/>
+          <CustomModal
+            show={modalData.show}
+            onHide={handleCloseModal}
+            successMessage={modalData.successMessage}
+            failMessage={modalData.failMessage}
+            resultValue={modalData.resultValue}
+            mode={modalData.mode}
+            callbackOnSuccess={modalData.callbackOnSuccess}
+            callbackOnFail={modalData.callbackOnFail}/>
 
     </>
   );

@@ -1,10 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./AddToBookshelfButton.css"; 
 import axios from "axios";
+import { UserContext } from "../../libs/UserContext";
+import { useNavigate, useLocation } from "react-router-dom";
+import CustomModal from "../Modal/CustomModal";
 
 function AddToBookshelfButton({bookApiId, handleClick, handleAddedClick}) {
   const [showOptions, setShowOptions] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
+
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [modalData, setModalData] = useState({
+    show: false,
+    message: "",
+    mode: "close",
+    resultValue: "1",
+    successMessage: "",
+    failMessage: "",
+    callbackOnSuccess: null,
+    callbackOnFail: null,
+  });
+
+  const handleCloseModal = () => {
+    setModalData({ ...modalData, show: false });
+  };
+
+  const openModal = (
+    successMessage,
+    failMessage = "",
+    resultValue = "1",
+    mode = "close",
+    callbackOnSuccess = null,
+    callbackOnFail = null
+  ) => {
+    setModalData({
+      show: true,
+      successMessage,
+      failMessage,
+      resultValue,
+      mode,
+      callbackOnSuccess,
+      callbackOnFail,
+    });
+  };
 
   const options = [
     { label: "To Read", value: 1 },
@@ -17,9 +58,11 @@ function AddToBookshelfButton({bookApiId, handleClick, handleAddedClick}) {
     { label: "Remove from bookshelf", value: 2 },
   ]
 
-  useEffect(()=> {
-    setBookshelf(bookApiId);
-  }, [bookApiId, isAdded]);
+  useEffect(() => {
+    if (bookApiId && user) {
+      setBookshelf(bookApiId);
+    }
+  }, [bookApiId, isAdded, user]);
 
   const setBookshelf = async (bookApiId) => {
     try {
@@ -55,39 +98,47 @@ function AddToBookshelfButton({bookApiId, handleClick, handleAddedClick}) {
     }
   }
 
+  const handleButtonClick = () => {
+    if (!user) {
+      openModal(
+        "You need to sign in before using this feature.",
+        "",
+        "1",
+        "confirm",
+        () => {
+          navigate("/sign-in", {
+            state: { from: location.pathname },
+            replace: true,
+          });
+        },
+        null
+      );
+    }
+  };
+
   return (
     <>
       <div
         className="addtobookshelf-container"
-        onMouseEnter={() => setShowOptions(true)}
+        onMouseEnter={() => user && setShowOptions(true)}
         onMouseLeave={() => setShowOptions(false)}
       >
-        <button className="addtobookshelf-button">
+        <button className="addtobookshelf-button" onClick={handleButtonClick}>
           <img src="/icons/bookshelf.svg" alt="Bookshelf Icon" />
           {" Add to Bookshelf"}
         </button>
 
-        {(showOptions && isAdded) && (
+        {showOptions && (
           <div className="options-dropdown">
-            {options_added.map((option) => (
+            {(isAdded ? options_added : options).map((option) => (
               <div
                 key={option.value}
                 className="option-item"
-                onClick={() => handleOptionAddedClick(option.value)}
-              >
-                {option.label}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {(showOptions && !isAdded) && (
-          <div className="options-dropdown">
-            {options.map((option) => (
-              <div
-                key={option.value}
-                className="option-item"
-                onClick={() => handleOptionClick(option.value)}
+                onClick={() =>
+                  isAdded
+                    ? handleOptionAddedClick(option.value)
+                    : handleOptionClick(option.value)
+                }
               >
                 {option.label}
               </div>
@@ -95,6 +146,17 @@ function AddToBookshelfButton({bookApiId, handleClick, handleAddedClick}) {
           </div>
         )}
       </div>
+
+      <CustomModal
+        show={modalData.show}
+        onHide={handleCloseModal}
+        successMessage={modalData.successMessage}
+        failMessage={modalData.failMessage}
+        resultValue={modalData.resultValue}
+        mode={modalData.mode}
+        callbackOnSuccess={modalData.callbackOnSuccess}
+        callbackOnFail={modalData.callbackOnFail}
+      />
     </>
   );
 }

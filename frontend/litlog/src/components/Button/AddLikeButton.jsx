@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import "./AddLikeButton.css"; 
+import { useNavigate, useLocation } from 'react-router-dom'
+import { UserContext } from '../../libs/UserContext';
+import CustomModal from "../Modal/CustomModal"; 
 
 function AddLikeButton({ bookApiId, isLiked, setIsLiked, handleClick, handleAddedClick, likeTrigger }) {
   const [showOptions, setShowOptions] = useState(false);
@@ -10,13 +13,43 @@ function AddLikeButton({ bookApiId, isLiked, setIsLiked, handleClick, handleAdde
     { label: "Remove like", value: 2 },
   ];
 
+  const { user } = useContext(UserContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [modalData, setModalData] = useState({
+        show:false,
+        message: "",
+        mode: "close",
+      });
+    
+      const handleCloseModal = () => {
+        setModalData({...modalData, show:false,});
+      };
+    
+      const openModal = (
+          successMessage, 
+          failMessage = "", 
+          resultValue="1",  
+          mode="close",
+          callbackOnSuccess=null,
+          callbackOnFail=null) => {
+        setModalData({
+          show:true,
+          successMessage,
+          failMessage, 
+          resultValue, 
+          mode,
+          callbackOnSuccess, 
+          callbackOnFail
+        });
+      };
+
   useEffect(() => {
     const fetchLikeStatus = async () => {
       if (!bookApiId) {
         setIsLiked(false); 
         return;
       }
-
       try {
         const response = await axios.get(`http://localhost:9090/books/counts`, {
           params: { bookApiId },
@@ -28,28 +61,52 @@ function AddLikeButton({ bookApiId, isLiked, setIsLiked, handleClick, handleAdde
         setIsLiked(false);
       }
     };
-
     fetchLikeStatus();
   }, [bookApiId, likeTrigger]);
 
-  const handleAddedOptionClick = async (option) => {
-    try {
-      await handleAddedClick(option);
-      if (option === 2) setIsLiked(false);
-    } catch (err) {
-      console.error("Error removing like:", err);
+  const handleLoginCheck = (action) => {
+    if (!user) {
+      openModal(
+        "You need to sign in before using this feature.",
+        "",
+        "1",
+        "confirm",
+        () => {
+          navigate('/sign-in', {
+            state: { from: location.pathname },
+            replace: true
+          });
+        },
+        null
+      );
+    } else {
+      action();
     }
-    setShowOptions(false);
+  };
+
+  const handleAddedOptionClick = async (option) => {
+    handleLoginCheck(async () => {
+      try {
+        await handleAddedClick(option);
+        if (option === 2) setIsLiked(false);
+      } catch (err) {
+        console.error("Error removing like:", err);
+      }
+      setShowOptions(false);
+    });
   };
 
   const handleLikeClick = async () => {
-    if (!isLiked) {
-      await handleClick(); 
-      setIsLiked(true);
-    }
+    handleLoginCheck(async () => {
+      if (!isLiked) {
+        await handleClick();
+        setIsLiked(true);
+      }
+    });
   };
 
   return (
+    <>
     <div
       className="addlike-container"
       onMouseEnter={() => setShowOptions(true)}
@@ -65,7 +122,7 @@ function AddLikeButton({ bookApiId, isLiked, setIsLiked, handleClick, handleAdde
         <span>Add Like</span>
       </button>
 
-      {(showOptions && isLiked) && (
+      {(showOptions && isLiked === true) && (
         <div className="options-dropdown">
           {options_liked.map((option) => (
             <div
@@ -79,6 +136,16 @@ function AddLikeButton({ bookApiId, isLiked, setIsLiked, handleClick, handleAdde
         </div>
       )}
     </div>
+    <CustomModal
+            show={modalData.show}
+            onHide={handleCloseModal}
+            successMessage={modalData.successMessage}
+            failMessage={modalData.failMessage}
+            resultValue={modalData.resultValue}
+            mode={modalData.mode}
+            callbackOnSuccess={modalData.callbackOnSuccess}
+            callbackOnFail={modalData.callbackOnFail}/>
+    </>
   );
 }
 
