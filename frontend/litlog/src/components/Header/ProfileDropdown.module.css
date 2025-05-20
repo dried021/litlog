@@ -1,6 +1,6 @@
 .wrapper {
   position: relative;
-  display: inline-block;
+  display: flex;
 }
 
 .trigger {
@@ -13,26 +13,28 @@
   gap: 6px;
   padding: 4px 8px;
   font-size: 14px;
-  font-weight: 500;
 }
 
 .trigger:hover,
-.triggerOpen,
-.active {
-  color: #3e264a;
+.trigger.triggerOpen,
+.trigger.active {
+  color: #636B2F;
+  font-weight: 700;
 }
 
 .nickname {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: inherit;
   color: inherit;
-  margin-top: -3px;
+  margin-top: -2px;
+  min-width: 60px;
 }
 
 .dropdown {
   font-size: 15px;
   color: #666;
-  margin-top: -3px;
+  margin-left: -7px;
+  margin-top: -1px;
 }
 
 .menu {
