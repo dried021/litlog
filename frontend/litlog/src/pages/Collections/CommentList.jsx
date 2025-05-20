@@ -117,7 +117,11 @@ const CommentList = ({ comments, onRefresh }) => {
                 {comment.nickname}
               </Link>
               <span className={styles['comment-date']}>
-                {new Date(comment.creationDate).toLocaleDateString()}
+                {new Date(comment.creationDate).toLocaleDateString('en-GB', {
+                  day: '2-digit',
+                  month: 'short',
+                  year: 'numeric'
+                })}
               </span>
             </div>
 
@@ -128,9 +132,11 @@ const CommentList = ({ comments, onRefresh }) => {
                   value={editContent}
                   onChange={(e) => setEditContent(e.target.value)}
                 />
+                <small className={styles.charCount}>{editContent.length} / 1000</small>
+
                 <div className={styles.commentActions}>
-                  <button onClick={() => handleSaveEdit(comment.id)}>Save</button>
-                  <button onClick={handleCancelEdit}>Cancel</button>
+                  <button className={styles.saveBtn} onClick={() => handleSaveEdit(comment.id)}>Save</button>
+                  <button className={styles.cancelBtn} onClick={handleCancelEdit}>Cancel</button>
                 </div>
               </>
             ) : (
