@@ -32,18 +32,40 @@ const CommentList = ({ comments, onRefresh }) => {
     setModalData(prev => ({ ...prev, show: false }));
   };
 
-  const handleDelete = async (commentId) => {
-    if (!window.confirm('Are you sure you want to delete this comment?')) return;
+  const handleDelete = (commentId) => {
+  setModalData({
+    show: true,
+    message: 'Are you sure you want to delete this comment?',
+    mode: 'confirm',
+    resultValue: '1',
+    callbackOnSuccess: async () => {
+      try {
+        await axios.delete(`http://localhost:9090/collections/comments/${commentId}`, {
+          withCredentials: true
+        });
 
-    try {
-      await axios.delete(`http://localhost:9090/collections/comments/${commentId}`, {
-        withCredentials: true
-      });
-      onRefresh(); 
-    } catch (err) {
-      console.error('Failed to delete comment:', err);
+        setModalData({
+          show: true,
+          message: 'The comment was successfully deleted.',
+          mode: 'close',
+          resultValue: '1',
+        });
+
+        onRefresh(); 
+      } catch (err) {
+        console.error('Failed to delete comment:', err);
+        setModalData({
+          show: true,
+          message: 'Failed to delete the comment.',
+          mode: 'close',
+          resultValue: '0',
+        });
+      }
+    },
+    callbackOnFail: () => {
     }
-  };
+  });
+};
 
   const handleEdit = (comment) => {
     setEditingId(comment.id);
