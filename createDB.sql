@@ -11,8 +11,6 @@ DROP TABLE IF EXISTS book_shelf;
 DROP TABLE IF EXISTS book_review;
 DROP TABLE IF EXISTS book_images;
 DROP TABLE IF EXISTS book;
-DROP TABLE IF EXISTS term;
-DROP TABLE IF EXISTS email_veri;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS like_type;
 DROP TABLE IF EXISTS shelf_type;
@@ -91,7 +89,6 @@ INSERT INTO like_type (name, value) VALUES
 
 CREATE TABLE user(
 	id VARCHAR(50) PRIMARY KEY,
-    id_reset_at TIMESTAMP NULL DEFAULT NULL,
     name VARCHAR(50) NOT NULL,
     tel VARCHAR(50),
     nickname VARCHAR(50) NOT NULL,
@@ -110,19 +107,6 @@ CREATE TABLE user(
         REFERENCES user_type(value) ON DELETE SET NULL, 
     FOREIGN KEY (user_status) 
         REFERENCES user_status(value) ON DELETE SET NULL
-);
-
-CREATE TABLE email_veri (
-	email VARCHAR(100) PRIMARY KEY,
-    code VARCHAR(10),
-    isVerified BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE term (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    content TEXT NOT NULL
 );
 
 CREATE TABLE book (
