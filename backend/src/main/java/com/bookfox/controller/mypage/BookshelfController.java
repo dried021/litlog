@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -81,14 +82,33 @@ public class BookshelfController {
         }
     }
 
-    @DeleteMapping("/{userId}/bookshelf")
-    public ResponseEntity<String> deleteBookshelf(@PathVariable String userId, @RequestBody Map<String, Object> request) {
-        int shelfType = (int) request.get("shelfType");
-        int bookId = (int) request.get("bookId");
-        boolean success = bookshelfService.removeBookshelf(userId, bookId, shelfType);
+    @DeleteMapping("/{userId}/bookshelf/{bookId}")
+    public ResponseEntity<String> deleteBookshelf(@PathVariable String userId, @PathVariable int bookId) {
+        boolean success = bookshelfService.removeBookshelf(userId, bookId);
 
         if (success) {
             return ResponseEntity.ok("Removed from bookshelf");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Update failed");
+        }
+    }
+    @PatchMapping("/{userId}/bookshelf/{bookId}")
+    public ResponseEntity<String> moveBookshelf(@PathVariable String userId, @PathVariable int bookId, @RequestBody Map<String, Object> request) {
+        int bookshelfType = (int) request.get("bookshelfType");
+        boolean success = bookshelfService.moveBookshelf(userId, bookId, bookshelfType);
+
+        if (success) {
+            return ResponseEntity.ok("Moved shelf");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Update failed");
+        }
+    }
+    @DeleteMapping("/{userId}/books/{bookId}")
+    public ResponseEntity<String> unlikeBook(@PathVariable String userId, @PathVariable int bookId) {
+        boolean success = bookshelfService.unlikeBook(userId, bookId);
+
+        if (success) {
+            return ResponseEntity.ok("Moved shelf");
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Update failed");
         }

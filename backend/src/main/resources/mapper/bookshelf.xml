@@ -125,6 +125,24 @@
         DELETE FROM book_shelf
         WHERE book_id = #{bookId}
         AND user_id = #{userId}
-        AND shelf_type = #{shelfType}
+    </delete>
+    <update id="moveBookshelf" parameterType="map">
+        UPDATE book_shelf
+        SET shelf_type = #{bookshelfType},
+            creation_date = NOW(),
+            progress = CASE
+                WHEN #{bookshelfType} = 1 THEN 0
+                WHEN #{bookshelfType} = 2 THEN 0
+                WHEN #{bookshelfType} = 3 THEN 100
+                ELSE 0
+            END
+        WHERE book_id = #{bookId}
+        AND user_id = #{userId}
+    </update>
+    <delete id="unlikeBook" parameterType="map">
+        DELETE FROM like_list
+        WHERE target_id = #{bookId}
+        AND user_id = #{userId}
+        AND like_type = 2
     </delete>
 </mapper>
