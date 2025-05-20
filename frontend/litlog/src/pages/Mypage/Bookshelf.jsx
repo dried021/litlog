@@ -155,7 +155,7 @@ const Bookshelf = ({shelfType}) => {
                     options={options} action={(selected) => setSort(selected.value)}
                 />
             </div>
-            {currentBooks.length ===0 && <p>No books to show</p>}
+            {currentBooks.length ===0 && <p className={styles.msg}>No books to show</p>}
             {currentBooks.length > 0 && (
                 <>
                     <ul className={styles.bookList}>

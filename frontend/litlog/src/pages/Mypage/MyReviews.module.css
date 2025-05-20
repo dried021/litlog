@@ -152,10 +152,10 @@
 
 /* 안내문구 */
 .no-reviews {
-  text-align: center;
   padding: 40px 0;
   font-size: 16px;
-  color: #666;
+  font-style: italic;
+  color: #888;
 }
 
 /* 툴팁 

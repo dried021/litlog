@@ -11,7 +11,7 @@ export default function GroupReviews({groupLabel, group, msg, url}) {
             </div>
             <hr className={styles.solid}/>
             {group.totalCount === 0 ?
-                (<p>{msg}</p>) : 
+                (<p className={styles.msg}>{msg}</p>) : 
                 group.reviews.map((review, index) => (
                     <ProfileReviewCard
                         key={index}
