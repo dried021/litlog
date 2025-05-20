@@ -45,7 +45,12 @@ function Review({ reviews, currentPage, reviewPerPage}) {
 
     return (
       <div className={styles['review-list']}>
-          {reviews.map((review, index) => (
+          {reviews.map((review, index) => {
+            const displayedContent = review.content.length > 300
+              ? review.content.slice(0, 300) + '...'
+              : review.content;
+    
+            return(
               <div key={review.id} className={((index+1)%5==0)?styles['review-item-last'] : styles['review-item']}>
 
               <div className={styles['index-box']}>
@@ -73,7 +78,7 @@ function Review({ reviews, currentPage, reviewPerPage}) {
                 </div>
 
                 <div className={styles['content']}>
-                    <div className={styles['content-p']}>{review.content}</div>
+                    <div className={styles['content-p']}>{displayedContent}</div>
                 </div>
               </div>
 
@@ -82,7 +87,7 @@ function Review({ reviews, currentPage, reviewPerPage}) {
                   <p className={styles['review-like-count']}>{review.likeCount}</p>
               </div>
               </div>
-          ))}
+          )})}
       </div>
     );
 }

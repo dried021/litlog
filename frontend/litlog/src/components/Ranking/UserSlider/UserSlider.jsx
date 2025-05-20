@@ -46,25 +46,26 @@ function NextArrow(props) {
     title,
     users,
     slidesToShow = 5,
-    slidesToScroll = 4,
+    slidesToScroll = 1,
     type
   }) {
+
     const settings = {
       dots: false,
-      infinite: true,
-      speed: 500,
-      slidesToShow,
-      slidesToScroll,
-      arrows: true,
-      nextArrow: <NextArrow />,
-      prevArrow: <PrevArrow />
+    infinite: false,          
+    speed: 0,                
+    slidesToShow,            
+    slidesToScroll: 0,       
+    arrows: false,          
+    swipe: false,             
+    draggable: false,      
     };
   
     return (
       <div className="user-slider">
         {title && <h3 className="userslider-title">{title}</h3>}
         <Slider {...settings}>
-          {users.map((user) => (
+          {users.slice(0,5).map((user) => (
             <div className="user-card" key={user.id}>
 
               <Link to={`/${user.id}`}>

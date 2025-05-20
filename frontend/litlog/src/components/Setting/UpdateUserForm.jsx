@@ -107,13 +107,15 @@ const UpdateUserForm = ({ userId }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!currentPassword) return openModal("Please enter your current password.");
-        if (currentPassword !== originalPassword ) return openModal("Incorrect current password.");
+        const changingPwd = !!newPassword;
+        const changingEmail = isEmailChanged;
+        if ((changingPwd || changingEmail) && !currentPassword) return openModal("Please enter your current password.");
+        if ((changingPwd || changingEmail) && currentPassword !== originalPassword) return openModal("Incorrect current password.");
         if (isNicknameChanged && (!nicknameChecked || !nicknameAvailable)) return openModal("Please check for duplicate nickname.");
-        if (isEmailChanged && (!emailChecked || !emailAvailable)) return openModal("Please verify your email.");
-        if (isEmailChanged && (!emailVerified)) return openModal("Please complete email verification.");
-        if (newPassword && newPassword.length < 6) return openModal("Password must be at least 6 characters long.");
-        if (newPassword && confirmPassword && newPassword !== confirmPassword) return openModal("New passwords do not match.");
+        if (changingEmail && (!emailChecked || !emailAvailable)) return openModal("Please verify your email.");
+        if (changingEmail && !emailVerified) return openModal("Please complete email verification.");
+        if (changingPwd && newPassword.length < 6) return openModal("Password must be at least 6 characters long.");
+        if (changingPwd && confirmPassword && newPassword !== confirmPassword) return openModal("New passwords do not match.");
         
         const requestData = {
             id : userId,
