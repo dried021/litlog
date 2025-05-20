@@ -5,6 +5,7 @@
   import styles from './CollectionMain.module.css';
   import Pagination from '../../components/Pagination/Pagination';  
   import CustomModal from "../../components/Modal/CustomModal";
+  import defaultProfile from '../../assets/default_profile.png';
 
   const CollectionMain = () => {
     const navigate = useNavigate();
@@ -136,7 +137,7 @@
                   ? (col.profileImage.startsWith('http')
                       ? col.profileImage
                       : `http://localhost:9090${col.profileImage}`)
-                  : '/assets/default_profile.png'
+                  : defaultProfile
               }
               alt="profile"
               className={styles.profileIcon}

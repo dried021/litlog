@@ -4,6 +4,7 @@ import { UserContext } from '../../libs/UserContext';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import CustomModal from "../../components/Modal/CustomModal";
+import defaultProfile from '../../assets/default_profile.png';
 
 const CommentList = ({ comments, onRefresh }) => {
   const { user } = useContext(UserContext);
@@ -120,7 +121,7 @@ const CommentList = ({ comments, onRefresh }) => {
                       ? (comment.profileImage.startsWith('http')
                           ? comment.profileImage
                           : `http://localhost:9090${comment.profileImage}`)
-                      : '/assets/default_profile.png'
+                      : defaultProfile
                   }
                   alt="profile"
                   className={styles.profileIcon}

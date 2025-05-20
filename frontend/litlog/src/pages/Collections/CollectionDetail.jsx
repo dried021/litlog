@@ -6,6 +6,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import CollectionCommentSection from './CollectionCommentSection';
 import { UserContext } from '../../libs/UserContext';
 import CustomModal from "../../components/Modal/CustomModal";
+import defaultProfile from '../../assets/default_profile.png';
 
 const CollectionDetail = () => {
   const { collectionId } = useParams();
@@ -224,7 +225,7 @@ const CollectionDetail = () => {
                   ? (collection.profileImage.startsWith('http')
                       ? collection.profileImage
                       : `http://localhost:9090${collection.profileImage}`)
-                  : '/assets/default_profile.png'
+                  : defaultProfile
               }
               alt="profile"
               className={styles.profileIcon}
