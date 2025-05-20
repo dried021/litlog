@@ -15,7 +15,7 @@ public class UserDto {
     private String nickname;
     private Timestamp nicknameResetAt;
     private String profileImage;
-    private Timestamp profileImageOrigin;
+    private String profileImageOrigin;
     private String pwd;
     private Timestamp pwdResetAt;
     private String email;

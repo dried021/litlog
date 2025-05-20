@@ -27,24 +27,24 @@ const About = () => {
         and effortless.
       </p>
 
-      <h1 className={styles.title}>Why is it called "LitLog"?</h1>
+      <h1 className={styles.title}>Why is it called LitLog?</h1>
       <p className={styles.paragraph}>
         The name “LitLog” combines “Literature” and “Log”, representing a space where you record and reflect on your
         literary journey. It’s not just about finishing books — it’s about preserving the experience and sharing it with
         others.
       </p>
 
-      <h1 className={styles.title}>How do I use LitLog?</h1>
+      <h1 className={styles.title}>How should I use LitLog?</h1>
       <p className={styles.paragraph2}>
         You can explore books, collections, and reviews without signing up. But to write reviews, add books to your shelf,
         or follow other readers, you’ll need an account.
       </p>
       <ul className={styles.list}>
-        <li>Write reviews and rate books</li>
-        <li>Organize your personal bookshelf</li>
-        <li>Create and share themed collections</li>
-        <li>Explore other users’ bookshelves and reviews</li>
-        <li>Communicate through likes and comments</li>
+        <li>Write Reviews and Rate Books</li>
+        <li>Organize your Personal Bookshelf</li>
+        <li>Create and Share themed Collections</li>
+        <li>Explore Friends' Profile and Reviews</li>
+        <li>Communicate through Likes and Comments</li>
       </ul>
     </div>
   );
