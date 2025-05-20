@@ -22,7 +22,7 @@ export default function BookStack() {
 
     return (
         <div className={styles.bookStack}>
-            {result.totalCount > 0 && <h2>{new Date().getFullYear()} BOOK STACK</h2>}
+            <h2>{new Date().getFullYear()} BOOK STACK</h2>
             <div className={styles.bookList}>
                 {result.books.map((book, index) => (
                     <a key={index} href={`/books/${book.bookApiId}`} className={styles.bookLink}>
@@ -32,6 +32,15 @@ export default function BookStack() {
                     </a>
                 ))}
             </div>
+            {result.totalCount === 0 && (
+                <div className={styles.emptyBookStack}>
+                    <p>This stack's a bit shy...</p>
+                    <p>Give it some books!</p>
+                    <div className={styles.emptyBookOne}/>
+                    <div className={styles.emptyBookTwo}/>
+                    <div className={styles.emptyBookThree}/>
+                </div>
+            )}
         </div>
     );
 }
