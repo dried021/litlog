@@ -187,3 +187,36 @@
   gap: 8px;
   justify-content: flex-end;
 }
+
+.saveBtn, .cancelBtn {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.saveBtn {
+  background-color: #27ae60;
+  color: white;
+}
+.saveBtn:hover {
+  background-color: #1e8449;
+}
+
+.cancelBtn {
+  background-color: #bdc3c7;
+  color: white;
+}
+.cancelBtn:hover {
+  background-color: #95a5a6;
+}
+
+.charCount {
+  font-size: 12px;
+  color: #888;
+  text-align: right;
+  margin-top: 4px;
+  display: block;
+}

@@ -1,18 +1,41 @@
-  import React, { useEffect, useState, useMemo } from 'react';
+  import React, { useEffect, useState, useMemo, useContext } from 'react';
+  import { UserContext } from '../../libs/UserContext';
   import { Link, useNavigate } from 'react-router-dom';
   import axios from 'axios';
   import styles from './CollectionMain.module.css';
   import Pagination from '../../components/Pagination/Pagination';  
+  import CustomModal from "../../components/Modal/CustomModal";
 
   const CollectionMain = () => {
     const navigate = useNavigate();
+    const { user } = useContext(UserContext);
     const [popularCollections, setPopularCollections] = useState([]);
     const [allCollections, setAllCollections] = useState([]);
     const [sortBy, setSortBy] = useState('popular');
     const [currentPage, setCurrentPage] = useState(1);
     const [pageCount, setPageCount] = useState(1); 
     const pageSize = 12; 
+    const [modalData, setModalData] = useState({
+        show: false,
+        message: "",
+        mode: "close",
+        resultValue: "1",
+      });
+    
+    const openModal = ({ message, mode = "close", resultValue = "1", callbackOnSuccess = null, callbackOnFail = null }) => {
+      setModalData({
+        show: true,
+        message,
+        mode,
+        resultValue,
+        callbackOnSuccess,
+        callbackOnFail
+      });
+    };
 
+    const handleCloseModal = () => {
+      setModalData(prev => ({ ...prev, show: false }));
+    };
     
     useEffect(() => {
       fetchPopularCollections();
@@ -99,14 +122,16 @@
       </div>
 
       <div className={styles.info}>
-        <div className={styles.topRow}>
-          <h3 className={styles.title} onClick={() => navigate(`/collections/${col.id}`)}>{col.title}</h3>
-          <span className={styles.bookCount}>
-            {col.bookCount ?? col.books?.length ?? 0} books
-          </span>
-        </div>
+        <h3 className={styles.title} onClick={() => navigate(`/collections/${col.id}`)}>
+          {col.title}
+        </h3>
+        <p className={styles.description}>
+          {col.content?.length > 80 ? col.content.slice(0, 80) + '...' : col.content}
+        </p>
         <div className={styles.bottomRow}>
-          <span className={styles.author} onClick={() => navigate(`/${col.userId}`)}>by {col.nickname}</span>
+          <span className={styles.author} onClick={() => navigate(`/${col.userId}`)}>
+            by {col.nickname}
+          </span>
           <span className={styles.meta}>
             <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1} />
             {likeDisplay}
@@ -126,7 +151,26 @@
             Gather your favorite books and<br />
             share your reading journey with the world.
           </h2>
-          <button onClick={() => navigate('/collections/new')} className={styles.collectionCreateBtn}>
+          <button
+            onClick={() => {
+              if (!user) {
+                openModal({
+                  message: "You need to sign in before using this feature.",
+                  mode: "confirm",
+                  resultValue: "1",
+                  callbackOnSuccess: () => {
+                    navigate('/collections/new');
+                  },
+                  callbackOnFail: () => {
+                    // do nothing
+                  }
+                });
+              } else {
+                navigate('/collections/new');
+              }
+            }}
+            className={styles.collectionCreateBtn}
+          >
             + Create My Collection
           </button>
         </div>
@@ -184,6 +228,16 @@
             onPageChange={(pageNum) => setCurrentPage(pageNum)}
           />
         </section>
+        <CustomModal
+          show={modalData.show}
+          onHide={handleCloseModal}
+          successMessage={modalData.message}
+          failMessage={modalData.message}
+          resultValue={modalData.resultValue}
+          mode={modalData.mode}
+          callbackOnSuccess={modalData.callbackOnSuccess}
+          callbackOnFail={modalData.callbackOnFail}
+        />
       </div>
     );
   };
