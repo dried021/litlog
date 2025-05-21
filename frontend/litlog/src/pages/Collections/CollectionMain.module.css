@@ -3,7 +3,7 @@
   font-family: 'Arial', sans-serif;
   background-color: #f9f9f9;
   min-width: 1000px;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -219,4 +219,39 @@
   object-fit: cover;      
   margin-right: 4px;      
   vertical-align: middle; 
+}
+
+.weeklyCard {
+  width: 290px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.weeklyCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.weeklyGrid {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 12px 0;
+  scroll-snap-type: x mandatory;
+}
+
+.weeklyGrid::-webkit-scrollbar {
+  height: 6px;
+}
+
+.weeklyGrid::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
 }

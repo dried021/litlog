@@ -15,7 +15,7 @@
     const [sortBy, setSortBy] = useState('popular');
     const [currentPage, setCurrentPage] = useState(1);
     const [pageCount, setPageCount] = useState(1); 
-    const pageSize = 12; 
+    const pageSize = 5; 
     const [modalData, setModalData] = useState({
         show: false,
         message: "",
@@ -80,15 +80,73 @@
     return { imageWidth, overlapOffset };
   }, []);
 
-    const likeDisplay = isWeekly ? (
-      <>
-        {col.likeCount}
-        <img src="/icons/arrow-up.svg" alt="up" className={styles.icon1} />
-      </>
-    ) : (
-      col.totalLikeCount !== 0 ? col.totalLikeCount : col.likeCount
-    );
+  const likeDisplay = isWeekly ? (
+    <>
+      {col.likeCount}
+      <img src="/icons/arrow-up.svg" alt="up" className={styles.icon1} />
+    </>
+  ) : (
+    col.totalLikeCount !== 0 ? col.totalLikeCount : col.likeCount
+  );
 
+  // 이번주 인기순순
+  if (isWeekly) {
+    return (
+      <div className={styles.weeklyCard}>
+        <div className={styles.thumbnailStack} onClick={() => navigate(`/collections/${col.id}`)}>
+          {stack.map((img, idx) =>
+            img ? (
+              <img
+                key={idx}
+                src={img}
+                alt={`thumbnail-${idx}`}
+                className={styles.stackedImg}
+                style={{
+                  left: `${idx * (imageWidth - overlapOffset)}px`,
+                  zIndex: 10 - idx,
+                }}
+              />
+            ) : (
+              <div
+                key={idx}
+                className={styles.placeholderBox}
+                style={{
+                  left: `${idx * (imageWidth - overlapOffset)}px`,
+                  zIndex: 10 - idx,
+                }}
+              />
+            )
+          )}
+          <div className={styles.overlay}>
+            <p className={styles.overlayText}>
+              {col.content?.length > 30 ? col.content.slice(0, 30) + "..." : col.content}
+            </p>
+          </div>
+        </div>
+
+        <div className={styles.info}>
+          <div className={styles.topRow}>
+            <h3 className={styles.title} onClick={() => navigate(`/collections/${col.id}`)}>{col.title}</h3>
+            <span className={styles.bookCount}>
+              {col.bookCount ?? col.books?.length ?? 0} books
+            </span>
+          </div>
+          <div className={styles.bottomRow}>
+            <span className={styles.author} onClick={() => navigate(`/${col.userId}`)}>by {col.nickname}</span>
+            <span className={styles.meta}>
+              <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1} />
+              {likeDisplay}
+              &nbsp;&nbsp;
+              <img src="/icons/comment_gray.svg" alt="comments" className={styles.icon2} />
+              {col.commentCount ?? 0}
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 인기순 최신순
   return (
     <div className={styles.card}>
       <div className={styles.thumbnailStack} onClick={() => navigate(`/collections/${col.id}`)}>
@@ -115,11 +173,6 @@
             />
           )
         )}
-        <div className={styles.overlay}>
-          <p className={styles.overlayText}>
-            {col.content?.length > 30 ? col.content.slice(0, 30) + "..." : col.content}
-          </p>
-        </div>
       </div>
 
       <div className={styles.info}>
@@ -155,6 +208,7 @@
     </div>
   );
 };
+
     return (
       <div className={styles.collectionWrapper}>
         <div className={styles.collectionHeader}>
@@ -199,12 +253,13 @@
             <span className={styles.moreBtn} onClick={() => navigate('/collections/list')}>MORE</span>
           </div>
 
-          <div className={styles.collectionGrid}>  
+          <div className={styles.weeklyGrid}>
             {popularCollections.slice(0, 3).map(col => (
-              <CollectionCard key={col.id} col={col} navigate={navigate} isWeekly={true} />
+              <CollectionCard key={col.id} col={col} isWeekly={true} />
             ))}
           </div>
         </section>
+
 
 
         <section className={styles.allSection}>
