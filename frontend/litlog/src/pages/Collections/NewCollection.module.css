@@ -50,6 +50,7 @@ textarea {
   position: relative;
   display: flex;
   gap: 8px;
+  flex-direction: column;
 }
 
 .bookSearch input {
@@ -187,7 +188,7 @@ textarea {
 
 
 .searchResultsBox {
-  position: absolute;
+  position: static;
   top: 100%;
   left: 0;
   right: 0;
@@ -271,4 +272,9 @@ textarea {
   color: #888;
   text-align: right;
   margin-top: 4px;
+}
+
+.searchRow {
+  display: flex;
+  gap: 8px;
 }
