@@ -1,11 +1,11 @@
 .wrapper {
-  background-color: #f5f5f5;
   min-height: 100vh;
   min-width: 750px;
   max-width: 750px;
   padding: 40px 20px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 .form {
@@ -18,7 +18,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  margin-left: 70px;
 }
 
 .pageTitle {
@@ -29,7 +29,6 @@
 
 label {
   font-weight: bold;
-  margin-bottom: 4px;
 }
 
 input[type="text"],
@@ -47,6 +46,7 @@ textarea {
 }
 
 .bookSearch {
+  margin: 20px 0;
   position: relative;
   display: flex;
   gap: 8px;
@@ -57,17 +57,18 @@ textarea {
   flex: 1;
 }
 
-.bookSearch button {
+.bookSearchButton {
   padding: 8px 16px;
-  background-color: #444;
+  background-color: #636B2F;
+  opacity: 80%;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
 }
 
-.bookSearch button:hover {
-  background-color: #222;
+.bookSearchButton:hover {
+  opacity: 100%;
 }
 
 .searchResults {
@@ -142,7 +143,6 @@ textarea {
 }
 
 .removeBtn {
-  position: absolute;
   bottom: 12px;                  
   right: 12px;                   
   background-color: #555;
@@ -151,6 +151,7 @@ textarea {
   padding: 6px 12px;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .removeBtn:hover {
@@ -158,7 +159,8 @@ textarea {
 }
 
 .submitBtn {
-  background-color: #222;
+  background-color: #3D4127;
+  opacity: 80%;
   color: white;
   border: none;
   padding: 12px;
@@ -169,21 +171,22 @@ textarea {
 }
 
 .submitBtn:hover {
-  background-color: #000;
+  opacity: 100%;
 }
 .loadMoreBtn {
-  margin-top: 12px;
-  padding: 10px 16px;
   font-size: 14px;
   background-color: #444;
+  opacity: 80%;
   color: #fff;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  height: 35px;
+  width: 100px;
 }
 
 .loadMoreBtn:hover {
-  background-color: #222;
+  opacity: 100%;
 }
 
 
@@ -247,24 +250,28 @@ textarea {
 
 .dropdownButtons {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
   border-top: 1px solid #eee;
   background-color: #fafafa;
+  padding: 8px 0px; 
+  justify-content: center;
 }
 
 .closeDropdownBtn {
-  padding: 8px 16px;
-  background-color: #bbb;
+  background-color: #999;
+  opacity: 80%;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  height: 35px;
+  width: 100px;
+  margin-right: 10px;
 }
 
 .closeDropdownBtn:hover {
-  background-color: #999;
+  opacity: 100%;
 }
 
 .charCount {

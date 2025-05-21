@@ -99,8 +99,9 @@
 }
 
 .profileIcon {
-  width: 18px;
-  height: 18px;
+  width: 35px;
+  height: 35px;
+  margin-right: 5px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -132,7 +133,7 @@
 .expandBtn {
   background: none;
   border: none;
-  color: #007bff;
+  color: #3D4127;
   font-size: 0.85rem;
   cursor: pointer;
   margin-top: 4px;
@@ -159,21 +160,23 @@
 }
 
 .editBtn {
-  background-color: #f1c40f;
+  background-color: #444;
+  opacity: 80%;
   color: white;
 }
 
 .deleteBtn {
-  background-color: #e74c3c;
+  background-color: #D3D3D3;
+  opacity: 80%;
   color: white;
 }
 
 .editBtn:hover {
-  background-color: #f39c12;
+  opacity: 100%;
 }
 
 .deleteBtn:hover {
-  background-color: #c0392b;
+  opacity: 100%;
 }
 
 .editTextarea {
@@ -208,11 +211,12 @@
 }
 
 .saveBtn {
-  background-color: #27ae60;
+  background-color: #3D4127;
+  opacity: 80%;
   color: white;
 }
 .saveBtn:hover {
-  background-color: #1e8449;
+  opacity: 100%;
 }
 
 .cancelBtn {
@@ -229,4 +233,8 @@
   text-align: right;
   margin-top: 4px;
   display: block;
+}
+
+.noComment {
+  font-style: italic;
 }
