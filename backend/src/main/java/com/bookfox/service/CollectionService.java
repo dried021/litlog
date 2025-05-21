@@ -103,10 +103,10 @@ public class CollectionService {
         Map<String, Object> params = new HashMap<>();
         params.put("collectionId", collectionId);
         params.put("offset", offset);
-        params.put("limit", size);  // ✅ 이름 변경
+        params.put("limit", size);
         return collectionMapper.getBooksByCollectionId(params);
     }
-
+    
     // 총 책 개수 조회
     public int getBookCountByCollectionId(int collectionId) {
         return collectionMapper.getBookCountByCollectionId(collectionId);
