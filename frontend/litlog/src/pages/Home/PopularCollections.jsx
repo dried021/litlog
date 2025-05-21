@@ -20,16 +20,11 @@ const PopularCollections = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h3>
-          <img 
-            src="/icons/hand-thumbs-up-fill.svg" 
-            alt="Popular This Week" 
-            style={{ width: '25px', height: '25px', verticalAlign: 'middle', marginRight: '8px' }} 
-          /> 
+        <p>
           All-Time Popular Collections
-        </h3>
+        </p>
         <button className={styles.moreBtn} onClick={() => navigate('/collections')}>
-          More →
+          more
         </button>
       </div>
       <div className={styles.collectionList}>
@@ -82,7 +77,9 @@ const PopularCollections = () => {
                   {col.title}
                 </h3>
                 <p className={styles.description}>
-                  {col.content?.length > 80 ? col.content.slice(0, 80) + '...' : col.content}
+                  {typeof col.content === 'string'
+                    ? col.content.slice(0, 220) + '...'
+                    : ''}
                 </p>
                 <div className={styles.bottomRow}>
                   <span className={styles.author} onClick={() => navigate(`/${col.userId}`)}>
