@@ -18,6 +18,16 @@ function UserList({ users, onItemClick, isRank, currentPage=1 }) {
                     : (displayIndex === 2 && isRank)? <img src="/images/third.png" alt={"rank 3"} />
                 : <p className={styles['user-rank-p']}>{displayIndex + 1}</p>}
                 </div>
+                <div className={styles['user-profile']}>
+                    <img className={styles['user-profile-img']}
+                      src = {user.profile ?
+                        (user.profile.startsWith('http')
+                        ? user.profile
+                        : `http://localhost:9090${user.profile}`)
+                        :defaultProfile}  
+                      alt={"profile"}
+                    />
+                </div>
 
                 <div className={styles['user-info']}>
                 <h3 className={styles['user-id']}>
@@ -52,16 +62,7 @@ function UserList({ users, onItemClick, isRank, currentPage=1 }) {
                     ))}
                 </div>
 
-                <div className={styles['user-profile']}>
-                    <img className={styles['user-profile-img']}
-                      src = {user.profile ?
-                        (user.profile.startsWith('http')
-                        ? user.profile
-                        : `http://localhost:9090${user.profile}`)
-                        :defaultProfile}  
-                      alt={"profile"}
-                    />
-                </div>
+                
             </div>
         );
       })}
