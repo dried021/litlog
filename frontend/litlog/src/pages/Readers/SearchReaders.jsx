@@ -89,7 +89,7 @@ const SearchReaders = () => {
                 }} 
                 value={keyword} 
                 onChange={(e) => setKeyword(e.target.value)} 
-                placeholder="Search readers..."
+                placeholder="Search Readers..."
             />
 
             <div className={styles['search-result']}>

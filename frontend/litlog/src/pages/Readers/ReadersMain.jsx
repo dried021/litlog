@@ -50,7 +50,7 @@ const ReadersMain = () => {
                 handleSearch={handleSearch} 
                 value={keyword} 
                 onChange={(e) => setKeyword(e.target.value)} 
-                placeholder="Search readers..."
+                placeholder="Search Readers..."
             />
 
             <UserSlider type="avid" title="Avid Reader Rank" users={avidUserList} />

@@ -80,7 +80,6 @@ function NextArrow(props) {
                           <React.Fragment key={index}>
                             {line}
                             {index === 1 && lines.length > 2 ? ' ...' : ''}
-                            <br />
                           </React.Fragment>
                         ))}
                       </>
@@ -92,7 +91,7 @@ function NextArrow(props) {
                   <p>{" " + book.bookshelves + " "}</p>
                   <img className="like" src={"/icons/heart_filled.svg"} alt="Like"/>
                   <p>{" " + book.likes+ " "}</p>
-                  <img className="review" src="/icons/star2.svg" alt="Review"/>
+                  <img className="review" src="/icons/star.svg" alt="Review"/>
                   <p>{" " + book.reviews + " "}</p>
                 </div>
               </Link>

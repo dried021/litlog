@@ -98,7 +98,7 @@ const SearchResult = () => {
                 }} 
                 value={keyword} 
                 onChange={(e) => setKeyword(e.target.value)} 
-                placeholder="Search books..."
+                placeholder="Search Books..."
             />
 
             <div className="search-result">
