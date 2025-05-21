@@ -20,9 +20,9 @@ const WeeklyPopularBooks = () => {
     return (
         <div className={styles.container}>
       <div className={styles.header}>
-        <h3>Popular Books This Week</h3>
+        <p>Popular Books This Week</p>
         <button className={styles.moreBtn} onClick={() => navigate('/books')}>
-          More →
+          more
         </button>
       </div>
       <div className={styles.bookRow}>
@@ -34,13 +34,12 @@ const WeeklyPopularBooks = () => {
               className={styles.thumbnail}
             />
             <div className={styles.title}>{book.title}</div>
-            <div className={styles.authors}>{book.authors}</div>
             <div className={styles.bookStats}>
-              <img className={styles.icon} src="/icons/bookshelf.svg" alt="Bookshelf" />
+              <img className={styles.icon1} src="/icons/bookshelf.svg" alt="Bookshelf" />
               <p>{book.bookshelves ?? 0}</p>
-              <img className={styles.icon} src="/icons/heart_filled.svg" alt="Like" />
+              <img className={styles.icon2} src="/icons/heart_filled.svg" alt="Like" />
               <p>{book.likes ?? 0}</p>
-              <img className={styles.icon} src="/icons/star2.svg" alt="Review" />
+              <img className={styles.icon3} src="/icons/star.svg" alt="Review" />
               <p>{book.reviews ?? 0}</p>
             </div>
           </div>

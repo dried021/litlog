@@ -1,48 +1,80 @@
 .container {
   padding: 1rem;
-  border: 1px solid #ccc;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #ccc; 
+  margin-bottom: 10px; 
+}
+
+.header p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin: 5px;
+  color: #5c5346;
+  margin-left: 0px;
 }
 
 .moreBtn {
   background: none;
   border: none;
-  color: teal;
+  color: #636B2F;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
+  margin-right: -4px;
+  cursor: pointer;
+}
+
+.moreBtn:hover {
+  color: #bac095;
 }
 
 .bookRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 1rem;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
 }
 
 .bookCard {
-  width: 90px;
+  width: 135px;
+  height: 320px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   cursor: pointer;
 }
 
 .thumbnail {
-  width: 100%;
-  height: 130px;
+  width: 140px;
+  height: 196px; /* 5:7 비율 */
   object-fit: cover;
   border-radius: 4px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.thumbnail:hover {
+  border: 2px solid #5c5346; 
+  border-radius: 4px;
 }
 
 .title {
-  font-size: 0.85rem;
+  font-size: 16px;
   font-weight: bold;
-  margin-bottom: 0.25rem;
+  margin-top: 5px;
+  margin-bottom: 1px;
+  width: 100%;
+  max-width: 100%; 
 
   /* 제목 줄임 */
   white-space: nowrap;
@@ -50,16 +82,18 @@
   text-overflow: ellipsis;
 }
 
+/*
 .authors {
   font-size: 0.75rem;
-  color: gray;
+  color: black;
 }
+*/
 
 .bookStats {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 6px;
+  gap:4px;
   margin-top: 6px;
   font-size: 0.7rem;
   color: #555;
@@ -70,8 +104,22 @@
   padding: 0;
 }
 
-.icon {
+.icon1 {
   width: 16px;
   height: 16px;
   vertical-align: middle;
+  margin-top: -1px;
+}
+
+.icon2 {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+
+.icon3 {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin-top: -2px;
 }
