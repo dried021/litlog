@@ -30,7 +30,7 @@
 button.active {
     border-bottom: solid 2px #5C5346; 
     opacity: 100%;
-    font-weight: bold;
+    font-weight: 500;
 }
 /* LIST HEADER START */
 .listHeader {

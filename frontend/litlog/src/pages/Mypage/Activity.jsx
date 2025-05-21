@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import TabMenu from "../../components/Mypage/TabMenu";
 
@@ -9,7 +8,7 @@ import ActivityMessage from "../../components/Activity/ActivityMessage";
 import ProfileSummary from "../../components/Profile/ProfileSummary";
 
 export default function Activity() {
-    const {userId} = useParams();
+    const { userId } = useParams();
     const [activeTab, setActiveTab] = useState("following");
     const limit = 10;
     const [offset, setOffset] = useState(0);
@@ -20,7 +19,7 @@ export default function Activity() {
     });
     const [loading, setLoading] = useState(true);
 
-    useEffect(()=>{
+    useEffect(() => {
         fetch(`http://localhost:9090/members/${userId}/activity/${activeTab}?limit=${limit}&offset=${offset}`)
             .then(res => res.json())
             .then(data => {
@@ -34,25 +33,31 @@ export default function Activity() {
             })
             .catch(error => console.error("Failed to fetch data", error))
             .finally(() => setLoading(false));
-    }, [activeTab, offset])
+    }, [activeTab, offset]);
 
-    useEffect(()=>{
+    useEffect(() => {
         setOffset(0);
         setHasMore(true);
-    }, [activeTab])
+    }, [activeTab]);
 
-    if (loading) return <p className={styles.msg}>Loading...</p>
-    
+    if (loading) return <p className={styles.msg}>Loading...</p>;
+
     return (
         <div className={styles.page}>
-            <ProfileSummary/>
-            <TabMenu/>
+            <ProfileSummary />
+            <TabMenu />
             <div className={styles.activities}>
                 <div className={styles.tabs}>
-                    <button onClick={() => setActiveTab("following")} className={`${activeTab === "following" ? styles.active : ""}`}>
+                    <button
+                        onClick={() => setActiveTab("following")}
+                        className={`${styles.tabButton} ${activeTab === "following" ? styles.active : ""}`}
+                    >
                         FOLLOWING
                     </button>
-                    <button onClick={() => setActiveTab("incoming")} className={`${activeTab === "incoming" ? styles.active : ""}`}>
+                    <button
+                        onClick={() => setActiveTab("incoming")}
+                        className={`${styles.tabButton} ${activeTab === "incoming" ? styles.active : ""}`}
+                    >
                         INCOMING
                     </button>
                 </div>
@@ -65,23 +70,26 @@ export default function Activity() {
                             <li key={index}>
                                 <div className={styles.activity}>
                                     <div className={styles.center}>
-                                        <img 
-                                            src={activity.profileImage ? 
-                                                (activity.profileImage.startsWith('http') 
-                                                ? activity.profileImage
-                                                : `http://localhost:9090${activity.profileImage}`)
+                                        <img
+                                            src={activity.profileImage ?
+                                                (activity.profileImage.startsWith('http')
+                                                    ? activity.profileImage
+                                                    : `http://localhost:9090${activity.profileImage}`)
                                                 : defaultProfile}
                                             alt="profile"
                                             className={styles.profileImg}
                                         />
                                     </div>
-                                    <ActivityMessage activity={activity}></ActivityMessage>
+                                    <ActivityMessage activity={activity} />
                                 </div>
                             </li>
                         ))}
                     </ul>
                     {hasMore &&
-                        <button onClick={() => setOffset((previousValue) => previousValue + limit)} className={styles.loadButton}>
+                        <button
+                            onClick={() => setOffset((prev) => prev + limit)}
+                            className={styles.loadButton}
+                        >
                             VIEW MORE
                         </button>
                     }
