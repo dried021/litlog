@@ -93,7 +93,10 @@ const CollectionPopularList = () => {
                   <span className={styles.author}>by {col.nickname}</span>
                   <span className={styles.meta}>
                     <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1} />
-                    {col.likeCount ?? 0}
+                    <>
+                        {col.likeCount}
+                        <img src="/icons/arrow-up.svg" alt="up" className={styles.icon1} />
+                    </>
                     &nbsp;&nbsp;
                     <img src="/icons/comment_gray.svg" alt="comments" className={styles.icon2} />
                     {col.commentCount ?? 0}
