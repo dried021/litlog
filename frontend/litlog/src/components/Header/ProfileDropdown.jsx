@@ -8,8 +8,17 @@ const ProfileDropdown = ({ userId, onLogout }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const isInMyPage = location.pathname.startsWith(`/${userId}`);
+  const [profile, setProfile] = useState(null);
 
   useEffect(() => {
+    fetch(`http://localhost:9090/members/profile-summary/${userId}`, {
+            method: 'GET',
+            credentials: 'include'
+        })
+        .then(res => res.json())
+        .then(data => {
+            setProfile(data);
+        }).catch(error => console.error(error));
     const handleOutsideClick = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setOpen(false);
@@ -32,6 +41,15 @@ const ProfileDropdown = ({ userId, onLogout }) => {
   return (
     <div className={styles.wrapper} ref={dropdownRef}>
       <button onClick={handleToggle} className={`${styles.trigger} ${open ? styles.triggerOpen : ''} ${isInMyPage ? styles.active : ''}`}>
+        {profile && <img 
+            src={profile.profileImage ? 
+                (profile.profileImage.startsWith('http') 
+                ? profile.profileImage
+                : `http://localhost:9090${profile.profileImage}`)
+                : defaultProfile}
+            alt="profile"
+            className={styles.profileImg}
+        />}
         <span className={styles.nickname}>{userId}</span>
         <span className={styles.dropdown}>▼</span>
       </button>
