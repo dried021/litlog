@@ -75,34 +75,29 @@ const PopularCollections = () => {
                     />
                   )
                 )}
-                <div className={styles.overlay}>
-                  <p className={styles.overlayText}>
-                    {col.content?.length > 100 ? col.content.slice(0, 100) + '...' : col.content}
-                  </p>
-                </div>
               </div>
 
               <div className={styles.info}>
-                <div className={styles.topRow}>
-                  <h3 className={styles.title} onClick={() => navigate(`/collections/${col.id}`)}>{col.title}</h3>
-                  <span className={styles.bookCount}>
-                    {col.bookCount ?? col.books?.length ?? 0} books
-                  </span>
-                </div>
+                <h3 className={styles.title} onClick={() => navigate(`/collections/${col.id}`)}>
+                  {col.title}
+                </h3>
+                <p className={styles.description}>
+                  {col.content?.length > 80 ? col.content.slice(0, 80) + '...' : col.content}
+                </p>
                 <div className={styles.bottomRow}>
                   <span className={styles.author} onClick={() => navigate(`/${col.userId}`)}>
-                              <img
-                                src={
-                                  col.profileImage
-                                    ? (col.profileImage.startsWith('http')
-                                        ? col.profileImage
-                                        : `http://localhost:9090${col.profileImage}`)
-                                    : defaultProfile
-                                }
-                                alt="profile"
-                                className={styles.profileIcon}
-                              />{col.nickname}
-                            </span>
+                    <img
+                      src={
+                        col.profileImage
+                          ? (col.profileImage.startsWith('http')
+                              ? col.profileImage
+                              : `http://localhost:9090${col.profileImage}`)
+                          : defaultProfile
+                      }
+                      alt="profile"
+                      className={styles.profileIcon}
+                    />{col.nickname}
+                  </span>
                   <span className={styles.meta}>
                     <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1} />
                     {likeDisplay}
