@@ -89,7 +89,7 @@
     col.totalLikeCount !== 0 ? col.totalLikeCount : col.likeCount
   );
 
-  // 이번주 인기순순
+  // 이번주 인기순
   if (isWeekly) {
     return (
       <div className={styles.weeklyCard}>
