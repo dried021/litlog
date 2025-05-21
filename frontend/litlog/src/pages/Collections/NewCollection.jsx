@@ -220,7 +220,7 @@ const NewCollection = ({
               }
             }}
           />
-          <button type="button" onClick={handleSearch}>Search</button>
+          <button type="button" onClick={handleSearch} className={styles.bookSearchButton}>Search</button>
           </div>
 
           {searchResults.length > 0 && (
@@ -241,7 +241,7 @@ const NewCollection = ({
                 className={styles.closeDropdownBtn}
                 onClick={() => setSearchResults([])}
               >
-                close
+                Close
               </button>
 
               {hasMore && (
