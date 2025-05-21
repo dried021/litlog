@@ -184,18 +184,18 @@
     </insert>
 
     <insert id="insertCollectionBook">
-    INSERT INTO book_collection_book (collection_id, book_id, thumbnail)
-    VALUES (#{collectionId}, #{bookId}, #{thumbnail})
+    INSERT INTO book_collection_book (collection_id, book_id, thumbnail, order_index)
+    VALUES (#{collectionId}, #{bookId}, #{thumbnail}, #{orderIndex})
     </insert>
 
     <select id="getBooksByCollectionId" resultType="com.bookfox.model.BookDto">
-    SELECT b.*
+    SELECT b.*, cb.order_index
     FROM book_collection_book cb
     JOIN book b ON cb.book_id = b.id
     WHERE cb.collection_id = #{collectionId}
-    ORDER BY cb.id DESC
-    <if test="limit != null">
-        LIMIT #{limit}
+    ORDER BY cb.order_index ASC
+    <if test="limit != null and offset != null">
+        LIMIT #{limit} OFFSET #{offset}
     </if>
     </select>
 

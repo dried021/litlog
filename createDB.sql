@@ -187,6 +187,7 @@ CREATE TABLE book_collection_book(
     collection_id INT NOT NULL, 		-- collection 분류. 같은 collection이면 같은 collection id
     book_id INT,
     thumbnail VARCHAR(300),
+    order_index INT NOT NULL DEFAULT 0, 
     FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE,
     FOREIGN KEY (collection_id) REFERENCES book_collection(id) ON DELETE CASCADE
 );

@@ -26,12 +26,13 @@ export const useSubmitCollection = (
       title,
       content,
       thumbnail: selectedBooks[0].thumbnail,
-      books: selectedBooks.map(book => ({
+      books: selectedBooks.map((book, index) => ({
         bookApiId: book.bookApiId,
         title: book.title,
         authors: book.authors,
         publisher: book.publisher,
-        thumbnail: book.thumbnail
+        thumbnail: book.thumbnail,
+        orderIndex: index
       }))
     };
 

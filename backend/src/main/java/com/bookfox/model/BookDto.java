@@ -20,4 +20,5 @@ public class BookDto {
     private int pageCount;
     private String thumbnail;
     private int bookCategory;
+    private int orderIndex;
 }
