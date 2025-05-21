@@ -27,8 +27,13 @@
 }
 
 .readmore-button{
-  width: 110px;
   text-decoration: underline;
+  font-weight: 600;
+}
+
+.button-common.readmore-button:hover {
+  color: #D4DE95;
+  background-color: transparent; /* 기존 hover 배경 덮기 */
 }
 
 .top-button {

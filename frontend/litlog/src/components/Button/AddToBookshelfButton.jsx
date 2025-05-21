@@ -124,7 +124,6 @@ function AddToBookshelfButton({bookApiId, handleClick, handleAddedClick}) {
         onMouseLeave={() => setShowOptions(false)}
       >
         <button className="addtobookshelf-button" onClick={handleButtonClick}>
-          <img src="/icons/bookshelf.svg" alt="Bookshelf Icon" />
           {" Add to Bookshelf"}
         </button>
 
