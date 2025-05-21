@@ -79,8 +79,7 @@ const SearchReaders = () => {
     };
 
     return (
-        <div>
-            <h2 className={styles['title']}>Search Result</h2>
+        <div className={styles.searchResults}>
             <SearchBar 
                 handleSearch={(searchKeyword)=>{
                     if (searchKeyword.trim()) {
