@@ -70,7 +70,7 @@ const CommentList = ({ comments, onRefresh }) => {
 
   const handleEdit = (comment) => {
     setEditingId(comment.id);
-    setEditContent(comment.content);
+    setEditContent(comment.content.trim().replace(/\s{2,}/g, ' '));
   };
 
   const handleCancelEdit = () => {
