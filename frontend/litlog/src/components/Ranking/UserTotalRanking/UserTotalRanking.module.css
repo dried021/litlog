@@ -20,6 +20,8 @@
     font-weight: bold;
     text-align: left;
     padding: 0px 30px;
+    font-size: 20px;
+    color: #5C5346;
   }
 
   .headerRow {
@@ -30,8 +32,3 @@
     flex-wrap: wrap; 
   }
   
-  .title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin: 0;
-  }

@@ -1,13 +1,12 @@
 .searchBarForm {
   display: flex;
   align-items: center;
-  background-color: #ffffff;
+  background-color: #BAC095;
   padding: 10px;
   border-radius: 50px;
   margin: 20px;
-  box-shadow: 0px 2px 8px 3px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  width: 1200px;
+  width: 900px;
 }
 
 
@@ -20,19 +19,19 @@
   box-shadow: none;
   -webkit-appearance: none;
   appearance: none;
-  color: #333;
+  color: #5C5346;
   font-size: 17px;
   border-radius: 50px;
 }
 
 .searchInput::placeholder {
-  color: #aaa;
+  color: #5C5346;
 }
 
 .searchButton {
   width: 40px;
   height: 40px;
-  background-color: #000;
+  background-color: #5C5346;
   color: #fff;
   border: none;
   border-radius: 50%;
