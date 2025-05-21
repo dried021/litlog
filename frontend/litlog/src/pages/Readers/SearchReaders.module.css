@@ -1,3 +1,7 @@
+.searchResults {
+  width: 960px;
+}
+
 .title{
     margin: 16px 0 35px;
     font-weight: bold;
@@ -24,7 +28,7 @@
   .searchResultP{
     width: 100%;
     padding: 8px 16px;
-    font-size: 1.3rem;
+    font-size: 16px;
     margin-bottom: 0.5rem;
   }
 
@@ -66,9 +70,8 @@
     margin-top: 20px;
   }
   
-  .search-result{
-      width: 100%;              
-      width: 1200px;      
+  .search-result{          
+      width: 940px;      
       padding: 10px 10px;        
       background-color: #fff;
       color: #121212;

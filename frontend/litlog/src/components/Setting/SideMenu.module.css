@@ -15,11 +15,6 @@
     flex-direction: column;
     gap: 1rem;
   }
-
-  .menuItem-active {
-    background-color: #eaefff;
-    color: white;
-  }
   
   .menuItem {
     display: flex;
@@ -34,10 +29,18 @@
     transition: background-color 0.2s ease;
   }
   
-  .menuItem:hover,
+  .menuItem-active {
+    background-color: #3D4127;
+    opacity: 80%;
+    color: white;
+  }
+
+  .menuItem:hover {
+    opacity: 100%;
+  }
   .menuItem.active {
-    background-color: #e0e7ff;
-    color: #1e3a8a;
+    opacity: 100%;
+    color: white;
   }
   
   .icon {
