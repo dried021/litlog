@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles from './ProfileDropdown.module.css';
+import defaultProfile from '../../assets/default_profile.png';
 
 const ProfileDropdown = ({ userId, onLogout }) => {
   const [open, setOpen] = useState(false);
