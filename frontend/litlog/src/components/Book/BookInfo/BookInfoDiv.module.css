@@ -1,9 +1,10 @@
 .bookInfoDiv {
     height: 40px;  /* 높이 */
     font-size: 1.0rem;
-    margin: 5px;
+    margin: 3px;
+    margin-left: -5px;
     display: flex;
-    width: 100%; 
+    width: 210px;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -16,16 +17,16 @@
     margin-left: 20px;
   }
 
+  .heart:hover {
+    transform: scale(1.1);
+  }
+
   .bookInfoDiv img {
     width: 24px;
     height: 24px;
     margin-right: 4px;
     cursor: pointer;
     transition: transform 0.2s ease;
-  }
-  
-  .bookInfoDiv img:hover {
-    transform: scale(1.1);
   }
   
   .bookInfoDiv span {
