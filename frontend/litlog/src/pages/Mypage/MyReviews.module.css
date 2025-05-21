@@ -246,7 +246,7 @@
 
 .list-title a:hover {
   font-weight: bold;
-  color: #d4a373; 
+  color: #BAC095; 
 }
 
 .list-author {
@@ -330,5 +330,5 @@
 }
 
 .more-inline:hover {
-  color: #d4a373;          
+  color: #BAC095;          
 }

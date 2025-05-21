@@ -6,6 +6,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import CollectionCommentSection from './CollectionCommentSection';
 import { UserContext } from '../../libs/UserContext';
 import CustomModal from "../../components/Modal/CustomModal";
+import defaultProfile from '../../assets/default_profile.png';
 
 const CollectionDetail = () => {
   const { collectionId } = useParams();
@@ -218,8 +219,18 @@ const CollectionDetail = () => {
           )}
           <br />
           <Link to={`/${collection.userId}`} className={styles.author}>
-            by {collection.nickname}
-          </Link>
+            <img
+              src={
+                collection.profileImage
+                  ? (collection.profileImage.startsWith('http')
+                      ? collection.profileImage
+                      : `http://localhost:9090${collection.profileImage}`)
+                  : defaultProfile
+              }
+              alt="profile"
+              className={styles.profileIcon}
+            />{collection.nickname}
+        </Link>
           <p className={styles.bookCount}>
             <img src="/icons/book.svg" alt="Book" className={styles.icon} />  
             {totalBooks} book(s)

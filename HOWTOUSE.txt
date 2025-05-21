@@ -5,12 +5,14 @@ npm install react-slick slick-carousel
 npm install @mui/material @mui/icons-material @emotion/react @emotion/styled
 
 
-색
-짙은 녹색 CCD5AE
-연한 녹색 E9EDC9
-아이보리 FEFAE0
-연한 노란색 FAEDCD
-연한 갈색 D4A373
+컬러 팔레트
+#636B2F Dark moss green
+#D4DE95 Vanila
+#bac095 Sage
+#5c5346 Walnut brown
+#3D4127 Drab dark brown
+#f7e7ce Champagne 
+#cbc6bf Silver
 
 
 
