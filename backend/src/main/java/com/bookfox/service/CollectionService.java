@@ -82,6 +82,7 @@ public class CollectionService {
         // 1. book_collection INSERT
         collectionMapper.insertCollection(dto); // insert + useGeneratedKeys
         int collectionId = dto.getId(); // MyBatis로 auto-increment된 ID 받음
+        int order = 0;
 
         for (BookDto book : dto.getBooks()) {
             Integer bookId = collectionMapper.findBookIdByApiId(book.getBookApiId());
@@ -91,7 +92,7 @@ public class CollectionService {
                 bookId = book.getId(); // 새로 생성된 book.id
             }
 
-            collectionMapper.insertCollectionBook(collectionId, bookId, book.getThumbnail());
+            collectionMapper.insertCollectionBook(collectionId, bookId, book.getThumbnail(), order++);
         }
 
         return collectionId;
@@ -102,7 +103,7 @@ public class CollectionService {
         Map<String, Object> params = new HashMap<>();
         params.put("collectionId", collectionId);
         params.put("offset", offset);
-        params.put("size", size);
+        params.put("limit", size);  // ✅ 이름 변경
         return collectionMapper.getBooksByCollectionId(params);
     }
 
@@ -119,13 +120,14 @@ public class CollectionService {
         collectionMapper.updateCollectionMeta(dto);
 
         // 3. 새 책들 추가
+        int order = 0;
         for (BookDto book : dto.getBooks()) {
             Integer bookId = collectionMapper.findBookIdByApiId(book.getBookApiId());
             if (bookId == null) {
                 collectionMapper.insertBook(book);
                 bookId = book.getId(); // useGeneratedKeys로 자동 생성됨
             }
-            collectionMapper.insertCollectionBook(dto.getId(), bookId, book.getThumbnail());
+            collectionMapper.insertCollectionBook(dto.getId(), bookId, book.getThumbnail(), order++);
         }
     }
 

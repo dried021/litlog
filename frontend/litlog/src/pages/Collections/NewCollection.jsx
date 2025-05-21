@@ -4,6 +4,11 @@ import { useRequireAuth } from '../../libs/useRequireAuth';
 import { useSubmitCollection } from './useSubmitCollection';
 import { useNavigate } from 'react-router-dom';
 import CustomModal from "../../components/Modal/CustomModal";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable
+} from '@hello-pangea/dnd';
 
 const NewCollection = ({
   mode = 'create', // 'edit'이면 수정
@@ -148,13 +153,24 @@ const NewCollection = ({
 
   const handleSelectBook = (book) => {
     if (!selectedBooks.find(b => b.bookApiId === book.bookApiId)) {
-      setSelectedBooks([...selectedBooks, book]);
+      setSelectedBooks([book,...selectedBooks]);
     }
   };
 
   const handleRemoveBook = (bookApiId) => {
     setSelectedBooks(selectedBooks.filter(book => book.bookApiId !== bookApiId));
   };
+
+  const handleDragEnd = (result) => {
+    if (!result.destination) return;
+
+    const reordered = [...selectedBooks];
+    const [moved] = reordered.splice(result.source.index, 1);
+    reordered.splice(result.destination.index, 0, moved);
+
+    setSelectedBooks(reordered);
+  };
+
 
   return (
     <div className={styles.wrapper}>
@@ -191,92 +207,108 @@ const NewCollection = ({
         <small className={styles.charCount}>{content.length} / 1000</small>
 
         <div className={styles.bookSearch}>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search Books…"
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              e.preventDefault();
-              handleSearch();
-            }
-          }}
-        />
-        <button type="button" onClick={handleSearch}>Search</button>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search Books…"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleSearch();
+              }
+            }}
+          />
+          <button type="button" onClick={handleSearch}>Search</button>
 
-        {searchResults.length > 0 && (
-        <div ref={dropdownRef} className={styles.searchResultsBox}>
-          {searchResults.map((book, idx) => (
-            <div key={idx} className={styles.resultItem} onClick={() => handleSelectBook(book)}>
-              {book.thumbnail && <img src={book.thumbnail} alt={book.title} />}
-              <div className={styles.resultText}>
-                <p className={styles.resultTitle}><strong>{book.title}</strong></p>
-                <p className={styles.resultMeta}>{book.authors} / {book.publisher}</p>
+          {searchResults.length > 0 && (
+          <div ref={dropdownRef} className={styles.searchResultsBox}>
+            {searchResults.map((book, idx) => (
+              <div key={idx} className={styles.resultItem} onClick={() => handleSelectBook(book)}>
+                {book.thumbnail && <img src={book.thumbnail} alt={book.title} />}
+                <div className={styles.resultText}>
+                  <p className={styles.resultTitle}><strong>{book.title}</strong></p>
+                  <p className={styles.resultMeta}>{book.authors} / {book.publisher}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
 
-          <div className={styles.dropdownButtons}>
-            <button
-              type="button"
-              className={styles.closeDropdownBtn}
-              onClick={() => setSearchResults([])}
-            >
-              close
-            </button>
-
-            {hasMore && (
+            <div className={styles.dropdownButtons}>
               <button
                 type="button"
-                onClick={loadMore}
-                className={styles.loadMoreBtn}
+                className={styles.closeDropdownBtn}
+                onClick={() => setSearchResults([])}
               >
-                {isLoading ? 'Loading...' : 'Load More'}
+                close
               </button>
-            )}
-          </div>
-        </div>
-      )}
-      </div>
 
-        <div className={styles.addedBooks}>
-          <p>Added Books List</p>
-          {selectedBooks.length === 0 ? (
-            <p style={{ color: '#888', marginTop: '8px' }}>No books have been added yet.</p>
-          ) : (
-            selectedBooks.map((book, index) => (
-              <div
-                key={book.bookApiId}
-                className={styles.bookCard}
-              >
-                <img
-                  src={book.thumbnail}
-                  alt={book.title}
-                  onClick={() => navigate(`/books/${book.bookApiId}`)}
-                  style={{ cursor: 'pointer' }}
-                />
-                <div className={styles.bookInfo}>
-                  <p
-                    onClick={() => navigate(`/books/${book.bookApiId}`)}
-                    style={{ cursor: 'pointer', fontWeight: 'bold' }}
-                    title={book.title}
-                  >
-                    {book.title}
-                  </p>
-                  <p>{book.authors}</p>
-                  <p>{book.publisher}</p>
-                </div>
+              {hasMore && (
                 <button
-                  className={styles.removeBtn}
-                  onClick={() => handleRemoveBook(book.bookApiId)}
+                  type="button"
+                  onClick={loadMore}
+                  className={styles.loadMoreBtn}
                 >
-                  Remove
+                  {isLoading ? 'Loading...' : 'Load More'}
                 </button>
-              </div>
-            ))
-          )}
+              )}
+            </div>
+          </div>
+        )}
         </div>
+
+         <DragDropContext onDragEnd={handleDragEnd}>
+          <Droppable droppableId="books">
+            {(provided) => (
+              <div
+                className={styles.addedBooks}
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {selectedBooks.length === 0 ? (
+                  <p style={{ color: '#888', marginTop: '8px' }}>No books have been added yet.</p>
+                ) : (
+                  selectedBooks.map((book, index) => (
+                    <Draggable key={book.bookApiId} draggableId={book.bookApiId} index={index}>
+                      {(provided) => (
+                        <div
+                          className={styles.bookCard}
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <img
+                            src={book.thumbnail}
+                            alt={book.title}
+                            onClick={() => navigate(`/books/${book.bookApiId}`)}
+                            style={{ cursor: 'pointer' }}
+                          />
+                          <div className={styles.bookInfo}>
+                            <p
+                              onClick={() => navigate(`/books/${book.bookApiId}`)}
+                              style={{ cursor: 'pointer', fontWeight: 'bold' }}
+                              title={book.title}
+                            >
+                              {book.title}
+                            </p>
+                            <p>{book.authors}</p>
+                            <p>{book.publisher}</p>
+                          </div>
+                          <button
+                            className={styles.removeBtn}
+                            onClick={() => handleRemoveBook(book.bookApiId)}
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))
+                )}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
 
         <button type="submit" className={styles.submitBtn}>
           {mode === 'edit' ? 'Update' : 'Submit'}

@@ -98,8 +98,12 @@ textarea {
   background-color: #fff;
   height: 120px;
   overflow: hidden;
+  cursor: grab;
 }
 
+.bookCard:active {
+  cursor: grabbing;
+}
 
 .bookCard img {
   width: 50px;

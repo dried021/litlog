@@ -33,7 +33,8 @@ public interface CollectionMapper {
     // 4. 콜렉션-책 연결 저장
     void insertCollectionBook(@Param("collectionId") int collectionId,
                               @Param("bookId") int bookId,
-                              @Param("thumbnail") String thumbnail);
+                              @Param("thumbnail") String thumbnail,
+                               @Param("orderIndex") int orderIndex);
 
     List<BookDto> getBooksByCollectionId(Map<String, Object> params);
     int getBookCountByCollectionId(int collectionId);
