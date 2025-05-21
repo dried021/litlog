@@ -1,5 +1,6 @@
 .mainWrapper {
-  max-width: 1024px;
+  min-width: 670px;
+  max-width: 670px;
   margin: 0 auto;
   padding: 2rem 1rem;
   display: flex;
