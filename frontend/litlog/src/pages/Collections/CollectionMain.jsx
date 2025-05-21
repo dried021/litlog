@@ -248,18 +248,13 @@
             }}
             className={styles.collectionCreateBtn}
           >
-            + Create My Collection
+            + Create New Collection
           </button>
         </div>
 
         <section className={styles.popularSection}>
           <div className={styles.sectionHeader}>
             <h3>
-              <img 
-                src="/icons/hand-thumbs-up-fill.svg" 
-                alt="Popular This Week" 
-                style={{ width: '24px', height: '24px', verticalAlign: 'middle', marginRight: '6px' }} 
-              />
               Popular This Week
             </h3>
             <span className={styles.moreBtn} onClick={() => navigate('/collections/list')}>MORE</span>
