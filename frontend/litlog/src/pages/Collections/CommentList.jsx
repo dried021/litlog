@@ -4,6 +4,7 @@ import { UserContext } from '../../libs/UserContext';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import CustomModal from "../../components/Modal/CustomModal";
+import defaultProfile from '../../assets/default_profile.png';
 
 const CommentList = ({ comments, onRefresh }) => {
   const { user } = useContext(UserContext);
@@ -114,6 +115,17 @@ const CommentList = ({ comments, onRefresh }) => {
           <div key={comment.id} className={styles['comment-item']}>
             <div className={styles['comment-header']}>
               <Link to={`/${comment.userId}`} className={styles['comment-nickname']}>
+                <img
+                  src={
+                    comment.profileImage
+                      ? (comment.profileImage.startsWith('http')
+                          ? comment.profileImage
+                          : `http://localhost:9090${comment.profileImage}`)
+                      : defaultProfile
+                  }
+                  alt="profile"
+                  className={styles.profileIcon}
+                />
                 {comment.nickname}
               </Link>
               <span className={styles['comment-date']}>

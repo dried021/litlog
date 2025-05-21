@@ -5,6 +5,7 @@
   import styles from './CollectionMain.module.css';
   import Pagination from '../../components/Pagination/Pagination';  
   import CustomModal from "../../components/Modal/CustomModal";
+  import defaultProfile from '../../assets/default_profile.png';
 
   const CollectionMain = () => {
     const navigate = useNavigate();
@@ -130,7 +131,17 @@
         </p>
         <div className={styles.bottomRow}>
           <span className={styles.author} onClick={() => navigate(`/${col.userId}`)}>
-            by {col.nickname}
+            <img
+              src={
+                col.profileImage
+                  ? (col.profileImage.startsWith('http')
+                      ? col.profileImage
+                      : `http://localhost:9090${col.profileImage}`)
+                  : defaultProfile
+              }
+              alt="profile"
+              className={styles.profileIcon}
+            />{col.nickname}
           </span>
           <span className={styles.meta}>
             <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1} />

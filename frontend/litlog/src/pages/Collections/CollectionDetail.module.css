@@ -109,10 +109,22 @@ body {
 }
 
 .author {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
   font-size: 14px;
-  color: #888;
+  color: #555;
+  gap: 5px;
   text-decoration: none;
-  cursor: pointer;
+}
+
+.profileIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1px;
+  vertical-align: middle;
 }
 
 .author:hover {
@@ -267,3 +279,4 @@ body {
 .expandBtn:hover {
   text-decoration: underline;
 }
+

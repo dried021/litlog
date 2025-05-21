@@ -14,7 +14,7 @@
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 1px;
-  color: #3e264a;
+  color: #5c5346;
   margin-left: 3px;
   margin-bottom: -10px;
 }
@@ -29,7 +29,7 @@
 .title {
   font-size: 22px;
   font-weight: 600;
-  color: #3e264a;
+  color: #636B2F;
   margin-bottom: 10px;
 }
 
@@ -52,12 +52,48 @@
   margin-bottom: 20px;
 }
 
+.paragraph3 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: #111;
+  line-height: 1.7;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.paragraph4 {
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+  padding-left: 30px;
+}
+
 /* 리스트 */
 .list {
   margin-left: 20px;
-  padding-left: 16px;
+  padding-left: 20px;
   list-style-type: disc;
   color: #111;
   font-size: 14px;
   line-height: 1.6;
+}
+
+.list2 {
+  margin-left: 20px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  list-style-type: disc;
+  color: #111;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.orderedList {
+  padding-left: 30px;
+  list-style: decimal;
+  line-height: 1.8;
 }
