@@ -174,24 +174,42 @@ function Reviews({ bookApiId }) {
   };
 
   const handleLikeClick = async (reviewId) => {
-    try{
-        const updatedReviews = reviews.map((review) => {
-            if (review.id === reviewId){
-                const isLiked= !review.isLiked;
-                const likeCount = isLiked? review.likeCount + 1 : review.likeCount -1;
-
-                axios.post(`http://localhost:9090/books/reviews/like`, {
-                    reviewId, isLiked
-                }, { withCredentials: true }
-                ).catch((err) => console.error("Like update error:", err));
-
-                return {...review, isLiked, likeCount};
-            }
-            return review;
-        });
-        setReviews(updatedReviews);
-    }catch(error){
-        console.error("Error updating like status: ", error);
+    if (user === null) {
+      openModal(
+        "You need to sign in before liking a review",
+        "",
+        "1",
+        "confirm",
+        () => {
+          navigate('/sign-in', {
+            state: { from: location.pathname },
+            replace: true
+          });
+        },
+        null
+      );
+      return;
+    }
+  
+    try {
+      const updatedReviews = reviews.map((review) => {
+        if (review.id === reviewId) {
+          const isLiked = !review.isLiked;
+          const likeCount = isLiked ? review.likeCount + 1 : review.likeCount - 1;
+  
+          axios.post(
+            `http://localhost:9090/books/reviews/like`,
+            { reviewId, isLiked },
+            { withCredentials: true }
+          ).catch((err) => console.error("Like update error:", err));
+  
+          return { ...review, isLiked, likeCount };
+        }
+        return review;
+      });
+      setReviews(updatedReviews);
+    } catch (error) {
+      console.error("Error updating like status: ", error);
     }
   };
 

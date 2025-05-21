@@ -105,11 +105,12 @@ public class Books {
     public ResponseEntity<Map<String, Object>> getReviews(@RequestParam String bookApiId,
                     @RequestParam int currentPage, @RequestParam boolean isPopularity, HttpSession session) {
         String userId = (String) session.getAttribute("loginUser");
-
+        if (userId == null) userId = "";
+        
         boolean exists = bookService.exists(bookApiId);
 
         Map<String, Object> response = new HashMap<>();
-        if (exists && userId!=null) {
+        if (exists) {
             int bookId = bookService.getIdByBookApiId(bookApiId);
             List<BookReviewDto> reviews = bookService.getReviews(bookId, currentPage, userId, isPopularity);
             int reviewsCount = bookService.getReviewCount(bookId);
