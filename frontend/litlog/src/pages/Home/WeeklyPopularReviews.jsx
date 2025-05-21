@@ -10,7 +10,7 @@ export function Rating({ rating }) {
         <img 
           className={styles['star']}
           key={`full-${index}`}
-          src="/icons/star2.svg"
+          src="/icons/star.svg"
           alt="별"
         />
       ))}
@@ -18,7 +18,7 @@ export function Rating({ rating }) {
         <img 
           className={styles['star']}
           key={`empty-${index}`}
-          src="/icons/emptyStar.svg"
+          src="/icons/star_gray.svg"
           alt="빈별"
         />
       ))}
@@ -31,11 +31,27 @@ const WeeklyPopularReviews = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:9090/books/popularReviewList', {
-      params: { currentPage: 1 }
-    })
-      .then(res => setReviews((res.data || []).slice(0, 3)))
-      .catch(err => console.error('Fail to fetch popular reviews:', err));
+    const fetchMultiplePages = async () => {
+      let all = [];
+      let page = 1;
+      while (all.length < 6) {
+        try {
+          const res = await axios.get('http://localhost:9090/books/popularReviewList', {
+            params: { currentPage: page }
+          });
+          const data = res.data || [];
+          if (data.length === 0) break; 
+          all = all.concat(data);
+          page += 1;
+        } catch (err) {
+          console.error('Failed to fetch popular reviews:', err);
+          break;
+        }
+      }
+      setReviews(all.slice(0, 6)); 
+    };
+
+    fetchMultiplePages();
   }, []);
 
   const formatDate = (date) => {
@@ -49,65 +65,64 @@ const WeeklyPopularReviews = () => {
   const truncate = (text, maxLength = 20) => {
     if (typeof text !== 'string') return '';
     return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
-};
+  };
 
   return (
     <div className={styles["container"]}>
       <div className={styles["review-section"]}>
         <div className={styles["review-header"]}>
-          <h3 className="bookslider-title">Popular Reviews This Week</h3>
+          <div className={styles["header"]}>
+            <p>Popular Reviews This Week</p>  
+          </div>
           <button
             className={styles["moreBtn"]}
             onClick={() => navigate('/books')}
-            style={{ background: 'none', border: 'none', color: 'teal', cursor: 'pointer', fontWeight: 'bold' }}
           >
-            More →
+            more
           </button>
         </div>
-
-        {reviews.map((review, index) => (
-          <div
-            key={review.id}
-            className={styles["review-item"]}
-          >
-            <div className={styles["book-thumbnail"]} onClick={() => navigate(`/books/${review.bookApiId}`)}>
-              <img
-                src={review.thumbnail ?? '/images/covernotavailable.png'}
-                alt={review.title}
-              />
-            </div>
-
-            <div className={styles["review-content"]}>
-              <div className={styles["book-title"]} onClick={() => navigate(`/books/${review.bookApiId}`)}>
-                <div className={styles["book-title-p"]}>
-                  {truncate(review.title, 10)}
+        <div className={styles["review-grid"]}>
+          {reviews.map((review) => (
+            <div key={review.id} className={styles["review-item"]}>
+              {/* 상단: 썸네일 + 정보 */}
+              <div className={styles["top-section"]}>
+                <div className={styles["book-thumbnail"]} onClick={() => navigate(`/books/${review.bookApiId}`)}>
+                  <img
+                    src={review.thumbnail ?? '/images/covernotavailable.png'}
+                    alt={review.title}
+                  />
                 </div>
-                <div className={styles["author"]}>{review.authors}</div>
+                <div className={styles["info-section"]}>
+                  <div className={styles["title-author"]} onClick={() => navigate(`/books/${review.bookApiId}`)}>
+                    <p className={styles["book-title"]}>{truncate(review.title, 20)}</p>
+                    <p className={styles["author"]}>{review.authors}</p>
+                  </div>
+
+                  <div className={styles["rating"]}>
+                    <Rating rating={review.rating} />
+                  </div>
+
+                  <div className={styles["user-meta"]} onClick={() => navigate(`/${review.userId}`)}>
+                    <span className={styles["nickname"]}>{review.nickname}</span>
+                    <span className={styles["dot"]}>•</span>
+                    <span className={styles["creation-date"]}>{formatDate(review.creationDate)}</span>
+                  </div>
+                </div>
               </div>
 
-              <div className={styles["user-id"]} onClick={() => navigate(`/${review.userId}`)}>
-                <div className={styles["user-id-p"]}>{review.nickname}</div>
-                <div className={styles["separator"]}>|</div>
-                <div className={styles["creation-date"]}>{formatDate(review.creationDate)}</div>
-              </div>
-
-              <div className={styles["rating"]}>
-                <Rating rating={review.rating} />
-              </div>
-
+              {/* 중간: 리뷰 본문 */}
               <div className={styles["content"]}>
-                <div className={styles["content-p"]}>
-                  {truncate(review.content, 20)}
-                </div>
+                <p>{truncate(review.content, 120)}</p>
+              </div>
+
+              {/* 하단: 좋아요 */}
+              <div className={styles["review-like"]}>
+                <img src="/icons/heart_filled.svg" alt="like" />
+                <p className={styles["review-like-count"]}>{review.likeCount}</p>Likes
               </div>
             </div>
-
-            <div className={styles["review-like"]}>
-              <img src="/icons/heart_filled.svg" alt="like" />
-              <p className={styles["review-like-count"]}>{review.likeCount}</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
