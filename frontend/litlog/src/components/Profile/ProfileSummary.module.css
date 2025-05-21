@@ -2,17 +2,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 50px;
+    padding: 20px;
     margin-bottom: 20px;
     background-color: #F3F3F3;
-    border-radius: 5px;
+    border-radius: 10px;
     width: 960px;
-    height: 150px;
 }
 
 .profileLeft {
     display: flex;
     align-items: center;
+    margin-right: 35px;
 }
 
 .nicknameRow {
