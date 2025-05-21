@@ -132,7 +132,19 @@
             </span>
           </div>
           <div className={styles.bottomRow}>
-            <span className={styles.author} onClick={() => navigate(`/${col.userId}`)}>by {col.nickname}</span>
+            <span className={styles.author} onClick={() => navigate(`/${col.userId}`)}>
+            <img
+              src={
+                col.profileImage
+                  ? (col.profileImage.startsWith('http')
+                      ? col.profileImage
+                      : `http://localhost:9090${col.profileImage}`)
+                  : defaultProfile
+              }
+              alt="profile"
+              className={styles.profileIcon}
+            />{col.nickname}
+          </span>
             <span className={styles.meta}>
               <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1} />
               {likeDisplay}
