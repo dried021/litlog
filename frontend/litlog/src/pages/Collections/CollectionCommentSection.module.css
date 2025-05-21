@@ -1,19 +1,25 @@
 .addCommentToggleBtn {
   padding: 6px 12px;
-  background-color: #007bff;
+  background-color: #636B2F;
+  opacity: 80%;
+  margin: 10px 0;
   color: #fff;
   border: none;
-  border-radius: 20px;
-  font-size: 0.9rem;
+  border-radius: 6px;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .addCommentToggleBtn:hover {
-  background-color: #0056b3;
+  opacity: 100%;
 }
 
 .addCommentToggleBtn:active {
   transform: scale(0.97);
+}
+
+.commentHeader h3 {
+  font-size: 18px;
 }

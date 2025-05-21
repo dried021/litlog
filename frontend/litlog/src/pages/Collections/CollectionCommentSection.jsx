@@ -44,7 +44,7 @@ const CollectionCommentSection = ({ collectionId }) => {
 
   return (
     <div>
-      <div className="comment-header">
+      <div className={styles.commentHeader}>
         <h3>Comments</h3>
         {user && (
           <button
