@@ -27,7 +27,8 @@ const AddComment = ({ onSubmit, onCancel }) => {
   };
 
   const handleSubmit = () => {
-    if (!content.trim()) {
+    const cleaned = content.trim().replace(/\s{2,}/g, ' ');
+    if (!cleaned) {
       openModal({ message:'Enter your comment.'});
       return;
     }

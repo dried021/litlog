@@ -88,8 +88,8 @@ const NewCollection = ({
   };
 
   const { handleSubmit } = useSubmitCollection(
-    title.trim(),
-    content.trim(),
+    title.trim().replace(/\s{2,}/g, ' '),
+    content.trim().replace(/\s{2,}/g, ' '),
     selectedBooks,
     resetForm,
     mode,
