@@ -13,13 +13,7 @@ const SearchBar = ({ className = "", handleSearch, value, onChange, placeholder 
         type="text"
         placeholder={placeholder}
         value={value}
-        onChange={(e) => {
-          const trimmed = e.target.value.replace(/\s/g, ''); 
-          onChange({ target: { value: trimmed } });
-        }}
-        onKeyDown={(e) => {
-          if (e.key === ' ') e.preventDefault(); 
-        }}
+        onChange={onChange}
         className={styles.searchInput}
       />
       <button type="submit" className={styles.searchButton}>
