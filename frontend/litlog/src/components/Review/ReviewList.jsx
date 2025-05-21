@@ -11,7 +11,7 @@ export function Rating({ rating }) {
         <img 
           className={styles['star']}
           key={index}
-          src="/icons/star2.svg"
+          src="/icons/star.svg"
           alt={`Image ${index + 1}`}
         />
       ))}
@@ -19,7 +19,7 @@ export function Rating({ rating }) {
         <img 
           className={styles['star']}
           key={index}
-          src="/icons/emptyStar.svg"
+          src="/icons/star_gray.svg"
           alt={`Image ${index + 1}`}
         />
       ))}
