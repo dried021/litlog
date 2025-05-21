@@ -207,6 +207,7 @@ const NewCollection = ({
         <small className={styles.charCount}>{content.length} / 1000</small>
 
         <div className={styles.bookSearch}>
+          <div className={styles.searchRow}>
           <input
             type="text"
             value={searchQuery}
@@ -220,6 +221,7 @@ const NewCollection = ({
             }}
           />
           <button type="button" onClick={handleSearch}>Search</button>
+          </div>
 
           {searchResults.length > 0 && (
           <div ref={dropdownRef} className={styles.searchResultsBox}>
