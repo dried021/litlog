@@ -1,7 +1,7 @@
 .searchBarForm {
   display: flex;
   align-items: center;
-  background-color: #BAC095;
+  background-color: #f7e7ce;
   padding: 10px;
   border-radius: 50px;
   margin: 20px;
@@ -31,8 +31,8 @@
 .searchButton {
   width: 40px;
   height: 40px;
-  background-color: #5C5346;
-  color: #fff;
+  background-color: #bac095;
+  color: black;
   border: none;
   border-radius: 50%;
   display: flex;

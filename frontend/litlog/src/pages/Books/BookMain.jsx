@@ -44,12 +44,12 @@ const BookMain = () => {
 
     return (
         <div>
-            <h2 className="title">Books Main Page</h2>
+            
             <SearchBar 
                 handleSearch={handleSearch} 
                 value={keyword} 
                 onChange={(e) => setKeyword(e.target.value)} 
-                placeholder="Search books..."
+                placeholder="Search Books..."
             />
 
             <BookSlider title="Popular Books This Week" books={popularBookList} />
