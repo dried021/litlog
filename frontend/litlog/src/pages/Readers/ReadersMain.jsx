@@ -45,8 +45,7 @@ const ReadersMain = () => {
 
 
     return(
-        <div>
-            <h2 className="title">Readers Main Page</h2>
+        <div className={styles.readers}>
             <SearchBar 
                 handleSearch={handleSearch} 
                 value={keyword} 
