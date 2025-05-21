@@ -28,6 +28,10 @@
     display: flex;
     flex-direction: column;
   }
+
+  .formGroupFull p {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
   
 .submitButton:disabled {
 background-color: #BAC095; 
