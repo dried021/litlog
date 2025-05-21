@@ -138,6 +138,7 @@ CREATE TABLE book_review(
 	FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE SET NULL
 );
 
+SELECT * FROM book_shelf;
 CREATE TABLE book_shelf(
 	id INT AUTO_INCREMENT PRIMARY KEY,
     book_id INT,
@@ -148,7 +149,7 @@ CREATE TABLE book_shelf(
 	FOREIGN KEY (shelf_type) REFERENCES shelf_type(value) ON DELETE SET NULL,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE SET NULL,
     FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE,
-	UNIQUE KEY unique_book_shelf (id, book_id)
+	UNIQUE KEY unique_book_shelf (user_id, book_id)
 );
 
 CREATE TABLE follow_list(
