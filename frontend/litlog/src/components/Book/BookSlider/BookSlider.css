@@ -1,6 +1,6 @@
 .book-slider {
-    width: 100%;              
-    max-width: 1200px;      
+    width: 960px;  
+    margin: 0 auto;   
     padding: 30px 20px;        
     background-color: #fff;
     color: #121212;
@@ -8,27 +8,36 @@
   }
 
   .bookslider-title{
+    font-size: 22px;
     font-weight: bold;
-    margin-bottom: 12px;
+    color: #5c5346;
+    border-bottom: 1px solid #ccc; 
+    padding-bottom: 10px;
+    margin-bottom: 15px; 
   }
 
-  .bookslider-booktitle{
-    height: 50px;
-    margin: 15px;
+  .bookslider-booktitle {
+    display: block;
+    width: 150px;
+    height: 23px;            
+    margin: 15px 0;
     text-align: center;
-    display: flex;
-    align-items: center;   
-    justify-content: center;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;     
+    overflow: hidden;
+    text-overflow: ellipsis;  
   }
-  
+
   .book-card {
     padding: 10px;
     text-align: center;
   }
 
   .book-image {
-    width: 100%;
-    height: 318px;
+    width: 160px;
+    height: 240px;
     border-radius: 8px;
     transition: transform 0.3s ease;
   }
@@ -42,7 +51,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px; /* 아이템 간격 */
+    gap: 6px; /* 아이템 간격 */
   }
   
   .book-stats img {
@@ -70,14 +79,14 @@
     display: none !important;
   }
 
-  .review{
-    width: 20px;
+  .book-stats img.review {
+    width: 22px;
   }
 
-  .like{
-    width: 20px;
+  .book-stats img.like {
+    width: 19px;
   }
 
-  .bookshelf{
+  .book-stats img.bookshelf {
     width: 20px;
   }
