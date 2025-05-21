@@ -55,3 +55,5 @@ _metadata.json
 #DB
 createDBSample2.sql
 forsamples/
+
+/uploads/
