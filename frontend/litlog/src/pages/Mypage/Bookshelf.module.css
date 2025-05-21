@@ -16,7 +16,6 @@
     margin-top: 40px;
     margin-bottom: 20px;
     padding-bottom: 13px;
-    border-bottom: 1px solid #111;
     display: flex;
 }
 
@@ -64,7 +63,6 @@ button.active {
     padding-top: 30px;
     padding-bottom: 20px;
     padding-left: 30px;
-    border-bottom: 1px solid #111;
 }
 
 
