@@ -76,7 +76,7 @@ const UserTotalRanking = () => {
     }
     
     return (
-        <div>
+        <div className={styles.totalRanking}>
             <div className={styles.headerRow}>
                 <h2 className={styles.title}>Overall User Rank</h2>
                 <RankPeriod period={period} onChange={handlePeriodChange} />
