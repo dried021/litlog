@@ -35,32 +35,42 @@
             u.nickname,
             u.profile_image AS profile,
 
-            (SELECT COUNT(*)
-             FROM like_list ll1
-             WHERE ll1.target_id = bc.id AND ll1.like_type = 3) AS collections,
-
-            (SELECT COUNT(*)
-             FROM like_list ll2
-             WHERE ll2.target_id = br.id AND ll2.like_type = 1) AS likes,
-
-            (SELECT COUNT(*)
-             FROM follow_list fl 
-             WHERE fl.follow_user_id = u.id) AS followers,
+            COALESCE(bc_likes.total_collections, 0) AS collections,
+            COALESCE(br_likes.total_likes, 0) AS likes,
+            COALESCE(followers.total_followers, 0) AS followers,
 
             (
-              (SELECT COUNT(*) FROM like_list ll1 WHERE ll1.target_id = bc.id AND ll1.like_type = 3) + 
-              (SELECT COUNT(*) FROM like_list ll2 WHERE ll2.target_id = br.id AND ll2.like_type = 1) +
-              (SELECT COUNT(*) FROM follow_list fl WHERE fl.follow_user_id = u.id)
+                COALESCE(bc_likes.total_collections, 0) +
+                COALESCE(br_likes.total_likes, 0) +
+                COALESCE(followers.total_followers, 0)
             ) AS activityScore
 
         FROM user u
-        LEFT JOIN book_collection bc ON bc.user_id = u.id
-        LEFT JOIN book_review br ON br.user_id = u.id
 
-        GROUP BY u.id, u.profile_image, bc.id, br.id
+        LEFT JOIN (
+            SELECT bc.user_id, COUNT(*) AS total_collections
+            FROM book_collection bc
+            JOIN like_list ll ON ll.target_id = bc.id AND ll.like_type = 3
+            GROUP BY bc.user_id
+        ) bc_likes ON bc_likes.user_id = u.id
+
+        LEFT JOIN (
+            SELECT br.user_id, COUNT(*) AS total_likes
+            FROM book_review br
+            JOIN like_list ll ON ll.target_id = br.id AND ll.like_type = 1
+            GROUP BY br.user_id
+        ) br_likes ON br_likes.user_id = u.id
+
+        LEFT JOIN (
+            SELECT follow_user_id AS user_id, COUNT(*) AS total_followers
+            FROM follow_list
+            GROUP BY follow_user_id
+        ) followers ON followers.user_id = u.id
+
         ORDER BY activityScore DESC
         LIMIT 20
     </select>
+
 
     <select id="getRank" parameterType="map" resultType="com.bookfox.model.UserListDto">
         SELECT
