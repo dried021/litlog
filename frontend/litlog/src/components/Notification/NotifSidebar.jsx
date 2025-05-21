@@ -70,7 +70,7 @@ const NotifSidebar = ({ onClose }) => {
       navigate(`/${notification.senderId}`);
       handleClose();
     } else if (notification.type === 'REVIEW_LIKE') {
-      navigate(`/books/${notification.bookApiId}`);
+      navigate(`/${notification.userId}/reviews/detail/${notification.targetId}`);
       handleClose();
     } else if (
       notification.type === 'COLLECTION_LIKE' ||

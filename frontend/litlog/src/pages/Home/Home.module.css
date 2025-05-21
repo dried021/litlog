@@ -1,7 +1,7 @@
 .mainWrapper {
-  max-width: 1024px;
+  width: 960px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 20px 1rem;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
