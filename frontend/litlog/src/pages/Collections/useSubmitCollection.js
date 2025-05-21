@@ -46,7 +46,7 @@ export const useSubmitCollection = (
           resultValue: '1',
           mode: 'close',
           resetForm(){},
-          callbackOnSuccess: () => navigate('/collections')
+          callbackOnSuccess: () => navigate(`/collections/${collectionId}`)
         });
       } else {
         await axios.post('http://localhost:9090/collections/new', payload, {
