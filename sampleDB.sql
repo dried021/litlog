@@ -103,12 +103,12 @@ INSERT INTO book_shelf VALUES
 
 
 INSERT INTO book_review VALUES 
-(1,'bbb',1,"A philosophical and introspective journey that left me pondering life's deeper meaning. Beautiful prose but slow at times.",3,'2025-05-12 15:38:15'),
-(2,'bbb',2,"Absolutely thrilling! The twist at the end blew my mind. Ender’s character is both brilliant and tragic.",5,'2025-05-12 15:38:15'),
-(3,'bbb',3,'Gripping from start to finish. Katniss is a compelling protagonist, though the love triangle was a bit cliché.',4,'2025-05-12 15:38:15'),
-(4,'bbb',4,'An epic blend of science fiction and emotional storytelling. The visuals and soundtrack are unforgettable.',5,'2025-05-14 15:38:15'),
-(5,'bbb',5,'A thought-provoking read that challenges mainstream political ideologies. Dense but worth it.',3,'2025-05-12 15:38:15'),
-(6,'bbb',6,"A chilling and powerful portrayal of totalitarianism. Orwell\'s vision feels disturbingly relevant even today. A must-read for anyone interested in politics and human rights.",5,'2025-05-13 15:38:15');
+(1,'bbb',1,"A philosophical and introspective journey that left me pondering life's deeper meaning. Beautiful prose but slow at times.",3,'2025-05-20 15:38:15'),
+(2,'bbb',2,"Absolutely thrilling! The twist at the end blew my mind. Ender’s character is both brilliant and tragic.",5,'2025-05-20 15:38:15'),
+(3,'bbb',3,'Gripping from start to finish. Katniss is a compelling protagonist, though the love triangle was a bit cliché.',4,'2025-05-20 15:38:15'),
+(4,'bbb',4,'An epic blend of science fiction and emotional storytelling. The visuals and soundtrack are unforgettable.',5,'2025-05-20 15:38:15'),
+(5,'bbb',5,'A thought-provoking read that challenges mainstream political ideologies. Dense but worth it.',3,'2025-05-20 15:38:15'),
+(6,'bbb',6,"A chilling and powerful portrayal of totalitarianism. Orwell\'s vision feels disturbingly relevant even today. A must-read for anyone interested in politics and human rights.",5,'2025-05-20 15:38:15');
  /* Interstellar, 1984 most recent */
 
 
@@ -135,7 +135,32 @@ INSERT INTO like_list VALUES
 (15,'bbb',13,2,'2025-05-12 15:38:15');
 /* liked books - 1984, Karamazov most reent */
 
-
+SELECT 
+            br.id,
+            u.nickname AS nickname,
+            br.user_id AS userId,
+            br.book_id AS bookId,
+            b.book_api_id AS bookApiId,
+            b.title,
+            b.authors,
+            b.thumbnail,
+            br.content,
+            br.rating,
+            br.creation_date AS creationDate,
+            COALESCE(likeCount.likeCount, 0) AS likeCount
+        FROM book_review br
+        LEFT JOIN book b ON b.id = br.book_id
+        LEFT JOIN user u
+            ON u.id = br.user_id
+        LEFT JOIN (
+            SELECT target_id, COUNT(*) AS likeCount 
+            FROM like_list 
+            WHERE like_type = 1 
+            GROUP BY target_id
+        ) likeCount ON likeCount.target_id = br.id
+        WHERE br.creation_date >= NOW() - INTERVAL 7 DAY
+        ORDER BY likeCount DESC
+        LIMIT 5 OFFSET #{offset};
 
 
 
