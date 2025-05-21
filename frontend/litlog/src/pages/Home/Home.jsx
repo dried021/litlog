@@ -13,14 +13,6 @@ const Home = () => {
 
   return (
     <div className={styles.mainWrapper}>
-      <h2 className={styles.title}>
-        <img 
-          src="/icons/book.svg" 
-          alt="main" 
-          style={{ width: '25px', height: '25px', verticalAlign: 'middle', marginRight: '6px' }} 
-        />
-        Home
-      </h2>
 
       {/* 내가 읽고 있는 책 */}
       {<BooksInProgress userId={user} />}
@@ -33,18 +25,6 @@ const Home = () => {
 
       {/* 인기 컬렉션 */}
       <PopularCollections />
-
-      {/* 로그아웃 버튼 */} 
-      {user && 
-        (<button 
-          onClick={() => {
-            logout('/');
-            window.location.reload();
-          }}
-        >
-          Sign Out
-        </button>)
-      }
     </div>
   );
 };

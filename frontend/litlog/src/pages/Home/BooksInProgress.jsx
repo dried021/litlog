@@ -40,7 +40,9 @@ const BooksInProgress = ({ userId }) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h3>Books in Progress</h3>
+        <h3>
+          Welcome back, Here’s your Reading Progress so far…
+        </h3>
         <p>You’re currently reading {books.length} book(s)</p>
       </div>
       
