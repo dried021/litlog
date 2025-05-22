@@ -167,7 +167,11 @@ const FindPassword = () => {
                 onChange={(e) => setCode(e.target.value)}
                 onKeyDown={(e) => {
                   preventSpace(e);
-                  if (e.key === 'Enter') handleVerifyCode();
+                  if (e.key === 'Enter'){ 
+                    e.preventDefault();        
+                    e.stopPropagation(); 
+                    handleVerifyCode();
+                  }
                 }}
               />
             </div>
@@ -197,14 +201,29 @@ const FindPassword = () => {
                 onChange={(e) => setConfirmPwd(e.target.value)}
                 onKeyDown={(e) => {
                   preventSpace(e);
-                  if (e.key === 'Enter') handleVerifyCode();
+                  if (e.key === 'Enter') handleResetPassword();
                 }}
               />
             </div>
 
             <div className={styles['findpassword-button-row']}>
               <button className={styles['findpassword-btn-confirm']} onClick={handleResetPassword}>Reset</button>
-              <button className={styles['findpassword-btn-cancel']} onClick={() => setStep(1)}>Cancel</button>
+              <button
+                className={styles['findpassword-btn-cancel']}
+                onClick={() => {
+                  setStep(1);
+                  setId('');
+                  setName('');
+                  setEmail('');
+                  setCode('');
+                  setNewPwd('');
+                  setConfirmPwd('');
+                  setTimerRunning(false);
+                  setTimeLeft(180);
+                }}
+              >
+                Cancel
+              </button>
             </div>
           </>
         )}

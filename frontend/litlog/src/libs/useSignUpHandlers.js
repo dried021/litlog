@@ -101,7 +101,10 @@ export function useSignUpHandlers_nickname(openModal) {
     setEmailChecked(false);
     setEmailAvailable(null);
     setEmailVerified(false);
+    setTimerRunning(false);         
+    setTimeLeft(0);                 
   };
+
 
   const sendEmailCode = async () => {
     const { valid, message } = validateEmailFormat(email);
