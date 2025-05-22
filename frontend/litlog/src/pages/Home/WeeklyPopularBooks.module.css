@@ -55,7 +55,7 @@
 
 .thumbnail {
   width: 140px;
-  height: 196px; /* 5:7 비율 */
+  height: 220px; /* 5:7 비율 */
   object-fit: cover;
   border-radius: 4px;
   margin-bottom: 8px;

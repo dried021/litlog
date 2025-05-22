@@ -109,7 +109,7 @@ const FindPassword = () => {
 
   return (
     <div className={styles['findpassword-reset-wrapper']}>
-      <h2>Reset Password</h2>
+      <h2>RESET PASSWORD</h2>
       <div className={styles['findpassword-reset-box']}>
         {step === 1 && (
           <>
@@ -141,22 +141,16 @@ const FindPassword = () => {
               />
             </div>
             <div className={styles['findpassword-button-row']}>
-              <span className={styles['findpassword-btn-confirm']} onClick={handleSendCode}>Confirm</span>
-              <span className={styles['findpassword-divider']}>|</span>
-              <span className={styles['findpassword-btn-cancel']} onClick={() => navigate('/sign-in')}>Cancel</span>
+              <button className={styles['findpassword-btn-confirm']} onClick={handleSendCode}>Confirm</button>
+              <button className={styles['findpassword-btn-cancel']} onClick={() => navigate('/sign-in')}>Cancel</button>
             </div>
           </>
         )}
 
         {step === 2 && (
           <>
-            <p>Check your email for a verification code.</p>
+            <p className={styles['findpassword-timer-message']}>Check your email for a verification code.</p>
             <p className={styles['findpassword-timer-text']}>
-              <img
-                src="/icons/alarm.svg"
-                alt="Timer"
-                className={styles.icon}
-              />{' '} 
               Time remaining: {Math.floor(timeLeft / 60)}:{String(timeLeft % 60).padStart(2, '0')}
             </p>
             <div className={styles['findpassword-form-group']}>
@@ -176,7 +170,7 @@ const FindPassword = () => {
 
         {step === 3 && (
           <>
-            <div className={styles['findpassword-form-group']}>
+            <div className={styles['findpassword-form-group-last']}>
               <label>New Password :</label>
               <input
                 type="password"
@@ -186,7 +180,7 @@ const FindPassword = () => {
               />
             </div>
 
-            <div className={styles['findpassword-form-group']}>
+            <div className={styles['findpassword-form-group-last']}>
               <label>Confirm Password :</label>
               <input
                 type="password"
@@ -197,9 +191,8 @@ const FindPassword = () => {
             </div>
 
             <div className={styles['findpassword-button-row']}>
-              <span className={styles['findpassword-btn-confirm']} onClick={handleResetPassword}>Reset</span>
-              <span className={styles['findpassword-divider']}>|</span>
-              <span className={styles['findpassword-btn-cancel']} onClick={() => setStep(1)}>Cancel</span>
+              <button className={styles['findpassword-btn-confirm']} onClick={handleResetPassword}>Reset</button>
+              <button className={styles['findpassword-btn-cancel']} onClick={() => setStep(1)}>Cancel</button>
             </div>
           </>
         )}
