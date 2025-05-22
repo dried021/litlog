@@ -9,8 +9,8 @@ function AddLikeButton({ bookApiId, isLiked, setIsLiked, handleClick, handleAdde
   const [showOptions, setShowOptions] = useState(false);
 
   const options_liked = [
-    { label: "Move to My favorites", value: 1 },
-    { label: "Remove like", value: 2 },
+    { label: "View My Favorites", value: 1 },
+    { label: "Remove from Favorites", value: 2 },
   ];
 
   const { user } = useContext(UserContext);
@@ -67,7 +67,7 @@ function AddLikeButton({ bookApiId, isLiked, setIsLiked, handleClick, handleAdde
   const handleLoginCheck = (action) => {
     if (!user) {
       openModal(
-        "You need to sign in before using this feature.",
+        "You need to sign in to use this feature.",
         "",
         "1",
         "confirm",
@@ -118,7 +118,7 @@ function AddLikeButton({ bookApiId, isLiked, setIsLiked, handleClick, handleAdde
             handleLikeClick();
           }
         }}>
-        <span>Add Like</span>
+        <span>Add to Favorites</span>
       </button>
 
       {(showOptions && isLiked === true) && (
