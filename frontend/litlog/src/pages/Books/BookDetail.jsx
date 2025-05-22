@@ -158,7 +158,6 @@ const BookDetail = () => {
 
   return (
     <div>
-      <h2 className="title">Book Detail page</h2>
       {book.volumeInfo ? (
         <div className={styles.container}>
           <div className={styles["book-section"]}>
@@ -185,18 +184,19 @@ const BookDetail = () => {
 
           <div className={styles["description-section"]}>
             <div className={styles["info-section"]}>
-              <h1 className={styles["book-title"]}>{book.volumeInfo.title}</h1>
-
+              <div className={styles["book-title-wrapper"]}>
+                <h1 className={styles["book-title"]}>{book.volumeInfo.title}</h1>
+                {book.volumeInfo.authors && (
+                  <span className={styles["authors"]}>
+                    {book.volumeInfo.authors.join(", ")}
+                  </span>
+                )}
+              </div>
+              
               {book.volumeInfo.subtitle && (
                 <p className={styles["subtitle"]}>{book.volumeInfo.subtitle}</p>
               )}
 
-              {book.volumeInfo.authors && (
-                <p className={styles["authors"]}>
-                  {book.volumeInfo.authors}
-                </p>)
-              }
-              
               <p className={styles["publisher"]}>
                 {book.volumeInfo.publisher} | {book.volumeInfo.publishedDate}
               </p>
