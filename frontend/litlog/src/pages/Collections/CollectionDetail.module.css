@@ -106,6 +106,10 @@ body {
   max-width: 100%;
   white-space: pre-wrap;
   overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
 }
 
 .author {

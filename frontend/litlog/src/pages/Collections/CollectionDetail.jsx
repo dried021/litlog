@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef  } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from './CollectionDetail.module.css';
@@ -21,6 +21,9 @@ const CollectionDetail = () => {
   const navigate = useNavigate();
   const booksPerPage = 12;
   const [isExpanded, setIsExpanded] = useState(false);
+  const contentRef = useRef(null);
+  const [shouldTruncate, setShouldTruncate] = useState(false);
+
   const [modalData, setModalData] = useState({
     show: false,
     message: "",
@@ -76,6 +79,18 @@ const CollectionDetail = () => {
       })
       .catch(err => console.error('Failed to load book list.', err));
   }, [collectionId, currentPage]);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      const lineHeight = parseFloat(getComputedStyle(contentRef.current).lineHeight);
+      const height = contentRef.current.scrollHeight;
+      const lines = height / lineHeight;
+
+      if (lines > 3) {
+        setShouldTruncate(true);
+      }
+    }
+  }, [collection]);
 
   const handleLikeToggle = async () => {
     if (!user) {
@@ -208,15 +223,19 @@ const CollectionDetail = () => {
           </div>
 
           <h2 className={styles.title}>{collection.title}</h2>
-          <p className={`${styles.content} ${!isExpanded && collection.content.length > 10 ? styles.collapsed : ''}`}>
+          <p
+            ref={contentRef}
+            className={`${styles.content} ${!isExpanded && shouldTruncate ? styles.collapsed : ''}`}
+          >
             {collection.content}
           </p>
 
-          {collection.content.length > 10 && (
+          {shouldTruncate && (
             <button className={styles.expandBtn} onClick={toggleExpand}>
               {isExpanded ? 'Show Less' : 'Show More'}
             </button>
           )}
+
           <br />
           <Link to={`/${collection.userId}`} className={styles.author}>
             <img
