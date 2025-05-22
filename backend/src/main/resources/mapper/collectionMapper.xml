@@ -166,8 +166,8 @@
     </select>
 
     <insert id="insertCollection" parameterType="com.bookfox.model.CollectionDto" useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO book_collection(user_id, title, content, thumbnail)
-    VALUES (#{userId}, #{title}, #{content}, #{thumbnail})
+    INSERT INTO book_collection(user_id, title, content)
+    VALUES (#{userId}, #{title}, #{content})
     </insert>
 
     <select id="findBookIdByApiId" resultType="int">
@@ -180,8 +180,8 @@
     </insert>
 
     <insert id="insertCollectionBook">
-    INSERT INTO book_collection_book (collection_id, book_id, thumbnail, order_index)
-    VALUES (#{collectionId}, #{bookId}, #{thumbnail}, #{orderIndex})
+    INSERT INTO book_collection_book (collection_id, book_id, order_index)
+    VALUES (#{collectionId}, #{bookId}, #{orderIndex})
     </insert>
 
     <select id="getBooksByCollectionId" resultType="com.bookfox.model.BookDto">
@@ -201,7 +201,7 @@
 
     <update id="updateCollectionMeta">
         UPDATE book_collection
-        SET title = #{title}, content = #{content}, thumbnail = #{thumbnail}
+        SET title = #{title}, content = #{content}
         WHERE id = #{id} AND user_id = #{userId}
     </update>
 
