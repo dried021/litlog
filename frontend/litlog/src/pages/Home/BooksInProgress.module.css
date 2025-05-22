@@ -33,7 +33,7 @@
 
 .thumbnail {
   width: 140px;
-  height: 196px;
+  height: 210px;
   object-fit: cover;
   cursor: pointer;
   border-radius: 4px;
