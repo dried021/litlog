@@ -34,7 +34,7 @@ const CollectionPopularList = () => {
         <img 
           src= "/icons/hand-thumbs-up-fill.svg" 
           alt="Popular This Week" 
-          style={{ width: '24px', height: '24px', verticalAlign: 'middle', marginRight: '6px' }} 
+          style={{ width: '24px', height: '24px', verticalAlign: 'middle', marginRight: '6px', marginBottom: '6px'}} 
         />
         Popular This Week</h2>
 
@@ -95,7 +95,6 @@ const CollectionPopularList = () => {
                     <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1} />
                     <>
                         {col.likeCount}
-                        <img src="/icons/arrow-up.svg" alt="up" className={styles.icon1} />
                     </>
                     &nbsp;&nbsp;
                     <img src="/icons/comment_gray.svg" alt="comments" className={styles.icon2} />
