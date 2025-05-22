@@ -5,7 +5,7 @@ import { UserContext } from "../../libs/UserContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import CustomModal from "../Modal/CustomModal";
 
-function AddToBookshelfButton({bookApiId, handleClick, handleAddedClick}) {
+function AddToBookshelfButton({bookApiId, handleClick, handleAddedClick, bookshelfTrigger}) {
   const [showOptions, setShowOptions] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
 
@@ -62,7 +62,7 @@ function AddToBookshelfButton({bookApiId, handleClick, handleAddedClick}) {
     if (bookApiId && user) {
       setBookshelf(bookApiId);
     }
-  }, [bookApiId, isAdded, user]);
+  }, [bookApiId, isAdded, user, bookshelfTrigger]);
 
   const setBookshelf = async (bookApiId) => {
     try {
