@@ -43,7 +43,8 @@ VALUES
 
 UPDATE user
 SET bio="Librarian who reads fantasy on weekends.",
-profile_image="https://i.pinimg.com/736x/0b/e2/09/0be2093ff5d14441a7495a37479a1ae2.jpg"
+profile_image="https://i.pinimg.com/736x/0b/e2/09/0be2093ff5d14441a7495a37479a1ae2.jpg",
+reg_date="2023-02-03 20:18:10"
 WHERE id="user01";
 
 UPDATE user
@@ -67,29 +68,29 @@ profile_image="https://upload.wikimedia.org/wikipedia/en/thumb/e/e9/Gandalf600pp
 WHERE id="user07";
 
 INSERT INTO book_review (user_id, book_id, content, rating, creation_date) VALUES
-('user01', 21, 'Engaging and well-paced story.', 3, '2026-03-13 12:31:06'),
-('user01', 30, 'Not what I expected, but decent.', 5, '2026-08-21 06:54:22'),
-('user01', 14, 'Not what I expected, but decent.', 5, '2026-02-09 17:57:38'),
-('user01', 44, 'Characters were well-developed.', 5, '2026-10-01 17:40:15'),
-('user01', 31, 'Amazing read with deep insights.', 5, '2026-08-24 23:22:51'),
-('user01', 50, 'Would recommend to anyone.', 5, '2026-07-03 16:30:51'),
-('user01', 47, 'A bit too slow for my taste.', 4, '2026-06-15 12:59:41'),
-('user01', 27, 'One of the best books I`ve read.', 5, '2026-02-02 14:26:22'),
-('user01', 42, 'Plot twists were fantastic.', 4, '2026-03-09 11:15:19'),
-('user01', 24, 'One of the best books I`ve read.', 3, '2027-03-13 17:47:48'),
-('user02', 14, 'One of the best books I`ve read.', 2, '2024-12-13 09:46:33'),
-('user02', 34, 'Engaging and well-paced story.', 4, '2027-02-08 14:38:16'),
+('user01', 21, 'Engaging and well-paced story.', 3, '2025-10-13 12:31:06'),
+('user01', 30, 'Not what I expected, but decent.', 5, '2024-08-21 06:54:22'),
+('user01', 14, 'Not what I expected, but decent.', 5, '2024-02-09 17:57:38'),
+('user01', 44, 'Characters were well-developed.', 5, '2025-10-01 17:40:15'),
+('user01', 31, 'Amazing read with deep insights.', 5, '2025-10-24 23:22:51'),
+('user01', 50, 'Would recommend to anyone.', 5, '2025-04-03 16:30:51'),
+('user01', 47, 'A bit too slow for my taste.', 4, '2025-05-15 12:59:41'),
+('user01', 27, 'One of the best books I`ve read.', 5, '2025-03-02 14:26:22'),
+('user01', 42, 'Plot twists were fantastic.', 4, '2023-03-09 11:15:19'),
+('user01', 24, 'One of the best books I`ve read.', 3, '2023-03-13 17:47:48'),
+('user02', 14, 'One of the best books I`ve read.', 2, '2026-12-13 09:46:33'),
+('user02', 34, 'Engaging and well-paced story.', 4, '2025-02-08 14:38:16'),
 ('user02', 10, 'One of the best books I`ve read.', 5, '2024-03-16 07:49:27'),
 ('user02', 18, 'Lacked depth and focus.', 5, '2024-09-06 12:46:44'),
 ('user02', 4, 'One of the best books I`ve read.', 4, '2024-08-09 15:12:59'),
 ('user02', 36, 'Would recommend to anyone.', 3, '2025-06-26 23:07:52'),
 ('user02', 22, 'Engaging and well-paced story.', 5, '2025-07-25 16:14:33'),
 ('user02', 23, 'Engaging and well-paced story.', 1, '2025-02-03 20:18:10'),
-('user02', 39, 'Lacked depth and focus.', 1, '2025-07-18 07:00:19'),
-('user03', 28, 'Not what I expected, but decent.', 1, '2024-07-06 02:07:29'),
-('user03', 45, 'Engaging and well-paced story.', 5, '2024-09-10 06:36:41'),
-('user03', 29, 'Lacked depth and focus.', 1, '2027-05-05 09:48:34'),
-('user03', 24, 'Not what I expected, but decent.', 4, '2024-05-05 07:52:02'),
+('user02', 39, 'Lacked depth and focus.', 1, '2025-05-25 07:00:19'),
+('user03', 28, 'Not what I expected, but decent.', 1, '2025-05-22 02:07:29'),
+('user03', 45, 'Engaging and well-paced story.', 5, '2025-05-22 06:36:41'),
+('user03', 29, 'Lacked depth and focus.', 1, '2025-05-22 09:48:34'),
+('user03', 24, 'Not what I expected, but decent.', 4, '2026-05-05 07:52:02'),
 ('user03', 22, 'Would recommend to anyone.', 2, '2024-01-06 13:05:25'),
 ('user03', 7, 'Amazing read with deep insights.', 4, '2025-06-29 13:29:30'),
 ('user03', 27, 'One of the best books I`ve read.', 2, '2025-07-17 21:46:53'),
@@ -2849,6 +2850,8 @@ INSERT INTO like_list (id, user_id, target_id, like_type, creation_date) VALUES
 (NULL, 'user01', 9, 2, '2024-02-03 00:32:51'),
 (NULL, 'user01', 10, 2, '2024-08-29 05:56:47'),
 (NULL, 'user01', 20, 2, '2024-07-13 15:29:19'),
+(NULL, 'user01', 21, 2, '2024-07-13 15:29:19'),
+(NULL, 'user01', 14, 2, '2024-07-13 15:29:19'),
 (NULL, 'user02', 19, 2, '2024-03-29 14:52:04'),
 (NULL, 'user02', 15, 2, '2024-12-22 02:32:49'),
 (NULL, 'user02', 50, 2, '2025-03-15 10:38:19'),
