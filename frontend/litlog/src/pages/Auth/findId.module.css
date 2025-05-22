@@ -27,16 +27,18 @@
 
 .findid-form-group label {
   width: 80px;
-  text-align: right;
-  margin-right: 10px;
+  margin-right: 3px;
   white-space: nowrap; /* 줄바꿈 방지 */
-  color: #F7E7CE;
+  color: white;
+  margin-top: 10px;
 }
 
 .findid-form-group input {
+  width: 110px;
   flex: 1;
   padding: 6px;
   font-size: 14px;
+  margin-right: 15px;
 }
 
 .findid-button-row {
@@ -57,16 +59,17 @@
 .findid-btn-confirm, .findid-btn-cancel {
   width: 80%;
   padding: 8px;
-  opacity: 80%;
-  color: #555;
-  border: none;
+  opacity: 100%;
+  color: #3D4127;
+  border-radius: 4px;
+  border: 1px solid #3D4127;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s;
 }
 
 .findid-btn-confirm {
-  background-color: #BAC095;
+  background-color: #f7e7ce;
   color: #333;
   margin-right: 15px;
 }
@@ -76,13 +79,13 @@
 }
 
 .findid-btn-confirm:hover, .findid-btn-cancel:hover {
-  opacity: 100%;
+  opacity: 80%;
 }
 
 
 .findid-link-row {
   margin-top: 20px;
-  font-size: 13px;
+  font-size: 15px;
   color: #F7E7CE;
 }
 
@@ -96,7 +99,7 @@
 .findid-result-box p {
   color: #F7E7CE;
   margin-bottom: 20px;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.5;
 }
 
@@ -105,4 +108,6 @@
   padding: 6px 16px;
   font-size: 14px;
   cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid #3D4127;
 }

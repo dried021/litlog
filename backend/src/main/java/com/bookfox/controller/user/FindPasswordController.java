@@ -45,7 +45,7 @@ public class FindPasswordController  {
         session.setAttribute("resetId", id);
         session.setMaxInactiveInterval(180); // 3분
 
-        String subject = "Password Reset Verification Code";
+        String subject = "[LitLog] Password Reset Verification Code";
         String bodyText = """
             Hello,
 
@@ -60,7 +60,7 @@ public class FindPasswordController  {
             If you did not request a password reset, please ignore this email or contact support.
 
             Best regards,  
-            LitLog Team
+            LitLog
             """.formatted(code);
 
         emailService.sendSimpleMessage(email, subject, bodyText);
