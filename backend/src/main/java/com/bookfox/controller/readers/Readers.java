@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-@RequestMapping("/readers")
+@RequestMapping("/api/readers")
 public class Readers {
     @Resource
     private ReaderService readerService;

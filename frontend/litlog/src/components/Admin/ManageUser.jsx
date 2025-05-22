@@ -29,7 +29,7 @@ function ManageUser() {
   const fetchUsers = async (page, sortOption) => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:9090/admin`, {
+      const response = await axios.get(`/api/admin`, {
         params: { pageNum: page, searchName, sortOption },
       });
       setUsers(response.data.users || []);

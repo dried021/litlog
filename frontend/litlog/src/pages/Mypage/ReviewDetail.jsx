@@ -27,7 +27,7 @@ const ReviewDetail = () => {
   const fetchReviewDetail = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:9090/api/members/${userId}/reviews/${reviewId}`,
+        `/api/members/${userId}/reviews/${reviewId}`,
         { withCredentials: true } 
       );
       setReview(res.data);
@@ -81,7 +81,7 @@ const ReviewDetail = () => {
   const handleSubmit = async () => {
     try {
       await axios.patch(
-        `http://localhost:9090/api/members/${userId}/reviews/${reviewId}`,
+        `/api/members/${userId}/reviews/${reviewId}`,
         {
           content: editedContent,
           rating: editedRating
@@ -102,7 +102,7 @@ const ReviewDetail = () => {
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `http://localhost:9090/api/members/${userId}/reviews/${reviewId}`, 
+        `/api/members/${userId}/reviews/${reviewId}`, 
         {
           withCredentials: true
         }

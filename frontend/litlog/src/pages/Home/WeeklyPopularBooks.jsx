@@ -9,7 +9,7 @@ const WeeklyPopularBooks = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-  axios.get('http://localhost:9090/books/popularBookList')
+  axios.get('/api/books/popularBookList')
     .then(res => {
       const sliced = res.data.slice(0, 6);
       setBooks(sliced);

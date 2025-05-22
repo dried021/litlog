@@ -6,7 +6,7 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState(undefined); 
 
   useEffect(() => {
-    axios.get('http://localhost:9090/session-check', { withCredentials: true })
+    axios.get('/api/session-check', { withCredentials: true })
       .then(res => {
         if (res.data.loggedIn) {
           setUser(res.data.id);

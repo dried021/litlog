@@ -19,7 +19,7 @@ const ReadersMain = () => {
 
     const getAvidUserList = async () => {
         try{
-            const response = await axios.get(`http://localhost:9090/readers/avidUserList`);
+            const response = await axios.get(`/api/readers/avidUserList`);
             setAvidUserList(response.data || []);
         }catch(error){
             console.error("Fail to load userlist", error);
@@ -29,7 +29,7 @@ const ReadersMain = () => {
 
     const getBelovedUserList = async () => {
         try{
-            const response = await axios.get(`http://localhost:9090/readers/belovedUserList`);
+            const response = await axios.get(`/api/readers/belovedUserList`);
             setBelovedUserList(response.data || []);
         }catch(error){
             console.error("Fail to load userlist", error);

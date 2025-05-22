@@ -15,7 +15,7 @@ const Withdraw = () => {
 
     const getUserId = async () => {
         try {
-          const response = await axios.get(`http://localhost:9090/setting/user`, { withCredentials: true });
+          const response = await axios.get(`/api/setting/user`, { withCredentials: true });
     
           const {id, isAdmin} = response.data;
           setUserId(id);

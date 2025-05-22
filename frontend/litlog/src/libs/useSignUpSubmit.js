@@ -64,7 +64,7 @@ export function useSignUpSubmit({
         userStatus: user_status
       };
 
-      await axios.post("http://localhost:9090/sign-up", dto);
+      await axios.post("/api/sign-up", dto);
       openModal("Sign-up successful!");
       navigate('/sign-in');
     } catch (err) {

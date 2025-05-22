@@ -22,7 +22,7 @@ export default function Network({type}) {
     const membersPerPage = 10;
 
     useEffect(()=>{
-        fetch(`http://localhost:9090/members/${userId}/network`)
+        fetch(`/api/members/${userId}/network`)
             .then(res => res.json())
             .then(data => setResult(data))
             .catch(error => console.error("Failed to fetch data", error))
@@ -97,7 +97,7 @@ export default function Network({type}) {
                                         src={profile.profileImage ? 
                                             (profile.profileImage.startsWith('http') 
                                             ? profile.profileImage
-                                            : `http://localhost:9090${profile.profileImage}`)
+                                            : `/api/${profile.profileImage}`)
                                             : defaultProfile}
                                         alt="profile"
                                         className={styles.profileImg}

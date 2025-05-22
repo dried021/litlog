@@ -36,7 +36,7 @@ const WeeklyPopularReviews = () => {
       let page = 1;
       while (all.length < 6) {
         try {
-          const res = await axios.get('http://localhost:9090/books/popularReviewList', {
+          const res = await axios.get('/api/books/popularReviewList', {
             params: { currentPage: page }
           });
           const data = res.data || [];

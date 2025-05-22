@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/collections")
+@RequestMapping("/api/collections")
 @RequiredArgsConstructor
 public class CollectionLikeController {
     private final CollectionLikeService likeService;

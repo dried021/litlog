@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
  
 @RestController
-@RequestMapping("/sign-up")
+@RequestMapping("/api/sign-up")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173")
 public class UserController {

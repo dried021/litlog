@@ -29,7 +29,7 @@ function ManageComment() {
   const fetchComments = async (page, sortOption) => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:9090/admin/comment`, {
+      const response = await axios.get(`/api/admin/comment`, {
         params: { pageNum: page, searchKeyword, sortOption },
       });
       setComments(response.data.comments || []);

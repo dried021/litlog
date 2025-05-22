@@ -11,7 +11,7 @@ const BooksInProgress = ({ userId }) => {
   useEffect(() => {
     if (!userId) return;
 
-    fetch(`http://localhost:9090/members/${userId}/bookshelf/current`)
+    fetch(`/api/members/${userId}/bookshelf/current`)
       .then((res) => res.json())
       .then((data) => {
         setBooks(data.books || []);

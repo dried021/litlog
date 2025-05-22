@@ -15,7 +15,7 @@ import jakarta.annotation.Resource;
 
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/api/books")
 public class BookMain {
     @Resource
     private BookService bookService;

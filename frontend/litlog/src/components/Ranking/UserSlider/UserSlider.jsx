@@ -74,7 +74,7 @@ function NextArrow(props) {
                 <img src={user.profile ?
                   (user.profile.startsWith('http')
                   ? user.profile
-                  : `http://localhost:9090${user.profile}`)
+                  : `/api/${user.profile}`)
                   :defaultProfile}  
                   alt={user.title} className="user-profile" 
                 />

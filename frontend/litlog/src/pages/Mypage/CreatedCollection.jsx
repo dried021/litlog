@@ -35,7 +35,7 @@ const CreatedCollection = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:9090/api/members/${userId}/collections/created`
+          `/api/members/${userId}/collections/created`
         );
         setCollections(res.data);
         setError(null);

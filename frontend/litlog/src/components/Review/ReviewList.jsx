@@ -109,7 +109,7 @@ function ReviewList() {
 
   const getReviews = async ( currentPage) => {
     try {
-      const response = await axios.get(`http://localhost:9090/books/popularReviewList`, {
+      const response = await axios.get(`/api/books/popularReviewList`, {
         params: {currentPage},
       });
       const reviews = response.data;

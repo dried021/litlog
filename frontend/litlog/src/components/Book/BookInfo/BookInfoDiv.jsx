@@ -70,7 +70,7 @@ function BookInfoDiv({ bookApiId, isLiked, setIsLiked, change, likeTrigger, book
 
   const getCounts = async (bookApiId) => {
     try {
-      const response = await axios.get(`http://localhost:9090/books/counts`, {
+      const response = await axios.get(`/api/books/counts`, {
         params: { bookApiId }, withCredentials: true
       });
   
@@ -107,7 +107,7 @@ function BookInfoDiv({ bookApiId, isLiked, setIsLiked, change, likeTrigger, book
   if (isLiked) {
     try {
       const response = await axios.post(
-        `http://localhost:9090/books/unlike`,
+        `/api/books/unlike`,
         { bookApiId, option: 2 },
         { withCredentials: true }
       );
@@ -122,7 +122,7 @@ function BookInfoDiv({ bookApiId, isLiked, setIsLiked, change, likeTrigger, book
     try {
       const bookId = bookApiId;
       const response = await axios.post(
-        `http://localhost:9090/books/like`,
+        `/api/books/like`,
         { bookId },
         { withCredentials: true }
       );

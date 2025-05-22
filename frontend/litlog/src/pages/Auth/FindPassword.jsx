@@ -61,7 +61,7 @@ const FindPassword = () => {
   const handleSendCode = async () => {
     if (!id || !name || !email) return openModal({ message:'All fields are required.'});
     try {
-      await axios.post('http://localhost:9090/find-password/send-code', { id, name, email }, { withCredentials: true });
+      await axios.post('/api/find-password/send-code', { id, name, email }, { withCredentials: true });
       openModal({ message: 'The verification code has been sent to your email.'});
       setStep(2);
       setTimeLeft(180);
@@ -75,7 +75,7 @@ const FindPassword = () => {
   const handleVerifyCode = async () => {
     if (!code) return openModal({ message:'Please enter the verification code.'});
     try {
-      await axios.post('http://localhost:9090/find-password/verify-code', { id, code }, { withCredentials: true });
+      await axios.post('/api/find-password/verify-code', { id, code }, { withCredentials: true });
       openModal({ message:'Verification successful. Please enter your new password.'});
       setStep(3);
     } catch (err) {
@@ -97,7 +97,7 @@ const FindPassword = () => {
     }
 
     try {
-      await axios.post('http://localhost:9090/find-password/submit-new', { id, newPwd }, { withCredentials: true });
+      await axios.post('/api/find-password/submit-new', { id, newPwd }, { withCredentials: true });
       openModal({
         message: "The password has been successfully reset.",
         callbackOnSuccess: () => navigate('/sign-in')

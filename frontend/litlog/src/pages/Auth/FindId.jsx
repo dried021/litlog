@@ -21,7 +21,7 @@ const FindId = () => {
     if (!name || !email) return openModal({ message: 'Please enter both your name and email.'});
 
     try {
-      await axios.post('http://localhost:9090/find-id', { name, email }, { withCredentials: true });
+      await axios.post('/api/find-id', { name, email }, { withCredentials: true });
       setSent(true);
     } catch (err) {
       if (err.response?.status === 404) {

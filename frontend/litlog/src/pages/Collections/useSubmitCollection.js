@@ -38,7 +38,7 @@ export const useSubmitCollection = (
 
     try {
       if (mode === 'edit' && collectionId) {
-        await axios.put(`http://localhost:9090/collections/${collectionId}`, payload, {
+        await axios.put(`/api/collections/${collectionId}`, payload, {
           withCredentials: true
         });
         openModal({
@@ -49,7 +49,7 @@ export const useSubmitCollection = (
           callbackOnSuccess: () => navigate(`/collections/${collectionId}`)
         });
       } else {
-        await axios.post('http://localhost:9090/collections/new', payload, {
+        await axios.post('/api/collections/new', payload, {
           withCredentials: true
         });
         openModal({

@@ -9,7 +9,7 @@ const PopularCollections = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:9090/collections?sort=popular', { withCredentials: true }) 
+    axios.get('/api/collections?sort=popular', { withCredentials: true }) 
       .then(res => setCollections((res.data.book_collections || []).slice(0, 3)))
       .catch(err => {
         console.error("Failed to load all popular collections.", err);
@@ -88,7 +88,7 @@ const PopularCollections = () => {
                         col.profileImage
                           ? (col.profileImage.startsWith('http')
                               ? col.profileImage
-                              : `http://localhost:9090${col.profileImage}`)
+                              : `/api/${col.profileImage}`)
                           : defaultProfile
                       }
                       alt="profile"

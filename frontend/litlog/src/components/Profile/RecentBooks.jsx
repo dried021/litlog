@@ -11,7 +11,7 @@ export default function RecentBooks() {
     }));
 
     useEffect(()=>{
-        fetch(`http://localhost:9090/members/${userId}/books/recent`)
+        fetch(`/api/members/${userId}/books/recent`)
             .then(res => res.json())
             .then(data => setRecentBooks(data))
             .catch(error => console.error(error))
