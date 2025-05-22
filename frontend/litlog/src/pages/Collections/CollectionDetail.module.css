@@ -11,31 +11,31 @@ body {
 .outerWrapper {
   background-color: #f5f5f5;
   min-height: 100vh;
-  padding: 40px 0;
+  padding: 40px 20px;
+  border-radius: 4px;
 }
 
 .container {
-  min-width: 650px;
-  max-width: 650px;
-  width: 100%;
+  width: 800px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
 .cardBox {
   background-color: #fff;
-  padding: 32px;
-  border-radius: 12px;
+  padding: 30px;
+  border-radius: 4px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   width: 100%;
   overflow-x: hidden;
   word-break: break-word;
+  padding-bottom: 15px;
 }
 
 .topBar {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 16px;
 }
 
@@ -43,30 +43,88 @@ body {
   flex: 1;
 }
 
+
+.topLeft {
+  display: flex;
+  align-items: center;
+}
+
 .topRight {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 6px;
+  width: 100%; 
 }
 
 .metaInfo {
   text-align: right;
 }
 
-.collectionDate,
-.likeComment {
+.metaInfoRow {
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center;
+  gap: 12px;
   font-size: 14px;
   color: #666;
+  width: 100%;
 }
 
-.collectionDate img,
-.likeComment img {
-  width: 16px;
-  height: 16px;
+.bookInfoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.collectionDate {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 0;
+}
+
+.likeComment {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
+
+.like,
+.comment {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 1px;
+}
+
+.like img {
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+  vertical-align: middle;
+  margin-top: 1px;
+  opacity: 100%;
+}
+
+.like img:hover {
+  opacity: 80%;
+}
+
+.comment img {
+  width: 17px;
+  height: 17px;
+  margin-right: 4px;
+  vertical-align: middle;
+  margin-top: 2px;
+}
+
+.collectionDate img {
+  width: 14px;
+  height: 14px;
   vertical-align: middle;
   margin-right: 4px;
-  margin-bottom: 2px;
 }
 
 .modifyDelete {
@@ -116,15 +174,16 @@ body {
   display: flex;
   align-items: center;
   font-weight: bold;
-  font-size: 14px;
-  color: #555;
+  font-size: 16px;
+  color: black;
   gap: 5px;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .profileIcon {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   object-fit: cover;
   margin-right: 1px;
@@ -146,14 +205,14 @@ body {
   height: 16px;
   vertical-align: middle;
   margin-right: 4px;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
 .bookGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  justify-items: start;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 16px 12px;
+  justify-content: center;
   margin-top: 24px;
 }
 
@@ -172,6 +231,8 @@ body {
 .bookCard {
   position: relative;
   width: 120px;
+  height: 180px;
+  margin: 0 auto;
   cursor: pointer;
   overflow: hidden;
   border-radius: 6px;
@@ -265,7 +326,7 @@ body {
 
 .collapsed {
   display: -webkit-box;
-  -webkit-line-clamp: 2;      /* 최대 4줄 */
+  -webkit-line-clamp: 5;      /* 최대 5줄 */
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -273,14 +334,18 @@ body {
 .expandBtn {
   background: none;
   border: none;
-  color: #007bff;
+  color: #636B2F;
   font-size: 0.85rem;
   cursor: pointer;
   margin-top: 4px;
   padding: 0;
+  display: block;             
+  margin-left: 620px;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 .expandBtn:hover {
-  text-decoration: underline;
+  color: #bac095;
 }
 

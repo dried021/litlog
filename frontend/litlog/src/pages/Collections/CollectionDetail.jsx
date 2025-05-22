@@ -19,7 +19,7 @@ const CollectionDetail = () => {
   const [creationDate, setCreationDate] = useState(null);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
-  const booksPerPage = 12;
+  const booksPerPage = 20;
   const [isExpanded, setIsExpanded] = useState(false);
   const contentRef = useRef(null);
   const [shouldTruncate, setShouldTruncate] = useState(false);
@@ -86,7 +86,7 @@ const CollectionDetail = () => {
       const height = contentRef.current.scrollHeight;
       const lines = height / lineHeight;
 
-      if (lines > 3) {
+      if (lines > 5) {
         setShouldTruncate(true);
       }
     }
@@ -147,78 +147,44 @@ const CollectionDetail = () => {
         <div className={styles.cardBox}>
           {/* (날짜 + 좋아요 + 댓글 + 버튼) */}
           <div className={styles.topBar}>
-            <div className={styles.leftSection}>
-              <p className={styles.collectionDate}>
-                <img src="/icons/calendar-check.svg" alt="Date" className={styles.icon} /> 
-                {formatDate(creationDate)}</p>
+            <div className={styles.topLeft}>
+              <Link to={`/${collection.userId}`} className={styles.author}>
+                <img
+                  src={
+                    collection.profileImage
+                      ? (collection.profileImage.startsWith('http')
+                          ? collection.profileImage
+                          : `http://localhost:9090${collection.profileImage}`)
+                      : defaultProfile
+                  }
+                  alt="profile"
+                  className={styles.profileIcon}
+                />
+                {collection.nickname}
+              </Link>
             </div>
 
             <div className={styles.topRight}>
-              <div className={styles.metaInfo}>
+              <div className={styles.metaInfoRow}>
+                <p className={styles.collectionDate}>
+                  <img src="/icons/calendar-check.svg" alt="Date" className={styles.icon} /> 
+                  {formatDate(creationDate)}
+                </p>
                 <div className={styles.likeComment}>
-                  <span onClick={handleLikeToggle} style={{ cursor: 'pointer' }}>
+                  <span className={styles.like} onClick={handleLikeToggle} style={{ cursor: 'pointer' }}>
                     <img 
                       src={liked ? '/icons/heart_filled.svg' : '/icons/heart_gray.svg'} 
                       alt="heart"
                       className="heart-icon"
-                      style={{ width: '20px', height: '20px', verticalAlign: 'middle', marginRight: '4px' }} 
                     />
                     {likeCount}
                   </span>
-                  <span> 
+                  <span className={styles.comment}>
                     <img src="/icons/comment_gray.svg" alt="Comment" className={styles.icon} /> 
-                    {collection.commentCount}</span>
+                    {collection.commentCount}
+                  </span>
                 </div>
               </div>
-
-              {user === collection.userId && (
-                <div className={styles.modifyDelete}>
-                  <button
-                    className={styles.editBtn}
-                    onClick={() => navigate(`/collections/${collection.id}/edit`)}>
-                    Modify
-                  </button>
-                  <button
-                    className={styles.deleteBtn}
-                    onClick={() => {
-                      openModal({
-                        message: 'Are you sure you want to delete this collection?',
-                        mode: 'confirm',
-                        resultValue: '1',
-                        callbackOnSuccess: async () => {
-                          try {
-                            await axios.delete(`http://localhost:9090/collections/${collection.id}`, {
-                              withCredentials: true,
-                            });
-
-                            setModalData({
-                              show: true,
-                              message: 'Deleted successfully.',
-                              mode: 'close',
-                              resultValue: '1',
-                            });
-                            
-                            setTimeout(() => {
-                              navigate('/collections');
-                            }, 1000);
-                          } catch (err) {
-                            console.error('Failed to delete: ', err);
-                            setModalData({
-                              show: true,
-                              message: 'An error occurred during deletion.',
-                              mode: 'close',
-                              resultValue: '0',
-                            });
-                          }
-                        },
-                        callbackOnFail: () => {
-                        }
-                      });
-                    }}>
-                    Delete
-                  </button>
-                </div>
-              )}
             </div>
           </div>
 
@@ -237,23 +203,59 @@ const CollectionDetail = () => {
           )}
 
           <br />
-          <Link to={`/${collection.userId}`} className={styles.author}>
-            <img
-              src={
-                collection.profileImage
-                  ? (collection.profileImage.startsWith('http')
-                      ? collection.profileImage
-                      : `http://localhost:9090${collection.profileImage}`)
-                  : defaultProfile
-              }
-              alt="profile"
-              className={styles.profileIcon}
-            />{collection.nickname}
-        </Link>
+          <div className={styles.bookInfoRow}>
           <p className={styles.bookCount}>
             <img src="/icons/book.svg" alt="Book" className={styles.icon} />  
             {totalBooks} book(s)
           </p>
+
+          {user === collection.userId && (
+            <div className={styles.modifyDelete}>
+              <button
+                className={styles.editBtn}
+                onClick={() => navigate(`/collections/${collection.id}/edit`)}>
+                Modify
+              </button>
+              <button
+                className={styles.deleteBtn}
+                onClick={() => {
+                  openModal({
+                    message: 'Are you sure you want to delete this collection?',
+                    mode: 'confirm',
+                    resultValue: '1',
+                    callbackOnSuccess: async () => {
+                      try {
+                        await axios.delete(`http://localhost:9090/collections/${collection.id}`, {
+                          withCredentials: true,
+                        });
+                        setModalData({
+                          show: true,
+                          message: 'Deleted successfully.',
+                          mode: 'close',
+                          resultValue: '1',
+                        });
+                        setTimeout(() => {
+                          navigate('/collections');
+                        }, 1000);
+                      } catch (err) {
+                        console.error('Failed to delete: ', err);
+                        setModalData({
+                          show: true,
+                          message: 'An error occurred during deletion.',
+                          mode: 'close',
+                          resultValue: '0',
+                        });
+                      }
+                    },
+                    callbackOnFail: () => {}
+                  });
+                }}>
+                Delete
+              </button>
+            </div>
+          )}
+        </div>
+
         </div>
 
         <div className={styles.bookGrid}>
