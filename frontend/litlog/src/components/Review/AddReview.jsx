@@ -75,7 +75,7 @@ const handleSubmit = () => {
     "confirm",
     async () => {
       try {
-        const response = await axios.post(`http://localhost:9090/books/review`, {
+        const response = await axios.post(`/api/books/review`, {
           bookApiId,
           content,
           rating,

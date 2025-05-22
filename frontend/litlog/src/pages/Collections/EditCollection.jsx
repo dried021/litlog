@@ -16,11 +16,11 @@ const EditCollection = () => {
   useEffect(() => {
     const fetchCollection = async () => {
       try {
-        const res = await axios.get(`http://localhost:9090/collections/${collectionId}`, {
+        const res = await axios.get(`/api/collections/${collectionId}`, {
           withCredentials: true
         });
 
-        const userId = (await axios.get(`http://localhost:9090/session-check`, { withCredentials: true })).data.id;
+        const userId = (await axios.get(`/api/session-check`, { withCredentials: true })).data.id;
         if (res.data.userId !== userId) {
           setAuthorized(false);
           return;

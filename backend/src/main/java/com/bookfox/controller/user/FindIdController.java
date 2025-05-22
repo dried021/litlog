@@ -10,7 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/find-id")
+@RequestMapping("/api/find-id")
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class FindIdController {
 

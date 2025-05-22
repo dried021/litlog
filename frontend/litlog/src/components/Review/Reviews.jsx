@@ -153,7 +153,7 @@ function Reviews({ bookApiId }) {
 
   const getReviews = async (bookApiId, currentPage, isPopularity) => {
     try {
-      const response = await axios.get(`http://localhost:9090/books/reviews`, {
+      const response = await axios.get(`/api/books/reviews`, {
         params: { bookApiId, currentPage, isPopularity}, withCredentials: true
       });
       const { reviews, reviewsCount } = response.data;
@@ -199,7 +199,7 @@ function Reviews({ bookApiId }) {
           const likeCount = isLiked ? review.likeCount + 1 : review.likeCount - 1;
   
           axios.post(
-            `http://localhost:9090/books/reviews/like`,
+            `/api/books/reviews/like`,
             { reviewId, isLiked },
             { withCredentials: true }
           ).catch((err) => console.error("Like update error:", err));

@@ -14,7 +14,7 @@ const CollectionPopularList = () => {
 
   const fetchPopularCollections = async (page = 1) => {
     try {
-      const res = await axios.get(`http://localhost:9090/collections/popular?page=${page}&size=${pageSize}`, {
+      const res = await axios.get(`/api/collections/popular?page=${page}&size=${pageSize}`, {
         withCredentials: true,
       });
       setCollections(res.data.book_collections || []);

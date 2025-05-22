@@ -50,8 +50,8 @@ const CollectionDetail = () => {
     const fetchMetaAndLike = async () => {
       try {
         const [metaRes, likedRes] = await Promise.all([
-          axios.get(`http://localhost:9090/collections/${collectionId}`, { withCredentials: true }),
-          axios.get(`http://localhost:9090/collections/${collectionId}/like-status`, { withCredentials: true })
+          axios.get(`/api/collections/${collectionId}`, { withCredentials: true }),
+          axios.get(`/api/collections/${collectionId}/like-status`, { withCredentials: true })
         ]);
 
         setCollection(metaRes.data);
@@ -67,7 +67,7 @@ const CollectionDetail = () => {
   }, [collectionId]);
 
   useEffect(() => {
-    axios.get(`http://localhost:9090/collections/${collectionId}/books`, {
+    axios.get(`/api/collections/${collectionId}/books`, {
       params: {
         page: currentPage,
         size: booksPerPage
@@ -116,7 +116,7 @@ const CollectionDetail = () => {
     }
 
     try {
-      const res = await axios.post(`http://localhost:9090/collections/${collectionId}/like`, {}, {
+      const res = await axios.post(`/api/collections/${collectionId}/like`, {}, {
         withCredentials: true
       });
 
@@ -187,7 +187,7 @@ const CollectionDetail = () => {
                         resultValue: '1',
                         callbackOnSuccess: async () => {
                           try {
-                            await axios.delete(`http://localhost:9090/collections/${collection.id}`, {
+                            await axios.delete(`/api/collections/${collection.id}`, {
                               withCredentials: true,
                             });
 
@@ -243,7 +243,7 @@ const CollectionDetail = () => {
                 collection.profileImage
                   ? (collection.profileImage.startsWith('http')
                       ? collection.profileImage
-                      : `http://localhost:9090${collection.profileImage}`)
+                      : `/api/${collection.profileImage}`)
                   : defaultProfile
               }
               alt="profile"

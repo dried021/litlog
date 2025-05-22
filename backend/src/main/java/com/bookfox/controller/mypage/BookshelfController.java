@@ -22,7 +22,7 @@ import com.bookfox.service.BookshelfService;
 import jakarta.annotation.Resource;
 
 @RestController
-@RequestMapping("members")
+@RequestMapping("/api/members")
 public class BookshelfController {
     @Resource
     private BookshelfService bookshelfService;

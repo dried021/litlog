@@ -35,7 +35,7 @@ const LikedCollection = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:9090/api/members/${userId}/collections/liked`
+          `/api/members/${userId}/collections/liked`
         );
         setCollections(res.data);
         setError(null);

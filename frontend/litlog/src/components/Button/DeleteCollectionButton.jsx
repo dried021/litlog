@@ -40,7 +40,7 @@ function DeleteCollectionButton({ collectionId, onDelete }) {
       "confirm",
       async () => {
         try {
-          await axios.post(`http://localhost:9090/admin/collection`,
+          await axios.post(`/api/admin/collection`,
             { id: collectionId }, 
         );
           if (onDelete) onDelete(collectionId);

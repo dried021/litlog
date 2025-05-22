@@ -59,7 +59,7 @@ function SwitchButton({userId, onOptionChange, buttonType, currentOption}) {
   
     const handleConfirm = async () => {
       try {
-        const response = await axios.post(`http://localhost:9090/admin/user`, {
+        const response = await axios.post(`/api/admin/user`, {
           id: userId,
           option: value,
           buttonType: buttonType,

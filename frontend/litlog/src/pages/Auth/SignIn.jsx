@@ -47,7 +47,7 @@ const SignIn = () => {
   }
 
   try {
-    const res = await axios.post('http://localhost:9090/sign-in', {
+    const res = await axios.post('/api/sign-in', {
       id,
       password
     }, { withCredentials: true });
@@ -67,7 +67,7 @@ const SignIn = () => {
         return;
       }
 
-      const sessionRes = await axios.get('http://localhost:9090/session-check', { withCredentials: true });
+      const sessionRes = await axios.get('/api/session-check', { withCredentials: true });
       if (sessionRes.data.loggedIn) {
         setUser(sessionRes.data.id);
         navigate(from, { replace: true });

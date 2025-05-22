@@ -40,7 +40,7 @@ function DeleteReviewButton({ reviewId, onDelete }) {
       "confirm",
       async () => {
         try {
-          await axios.post(`http://localhost:9090/admin/review`,
+          await axios.post(`/api/admin/review`,
             { id: reviewId }, 
         );
           if (onDelete) onDelete(reviewId);

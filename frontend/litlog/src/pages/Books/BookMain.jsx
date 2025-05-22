@@ -18,7 +18,7 @@ const BookMain = () => {
 
     const getPopularBookList = async () => {
         try {
-            const response = await axios.get(`http://localhost:9090/books/popularBookList`);
+            const response = await axios.get(`/api/books/popularBookList`);
             setPopularBookList(response.data || []);
         } catch (error) {
             console.error("Fail to load booklist:", error);
@@ -28,7 +28,7 @@ const BookMain = () => {
 
     const getJustReviewedBookList = async () => {
         try {
-            const response = await axios.get(`http://localhost:9090/books/justReviewedBookList`);
+            const response = await axios.get(`/api/books/justReviewedBookList`);
             setJustReviewedBookList(response.data || []);
         } catch (error) {
             console.error("Fail to load booklist:", error);

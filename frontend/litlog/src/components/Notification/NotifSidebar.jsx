@@ -12,7 +12,7 @@ const NotifSidebar = ({ onClose }) => {
   const sidebarRef = useRef(null);
 
   useEffect(() => {
-    fetch('http://localhost:9090/api/notifications', {
+    fetch('/api/notifications', {
       credentials: 'include',
     })
       .then(res => res.json())
@@ -57,7 +57,7 @@ const NotifSidebar = ({ onClose }) => {
 
   const handleClick = async (notification) => {
     if (!notification.isRead) {
-      await fetch(`http://localhost:9090/api/notifications/${notification.id}/read`, {
+      await fetch(`/api/notifications/${notification.id}/read`, {
         method: 'PATCH',
         credentials: 'include',
       });

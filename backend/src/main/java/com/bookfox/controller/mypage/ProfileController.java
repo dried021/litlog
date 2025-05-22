@@ -31,7 +31,7 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping("/members")
+@RequestMapping("/api/members")
 public class ProfileController {
     @Autowired
     private NotificationService notificationService;

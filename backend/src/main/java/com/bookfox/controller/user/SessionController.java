@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class SessionController {
 
-    @GetMapping("/session-check")
+    @GetMapping("/api/session-check")
     public ResponseEntity<?> checkSession(HttpSession session) {
         String userId = (String) session.getAttribute("loginUser");
 

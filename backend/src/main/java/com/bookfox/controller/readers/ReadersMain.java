@@ -17,7 +17,7 @@ import com.bookfox.service.ReaderService;
 import jakarta.annotation.Resource;
 
 @RestController
-@RequestMapping("/readers")
+@RequestMapping("/api/readers")
 public class ReadersMain {
     @Resource
     private ReaderService readerService;

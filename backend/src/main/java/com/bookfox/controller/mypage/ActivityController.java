@@ -17,7 +17,7 @@ import com.bookfox.model.ActivityDto;
 import jakarta.annotation.Resource;
 
 @RestController
-@RequestMapping("members")
+@RequestMapping("/api/members")
 public class ActivityController {
     @Resource
     private ActivityService activityService;

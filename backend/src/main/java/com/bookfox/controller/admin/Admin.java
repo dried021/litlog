@@ -14,7 +14,7 @@ import com.bookfox.service.AdminService;
 
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/api/admin")
 public class Admin {
     @Autowired
     private AdminService adminService;

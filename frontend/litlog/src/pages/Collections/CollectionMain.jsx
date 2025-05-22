@@ -48,7 +48,7 @@
 
     const fetchPopularCollections = async () => {
       try {
-        const res = await axios.get('http://localhost:9090/collections/popular');
+        const res = await axios.get('/api/collections/popular');
         setPopularCollections(res.data.book_collections || []);
       } catch (err) {
         console.error('Failed to load popular collections.', err);
@@ -57,7 +57,7 @@
 
     const fetchAllCollections = async (sort, page = 1) => {
       try {
-        const res = await axios.get(`http://localhost:9090/collections?sort=${sort}&page=${page}&size=${pageSize}`);
+        const res = await axios.get(`/api/collections?sort=${sort}&page=${page}&size=${pageSize}`);
         setAllCollections(res.data.book_collections || []);
         setPageCount(res.data.totalPages || 1); 
       } catch (err) {
@@ -137,7 +137,7 @@
                 col.profileImage
                   ? (col.profileImage.startsWith('http')
                       ? col.profileImage
-                      : `http://localhost:9090${col.profileImage}`)
+                      : `/api/${col.profileImage}`)
                   : defaultProfile
               }
               alt="profile"
@@ -200,7 +200,7 @@
                 col.profileImage
                   ? (col.profileImage.startsWith('http')
                       ? col.profileImage
-                      : `http://localhost:9090${col.profileImage}`)
+                      : `/api/${col.profileImage}`)
                   : defaultProfile
               }
               alt="profile"

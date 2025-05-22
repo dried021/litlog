@@ -23,7 +23,7 @@ function UserList({ users, onItemClick, isRank, currentPage=1 }) {
                       src = {user.profile ?
                         (user.profile.startsWith('http')
                         ? user.profile
-                        : `http://localhost:9090${user.profile}`)
+                        : `/api/${user.profile}`)
                         :defaultProfile}  
                       alt={"profile"}
                     />

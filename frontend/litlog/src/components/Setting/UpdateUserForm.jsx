@@ -76,7 +76,7 @@ const UpdateUserForm = ({ userId }) => {
 
     const loadUser = async () => {
         try {
-            const response = await axios.get(`http://localhost:9090/setting/userinfo`, { withCredentials: true });
+            const response = await axios.get(`/api/setting/userinfo`, { withCredentials: true });
             const userData = response.data;
             setUser(userData);
             setName(userData.name ?? '');
@@ -125,7 +125,7 @@ const UpdateUserForm = ({ userId }) => {
         };
 
         try {
-            const response = await axios.post(`http://localhost:9090/setting/userinfo`, requestData);
+            const response = await axios.post(`/api/setting/userinfo`, requestData);
             if (response.data.success) {
                 openModal("User information updated successfully.");
                 setCurrentPassword('');

@@ -54,8 +54,8 @@ const ReviewList = () => {
     axios
       .get(
         year
-          ? `http://localhost:9090/api/members/${userId}/reviews/review-list/${year}`
-          : `http://localhost:9090/api/members/${userId}/reviews/review-list`
+          ? `/api/members/${userId}/reviews/review-list/${year}`
+          : `/api/members/${userId}/reviews/review-list`
       )
       .then((res) => {
         setReviews(res.data);
@@ -70,7 +70,7 @@ const ReviewList = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:9090/api/members/${userId}/join-year`)
+      .get(`/api/members/${userId}/join-year`)
       .then((res) => {
         const joinYear = res.data;
         const yearList = [];
@@ -85,7 +85,7 @@ const ReviewList = () => {
   }, [userId]);
 
   useEffect(() => {
-    axios.get(`http://localhost:9090/api/members/${userId}/review-counts`)
+    axios.get(`/api/members/${userId}/review-counts`)
       .then((res) => {
         setTotalTimelineBooks(res.data.totalTimelineBooks);
         setTotalWrittenReviews(res.data.totalWrittenReviews);

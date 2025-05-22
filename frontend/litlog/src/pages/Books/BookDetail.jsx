@@ -47,7 +47,7 @@ const BookDetail = () => {
   useEffect(() => {
     const fetchInitialStatus = async () => {
       try {
-        const res = await axios.get("http://localhost:9090/books/counts", {
+        const res = await axios.get("/api/books/counts", {
           params: { bookApiId: bookId },
           withCredentials: true
         });
@@ -64,7 +64,7 @@ const BookDetail = () => {
 
   const loadBook = async (bookId) => {
     try {
-      const response = await axios.get(`http://localhost:9090/books/detail`, {
+      const response = await axios.get(`/api/books/detail`, {
         params: { keyword: bookId },
       });
       setBook(response.data);
@@ -97,7 +97,7 @@ const BookDetail = () => {
 
   const handleAddToBookShelfButton = async (option) => {
     try {
-      const response = await axios.post(`http://localhost:9090/books/bookshelf`, {
+      const response = await axios.post(`/api/books/bookshelf`, {
         bookId,
         book,
         option,
@@ -111,7 +111,7 @@ const BookDetail = () => {
   
   const handleAddLikeButton = async () => {
     try {
-      const response = await axios.post(`http://localhost:9090/books/like`, { bookId, book }, { withCredentials: true });
+      const response = await axios.post(`/api/books/like`, { bookId, book }, { withCredentials: true });
       const result = response.data;
       openModal(result > 0 ? "This book is already in your favorites." : "The book has been added to your favorites.");
       setIsLiked(true);
@@ -123,7 +123,7 @@ const BookDetail = () => {
 
   const handleAddedLikeButton = async (option) => {
     try {
-      const response = await axios.post(`http://localhost:9090/books/unlike`, { bookApiId: bookId, option }, { withCredentials: true });
+      const response = await axios.post(`/api/books/unlike`, { bookApiId: bookId, option }, { withCredentials: true });
       if (option===1&&response!=null){
         navigate(`/${response.data}/bookshelf`);
         return;
@@ -138,7 +138,7 @@ const BookDetail = () => {
 
   const handleAddedBookShelfButton = async (option) => {
     try {
-      const response = await axios.post(`http://localhost:9090/books/bookshelf/added`, {
+      const response = await axios.post(`/api/books/bookshelf/added`, {
         bookId,
         book,
         option,

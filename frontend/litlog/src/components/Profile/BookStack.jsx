@@ -13,7 +13,7 @@ export default function BookStack() {
     });
 
     useEffect(() => {
-        fetch(`http://localhost:9090/members/${userId}/bookshelf/finished`)
+        fetch(`/api/members/${userId}/bookshelf/finished`)
             .then(res => res.json())
             .then(data => setResult(data))
             .catch(error => console.error("Failed to fetch books", error));

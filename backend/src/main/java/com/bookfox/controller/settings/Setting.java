@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
 
 
 @RestController
-@RequestMapping("/setting")
+@RequestMapping("/api/setting")
 public class Setting {
     @Resource
     private SettingService settingService;
