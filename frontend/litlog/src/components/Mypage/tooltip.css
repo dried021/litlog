@@ -21,6 +21,42 @@
   z-index: 10;
 }
 
+.header-tooltip .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-57%);
+  background: #555;
+  color: #fff;
+  font-size: 10px;
+  padding: 6px 8px;
+  margin-bottom: 3px;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: opacity 0.4s ease, visibility 0s linear;
+  z-index: 10;
+}
+
+.header-tooltip2 .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-57%);
+  background: #555;
+  color: #fff;
+  font-size: 10px;
+  padding: 6px 8px;
+  margin-bottom: 3px;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: opacity 0.4s ease, visibility 0s linear;
+  z-index: 10;
+}
+
 .tooltip-text::after {
   content: "";
   position: absolute;
