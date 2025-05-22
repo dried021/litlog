@@ -119,12 +119,12 @@ const SignIn = () => {
         <div className={styles['signin-links']}>
           <Link to="/find-id">Find ID</Link> | <Link to="/find-password">Reset Password</Link>
         </div>
-        <div className="signin-footer">
+        <div className={styles['signin-footer']}>
           Don’t have an account? <Link to="/sign-up">Sign up</Link>
         </div>
       </div>
 
-      <div>
+      <div className={styles['home-link']}>
         <Link to="/">HOME</Link>
       </div>
       <CustomModal

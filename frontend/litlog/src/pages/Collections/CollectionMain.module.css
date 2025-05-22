@@ -1,8 +1,7 @@
 .collectionWrapper {
   padding: 40px;
   font-family: 'Arial', sans-serif;
-  min-width: 960px;
-  max-width: 1200px;
+  width: 990px;
   margin: 0 auto;
 }
 
