@@ -920,7 +920,7 @@ INSERT INTO book_review (user_id, book_id, content, rating, creation_date) VALUE
 ('user10', 5, '[user10] 작년에 작성한 리뷰 1', 4, '2024-09-06 12:00:00'),
 ('user10', 6, '[user10] 작년에 작성한 리뷰 2', 4, '2024-12-10 12:00:00');
 
-INSERT INTO book_collection (user_id, title, content, thumbnail, creation_date) VALUES
+INSERT INTO book_collection (user_id, title, content, creation_date) VALUES
 ('user02', '[user02]의 작년 컬렉션 1', '내용입니다.', '2024-12-22 15:00:00'),
 ('user02', '[user02]의 작년 컬렉션 2', '내용입니다.', '2024-10-06 15:00:00'),
 ('user05', '[user05]의 작년 컬렉션 1', '내용입니다.', '2024-06-28 15:00:00'),
