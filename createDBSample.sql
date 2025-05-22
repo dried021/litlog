@@ -921,12 +921,12 @@ INSERT INTO book_review (user_id, book_id, content, rating, creation_date) VALUE
 ('user10', 6, '[user10] 작년에 작성한 리뷰 2', 4, '2024-12-10 12:00:00');
 
 INSERT INTO book_collection (user_id, title, content, thumbnail, creation_date) VALUES
-('user02', '[user02]의 작년 컬렉션 1', '내용입니다.', 'https://example.com/old_thumb_user02_1.jpg', '2024-12-22 15:00:00'),
-('user02', '[user02]의 작년 컬렉션 2', '내용입니다.', 'https://example.com/old_thumb_user02_2.jpg', '2024-10-06 15:00:00'),
-('user05', '[user05]의 작년 컬렉션 1', '내용입니다.', 'https://example.com/old_thumb_user05_1.jpg', '2024-06-28 15:00:00'),
-('user05', '[user05]의 작년 컬렉션 2', '내용입니다.', 'https://example.com/old_thumb_user05_2.jpg', '2024-06-17 15:00:00'),
-('user10', '[user10]의 작년 컬렉션 1', '내용입니다.', 'https://example.com/old_thumb_user10_1.jpg', '2024-04-10 15:00:00'),
-('user10', '[user10]의 작년 컬렉션 2', '내용입니다.', 'https://example.com/old_thumb_user10_2.jpg', '2024-01-12 15:00:00');
+('user02', '[user02]의 작년 컬렉션 1', '내용입니다.', '2024-12-22 15:00:00'),
+('user02', '[user02]의 작년 컬렉션 2', '내용입니다.', '2024-10-06 15:00:00'),
+('user05', '[user05]의 작년 컬렉션 1', '내용입니다.', '2024-06-28 15:00:00'),
+('user05', '[user05]의 작년 컬렉션 2', '내용입니다.', '2024-06-17 15:00:00'),
+('user10', '[user10]의 작년 컬렉션 1', '내용입니다.', '2024-04-10 15:00:00'),
+('user10', '[user10]의 작년 컬렉션 2', '내용입니다.', '2024-01-12 15:00:00');
 
 SELECT * from book_collection;
 
