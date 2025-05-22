@@ -54,17 +54,17 @@ WHERE id="user02";
 
 UPDATE user
 SET bio="Book collector. Shelf space negotiable.",
-profile_image="https://upload.wikimedia.org/wikipedia/en/thumb/4/4e/Elijah_Wood_as_Frodo_Baggins.png/250px-Elijah_Wood_as_Frodo_Baggins.png"
+profile_image="https://upload.wikimedia.org/wikipedia/en/thumb/e/e9/Gandalf600ppx.jpg/250px-Gandalf600ppx.jpg"
 WHERE id="user05";
 
 UPDATE user
 SET bio="Page-turner addict. One more chapter… always.",
-profile_image="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Hermann_Hesse_2.jpg/1200px-Hermann_Hesse_2.jpg"
+profile_image="https://i.pinimg.com/736x/3e/1a/b0/3e1ab06666a01568f1eafd4676a261c6.jpg"
 WHERE id="user06";
 
 UPDATE user
 SET bio="Thriller junkie. If it has a twist, I’m in.",
-profile_image="https://upload.wikimedia.org/wikipedia/en/thumb/e/e9/Gandalf600ppx.jpg/250px-Gandalf600ppx.jpg"
+profile_image="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Hermann_Hesse_2.jpg/1200px-Hermann_Hesse_2.jpg"
 WHERE id="user07";
 
 INSERT INTO book_review (user_id, book_id, content, rating, creation_date) VALUES
@@ -265,7 +265,7 @@ INSERT INTO book_shelf (user_id, book_id, shelf_type, progress, creation_date) V
 ('user01', 5, 2, 2, '2024-02-07 12:38:56'),
 ('user01', 6, 1, 0, '2025-02-25 00:12:41'),
 ('user01', 7, 2, 23, '2025-03-31 12:51:32'),
-('user01', 8, 3, 100, '2025-12-23 12:28:00'),
+('user01', 8, 3, 100, '2025-04-23 12:28:00'),
 ('user01', 9, 3, 100, '2025-04-09 14:40:12'),
 ('user01', 10, 2, 62, '2025-05-09 17:20:50'),
 ('user01', 11, 1, 0, '2024-12-29 20:20:05'),
