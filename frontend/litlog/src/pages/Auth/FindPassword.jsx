@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './findPassword.module.css';
+import { validatePassword } from '../../libs/validation';
 import { useNavigate } from 'react-router-dom';
 import CustomModal from "../../components/Modal/CustomModal";
 
@@ -55,7 +56,7 @@ const FindPassword = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [step, timerRunning]);
+  }, [timerRunning]);
 
   const handleSendCode = async () => {
     if (!id || !name || !email) return openModal({ message:'All fields are required.'});
@@ -84,24 +85,29 @@ const FindPassword = () => {
   };
 
   const handleResetPassword = async () => {
-    if (newPwd.length < 6) {
-      openModal({ message:"The password must be at least 6 characters long."});
+    const validation = validatePassword(newPwd);
+    if (!validation.valid) {
+      openModal({ message: validation.message });
       return;
     }
+
     if (newPwd !== confirmPwd) {
-      openModal({ message:"The passwords you entered do not match."});
+      openModal({ message: "The passwords you entered do not match." });
       return;
     }
 
     try {
       await axios.post('http://localhost:9090/find-password/submit-new', { id, newPwd }, { withCredentials: true });
-      openModal({ message:"The password has been successfully reset."});
-      navigate('/sign-in');
+      openModal({
+        message: "The password has been successfully reset.",
+        callbackOnSuccess: () => navigate('/sign-in')
+      });
     } catch (err) {
-      openModal({ message:"Failed to change the password."});
+      openModal({ message: "Failed to change the password." });
       console.error(err);
     }
-  };
+};
+
 
   const preventSpace = (e) => {
     if (e.key === ' ') e.preventDefault();
@@ -159,7 +165,10 @@ const FindPassword = () => {
                 type="text"
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
-                onKeyDown={preventSpace}
+                onKeyDown={(e) => {
+                  preventSpace(e);
+                  if (e.key === 'Enter') handleVerifyCode();
+                }}
               />
             </div>
             <div className={styles['findpassword-button-row']}>
@@ -186,7 +195,10 @@ const FindPassword = () => {
                 type="password"
                 value={confirmPwd}
                 onChange={(e) => setConfirmPwd(e.target.value)}
-                onKeyDown={preventSpace}
+                onKeyDown={(e) => {
+                  preventSpace(e);
+                  if (e.key === 'Enter') handleVerifyCode();
+                }}
               />
             </div>
 
