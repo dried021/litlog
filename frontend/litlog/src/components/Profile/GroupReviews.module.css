@@ -8,7 +8,7 @@
 
 .groupReviews h2 {
     font-size: 15px;
-    margin-bottom: 0px;
+    margin-bottom: -100px;
     color: #333;
     width: 90%;
 }
@@ -40,11 +40,11 @@
 
 .reviewCard {
     display: flex;
-    background-color: #2f333c;
+    background-color: #eee;
     padding: 16px;
-    border-radius: 8px;
-    margin-bottom: 25px;
-    padding-bottom: 30px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    padding-bottom: 20px;
 }
 
 .reviewCard.noBorder {
@@ -60,15 +60,17 @@
 }
 
 .bookThumbnail:hover {
-    border: 4px solid #D4DE95;
+    border: 2px solid #D4DE95;
 }
 
 .details {
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .title {
-    color: 	white;
+    color: 	#3D4127;
     font-size: 20px;
     font-weight: bold;
     margin: 0;
@@ -88,15 +90,14 @@
 }
 
 .star {
-    color: transparent;
     font-size: 15px;
     margin-right: 3px;
     width: 8px;
-    color: 	#ccc;
+    color: 	#111;
 }
 
 .star.filled {
-    color: 	#ccc;
+    color: 	#111;
 }
 
 .icon {
@@ -104,11 +105,12 @@
     margin: 0px;
     padding: 0px;
     display: inline-block;
+    margin-bottom: 2px;
 }
 
 .date {
     font-size: 14px;
-    color: #ccc;
+    color: black;
     margin-left: 3px;
 }
 
@@ -116,17 +118,22 @@
     font-size: 15px;
     margin-top: 8px;
     margin-bottom: 12px;
-    color: 	white;
+    color: 	black;
 }
 
 .moreButton {
     background: none;
     border: none;
-    color: #F4E3B2;
+    color: #636B2F;
     cursor: pointer;
-    font-size: 0.9em;
+    font-size: 14px;
     margin-left: 5px;
     padding: 0;
+}
+
+.moreButton:hover {
+    color: #D4DE95;
+    font-weight: bold;
 }
 
 .likes {
@@ -134,7 +141,8 @@
     align-items: center;
     gap: 6px;
     font-size: 14px;
-    color: #a3a3a3;
+    color: black;
+    margin-top: auto;
 }
 
 .hyperlink {

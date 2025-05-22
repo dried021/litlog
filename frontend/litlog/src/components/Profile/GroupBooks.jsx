@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './GroupBooks.module.css';
 import defaultThumbnail from "../../assets/default_thumbnail.png";
-import heart from "../../assets/heart.svg";
+import heart from "../../assets/heart_filled.svg";
 
 export default function GroupBooks({groupLabel, group, msg, url}) {
     return (

@@ -36,6 +36,7 @@
 
 .solid {
     border: 2px solid #636B2F;
+    margin-top: 10px;
 }
 
 .bookList {
@@ -60,7 +61,7 @@
 }
 
 .bookThumbnail:hover {
-    border: 4px solid #D4DE95;
+    border: 3px solid #D4DE95;
 }
 
 .bookInfo {
