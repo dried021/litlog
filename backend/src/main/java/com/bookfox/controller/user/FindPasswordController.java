@@ -45,7 +45,7 @@ public class FindPasswordController  {
         session.setAttribute("resetId", id);
         session.setMaxInactiveInterval(180); // 3분
 
-        String subject = "Password Reset Verification Code";
+        String subject = "[LitLog] Password Reset Verification Code";
         String bodyText = """
             Hello,
 
