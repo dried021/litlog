@@ -25,7 +25,7 @@ public class FindIdController {
         String foundId = userService.findUserId(name, email);
         if (foundId != null) {
             // 아이디 메일로 전송
-            String subject = "[LitLog] Your ID request result";
+            String subject = "[LitLog] Your ID Request Result";
             String text = String.format("""
             Hello %s,
 
@@ -37,8 +37,8 @@ public class FindIdController {
 
             If you did not request this, please ignore this email.
 
-            Thank you,  
-            The LitLog Team
+            Thank you,
+            LitLog
             """, name, foundId);
             emailService.sendSimpleMessage(email, subject, text);
 

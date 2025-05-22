@@ -59,7 +59,7 @@ const FindId = () => {
       {!sent ? (
         <div className={styles['findid-find-box']}>
           <div className={styles['findid-form-group']}>
-            <label>Name :</label>
+            <label>Name</label>
             <input
               type="text"
               value={name}
@@ -69,7 +69,7 @@ const FindId = () => {
           </div>
 
           <div className={styles['findid-form-group']}>
-            <label>Email :</label>
+            <label>Email</label>
             <input
               type="email"
               value={email}
@@ -91,7 +91,7 @@ const FindId = () => {
       ) : (
         <div className={styles['findid-result-box']}>
           <p>
-            We sent your ID to your email address.
+            We sent your ID to your Email address.
             <br />
             Please check your inbox!
           </p>
