@@ -60,7 +60,7 @@ function Review({ reviews, currentPage, reviewPerPage, handleLikeClick }) {
                 <p className={styles['index-box-p']}>{adjustedIndex + 1}</p>
             </div>
 
-            <div className={styles['user-profile']} onClick={() => navigate(`/${review.userId}/reviews/detail/${review.id}`)}>
+            <div className={styles['user-profile']} onClick={() => navigate(`/${review.userId}`)}>
                 <img src={defaultProfile} alt="profile" />
             </div>
 
