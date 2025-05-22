@@ -189,7 +189,7 @@ const NewCollection = ({
             }
           }}
           maxLength={255}
-          placeholder="Enter collection name"
+          placeholder="e.g. Books That Changed My Life"
         />
         <small className={styles.charCount}>{title.length} / 255</small>
 
@@ -202,7 +202,7 @@ const NewCollection = ({
             }
           }}
           maxLength={1000}
-          placeholder="Enter description"
+          placeholder="Describe your Collection..."
         />
         <small className={styles.charCount}>{content.length} / 1000</small>
 
