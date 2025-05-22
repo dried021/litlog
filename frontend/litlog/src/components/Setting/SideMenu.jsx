@@ -11,7 +11,7 @@ const SideMenu = ({ isAdmin, activeMenu }) => {
       <nav className={styles.menu}>
         <NavLink to="/settings" className={`${styles.menuItem} ${activeMenu==="settings" ? styles['menuItem-active'] : ''}`} >
           <FaUserEdit className={styles.icon} />
-          Update My Info
+          Update<br />My Info
         </NavLink>
         
         {!isAdmin && (

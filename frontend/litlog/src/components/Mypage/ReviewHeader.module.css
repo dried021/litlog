@@ -70,7 +70,7 @@
   background: #f8f8f8;
   border: 1px solid #ddd;
   padding: 10px 12px;
-  padding-bottom: 0;
+  padding-bottom: 8px;
   border-radius: 4px;
   min-width: 140px;
   z-index: 1000;
