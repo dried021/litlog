@@ -6,7 +6,7 @@ import axios from 'axios';
 import CustomModal from "../../Modal/CustomModal";
 import { UserContext } from '../../../libs/UserContext'; 
 
-function BookInfoDiv({ bookApiId, isLiked, setIsLiked, change, likeTrigger }) {
+function BookInfoDiv({ bookApiId, isLiked, setIsLiked, change, likeTrigger, bookshelfTrigger }) {
   const [bookshelfCount, setBookshelfcount] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
 
@@ -66,7 +66,7 @@ function BookInfoDiv({ bookApiId, isLiked, setIsLiked, change, likeTrigger }) {
     };
   
     fetchCounts();
-  }, [bookApiId, likeTrigger]);
+  }, [bookApiId, likeTrigger, bookshelfTrigger]);
 
   const getCounts = async (bookApiId) => {
     try {

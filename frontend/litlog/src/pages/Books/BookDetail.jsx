@@ -22,6 +22,7 @@ const BookDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [likeTrigger, setLikeTrigger] = useState(0);
+  const [bookshelfTrigger, setBookshelfTrigger] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
 
 
@@ -101,6 +102,7 @@ const BookDetail = () => {
         book,
         option,
       }, { withCredentials: true });
+      setBookshelfTrigger(prev => prev+1);
       openModal("The book has been successfully added to the bookshelf.");
     } catch (err) {
       console.error("Add to bookshelf error");
@@ -145,6 +147,7 @@ const BookDetail = () => {
         navigate(`/${response.data}/bookshelf`);
         return;
       }
+      setBookshelfTrigger(prev => prev+1);
       openModal("The book has been successfully removed from the bookshelf.");
     } catch (err) {
       console.error("Add to bookshelf error");
@@ -172,8 +175,10 @@ const BookDetail = () => {
             <div className={styles["add-buttons"]}>
                 <BookInfoDiv bookApiId={bookId}  isLiked={isLiked}
                   setIsLiked={setIsLiked}
-                  change={handleChange} likeTrigger={likeTrigger}/>
-                <AddToBookshelfButton bookApiId={bookId} handleClick={handleAddToBookShelfButton} handleAddedClick={handleAddedBookShelfButton}/>
+                  change={handleChange} likeTrigger={likeTrigger} bookshelfTrigger={bookshelfTrigger}/>
+                <AddToBookshelfButton bookApiId={bookId} handleClick={handleAddToBookShelfButton} 
+                    handleAddedClick={handleAddedBookShelfButton}
+                    bookshelfTrigger={bookshelfTrigger}/>
                 <AddLikeButton bookApiId={bookId} isLiked={isLiked}
                     setIsLiked={setIsLiked}
                     handleClick={handleAddLikeButton} 

@@ -69,7 +69,7 @@ public class Books {
         boolean exists = bookService.exists(bookApiId);
         Map<String, Object> response = new HashMap<>();
         
-        if (!exists || userId == null){
+        if (!exists){
             response.put("bookshelfCount", 0);
             response.put("likeCount", 0);
             response.put("isLiked", 0);
@@ -79,11 +79,14 @@ public class Books {
         int id = bookService.getIdByBookApiId(bookApiId);
         int bookshelfCount = bookService.getBookshelfCount(id);
         int likeCount = bookService.getLikeCount(id);
-
-        boolean isLiked = bookService.isLiked(id, userId);
+        if (userId == null){
+            response.put("isLiked", false);
+        }else{
+            boolean isLiked = bookService.isLiked(id, userId);
+            response.put("isLiked", isLiked);
+        }
         response.put("bookshelfCount", bookshelfCount);
         response.put("likeCount", likeCount);
-        response.put("isLiked", isLiked);
         return ResponseEntity.ok(response);
     }
 
