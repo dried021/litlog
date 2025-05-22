@@ -118,7 +118,6 @@ function AddLikeButton({ bookApiId, isLiked, setIsLiked, handleClick, handleAdde
             handleLikeClick();
           }
         }}>
-        <img src="/icons/heart_filled.svg" alt=""/>
         <span>Add Like</span>
       </button>
 
