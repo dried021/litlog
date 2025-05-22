@@ -54,7 +54,7 @@ function AddToBookshelfButton({bookApiId, handleClick, handleAddedClick, bookshe
   ];
 
   const options_added = [
-    { label: "Move to My Bookshelf", value: 1 },
+    { label: "View My Bookshelf", value: 1 },
     { label: "Remove from bookshelf", value: 2 },
   ]
 

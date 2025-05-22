@@ -177,7 +177,7 @@ function Reviews({ bookApiId }) {
   const handleLikeClick = async (reviewId) => {
     if (user === null) {
       openModal(
-        "You need to sign in before liking a review",
+        "You need to sign in to like reviews",
         "",
         "1",
         "confirm",
@@ -218,7 +218,7 @@ function Reviews({ bookApiId }) {
     e.preventDefault();
     if (user === null) {
       openModal(
-        "You need to sign in before adding review",
+        "You need to sign in to add a review",
         "",
         "1",
         "confirm",
@@ -257,7 +257,7 @@ function Reviews({ bookApiId }) {
                 className={`${styles.option} ${isPopularity ? styles.optionActive : ""}`} 
                 onClick={() => handleOptionClick("popularity")}
               >
-                Popularity
+                Popular
               </p>
               <p 
                 className={`${styles.option} ${!isPopularity ? styles.optionActive : ""}`} 
