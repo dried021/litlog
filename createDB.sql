@@ -10,7 +10,8 @@ DROP TABLE IF EXISTS follow_list;
 DROP TABLE IF EXISTS book_shelf;
 DROP TABLE IF EXISTS book_review;
 DROP TABLE IF EXISTS book_images;
-DROP TABLE IF EXISTS book;
+-- SELECT * FROM book;
+-- DROP TABLE IF EXISTS book;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS like_type;
 DROP TABLE IF EXISTS shelf_type;
@@ -109,23 +110,23 @@ CREATE TABLE user(
         REFERENCES user_status(value) ON DELETE SET NULL
 );
 
-CREATE TABLE book (
-    id INT PRIMARY KEY AUTO_INCREMENT,                        -- 책 고유 ID
-    book_api_id VARCHAR(255),
-    title VARCHAR(255),                                  -- 책 제목
-    subtitle VARCHAR(255),                               -- 책 자막
-    authors VARCHAR(255),                                       -- 저자 리스트
-    publisher VARCHAR(255),                              -- 게시자
-    published_date DATE,                                  -- 게시일
-    description TEXT,                                    -- 책 설명
-    page_count INT,                                       -- 페이지 수
+-- CREATE TABLE book (
+--     id INT PRIMARY KEY AUTO_INCREMENT,                        -- 책 고유 ID
+--     book_api_id VARCHAR(255),
+--     title VARCHAR(255),                                  -- 책 제목
+--     subtitle VARCHAR(255),                               -- 책 자막
+--     authors VARCHAR(255),                                       -- 저자 리스트
+--     publisher VARCHAR(255),                              -- 게시자
+--     published_date DATE,                                  -- 게시일
+--     description TEXT,                                    -- 책 설명
+--     page_count INT,                                       -- 페이지 수
 
-    thumbnail TEXT,
-    book_category INT null,
-    FOREIGN KEY (book_category) REFERENCES book_category(value) ON DELETE SET NULL,
+--     thumbnail TEXT,
+--     book_category INT null,
+--     FOREIGN KEY (book_category) REFERENCES book_category(value) ON DELETE SET NULL,
 
-    CONSTRAINT unique_book_api_id UNIQUE (book_api_id)
-);
+--     CONSTRAINT unique_book_api_id UNIQUE (book_api_id)
+-- );
 
 CREATE TABLE book_review(
 	id INT PRIMARY KEY AUTO_INCREMENT,
