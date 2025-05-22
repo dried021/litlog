@@ -25,7 +25,7 @@ function AddRating({ onChange }) {
           <img
             className={styles['star']}
             key={starIndex}
-            src={starIndex <= rating ? "/icons/star2.svg" : "/icons/emptyStar.svg"}
+            src={starIndex <= rating ? "/icons/star.svg" : "/icons/star_gray.svg"}
             alt={`Star ${starIndex}`}
             onClick={() => handleStar(starIndex)}
           />
