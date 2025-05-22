@@ -51,8 +51,10 @@ const ProfileDropdown = ({ userId, onLogout }) => {
             alt="profile"
             className={styles.profileImg}
         />}
-        <span className={styles.nickname}>{userId}</span>
-        <span className={styles.dropdown}>▼</span>
+        <span className={styles.nameWithIcon}>
+          <span className={styles.nickname}>{userId}</span>
+          <span className={styles.dropdown}>▼</span>
+        </span>
       </button>
 
       {open && (
