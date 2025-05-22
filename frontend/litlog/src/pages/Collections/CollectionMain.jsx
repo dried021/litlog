@@ -83,7 +83,6 @@
   const likeDisplay = isWeekly ? (
     <>
       {col.likeCount}
-      <img src="/icons/arrow-up.svg" alt="up" className={styles.icon1} />
     </>
   ) : (
     col.totalLikeCount !== 0 ? col.totalLikeCount : col.likeCount
