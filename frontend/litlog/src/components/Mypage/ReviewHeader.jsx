@@ -76,7 +76,7 @@ const ReviewHeader = ({
       {/* Tabs */}
       <div className={styles.tabGroup}>
         <div
-          className="tooltip-container"
+          className="tooltip-container header-tooltip"
           onMouseEnter={handleMouseEnter(setShowTimelineTooltip)}
           onMouseLeave={handleMouseLeave(setShowTimelineTooltip)}
         >
@@ -96,7 +96,7 @@ const ReviewHeader = ({
         </div>
 
         <div
-          className="tooltip-container"
+          className="tooltip-container header-tooltip"
           onMouseEnter={handleMouseEnter(setShowReviewTooltip)}
           onMouseLeave={handleMouseLeave(setShowReviewTooltip)}
         >
