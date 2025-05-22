@@ -45,6 +45,8 @@
   margin-bottom: 12px;
   padding: 0 4px;
   border-bottom: 1px solid #5C5346;
+  font-size: 14px;
+  
 }
 
 .moreBtn {
@@ -67,8 +69,8 @@
 
 .popularSection h3 {
   font-weight: bold;
-  margin-bottom: 15px;
-  font-size: 20px;
+  margin-bottom: 10px;
+  font-size: 22px;
   color: #5C5346;
 }
 

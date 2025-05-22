@@ -78,7 +78,7 @@ const WeeklyPopularReviews = () => {
             className={styles["moreBtn"]}
             onClick={() => navigate('/books')}
           >
-            more
+            MORE
           </button>
         </div>
         <div className={styles["review-grid"]}>

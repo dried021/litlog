@@ -24,7 +24,7 @@ const PopularCollections = () => {
           All-Time Popular Collections
         </p>
         <button className={styles.moreBtn} onClick={() => navigate('/collections')}>
-          more
+          MORE
         </button>
       </div>
       <div className={styles.collectionList}>

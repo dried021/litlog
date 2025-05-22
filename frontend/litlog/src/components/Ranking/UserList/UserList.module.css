@@ -29,9 +29,9 @@
   }
   
   .user-id {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    margin-top: 10px;
   }
 
   .user-id:hover {
@@ -41,9 +41,9 @@
   .user-bio {
     font-size: 0.875rem;
     color: #555;
-    margin-bottom: 20px;
-    height: 25px;
+    height: 50px;
     width: 200px;
+    margin-bottom: 5px;
   }
   
   .user-stats {
@@ -61,14 +61,14 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
   }
 
   .user-stats p {
-    margin: 0;
-    padding: 0;
     display: flex;
     align-items: center;
     margin-right: 5px;
+    margin-bottom: 20px;
     font-size: 14px;
   }
   
@@ -102,11 +102,13 @@
   .user-rank img{
     width: 64px;
     height: 64px;
+    margin-left: -10px;
   }
 
   .user-rank-p{
     font-weight: 600;
     font-size: 1.2rem;
+    margin-left: -15px;
   }
 
   .user-profile {

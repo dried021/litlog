@@ -22,7 +22,7 @@ const WeeklyPopularBooks = () => {
       <div className={styles.header}>
         <p>Popular Books This Week</p>
         <button className={styles.moreBtn} onClick={() => navigate('/books')}>
-          more
+          MORE
         </button>
       </div>
       <div className={styles.bookRow}>

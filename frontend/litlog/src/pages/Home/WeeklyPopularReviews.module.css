@@ -29,6 +29,8 @@
   font-weight: 600;
   margin-right: -4px;
   cursor: pointer;
+  font-size: 14px;
+  margin-top: 6px;
 }
 
 .moreBtn:hover {
