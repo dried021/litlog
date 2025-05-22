@@ -30,14 +30,6 @@ public class ReaderService {
         return readerMapper.getRank(params);
     }
 
-    public List<BookDto> getRankerThumbnail(String id){
-        return readerMapper.getRankerThumbnail(id);
-    }
-
-    public int getUserCount(){
-        return readerMapper.getUserCount();
-    }
-
     public List<UserListDto> getSearchResult(String keyword, int currentPage, boolean isRelevance){
         int offset = (currentPage - 1) * 10;
         Map<String, Object> params = Map.of("keyword", keyword, "offset", offset, "isRelevance", isRelevance);
@@ -48,4 +40,11 @@ public class ReaderService {
         return readerMapper.getSearchResultCount(keyword);
     }
 
+    public List<BookDto> getRankerThumbnailByPeriod(String id, int period) {
+        return readerMapper.getRankerThumbnailByPeriod(Map.of("id", id, "period", period));
+    }
+
+    public int getUserCountByPeriod(int period) {
+        return readerMapper.getUserCountByPeriod(period);
+    }
 }

@@ -45,15 +45,16 @@ public class ReadersMain {
         }
 
         List<UserListDto> users = readerService.getRank(startIndex, itemsPerPage, period);
-        for(UserListDto user : users){
-            user.setBooks(readerService.getRankerThumbnail(user.getId()));
+        for (UserListDto user : users){
+            user.setBooks(readerService.getRankerThumbnailByPeriod(user.getId(), period)); // 🔄 연도 반영
         }
-        Map<String, Object> response = new HashMap<>();
-        int totalItems = readerService.getUserCount(); 
 
+        int totalItems = readerService.getUserCountByPeriod(period); // 🔄 연도 반영
+        Map<String, Object> response = new HashMap<>();
         response.put("items", users);
         response.put("totalItems", totalItems);
         return ResponseEntity.ok(response);
     }
+
 
 }
