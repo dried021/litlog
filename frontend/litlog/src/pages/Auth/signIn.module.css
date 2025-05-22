@@ -10,7 +10,7 @@
 }
 
 .signin-box {
-  background-color: #3D4127;
+  background-color: #f7e7ce;
   padding: 35px 30px;
   border: 1px solid #ccc;
   width: 380px;
@@ -30,7 +30,8 @@
   text-align: right;
   margin-right: 10px;
   white-space: nowrap; 
-  color: #F7E7CE;
+  color: black;
+  margin-top: 10px;
 }
 
 .signin-form input {
@@ -42,10 +43,11 @@
 .signin-form button {
   width: 80%;
   padding: 10px;
-  background-color: #BAC095;
-  opacity: 80%;
-  color: #555;
-  border: none;
+  background-color: #bac095;
+  opacity: 100%;
+  color: #3D4127;
+  border-radius: 4px;
+  border: 1px solid #3D4127;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s;
@@ -54,19 +56,19 @@
 }
 
 .signin-form button:hover {
-  opacity: 100%;
+  opacity: 80%;
 }
 
 
 .signin-links a,
 .signin-footer a {
-  color: #F7E7CE;
+  color: black;
   text-decoration: none;
   font-weight: bold;
 }
 
 .signin-footer, .signin-links {
-  color: #F7E7CE;
+  color: black;
 }
 
 .signin-links a:hover,
