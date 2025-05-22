@@ -38,46 +38,48 @@ const BooksInProgress = ({ userId }) => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h3>
-          Welcome back, Here’s your Reading Progress so far…
-        </h3>
-        <p>You’re currently reading {books.length} book(s)</p>
-      </div>
-      
-      <div className={styles.thumbnailRow}>
-        {books.slice(0, 5).map((book) => (
-          <div key={book.bookId} className={styles.bookItem}>
-            <img
-              src={book.thumbnail || defaultThumbnail}
-              alt={book.title}
-              className={styles.thumbnail}
-              onClick={() => navigate(`/books/${book.bookApiId}`)}
-            />
-            <div className={styles.progressInfo}>
-              <div>{book.progress ?? 0}%</div>
-              <div className={styles.progressBarOuter}>
-              <div
-                className={styles.progressBarInner}
-                style={{ width: `${book.progress ?? 0}%` }}
-              ></div>
-              </div>
-              <div>
-                Started {new Date(book.creationDate).toLocaleDateString('en-GB', {
-                  day: '2-digit',
-                  month: 'short',
-                  year: 'numeric'
-                })}
+    <div className={styles.fullWidthBg}>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h3>
+            Welcome back, Here’s your Reading Progress so far…
+          </h3>
+          <p>You’re currently reading {books.length} book(s)</p>
+        </div>
+        
+        <div className={styles.thumbnailRow}>
+          {books.slice(0, 5).map((book) => (
+            <div key={book.bookId} className={styles.bookItem}>
+              <img
+                src={book.thumbnail || defaultThumbnail}
+                alt={book.title}
+                className={styles.thumbnail}
+                onClick={() => navigate(`/books/${book.bookApiId}`)}
+              />
+              <div className={styles.progressInfo}>
+                <div>{book.progress ?? 0}%</div>
+                <div className={styles.progressBarOuter}>
+                <div
+                  className={styles.progressBarInner}
+                  style={{ width: `${book.progress ?? 0}%` }}
+                ></div>
+                </div>
+                <div>
+                  Started {new Date(book.creationDate).toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                  })}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <button className={styles.linkButton} onClick={() => navigate(`/${userId}/bookshelf`)}>
-        View My Bookshelf →
-      </button>
+        <button className={styles.linkButton} onClick={() => navigate(`/${userId}/bookshelf`)}>
+          View My Bookshelf →
+        </button>
+      </div>
     </div>
   );
 };
