@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { validateNameFormat} from './validation';
+import { validateIdFormat, validateNameFormat, validatePassword} from './validation';
 import { useNavigate } from 'react-router-dom';
 
 export function useSignUpSubmit({
@@ -14,13 +14,17 @@ export function useSignUpSubmit({
     e.preventDefault();
     const isAnyTelInput = tel1 || tel2 || tel3;    
 
+    const { valid: idValid, message: idMessage } = validateIdFormat(id);
+    if (!idValid) return openModal(idMessage);
+
     if (!idChecked || !idAvailable) return openModal("Please check for duplicate ID.");
     if (!nicknameChecked || !nicknameAvailable) return openModal("Please check for duplicate nickname.");
 
     const { valid: nameValid, message: nameMessage } = validateNameFormat(name);
     if (!nameValid) return alert(nameMessage);
 
-    if (password.length < 6) return openModal("Password must be at least 6 characters long.");
+    const { valid: pwdValid, message: pwdMessage } = validatePassword(password);
+    if (!pwdValid) return openModal(pwdMessage);
     if (password !== confirmPassword) return openModal("Passwords do not match.");
 
     if (!emailChecked || !emailAvailable) return openModal("Please verify your email.");
