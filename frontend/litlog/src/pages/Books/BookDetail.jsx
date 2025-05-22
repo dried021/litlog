@@ -103,7 +103,7 @@ const BookDetail = () => {
         option,
       }, { withCredentials: true });
       setBookshelfTrigger(prev => prev+1);
-      openModal("The book has been successfully added to the bookshelf.");
+      openModal("This book has been added to your bookshelf.");
     } catch (err) {
       console.error("Add to bookshelf error");
     }
@@ -113,7 +113,7 @@ const BookDetail = () => {
     try {
       const response = await axios.post(`http://localhost:9090/books/like`, { bookId, book }, { withCredentials: true });
       const result = response.data;
-      openModal(result > 0 ? "You have already liked this book." : "The book has been successfully liked.");
+      openModal(result > 0 ? "This book is already in your favorites." : "The book has been added to your favorites.");
       setIsLiked(true);
       setLikeTrigger(prev => prev + 1);
     } catch (err) {
@@ -130,7 +130,7 @@ const BookDetail = () => {
       }
       setIsLiked(false);
       setLikeTrigger(prev => prev + 1);
-      openModal("The book has been successfully unliked.");
+      openModal("This book was removed from your favorites.");
     } catch (err) {
       console.error("Remove like error");
     }
@@ -148,7 +148,7 @@ const BookDetail = () => {
         return;
       }
       setBookshelfTrigger(prev => prev+1);
-      openModal("The book has been successfully removed from the bookshelf.");
+      openModal("The book was removed from your bookshelf.");
     } catch (err) {
       console.error("Add to bookshelf error");
     }

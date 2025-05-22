@@ -232,7 +232,7 @@
             onClick={() => {
               if (!user) {
                 openModal({
-                  message: "You need to sign in before using this feature.",
+                  message: "You need to sign in to use this feature.",
                   mode: "confirm",
                   resultValue: "1",
                   callbackOnSuccess: () => {
