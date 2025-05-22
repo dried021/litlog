@@ -86,7 +86,7 @@ function SignUp() {
             )}
             {idAvailable === false && (
               <span className={styles['signup-invalid']}>
-                <img src="/icons/x-lg.svg" alt="Inavailable" className={styles['signup-icon-check']} />
+                <img src="/icons/x-lg.svg" alt="Unavailable" className={styles['signup-icon-check']} />
                 ID is already taken.
                 </span>)}
           </div>
@@ -106,7 +106,7 @@ function SignUp() {
               )}
             {nicknameAvailable === false && (
               <span className={styles['signup-invalid']}>
-                <img src="/icons/x-lg.svg" alt="Inavailable" className={styles['signup-icon-check']} />
+                <img src="/icons/x-lg.svg" alt="Unavailable" className={styles['signup-icon-check']} />
                 Nickname is already taken.</span>)}
           </div>
 
@@ -152,7 +152,7 @@ function SignUp() {
             )}
             {emailAvailable === false && (
               <span className={styles['signup-invalid']}>
-                <img src="/icons/x-lg.svg" alt="Inavailable" className={styles['signup-icon-check']} />
+                <img src="/icons/x-lg.svg" alt="Unavailable" className={styles['signup-icon-check']} />
                 Email is already taken.
                 </span>
               )}
@@ -191,11 +191,11 @@ function SignUp() {
           <button type="submit" className={styles['signup-form-button']}>Sign Up</button>
         </form>
       </div>
-
+      
       <div className={styles['form-footer']}>
-        Already have an account? <a href="/sign-in">Sign In</a>
+        Already have an account? <a href="/sign-in">Sign In</a><br/>
+        <a href="/">HOME</a>
       </div>
-      <div><a href="/">HOME</a></div>
     </div>
 
     <CustomModal

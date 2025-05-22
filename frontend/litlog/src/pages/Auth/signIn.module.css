@@ -5,11 +5,15 @@
   margin-top: 80px;
 }
 
+.signin-wrapper h2 {
+  margin-bottom: 25px;
+}
+
 .signin-box {
-  background-color: #f2f2f2;
-  padding: 30px;
+  background-color: #3D4127;
+  padding: 35px 30px;
   border: 1px solid #ccc;
-  width: 360px;
+  width: 380px;
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -25,8 +29,8 @@
   width: 80px;
   text-align: right;
   margin-right: 10px;
-  font-weight: bold;
   white-space: nowrap; 
+  color: #F7E7CE;
 }
 
 .signin-form input {
@@ -36,25 +40,33 @@
 }
 
 .signin-form button {
-  width: 100%;
+  width: 80%;
   padding: 10px;
-  background-color: #333;
-  color: white;
+  background-color: #BAC095;
+  opacity: 80%;
+  color: #555;
   border: none;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s;
+  margin-top: 25px;
+  margin-bottom: 18px;
 }
 
 .signin-form button:hover {
-  background-color: #555;
+  opacity: 100%;
 }
 
 
 .signin-links a,
 .signin-footer a {
-  color: #007bff;
+  color: #F7E7CE;
   text-decoration: none;
+  font-weight: bold;
+}
+
+.signin-footer, .signin-links {
+  color: #F7E7CE;
 }
 
 .signin-links a:hover,
@@ -62,3 +74,10 @@
   text-decoration: underline;
 }
 
+.home-link a {
+  color: #555;
+}
+
+.home-link {
+  margin-top: 20px;
+}

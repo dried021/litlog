@@ -79,9 +79,8 @@ const FindId = () => {
           </div>
 
           <div className={styles['findid-button-row']}>
-            <span className={styles['findid-btn-confirm']} onClick={handleFindId}>Confirm</span>
-            <span className={styles['findid-divider']}>|</span>
-            <span className={styles['findid-btn-cancel']} onClick={() => navigate('/sign-in')}>Cancel</span>
+            <button className={styles['findid-btn-confirm']} onClick={handleFindId}>Confirm</button>
+            <button className={styles['findid-btn-cancel']} onClick={() => navigate('/sign-in')}>Cancel</button>
           </div>
 
 
