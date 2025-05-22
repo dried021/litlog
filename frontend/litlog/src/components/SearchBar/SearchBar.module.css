@@ -1,7 +1,7 @@
 .searchBarForm {
   display: flex;
   align-items: center;
-  background-color: #f7e7ce;
+  background-color: #bac095;
   padding: 10px;
   border-radius: 50px;
   margin: 20px;
@@ -25,13 +25,13 @@
 }
 
 .searchInput::placeholder {
-  color: #5C5346;
+  color: black;
 }
 
 .searchButton {
   width: 40px;
   height: 40px;
-  background-color: #bac095;
+  background-color: #f7e7ce;
   color: black;
   border: none;
   border-radius: 50%;
