@@ -61,7 +61,7 @@ const CollectionEntry = ({ collection }) => {
       <div className={styles.info}>
         <div className={styles.topRow}>
           <h3 className={styles.title}>{collection.title}</h3>
-          <span className={styles.bookCount}>{collection.bookCount} books</span>
+          <span className={styles.bookCount}>{collection.bookCount}{collection.bookCount === 1 ? ' book' : ' books'}</span>
         </div>
         <div className={styles.bottomRow}>
           <span className={styles.author}>by {collection.nickname}</span>
