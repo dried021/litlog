@@ -114,7 +114,7 @@ const FindPassword = () => {
         {step === 1 && (
           <>
             <div className={styles['findpassword-form-group']}>
-              <label>Name :</label>
+              <label>Name</label>
               <input
                 type="text"
                 value={name}
@@ -123,7 +123,7 @@ const FindPassword = () => {
               />
             </div>
             <div className={styles['findpassword-form-group']}>
-              <label>ID :</label>
+              <label>ID</label>
               <input
                 type="text"
                 value={id}
@@ -132,7 +132,7 @@ const FindPassword = () => {
               />
             </div>
             <div className={styles['findpassword-form-group']}>
-              <label>Email :</label>
+              <label>Email</label>
               <input
                 type="email"
                 value={email}
@@ -171,7 +171,7 @@ const FindPassword = () => {
         {step === 3 && (
           <>
             <div className={styles['findpassword-form-group-last']}>
-              <label>New Password :</label>
+              <label>New Password</label>
               <input
                 type="password"
                 value={newPwd}
@@ -181,7 +181,7 @@ const FindPassword = () => {
             </div>
 
             <div className={styles['findpassword-form-group-last']}>
-              <label>Confirm Password :</label>
+              <label>Confirm Password</label>
               <input
                 type="password"
                 value={confirmPwd}

@@ -94,7 +94,7 @@ const SignIn = () => {
       <div className={styles['signin-box']}>
         <form className={styles['signin-form']} onSubmit={handleLogin}>
           <div className={styles['form-group']}>
-            <label>ID :</label>
+            <label>ID</label>
             <input
               type="text"
               value={id}
@@ -104,7 +104,7 @@ const SignIn = () => {
           </div>
 
           <div className={styles['form-group']}>
-            <label>Password :</label>
+            <label>Password</label>
             <input
               type="password"
               value={password}
