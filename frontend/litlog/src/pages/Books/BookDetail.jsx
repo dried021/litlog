@@ -226,7 +226,7 @@ const BookDetail = () => {
 
           <div className={styles["reviews-section"]}>
             <div className={styles["reviews-header"]}>
-              <h3>Reviews</h3>
+              <h3>| REVIEWS |</h3>
             </div>
 
             <Reviews bookApiId={bookId}/>

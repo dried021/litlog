@@ -7,6 +7,7 @@ import AddReview from "./AddReview";
 import ReadMoreButton from '../Button/ReadMoreButton';
 import { UserContext } from '../../libs/UserContext';
 import CustomModal from "../Modal/CustomModal"; 
+import defaultProfile from '../../assets/default_profile.png';
 
 
 
@@ -17,7 +18,7 @@ function Rating({ rating }) {
         <img 
           className={styles['star']}
           key={index}
-          src="/icons/star2.svg"
+          src="/icons/star.svg"
           alt={`Image ${index + 1}`}
         />
       ))}
@@ -25,7 +26,7 @@ function Rating({ rating }) {
         <img 
           className={styles['star']}
           key={index}
-          src="/icons/emptyStar.svg"
+          src="/icons/star_gray.svg"
           alt={`Image ${index + 1}`}
         />
       ))}
@@ -60,7 +61,7 @@ function Review({ reviews, currentPage, reviewPerPage, handleLikeClick }) {
             </div>
 
             <div className={styles['user-profile']} onClick={() => navigate(`/${review.userId}/reviews/detail/${review.id}`)}>
-                <img src="/icons/profile.svg" alt="prodile" />
+                <img src={defaultProfile} alt="profile" />
             </div>
 
             <div className={styles['review-content']}>
@@ -294,7 +295,7 @@ function Reviews({ bookApiId }) {
               />
             </>
           ) : (
-            <p className={styles.reviewstext}>No reviews yet</p>
+            <p className={styles.reviewstext}>No Reviews yet</p>
           )}
 
           <CustomModal

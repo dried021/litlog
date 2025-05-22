@@ -2,8 +2,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding-top: 10px;
+    padding-bottom: 1px;
+    margin-bottom: 10px;
+    padding-left: 20px;
     width: 100%;
+    border-bottom: 1px solid #ccc;
   }
 
   .reviewstext {
@@ -15,7 +19,7 @@
   
   .leftContainer {
     display: flex;
-    gap: 15px;
+    gap: 20px;
   }
   
   .rightContainer {
@@ -24,7 +28,8 @@
   
   .option {
     cursor: pointer;
-    padding: 8px 12px;
+    padding: 8px 0;
+    margin-left: -5px;
     font-size: 15px;
     color: #555;
     transition: background-color 0.3s, color 0.3s;
@@ -32,47 +37,51 @@
   }
   
   .optionActive {
-    color: #000;
+    color: #636B2F;
     font-weight: bold;
-    text-decoration: underline;
+    text-decoration: none;
   }
   
   .option:hover {
-    background-color: #9a9a9a;
-    color: #fff;
+    color: #bac095;
   }
   
   .addReviewButton {
     cursor: pointer;
     padding: 8px 12px;
-    background-color: #007bff;
+    background-color: #5c5346;
     color: #fff;
     border-radius: 8px;
     transition: background-color 0.3s;
   }
   
   .addReviewButton:hover {
-    background-color: #0056b3;
+    background-color: #3D4127;
   }
 
-.review-section {
+  .review-section {
     padding: 1rem;
   }
 
   .review-item{
+    position: relative;
     display:flex;
-    padding: 1rem 1rem;
+    padding: 30px 20px;
     border-bottom: 1px solid #ddd;
     justify-content: center;
   }
 
   .review-item-last{
+    position: relative;
     display:flex;
-    padding: 1rem 1rem;
+    padding: 30px 20px;
+    border-bottom: 1px solid #ddd;
+    justify-content: center;
   }
   
   .index-box {
     margin-right: 1rem;
+    flex-shrink: 0;
   }
   
   .user-profile {
@@ -86,6 +95,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    flex-shrink: 0;
   }
   
   .user-profile img {
@@ -102,9 +112,9 @@
   }
   
   .user-id {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 0.2rem;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
   }
 
   .star{
@@ -113,17 +123,21 @@
   }
   
   .rating {
-    margin-bottom: 0.6rem;
+    margin-bottom: 5px;
+    margin-left: -2px;
   }
   
   .content {
-    font-size: 1.2rem;
+    font-size: 17px;
     margin-bottom: 0.5rem;
+    margin-left: 1px;
   }
   
   .review-like {
+    position: absolute; 
     flex-grow: 0;
-    margin-left: auto;
+    top: 30px;
+    right: 5px;
     justify-content: center;
     width: 70px;
     display: flex;
@@ -134,14 +148,13 @@
   }
   
   .review-like img {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
   }
   
   .readmore-container {
     display: flex;
     justify-content: flex-end;
-    margin-top: 0.5rem;
   }
   
   .readmore-button{
