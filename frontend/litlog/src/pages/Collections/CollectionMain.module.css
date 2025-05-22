@@ -48,6 +48,13 @@
   
 }
 
+.sectionTitle {
+  font-size: 30px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #3D4127;
+}
+
 .moreBtn {
   background: none;
   border: none;
@@ -79,7 +86,7 @@
 
 .collectionSort {
   display: flex;
-  gap: 20px;
+  gap: 5px;
   justify-content: left;
   margin-bottom: 20px;
 }
@@ -253,6 +260,11 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
   transition: transform 0.2s ease;
   flex-shrink: 0;
+}
+
+.weeklyCard .title {
+  font-size: 18px;
+  margin-top: 20px;
 }
 
 .weeklyCard:hover {

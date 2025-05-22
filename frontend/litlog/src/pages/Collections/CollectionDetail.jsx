@@ -165,7 +165,7 @@ const CollectionDetail = () => {
                     />
                     {likeCount}
                   </span>
-                  <span> ・ 
+                  <span> 
                     <img src="/icons/comment_gray.svg" alt="Comment" className={styles.icon} /> 
                     {collection.commentCount}</span>
                 </div>

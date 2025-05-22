@@ -13,7 +13,7 @@
 
   .book-item:hover {
     background-color: #e1e1e1;
-    transform: scale(1.05);  /* 5% 확대 */
+    transform: scale(1.02);  /* 2% 확대 */
   }
 
 
@@ -22,6 +22,7 @@
     height: 150px;
     overflow: hidden;
     justify-content: center;
+    border-radius: 4px;
   }
   
   .thumbnail img {
