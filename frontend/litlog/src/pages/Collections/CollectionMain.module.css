@@ -157,6 +157,8 @@
 
 .author{
   cursor: pointer;
+  color: #666;
+  font-size: 15px;
 }
 
 .info {
@@ -231,12 +233,13 @@
 }
 
 .profileIcon {
-  width: 15px;            
-  height: 15px;
+  width: 18px;            
+  height: 18px;
   border-radius: 50%;     
   object-fit: cover;      
   margin-right: 4px;      
   vertical-align: middle; 
+  margin-top: -3px;
 }
 
 .weeklyCard {
