@@ -144,8 +144,15 @@
         ) AS likes,
 
         (SELECT COUNT(*)
-        FROM follow_list fl 
-        WHERE fl.follow_user_id = u.id) AS followers,
+            FROM follow_list fl 
+            WHERE fl.follow_user_id = u.id
+            AND fl.creation_date BETWEEN 
+                STR_TO_DATE(CONCAT(#{period}, '-01-01'), '%Y-%m-%d') AND
+                CASE
+                    WHEN #{period} = YEAR(NOW()) THEN NOW()
+                    ELSE STR_TO_DATE(CONCAT(#{period}, '-12-31 23:59:59'), '%Y-%m-%d %H:%i:%s')
+                END
+            ) AS followers,
 
         (
             (SELECT COUNT(*) FROM book_collection bc 
@@ -213,19 +220,6 @@
         GROUP BY u.id, u.bio, u.profile_image
         ORDER BY activityScore DESC, u.reg_date
         LIMIT #{itemsPerPage} OFFSET #{offset}
-    </select>
-    
-    <select id="getRankerThumbnail" parameterType="String" resultType="com.bookfox.model.BookDto">
-        SELECT b.id, b.book_api_id, b.thumbnail
-        FROM book_shelf bs
-        JOIN book b ON bs.book_id = b.id
-        WHERE bs.user_id = #{id}
-        ORDER BY bs.creation_date DESC
-        LIMIT 5
-    </select>
-
-    <select id="getUserCount" resultType="int">
-        select COUNT(*) from user;
     </select>
 
     <select id="getSearchResult" parameterType="map" resultType="com.bookfox.model.UserListDto">
@@ -313,4 +307,34 @@
         OR u.nickname LIKE CONCAT('%', #{keyword}, '%')
         OR u.bio LIKE CONCAT('%', #{keyword}, '%')
     </select>
+
+    <select id="getRankerThumbnailByPeriod" parameterType="map" resultType="com.bookfox.model.BookDto">
+        SELECT b.id, b.book_api_id, b.thumbnail
+        FROM book_shelf bs
+        JOIN book b ON bs.book_id = b.id
+        WHERE bs.user_id = #{id}
+        AND bs.creation_date BETWEEN 
+            STR_TO_DATE(CONCAT(#{period}, '-01-01'), '%Y-%m-%d') AND
+            CASE
+                WHEN #{period} = YEAR(NOW()) THEN NOW()
+                ELSE STR_TO_DATE(CONCAT(#{period}, '-12-31 23:59:59'), '%Y-%m-%d %H:%i:%s')
+            END
+        ORDER BY bs.creation_date DESC
+        LIMIT 5
+    </select>
+
+    <select id="getUserCountByPeriod" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM (
+            SELECT u.id
+            FROM user u
+            JOIN book_review br ON br.user_id = u.id
+            WHERE br.creation_date BETWEEN
+                STR_TO_DATE(CONCAT(#{period}, '-01-01'), '%Y-%m-%d') AND
+                CASE
+                    WHEN #{period} = YEAR(NOW()) THEN NOW()
+                    ELSE STR_TO_DATE(CONCAT(#{period}, '-12-31 23:59:59'), '%Y-%m-%d %H:%i:%s')
+                END
+            GROUP BY u.id
+        ) AS filtered_users
+    </select>   
 </mapper>

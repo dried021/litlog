@@ -185,6 +185,17 @@ INSERT INTO book_shelf (book_id, user_id, shelf_type, progress) VALUES
 (39, 'user30', 2, 60),
 (40, 'user30', 3, 100);
 
+INSERT INTO book_shelf (book_id, user_id, shelf_type, creation_date, progress) VALUES
+(11, 'user10', 1, '2024-03-12 19:00:00', 0),
+(1, 'user10', 2, '2024-04-18 18:00:00', 25),
+(19, 'user10', 3, '2024-03-23 20:00:00', 100),
+(44, 'user05', 1, '2024-03-07 14:00:00', 0),
+(32, 'user05', 2, '2024-04-30 05:00:00', 44),
+(25, 'user05', 3, '2024-03-23 13:00:00', 100),
+(48, 'user02', 1, '2024-03-10 02:00:00', 0),
+(22, 'user02', 2, '2024-03-20 18:00:00', 64),
+(33, 'user02', 3, '2024-04-08 22:00:00', 100);
+
 INSERT INTO book_review (user_id, book_id, content, rating) VALUES
 -- book_id = 1
 ('user01', 1, '정말 재미있게 읽었어요.', 5),
@@ -280,6 +291,23 @@ INSERT INTO follow_list (user_id, follow_user_id) VALUES
 -- user10 follows user06, user08
 ('user10', 'user06'),
 ('user10', 'user08');
+
+INSERT INTO follow_list (user_id, follow_user_id, creation_date) VALUES
+('user39', 'user10', '2024-05-22 15:00:00'),
+('user23', 'user10', '2024-05-02 18:00:00'),
+('user40', 'user10', '2024-05-31 08:00:00'),
+('user21', 'user10', '2024-05-05 17:00:00'),
+('user25', 'user10', '2024-05-25 19:00:00'),
+('user27', 'user05', '2024-05-28 16:00:00'),
+('user33', 'user05', '2024-05-10 01:00:00'),
+('user31', 'user05', '2024-05-16 03:00:00'),
+('user22', 'user05', '2024-05-09 16:00:00'),
+('user36', 'user05', '2024-05-04 19:00:00'),
+('user38', 'user02', '2024-05-30 08:00:00'),
+('user22', 'user02', '2024-05-17 18:00:00'),
+('user21', 'user02', '2024-05-09 19:00:00'),
+('user40', 'user02', '2024-05-08 03:00:00'),
+('user28', 'user02', '2024-05-25 17:00:00');
 
 --썸내일 불필요
 INSERT INTO book_collection (user_id, title, content, thumbnail) VALUES 
