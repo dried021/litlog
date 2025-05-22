@@ -180,14 +180,12 @@ CREATE TABLE book_collection(
     creation_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     title VARCHAR(255),
     content VARCHAR(1000), 
-    thumbnail VARCHAR(300), 
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 CREATE TABLE book_collection_book(
 	id INT AUTO_INCREMENT PRIMARY KEY,			-- 이건 프리메리
     collection_id INT NOT NULL, 		-- collection 분류. 같은 collection이면 같은 collection id
     book_id INT,
-    thumbnail VARCHAR(300),
     order_index INT NOT NULL DEFAULT 0, 
     FOREIGN KEY (book_id) REFERENCES book(id) ON DELETE CASCADE,
     FOREIGN KEY (collection_id) REFERENCES book_collection(id) ON DELETE CASCADE
