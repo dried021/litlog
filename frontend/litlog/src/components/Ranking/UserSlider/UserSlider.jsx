@@ -84,7 +84,7 @@ function NextArrow(props) {
                 <div className="user-stats">  
                   <img className="bookshelf" src="/icons/bookshelf.svg" alt="Bookshelf" />
                   <p>{" " + user.bookshelves + " "}</p>
-                  <img className="review" src="/icons/star2.svg" alt="Review"/>
+                  <img className="review" src="/icons/star.svg" alt="Review"/>
                   <p>{" " + user.reviews + " "}</p>
                 </div> 
                 

@@ -53,14 +53,13 @@ function UserList({ users, onItemClick, isRank, currentPage=1 }) {
 
                 <div className={styles['user-book']}>
                     {user.books && user.books.map((book, i) => (
-                        <a href={`/books/${book.bookApiId}`}>
-                          <img 
-                          key={i} 
+                      <a key={`${user.id}-book-${book.bookApiId || i}`} href={`/books/${book.bookApiId}`}>
+                        <img 
                           src={book.thumbnail || "/images/covernotavailable.png"} 
                           alt={`book-${i}`} 
                           className={styles['book-thumbnail']} 
-                          />
-                        </a>
+                        />
+                      </a>
                     ))}
                 </div>
 
