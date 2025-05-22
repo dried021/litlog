@@ -26,11 +26,12 @@ public class Readers {
     @GetMapping("/search")
     public ResponseEntity<Map<String, Object>> searchResults(@RequestParam String keyword,
         @RequestParam(defaultValue = "1") int currentPage,
-        @RequestParam(defaultValue = "true") boolean isRelevance) {
+        @RequestParam(defaultValue = "true") boolean isRelevance,
+        @RequestParam(defaultValue = "2025") int period) {
 
         List<UserListDto> users = readerService.getSearchResult(keyword, currentPage, isRelevance);
         for(UserListDto user : users){
-            user.setBooks(readerService.getRankerThumbnail(user.getId()));
+            user.setBooks(readerService.getRankerThumbnailByPeriod(user.getId(),period));
         }
         
         int usersCount = readerService.getSearchResultCount(keyword);
