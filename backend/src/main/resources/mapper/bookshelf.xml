@@ -30,6 +30,7 @@
             ON bs.book_id = b.id
         WHERE bs.user_id = #{userId}
             AND bs.shelf_type = 2
+        ORDER BY bs.creation_date DESC
     </select>
     <select id="getReadBooks" resultType="com.bookfox.model.BookshelfDto" parameterType="String">
         SELECT

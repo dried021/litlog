@@ -5,7 +5,7 @@ import { UserContext } from '../../libs/UserContext';
 import TabMenu from '../../components/Mypage/TabMenu';
 import styles from './Bookshelf.module.css';
 import defaultThumbnail from '../../assets/default_thumbnail.png';
-import heart from '../../assets/heart.svg';
+import heart from '../../assets/heart_filled.svg';
 import menuIcon from '../../assets/menu.svg';
 import Pagination from '../../components/Pagination/Pagination';
 import BookMenu from '../../components/Bookshelf/BookMenu';
