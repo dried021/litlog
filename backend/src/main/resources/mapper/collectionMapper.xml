@@ -36,7 +36,6 @@
             u.profile_image,
             c.title,
             c.content,
-            c.thumbnail,
             c.creation_date AS creationDate,
 
             l.like_count AS likeCount,
@@ -94,7 +93,6 @@
         u.profile_image AS profile_image,
         c.title AS title,
         c.content AS content,
-        c.thumbnail AS thumbnail,
         c.creation_date AS creationDate,
         COUNT(DISTINCT l.id) AS likeCount,
         COUNT(DISTINCT cm.id) AS commentCount
@@ -116,7 +114,6 @@
         u.profile_image AS profile_image,
         c.title AS title,
         c.content AS content,
-        c.thumbnail AS thumbnail,
         c.creation_date AS creationDate,
         COUNT(DISTINCT l.id) AS likeCount,
         COUNT(DISTINCT cm.id) AS commentCount
@@ -142,7 +139,6 @@
         u.profile_image,
         c.title,
         c.content,
-        c.thumbnail,
         c.creation_date,
         lc.like_count,
         cc.comment_count,
