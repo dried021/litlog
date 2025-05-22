@@ -135,35 +135,6 @@ INSERT INTO like_list VALUES
 (15,'bbb',13,2,'2025-05-12 15:38:15');
 /* liked books - 1984, Karamazov most reent */
 
-SELECT 
-            br.id,
-            u.nickname AS nickname,
-            br.user_id AS userId,
-            br.book_id AS bookId,
-            b.book_api_id AS bookApiId,
-            b.title,
-            b.authors,
-            b.thumbnail,
-            br.content,
-            br.rating,
-            br.creation_date AS creationDate,
-            COALESCE(likeCount.likeCount, 0) AS likeCount
-        FROM book_review br
-        LEFT JOIN book b ON b.id = br.book_id
-        LEFT JOIN user u
-            ON u.id = br.user_id
-        LEFT JOIN (
-            SELECT target_id, COUNT(*) AS likeCount 
-            FROM like_list 
-            WHERE like_type = 1 
-            GROUP BY target_id
-        ) likeCount ON likeCount.target_id = br.id
-        WHERE br.creation_date >= NOW() - INTERVAL 7 DAY
-        ORDER BY likeCount DESC
-        LIMIT 5 OFFSET #{offset};
-
-
-
 /* MORE BOOKS */
 INSERT INTO book VALUES
 (15,NULL,"Harry Potter and the Sorcerer's Stone",NULL,NULL,NULL,'2005-11-15',NULL,NULL, NULL ,NULL),
