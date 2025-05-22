@@ -158,15 +158,14 @@ const CommentList = ({ comments, onRefresh }) => {
                 >
                   {comment.content}
                 </div>
-                {comment.content.length > 200 && (
+                <div className={styles.expandButtonWrapper}>
                   <button
                     className={styles.expandBtn}
                     onClick={() => toggleExpand(comment.id)}
                   >
                     {expandedComments.has(comment.id) ? 'Show Less' : 'Show More'}
                   </button>
-                )}
-
+                </div>
                 {user === comment.userId && (
                   <div className={styles.commentActions}>
                     <button className={styles.editBtn} onClick={() => handleEdit(comment)}>Edit</button>
