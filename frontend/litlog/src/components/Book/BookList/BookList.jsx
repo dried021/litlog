@@ -5,7 +5,7 @@ function BookList({ books, onItemClick }) {
   return (
     <div className={styles['book-list']}>
       {books.map((book, index) => {
-        const thumbnail = book.volumeInfo.imageLinks?.thumbnail || '/images/covernotavailable.png';
+        const thumbnail = book.volumeInfo.imageLinks?.thumbnail || '/LitLog/images/covernotavailable.png';
         return (
           <div key={`${book.id || book.volumeInfo.industryIdentifiers?.[0]?.identifier}-${index}`}
             className={styles['book-item']} 

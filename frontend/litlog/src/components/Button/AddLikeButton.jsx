@@ -51,7 +51,7 @@ function AddLikeButton({ bookApiId, isLiked, setIsLiked, handleClick, handleAdde
         return;
       }
       try {
-        const response = await axios.get(`/api/books/counts`, {
+        const response = await axios.get(`/LitLog/api/books/counts`, {
           params: { bookApiId },
           withCredentials: true
         });

@@ -12,7 +12,7 @@ const ProfileDropdown = ({ userId, onLogout }) => {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    fetch(`/api/members/profile-summary/${userId}`, {
+    fetch(`/LitLog/api/members/profile-summary/${userId}`, {
             method: 'GET',
             credentials: 'include'
         })
@@ -46,7 +46,7 @@ const ProfileDropdown = ({ userId, onLogout }) => {
             src={profile.profileImage ? 
                 (profile.profileImage.startsWith('http') 
                 ? profile.profileImage
-                : `/api/${profile.profileImage}`)
+                : `/LitLog/api/${profile.profileImage}`)
                 : defaultProfile}
             alt="profile"
             className={styles.profileImg}

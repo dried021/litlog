@@ -18,7 +18,7 @@ function Rating({ rating }) {
         <img 
           className={styles['star']}
           key={index}
-          src="/icons/star.svg"
+          src="/LitLog/icons/star.svg"
           alt={`Image ${index + 1}`}
         />
       ))}
@@ -26,7 +26,7 @@ function Rating({ rating }) {
         <img 
           className={styles['star']}
           key={index}
-          src="/icons/star_gray.svg"
+          src="/LitLog/icons/star_gray.svg"
           alt={`Image ${index + 1}`}
         />
       ))}
@@ -86,9 +86,9 @@ function Review({ reviews, currentPage, reviewPerPage, handleLikeClick }) {
 
             <div className={styles['review-like']} onClick={() => handleLikeClick(review.id)}>
                 {review.isLiked ? (
-                <img src="/icons/heart_filled.svg" alt="Liked" />
+                <img src="/LitLog/icons/heart_filled.svg" alt="Liked" />
                 ) : (
-                <img src="/icons/heart_outline.svg" alt="Not Liked" />
+                <img src="/LitLog/icons/heart_outline.svg" alt="Not Liked" />
                 )}
                 <p className={styles['review-like-count']}>{review.likeCount}</p>
             </div>
@@ -153,7 +153,7 @@ function Reviews({ bookApiId }) {
 
   const getReviews = async (bookApiId, currentPage, isPopularity) => {
     try {
-      const response = await axios.get(`/api/books/reviews`, {
+      const response = await axios.get(`/LitLog/api/books/reviews`, {
         params: { bookApiId, currentPage, isPopularity}, withCredentials: true
       });
       const { reviews, reviewsCount } = response.data;
@@ -199,7 +199,7 @@ function Reviews({ bookApiId }) {
           const likeCount = isLiked ? review.likeCount + 1 : review.likeCount - 1;
   
           axios.post(
-            `/api/books/reviews/like`,
+            `/LitLog/api/books/reviews/like`,
             { reviewId, isLiked },
             { withCredentials: true }
           ).catch((err) => console.error("Like update error:", err));

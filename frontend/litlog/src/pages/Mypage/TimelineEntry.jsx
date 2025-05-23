@@ -9,7 +9,7 @@ const TimelineEntry = ({ review, showMonth }) => {
   const month = date.toLocaleString("en-US", { month: "short" }).toUpperCase();
   const year = date.getFullYear();
   const day = String(date.getDate()).padStart(2, "0");
-  const thumbnail = review.thumbnail || "/images/covernotavailable.png";
+  const thumbnail = review.thumbnail || "/LitLog/images/covernotavailable.png";
 
   const [showTooltip, setShowTooltip] = useState(false);
   const timeoutRef = useRef(null);
@@ -27,7 +27,7 @@ const TimelineEntry = ({ review, showMonth }) => {
   
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
-      <img key={i} src={i < rating ? "/icons/star.svg" : "/icons/star_gray.svg"} alt="별점"/>
+      <img key={i} src={i < rating ? "/LitLog/icons/star.svg" : "/LitLog/icons/star_gray.svg"} alt="별점"/>
     ));
   };
 
@@ -53,8 +53,8 @@ const TimelineEntry = ({ review, showMonth }) => {
         <img
           src={
             review.liked
-              ? "/icons/heart_filled.svg"
-              : "/icons/heart_outline.svg"
+              ? "/LitLog/icons/heart_filled.svg"
+              : "/LitLog/icons/heart_outline.svg"
           }
           alt="좋아요"
         />
@@ -67,7 +67,7 @@ const TimelineEntry = ({ review, showMonth }) => {
             onMouseLeave={handleMouseLeave}
           >
             <Link to={`/${review.userId}/reviews/detail/${review.id}`}>
-              <img src="/icons/review.svg" alt="리뷰" />
+              <img src="/LitLog/icons/review.svg" alt="리뷰" />
             </Link>
             <div
               className="tooltip-text"

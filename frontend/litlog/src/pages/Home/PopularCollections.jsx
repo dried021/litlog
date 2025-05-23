@@ -9,7 +9,7 @@ const PopularCollections = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('/api/collections?sort=popular', { withCredentials: true }) 
+    axios.get('/LitLog/api/collections?sort=popular', { withCredentials: true }) 
       .then(res => setCollections((res.data.book_collections || []).slice(0, 3)))
       .catch(err => {
         console.error("Failed to load all popular collections.", err);
@@ -88,7 +88,7 @@ const PopularCollections = () => {
                         col.profileImage
                           ? (col.profileImage.startsWith('http')
                               ? col.profileImage
-                              : `/api/${col.profileImage}`)
+                              : `/LitLog/api/${col.profileImage}`)
                           : defaultProfile
                       }
                       alt="profile"
@@ -96,10 +96,10 @@ const PopularCollections = () => {
                     />{col.nickname}
                   </span>
                   <span className={styles.meta}>
-                    <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1} />
+                    <img src="/LitLog/icons/heart_gray.svg" alt="likes" className={styles.icon1} />
                     {likeDisplay}
                     &nbsp;&nbsp;
-                    <img src="/icons/comment_gray.svg" alt="comments" className={styles.icon2} />
+                    <img src="/LitLog/icons/comment_gray.svg" alt="comments" className={styles.icon2} />
                     {col.commentCount ?? 0}
                   </span>
                 </div>

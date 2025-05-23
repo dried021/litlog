@@ -102,7 +102,7 @@ def extract_book_info(book_data):
         "description": volume_info.get("description"),
         "page_count": volume_info.get("pageCount"),
         "thumbnail": volume_info.get("imageLinks", {}).get("thumbnail"),
-        "category_code": category_code
+        "book_category": category_code
     }
     return book_info
 

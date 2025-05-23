@@ -70,7 +70,7 @@ function BookInfoDiv({ bookApiId, isLiked, setIsLiked, change, likeTrigger, book
 
   const getCounts = async (bookApiId) => {
     try {
-      const response = await axios.get(`/api/books/counts`, {
+      const response = await axios.get(`/LitLog/api/books/counts`, {
         params: { bookApiId }, withCredentials: true
       });
   
@@ -107,7 +107,7 @@ function BookInfoDiv({ bookApiId, isLiked, setIsLiked, change, likeTrigger, book
   if (isLiked) {
     try {
       const response = await axios.post(
-        `/api/books/unlike`,
+        `/LitLog/api/books/unlike`,
         { bookApiId, option: 2 },
         { withCredentials: true }
       );
@@ -122,7 +122,7 @@ function BookInfoDiv({ bookApiId, isLiked, setIsLiked, change, likeTrigger, book
     try {
       const bookId = bookApiId;
       const response = await axios.post(
-        `/api/books/like`,
+        `/LitLog/api/books/like`,
         { bookId },
         { withCredentials: true }
       );
@@ -139,9 +139,9 @@ function BookInfoDiv({ bookApiId, isLiked, setIsLiked, change, likeTrigger, book
   return (
     <>
     <div className={styles.bookInfoDiv}>
-      <img src="/icons/bookshelf.svg" alt="Bookshelf" />
+      <img src="/LitLog/icons/bookshelf.svg" alt="Bookshelf" />
       {" " + bookshelfCount + " "}
-      <img className={styles.heart} src={isLiked ? "/icons/heart_filled.svg" : "/icons/heart_outline.svg"} alt="Like"
+      <img className={styles.heart} src={isLiked ? "/LitLog/icons/heart_filled.svg" : "/LitLog/icons/heart_outline.svg"} alt="Like"
         onClick={() => changeLike(bookApiId)}/>
       {" " + likeCount}
     </div>

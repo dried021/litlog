@@ -35,7 +35,7 @@ const CreatedCollection = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `/api/members/${userId}/collections/created`
+          `/LitLog/api/members/${userId}/collections/created`
         );
         setCollections(res.data);
         setError(null);

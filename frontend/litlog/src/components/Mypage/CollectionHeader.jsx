@@ -99,7 +99,7 @@ const CollectionHeader = ({
 
         {/* Reset */}
         <span className={styles.tabButton} onClick={onResetFilters}>
-          <img src="/icons/refresh.svg" alt="Reset" className={styles.refreshIcon} />
+          <img src="/LitLog/icons/refresh.svg" alt="Reset" className={styles.refreshIcon} />
         </span>
       </div>
     </div>

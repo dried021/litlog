@@ -40,7 +40,7 @@ const SearchReaders = () => {
             setLoading(true);
         }
         try{
-            const response = await axios.get(`/api/readers/search`, {
+            const response = await axios.get(`/LitLog/api/readers/search`, {
                 params: {
                     keyword: trimmedKeyword,
                     currentPage: currentPage,

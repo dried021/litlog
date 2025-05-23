@@ -11,7 +11,7 @@ export function Rating({ rating }) {
         <img 
           className={styles['star']}
           key={index}
-          src="/icons/star.svg"
+          src="/LitLog/icons/star.svg"
           alt={`Image ${index + 1}`}
         />
       ))}
@@ -19,7 +19,7 @@ export function Rating({ rating }) {
         <img 
           className={styles['star']}
           key={index}
-          src="/icons/star_gray.svg"
+          src="/LitLog/icons/star_gray.svg"
           alt={`Image ${index + 1}`}
         />
       ))}
@@ -58,7 +58,7 @@ function Review({ reviews, currentPage, reviewPerPage}) {
               </div>
 
               <div className={styles['book-thumbnail']} onClick={()=> navigate("/books/"+review.bookApiId)}>
-                <img src={review.thumbnail ?? '/images/covernotavailable.png'}/>
+                <img src={review.thumbnail ?? '/LitLog/images/covernotavailable.png'}/>
               </div>
 
               <div className={styles['review-content']}>
@@ -83,7 +83,7 @@ function Review({ reviews, currentPage, reviewPerPage}) {
               </div>
 
               <div className={styles['review-like']}>
-                  <img src="/icons/heart_filled.svg" alt="Liked" />
+                  <img src="/LitLog/icons/heart_filled.svg" alt="Liked" />
                   <p className={styles['review-like-count']}>{review.likeCount}</p>
               </div>
               </div>
@@ -109,7 +109,7 @@ function ReviewList() {
 
   const getReviews = async ( currentPage) => {
     try {
-      const response = await axios.get(`/api/books/popularReviewList`, {
+      const response = await axios.get(`/LitLog/api/books/popularReviewList`, {
         params: {currentPage},
       });
       const reviews = response.data;

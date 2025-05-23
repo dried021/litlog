@@ -42,7 +42,7 @@ const AccountDeletionForm = ({ userId }) => {
     if (!password) return openModal("Please enter your password.");
 
     try {
-        const response = await axios.post(`/api/setting/withdraw`, {
+        const response = await axios.post(`/LitLog/api/setting/withdraw`, {
             id: userId,
             pwd: password,
           }, { withCredentials: true });

@@ -48,7 +48,7 @@
 
     const fetchPopularCollections = async () => {
       try {
-        const res = await axios.get('/api/collections/popular');
+        const res = await axios.get('/LitLog/api/collections/popular');
         setPopularCollections(res.data.book_collections || []);
       } catch (err) {
         console.error('Failed to load popular collections.', err);
@@ -57,7 +57,7 @@
 
     const fetchAllCollections = async (sort, page = 1) => {
       try {
-        const res = await axios.get(`/api/collections?sort=${sort}&page=${page}&size=${pageSize}`);
+        const res = await axios.get(`/LitLog/api/collections?sort=${sort}&page=${page}&size=${pageSize}`);
         setAllCollections(res.data.book_collections || []);
         setPageCount(res.data.totalPages || 1); 
       } catch (err) {
@@ -137,7 +137,7 @@
                 col.profileImage
                   ? (col.profileImage.startsWith('http')
                       ? col.profileImage
-                      : `/api/${col.profileImage}`)
+                      : `/LitLog/api/${col.profileImage}`)
                   : defaultProfile
               }
               alt="profile"
@@ -145,10 +145,10 @@
             />{col.nickname}
           </span>
             <span className={styles.meta}>
-              <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1} />
+              <img src="/LitLog/icons/heart_gray.svg" alt="likes" className={styles.icon1} />
               {likeDisplay}
               &nbsp;&nbsp;
-              <img src="/icons/comment_gray.svg" alt="comments" className={styles.icon2} />
+              <img src="/LitLog/icons/comment_gray.svg" alt="comments" className={styles.icon2} />
               {col.commentCount ?? 0}
             </span>
           </div>
@@ -200,7 +200,7 @@
                 col.profileImage
                   ? (col.profileImage.startsWith('http')
                       ? col.profileImage
-                      : `/api/${col.profileImage}`)
+                      : `/LitLog/api/${col.profileImage}`)
                   : defaultProfile
               }
               alt="profile"
@@ -208,10 +208,10 @@
             />{col.nickname}
           </span>
           <span className={styles.meta}>
-            <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1} />
+            <img src="/LitLog/icons/heart_gray.svg" alt="likes" className={styles.icon1} />
             {likeDisplay}
             &nbsp;&nbsp;
-            <img src="/icons/comment_gray.svg" alt="comments" className={styles.icon2} />
+            <img src="/LitLog/icons/comment_gray.svg" alt="comments" className={styles.icon2} />
             {col.commentCount ?? 0}
           </span>
         </div>

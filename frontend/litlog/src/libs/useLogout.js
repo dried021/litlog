@@ -9,7 +9,7 @@ export function useLogout() {
 
   const logout = async (redirectTo = '/') => {
     try {
-      await axios.post('/api/sign-out', {}, { withCredentials: true });
+      await axios.post('/LitLog/api/sign-out', {}, { withCredentials: true });
       setUser(null);
       sessionStorage.removeItem('user');
       navigate(redirectTo);

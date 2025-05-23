@@ -11,7 +11,7 @@ const ListEntry = ({ review }) => {
     return isNaN(date) ? "" : date.toLocaleDateString("en-US", options);
   };
 
-  const thumbnail = review.thumbnail || "/images/covernotavailable.png";
+  const thumbnail = review.thumbnail || "/LitLog/images/covernotavailable.png";
   const contentPreview =
     review.content && review.content.length > 500
       ? review.content.slice(0, 500) + "..."
@@ -21,7 +21,7 @@ const ListEntry = ({ review }) => {
     return Array.from({ length: 5 }, (_, i) => (
       <img
         key={i}
-        src={i < rating ? "/icons/star.svg" : "/icons/star_gray.svg"}
+        src={i < rating ? "/LitLog/icons/star.svg" : "/LitLog/icons/star_gray.svg"}
         alt="별점"
         className={styles["star-icon"]}
       />
@@ -48,7 +48,7 @@ const ListEntry = ({ review }) => {
           </span>
           {review.isLiked && (
             <span className={styles["book-like-icon"]}>
-              <img src="/icons/heart_filled.svg" alt="책 좋아요" />
+              <img src="/LitLog/icons/heart_filled.svg" alt="책 좋아요" />
             </span>
           )}
         </div>
@@ -67,7 +67,7 @@ const ListEntry = ({ review }) => {
         </div>
 
         <div className={styles["list-like"]}>
-          <img src="/icons/heart_gray.svg" alt="리뷰 좋아요" />
+          <img src="/LitLog/icons/heart_gray.svg" alt="리뷰 좋아요" />
           <span>{review.likeCount} Likes</span>
           <span className={styles["list-date"]}>Logged on {formatDate(review.creationDate)}</span>
         </div>

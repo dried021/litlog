@@ -21,7 +21,7 @@ export function useSignUpHandlers_id(openModal) {
     }
  
     try {
-      const res = await axios.post('/api/sign-up/check-id', { id });
+      const res = await axios.post('/LitLog/api/sign-up/check-id', { id });
       if (res.data.available) {
         openModal('This ID is available.');
         setIdAvailable(true);
@@ -63,7 +63,7 @@ export function useSignUpHandlers_nickname(openModal) {
     }
  
     try {
-        const res = await axios.post('/api/sign-up/check-nickname', { nickname });
+        const res = await axios.post('/LitLog/api/sign-up/check-nickname', { nickname });
         if (res.data.available) {
           openModal('This nickname is available.');
         setNicknameAvailable(true);
@@ -111,14 +111,14 @@ export function useSignUpHandlers_nickname(openModal) {
     if (!valid) return openModal(message);
 
     try {
-      const res = await axios.post('/api/sign-up/check-email', { email });
+      const res = await axios.post('/LitLog/api/sign-up/check-email', { email });
       if (!res.data.available) {
         openModal("This email is already in use.");
         setEmailAvailable(false);
         return;
       }
 
-      await axios.post('/api/sign-up/send-code', { email }, { withCredentials: true });
+      await axios.post('/LitLog/api/sign-up/send-code', { email }, { withCredentials: true });
       openModal("Verification code has been sent to your email.");
 
       setEmailAvailable(true);
@@ -139,7 +139,7 @@ export function useSignUpHandlers_nickname(openModal) {
     }
 
     try {
-      const res = await axios.post('/api/sign-up/verify-email', { code: emailCode }, { withCredentials: true });
+      const res = await axios.post('/LitLog/api/sign-up/verify-email', { code: emailCode }, { withCredentials: true });
       if (res.data.verified) {
         openModal('Email verified successfully!');
         setEmailVerified(true);

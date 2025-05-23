@@ -59,16 +59,16 @@ const Bookshelf = ({ shelfType }) => {
     let path;
     switch (shelf) {
       case 'finished':
-        path = `/api/members/${userId}/bookshelf/finished`;
+        path = `/LitLog/api/members/${userId}/bookshelf/finished`;
         break;
       case 'to-read':
-        path = `/api/members/${userId}/bookshelf/to-read`;
+        path = `/LitLog/api/members/${userId}/bookshelf/to-read`;
         break;
       case 'favorite':
-        path = `/api/members/${userId}/bookshelf/favorite`;
+        path = `/LitLog/api/members/${userId}/bookshelf/favorite`;
         break;
       default:
-        path = `/api/members/${userId}/bookshelf/current`;
+        path = `/LitLog/api/members/${userId}/bookshelf/current`;
     }
 
     fetch(path)

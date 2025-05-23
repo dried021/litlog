@@ -41,7 +41,7 @@ const CommentList = ({ comments, onRefresh }) => {
     resultValue: '1',
     callbackOnSuccess: async () => {
       try {
-        await axios.delete(`/api/collections/comments/${commentId}`, {
+        await axios.delete(`/LitLog/api/collections/comments/${commentId}`, {
           withCredentials: true
         });
 
@@ -82,7 +82,7 @@ const CommentList = ({ comments, onRefresh }) => {
     if (!editContent.trim()) return openModal({ message:'Please enter content.'});
 
     try {
-      await axios.put(`/api/collections/comments/${commentId}`, {
+      await axios.put(`/LitLog/api/collections/comments/${commentId}`, {
         content: editContent
       }, { withCredentials: true });
 
@@ -120,7 +120,7 @@ const CommentList = ({ comments, onRefresh }) => {
                     comment.profileImage
                       ? (comment.profileImage.startsWith('http')
                           ? comment.profileImage
-                          : `/api/${comment.profileImage}`)
+                          : `/LitLog/api/${comment.profileImage}`)
                       : defaultProfile
                   }
                   alt="profile"

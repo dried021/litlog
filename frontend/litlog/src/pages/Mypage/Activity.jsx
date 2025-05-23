@@ -20,7 +20,7 @@ export default function Activity() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`/api/members/${userId}/activity/${activeTab}?limit=${limit}&offset=${offset}`)
+        fetch(`/LitLog/api/members/${userId}/activity/${activeTab}?limit=${limit}&offset=${offset}`)
             .then(res => res.json())
             .then(data => {
                 setResult(prevResult => ({
@@ -74,7 +74,7 @@ export default function Activity() {
                                             src={activity.profileImage ?
                                                 (activity.profileImage.startsWith('http')
                                                     ? activity.profileImage
-                                                    : `/api/${activity.profileImage}`)
+                                                    : `/LitLog/api/${activity.profileImage}`)
                                                 : defaultProfile}
                                             alt="profile"
                                             className={styles.profileImg}

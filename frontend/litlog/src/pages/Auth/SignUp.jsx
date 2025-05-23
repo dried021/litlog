@@ -80,13 +80,13 @@ function SignUp() {
             </div>
             {idAvailable === true && (
               <span className={styles['signup-valid']}>
-                <img src="/icons/submit.svg" alt="Available" className={styles['signup-icon-check']} />
+                <img src="/LitLog/icons/submit.svg" alt="Available" className={styles['signup-icon-check']} />
                 Available
               </span>
             )}
             {idAvailable === false && (
               <span className={styles['signup-invalid']}>
-                <img src="/icons/x-lg.svg" alt="Unavailable" className={styles['signup-icon-check']} />
+                <img src="/LitLog/icons/x-lg.svg" alt="Unavailable" className={styles['signup-icon-check']} />
                 ID is already taken.
                 </span>)}
           </div>
@@ -100,13 +100,13 @@ function SignUp() {
             </div>
             {nicknameAvailable === true && (
               <span className={styles['signup-valid']}>
-                <img src="/icons/submit.svg" alt="Available" className={styles['signup-icon-check']} /> 
+                <img src="/LitLog/icons/submit.svg" alt="Available" className={styles['signup-icon-check']} /> 
                 Available
                 </span>
               )}
             {nicknameAvailable === false && (
               <span className={styles['signup-invalid']}>
-                <img src="/icons/x-lg.svg" alt="Unavailable" className={styles['signup-icon-check']} />
+                <img src="/LitLog/icons/x-lg.svg" alt="Unavailable" className={styles['signup-icon-check']} />
                 Nickname is already taken.</span>)}
           </div>
 
@@ -146,13 +146,13 @@ function SignUp() {
             {timerRunning && <span className={styles['signup-valid']}>{formatTime(timeLeft)} remaining</span>}
             {emailAvailable === true && (
               <span className={styles['signup-valid']}>
-              <img src="/icons/submit.svg" alt="Available" className={styles['signup-icon-check']} />
+              <img src="/LitLog/icons/submit.svg" alt="Available" className={styles['signup-icon-check']} />
               Verification code sent.
               </span>
             )}
             {emailAvailable === false && (
               <span className={styles['signup-invalid']}>
-                <img src="/icons/x-lg.svg" alt="Unavailable" className={styles['signup-icon-check']} />
+                <img src="/LitLog/icons/x-lg.svg" alt="Unavailable" className={styles['signup-icon-check']} />
                 Email is already taken.
                 </span>
               )}
@@ -171,7 +171,7 @@ function SignUp() {
               </div>
               {emailVerified && (
                 <span className={styles['valid']}>
-                  <img src="/icons/submit.svg" alt="Available" className={styles['signup-icon-check']}/>
+                  <img src="/LitLog/icons/submit.svg" alt="Available" className={styles['signup-icon-check']}/>
                   Verified
                   </span>
                 )}

@@ -13,7 +13,7 @@ function NextArrow(props) {
         style={{
           ...style,
           display: 'block',
-          background: `url('/arrows/arrow_forward_ios.svg') no-repeat center center`,
+          background: `url('/LitLog/arrows/arrow_forward_ios.svg') no-repeat center center`,
           backgroundSize: 'contain',
           width: '40px',
           height: '40px',
@@ -33,7 +33,7 @@ function NextArrow(props) {
         style={{
           ...style,
           display: 'block',
-          background: `url('/arrows/arrow_back_ios.svg') no-repeat center center`,
+          background: `url('/LitLog/arrows/arrow_back_ios.svg') no-repeat center center`,
           backgroundSize: 'contain',
           width: '40px',
           height: '40px',
@@ -74,7 +74,7 @@ function NextArrow(props) {
                 <img src={user.profile ?
                   (user.profile.startsWith('http')
                   ? user.profile
-                  : `/api/${user.profile}`)
+                  : `/LitLog/api/${user.profile}`)
                   :defaultProfile}  
                   alt={user.title} className="user-profile" 
                 />
@@ -82,18 +82,18 @@ function NextArrow(props) {
                 {(type=="avid")?  
 
                 <div className="user-stats">  
-                  <img className="bookshelf" src="/icons/bookshelf.svg" alt="Bookshelf" />
+                  <img className="bookshelf" src="/LitLog/icons/bookshelf.svg" alt="Bookshelf" />
                   <p>{" " + user.bookshelves + " "}</p>
-                  <img className="review" src="/icons/star.svg" alt="Review"/>
+                  <img className="review" src="/LitLog/icons/star.svg" alt="Review"/>
                   <p>{" " + user.reviews + " "}</p>
                 </div> 
                 
                 :  <div className="user-stats">  
-                  <img className="bookshelf" src="/icons/bookshelf.svg" alt="Bookshelf" />
+                  <img className="bookshelf" src="/LitLog/icons/bookshelf.svg" alt="Bookshelf" />
                   <p>{" " + user.collections + " "}</p>
-                  <img className="like" src={"/icons/heart_filled.svg"} alt="Like"/>
+                  <img className="like" src={"/LitLog/icons/heart_filled.svg"} alt="Like"/>
                   <p>{" " + user.likes+ " "}</p>
-                  <img className="view" src="/icons/followers.svg" alt="View"/>
+                  <img className="view" src="/LitLog/icons/followers.svg" alt="View"/>
                   <p>{" " + user.followers + " "}</p>
                 </div>}
                

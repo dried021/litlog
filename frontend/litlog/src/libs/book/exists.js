@@ -3,7 +3,7 @@ import axios from "axios";
 export const exists = async (bookApiId) => {
     if (bookApiId) {
         try {
-            const response = await axios.get(`/api/books/query`, {
+            const response = await axios.get(`/LitLog/api/books/query`, {
                 params: {
                     bookApiId
                 },
