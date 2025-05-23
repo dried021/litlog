@@ -65,6 +65,7 @@
             br.rating,
             br.creation_date AS creationDate,
             u.nickname AS nickname,
+            u.profile_image AS userProfile,
 
             (SELECT COUNT(*) 
             FROM like_list ll1 

@@ -92,11 +92,9 @@ const AppRouter = () => {
             <Route path="/withdraw" element={<Withdraw />} />
     
             {/* Admin */}
-            <Route path="/admin" element={<AdminRoute />}>
-                <Route index element={<MemberManage />} />
-                <Route path="reviews" element={<ReviewManage />} />
-                <Route path="comments" element={<CommentManage />} />
-            </Route>
+            <Route path="/admin" element={<MemberManage />} />
+            <Route path="/admin/reviews" element={<ReviewManage />} />
+            <Route path="/admin/comments" element={<CommentManage />} />
 
             {/* Footer Pages */}
             <Route path="/about" element={<About />} />

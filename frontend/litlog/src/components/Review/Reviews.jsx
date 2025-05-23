@@ -61,7 +61,14 @@ function Review({ reviews, currentPage, reviewPerPage, handleLikeClick }) {
             </div>
 
             <div className={styles['user-profile']} onClick={() => navigate(`/${review.userId}`)}>
-                <img src={defaultProfile} alt="profile" />
+                <img 
+                      src={review.userProfile ? 
+                          (review.userProfile.startsWith('http') 
+                          ? review.userProfile
+                          : `/LitLog/api/${review.userProfile}`)
+                          : defaultProfile}
+                      alt="profile"
+                  />
             </div>
 
             <div className={styles['review-content']}>
