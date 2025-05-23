@@ -84,7 +84,9 @@ INSERT INTO book_review (user_id, book_id, content, rating, creation_date) VALUE
 ('user02', 18, 'Lacked depth and focus.', 5, '2024-09-06 12:46:44'),
 ('user02', 4, 'One of the best books I`ve read.', 4, '2024-08-09 15:12:59'),
 ('user02', 36, 'Would recommend to anyone.', 3, '2025-06-26 23:07:52'),
-('user02', 22, 'Engaging and well-paced story.', 5, '2025-07-25 16:14:33'),
+('user02', 22, "Schopenhauer's Life Lessons distills the core ideas of German philosopher Arthur Schopenhauer into accessible reflections on how to live wisely in a difficult world. Known for his pessimistic view of human existence, Schopenhauer saw life as inherently filled with suffering. Yet this book interprets his thoughts not as a reason for despair, but as a guide to achieving inner peace by managing desire, avoiding unnecessary attachments, and embracing solitude and contemplation. The book presents his philosophy in a clear and practical way, offering timeless advice on self-control, emotional resilience, and the value of simplicity.
+
+While Schopenhauer’s outlook can seem bleak at times, his brutal honesty about the human condition feels refreshingly sincere. This book doesn’t sugarcoat life’s hardships but instead provides a philosophical lens through which readers can accept and navigate them more calmly. For anyone seeking deeper insight into themselves or looking for thoughtful, grounded life advice beyond superficial positivity, Schopenhauer's Life Lessons offers enduring wisdom from one of philosophy’s most candid thinkers.", 5, '2025-05-14 16:14:33'),
 ('user02', 23, 'Engaging and well-paced story.', 1, '2025-02-03 20:18:10'),
 ('user02', 39, 'Lacked depth and focus.', 1, '2025-05-25 07:00:19'),
 ('user03', 28, 'Not what I expected, but decent.', 1, '2025-05-22 02:07:29'),
@@ -103,7 +105,7 @@ INSERT INTO book_review (user_id, book_id, content, rating, creation_date) VALUE
 ('user04', 17, 'Characters were well-developed.', 4, '2024-05-19 01:25:16'),
 ('user04', 28, 'Would recommend to anyone.', 4, '2024-12-11 18:24:52'),
 ('user04', 3, 'Would recommend to anyone.', 5, '2027-10-16 20:18:54'),
-('user04', 34, 'One of the best books I`ve read.', 5, '2025-04-23 05:40:25'),
+('user04', 34, 'One of the best books Ive read.', 5, '2025-04-23 05:40:25'),
 ('user04', 4, 'Characters were well-developed.', 4, '2025-02-27 10:32:23'),
 ('user05', 16, 'Characters were well-developed.', 1, '2024-05-03 08:18:35'),
 ('user05', 40, 'Lacked depth and focus.', 4, '2024-05-15 17:54:07'),
@@ -122,7 +124,7 @@ INSERT INTO book_review (user_id, book_id, content, rating, creation_date) VALUE
 ('user06', 7, 'Not what I expected, but decent.', 3, '2024-03-09 00:23:39'),
 ('user06', 32, 'Lacked depth and focus.', 4, '2025-06-11 09:57:23'),
 ('user06', 46, 'Lacked depth and focus.', 5, '2025-04-09 21:57:54'),
-('user06', 22, 'I struggled to finish this one.', 4, '2025-09-17 06:57:21'),
+('user06', 22, 'I struggled to finish this one.', 4, '2025-02-17 06:57:21'),
 ('user06', 6, 'Amazing read with deep insights.', 1, '2025-01-29 13:27:24'),
 ('user06', 21, 'Would recommend to anyone.', 5, '2025-03-27 03:29:32'),
 ('user07', 14, 'Amazing read with deep insights.', 1, '2024-07-10 03:30:25'),
@@ -171,7 +173,7 @@ INSERT INTO book_review (user_id, book_id, content, rating, creation_date) VALUE
 ('user11', 42, 'One of the best books I`ve read.', 1, '2025-03-06 08:49:11'),
 ('user11', 20, 'Lacked depth and focus.', 1, '2025-08-08 15:08:51'),
 ('user11', 38, 'Amazing read with deep insights.', 5, '2025-09-30 13:30:12'),
-('user11', 22, 'Characters were well-developed.', 4, '2025-12-21 16:09:33'),
+('user11', 22, 'Characters were well-developed.', 4, '2025-03-21 16:09:33'),
 ('user12', 19, 'Lacked depth and focus.', 1, '2024-05-02 19:49:39'),
 ('user12', 28, 'Lacked depth and focus.', 2, '2024-03-02 18:38:41'),
 ('user12', 8, 'Amazing read with deep insights.', 4, '2024-09-08 16:25:23'),
@@ -211,7 +213,11 @@ INSERT INTO book_review (user_id, book_id, content, rating, creation_date) VALUE
 ('user15', 37, 'One of the best books I`ve read.', 4, '2025-06-19 19:57:34'),
 ('user15', 44, 'Lacked depth and focus.', 5, '2025-04-06 21:28:49'),
 ('user16', 19, 'Not what I expected, but decent.', 1, '2024-01-26 19:00:11'),
-('user16', 36, 'Characters were well-developed.', 2, '2024-08-07 01:20:19'),
+('user16', 36, "J.R.R. Tolkien’s The Lord of the Rings is more than just a fantasy novel—it's a cornerstone of modern literature. Originally published in three volumes (The Fellowship of the Ring, The Two Towers, and The Return of the King), this epic tale has captivated generations with its rich world-building, deep themes, and timeless characters.
+
+Set in the mythical land of Middle-earth, the story follows the journey of Frodo Baggins, a humble hobbit entrusted with the task of destroying the One Ring—a powerful and malevolent artifact that corrupts all who come near it. What begins as a quiet mission quickly expands into a sprawling adventure involving elves, dwarves, wizards, and men, all caught in the struggle between good and evil.
+
+", 2, '2024-08-07 01:20:19'),
 ('user16', 11, 'Characters were well-developed.', 3, '2024-08-04 23:20:43'),
 ('user16', 15, 'Engaging and well-paced story.', 4, '2024-05-29 23:40:43'),
 ('user16', 22, 'Characters were well-developed.', 2, '2024-12-22 07:26:20'),
@@ -279,7 +285,6 @@ INSERT INTO book_shelf (user_id, book_id, shelf_type, progress, creation_date) V
 ('user01', 19, 3, 100, '2024-06-09 14:40:12'),
 ('user01', 20, 2, 62, '2024-06-09 17:20:51'),
 ('user01', 21, 3, 100, '2024-05-22 23:20:52'),
-('user01', 22, 3, 100, '2024-06-09 17:20:53'),
 ('user01', 23, 3, 100, '2025-05-22 23:20:54'),
 ('user01', 24, 3, 100, '2024-03-09 17:20:55'),
 ('user01', 25, 3, 100, '2024-06-09 17:20:56'),
@@ -496,12 +501,12 @@ INSERT INTO book_shelf (user_id, book_id, shelf_type, progress, creation_date) V
 ('user20', 49, 2, 13, '2025-09-19 20:30:36');
 
 INSERT INTO book_collection (id, user_id, creation_date, title, content) VALUES
-(1, 'user01', '2024-05-30 12:26:28', 'Must-Reads of the Year', 'Stories that stuck with me long after reading.'),
-(2, 'user01', '2024-11-06 21:30:22', 'Explore the World', 'Read these to expand your understanding.'),
-(3, 'user01', '2024-01-11 16:05:27', 'Books for Growth', 'Read these to expand your understanding.'),
-(4, 'user01', '2025-04-28 17:38:06', 'Deep Dive into Fiction', 'Read these to expand your understanding.'),
-(5, 'user01', '2025-06-06 14:16:00', 'Deep Dive into Fiction', 'This collection includes books that changed my life.'),
-(6, 'user01', '2025-01-29 09:34:04', 'Explore the World', 'An eclectic mix of fiction and non-fiction.'),
+(1, 'user02', '2024-05-30 12:26:28', 'Must-Reads of the Year', 'Stories that stuck with me long after reading.'),
+(2, 'user02', '2024-11-06 21:30:22', 'Explore the World', 'Read these to expand your understanding.'),
+(3, 'user02', '2024-01-11 16:05:27', 'Books for Growth', 'Read these to expand your understanding.'),
+(4, 'user02', '2025-04-28 17:38:06', 'Deep Dive into Fiction', 'Read these to expand your understanding.'),
+(5, 'user02', '2025-06-06 14:16:00', 'Deep Dive into Fiction', 'This collection includes books that changed my life.'),
+(6, 'user02', '2025-01-29 09:34:04', 'Explore the World', 'An eclectic mix of fiction and non-fiction.'),
 (7, 'user02', '2024-10-23 02:21:18', 'Books for Rainy Days', 'Thought-provoking and inspiring books.'),
 (8, 'user02', '2024-11-23 00:48:22', 'Explore the World', 'My recommendations for every book lover.'),
 (9, 'user02', '2024-04-28 11:20:06', 'Must-Reads of the Year', 'Ideal reads for a quiet weekend.'),
@@ -2560,7 +2565,6 @@ INSERT INTO like_list (id, user_id, target_id, like_type, creation_date) VALUES
 (NULL, 'user01', 55, 3, '2024-05-15 20:20:55'),
 (NULL, 'user01', 44, 3, '2024-05-15 16:12:15'),
 (NULL, 'user01', 76, 3, '2024-05-15 20:42:40'),
-(NULL, 'user01', 5, 3, '2024-05-15 08:51:02'),
 (NULL, 'user02', 76, 1, '2024-03-05 16:32:00'),
 (NULL, 'user02', 181, 1, '2024-04-28 12:05:15'),
 (NULL, 'user02', 166, 1, '2024-10-31 16:31:53'),
@@ -2587,7 +2591,6 @@ INSERT INTO like_list (id, user_id, target_id, like_type, creation_date) VALUES
 (NULL, 'user03', 44, 2, '2024-11-29 02:04:18'),
 (NULL, 'user03', 31, 2, '2024-09-17 16:33:28'),
 (NULL, 'user03', 89, 3, '2024-05-15 10:47:49'),
-(NULL, 'user03', 5, 3, '2025-05-22 05:08:08'),
 (NULL, 'user03', 67, 3, '2024-05-15 21:59:51'),
 (NULL, 'user03', 97, 3, '2024-05-15 21:03:18'),
 (NULL, 'user03', 113, 3, '2024-05-15 10:51:27'),
@@ -2618,7 +2621,6 @@ INSERT INTO like_list (id, user_id, target_id, like_type, creation_date) VALUES
 (NULL, 'user05', 38, 2, '2024-09-09 16:12:14'),
 (NULL, 'user05', 17, 3, '2025-05-22 07:18:14'),
 (NULL, 'user05', 110, 3, '2024-05-15 00:41:05'),
-(NULL, 'user05', 6, 3, '2024-05-15 06:29:03'),
 (NULL, 'user05', 98, 3, '2024-05-15 17:25:07'),
 (NULL, 'user05', 39, 3, '2024-05-15 01:18:40'),
 (NULL, 'user06', 86, 1, '2024-04-15 18:05:23'),
@@ -2631,7 +2633,6 @@ INSERT INTO like_list (id, user_id, target_id, like_type, creation_date) VALUES
 (NULL, 'user06', 23, 2, '2024-09-10 04:02:43'),
 (NULL, 'user06', 30, 2, '2024-09-28 05:55:19'),
 (NULL, 'user06', 7, 2, '2024-02-15 10:00:32'),
-(NULL, 'user06', 6, 3, '2024-05-15 10:50:13'),
 (NULL, 'user06', 17, 3, '2024-05-15 15:30:30'),
 (NULL, 'user06', 105, 3, '2024-05-15 08:45:51'),
 (NULL, 'user06', 40, 3, '2024-05-15 01:53:38'),
@@ -3390,3 +3391,8 @@ INSERT INTO follow_list (id, user_id, follow_user_id, creation_date) VALUES
 (NULL, 'user20', 'user05', '2025-05-09 01:16:13'),
 (NULL, 'user20', 'user06', '2025-07-20 22:00:33'),
 (NULL, 'user20', 'user08', '2025-12-01 06:44:54');
+
+
+
+DELETE FROM like_list
+  WHERE user_id = 'user01' AND like_type = 3;

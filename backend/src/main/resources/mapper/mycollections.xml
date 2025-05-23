@@ -30,7 +30,7 @@
     </select>
 
     <select id="getLikedCollections" resultType="com.bookfox.model.MyCollectionsDto">
-        SELECT 
+        SELECT DISTINCT
             bc.id,
             bc.title,
             bc.content,
