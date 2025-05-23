@@ -96,7 +96,7 @@ def extract_book_info(book_data):
         "book_api_id": book_data.get("id"),
         "title": volume_info.get("title"),
         "subtitle": volume_info.get("subtitle"),
-        "authors": volume_info.get("authors", []),
+        "authors": ", ".join(volume_info.get("authors", [])),
         "publisher": volume_info.get("publisher"),
         "published_date": volume_info.get("publishedDate"),
         "description": volume_info.get("description"),
@@ -135,9 +135,10 @@ def main():
 
     book_data_list = []
 
-    for book_id in book_ids:
+    for idx, book_id in enumerate(book_ids, start=1):
         book_data = fetch_book_data(book_id)
         book_info = extract_book_info(book_data)
+        book_info["id"] = idx
         book_data_list.append(book_info)
 
     save_to_json(book_data_list)
