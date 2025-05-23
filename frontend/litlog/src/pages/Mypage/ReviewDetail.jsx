@@ -27,7 +27,7 @@ const ReviewDetail = () => {
   const fetchReviewDetail = async () => {
     try {
       const res = await axios.get(
-        `/api/members/${userId}/reviews/${reviewId}`,
+        `/LitLog/api/members/${userId}/reviews/${reviewId}`,
         { withCredentials: true } 
       );
       setReview(res.data);
@@ -51,7 +51,7 @@ const ReviewDetail = () => {
     return Array.from({ length: 5 }, (_, i) => (
       <img
         key={i}
-        src={i < rating ? '/icons/star.svg' : '/icons/star_gray.svg'}
+        src={i < rating ? '/LitLog/icons/star.svg' : '/LitLog/icons/star_gray.svg'}
         alt="별점"
         width={18}
         height={18}
@@ -81,7 +81,7 @@ const ReviewDetail = () => {
   const handleSubmit = async () => {
     try {
       await axios.patch(
-        `/api/members/${userId}/reviews/${reviewId}`,
+        `/LitLog/api/members/${userId}/reviews/${reviewId}`,
         {
           content: editedContent,
           rating: editedRating
@@ -102,7 +102,7 @@ const ReviewDetail = () => {
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `/api/members/${userId}/reviews/${reviewId}`, 
+        `/LitLog/api/members/${userId}/reviews/${reviewId}`, 
         {
           withCredentials: true
         }
@@ -124,7 +124,7 @@ const ReviewDetail = () => {
       <div className={styles.container}>
         <div className={styles.left}>
           <Link to={`/books/${review.bookApiId}`}>
-            <img className={styles.thumbnail} src={review.thumbnail || '/images/covernotavailable.png'} alt="책 표지"/>
+            <img className={styles.thumbnail} src={review.thumbnail || '/LitLog/images/covernotavailable.png'} alt="책 표지"/>
           </Link>
         </div>
 
@@ -146,7 +146,7 @@ const ReviewDetail = () => {
                   Array.from({ length: 5 }, (_, i) => (
                     <img
                       key={i}
-                      src={i < editedRating ? '/icons/star.svg' : '/icons/star_gray.svg'}
+                      src={i < editedRating ? '/LitLog/icons/star.svg' : '/LitLog/icons/star_gray.svg'}
                       onClick={() => setEditedRating(i + 1)}
                       alt="별점"
                       width={18}
@@ -159,7 +159,7 @@ const ReviewDetail = () => {
                 )}
               </span>
               {review.isLiked && (
-                <img src="/icons/heart_filled.svg" alt="책 좋아요" className={styles.bookLikeIcon} />
+                <img src="/LitLog/icons/heart_filled.svg" alt="책 좋아요" className={styles.bookLikeIcon} />
               )}
             </div>
             <span>Logged on {formatDate(review.creationDate)}</span>
@@ -179,7 +179,7 @@ const ReviewDetail = () => {
 
           <div className={styles.footerRow}>
             <div className={styles.likes}>
-              <img src="/icons/heart_gray.svg" alt="좋아요" />
+              <img src="/LitLog/icons/heart_gray.svg" alt="좋아요" />
               <span>{review.likeCount ?? 0} Likes</span>
             </div>
 
@@ -188,22 +188,22 @@ const ReviewDetail = () => {
                 {isEditing ? (
                   <>
                     <div className={styles.tooltipContainer}>
-                      <img src="/icons/submit.svg" alt="Submit" className={styles.iconButton1} onClick={() => setShowConfirmModal(true)} />
+                      <img src="/LitLog/icons/submit.svg" alt="Submit" className={styles.iconButton1} onClick={() => setShowConfirmModal(true)} />
                       <div className={styles.tooltipText}>Submit</div>
                     </div>
                     <div className={styles.tooltipContainer}>
-                      <img src="/icons/cancel.svg" alt="Cancel" className={styles.iconButton2} onClick={cancelEdit} />
+                      <img src="/LitLog/icons/cancel.svg" alt="Cancel" className={styles.iconButton2} onClick={cancelEdit} />
                       <div className={styles.tooltipText}>Cancel</div>
                     </div>
                   </>
                 ) : (
                   <>
                     <div className={styles.tooltipContainer}>
-                      <img src="/icons/edit.svg" alt="Edit" className={styles.iconButton1} onClick={() => setIsEditing(true)} />
+                      <img src="/LitLog/icons/edit.svg" alt="Edit" className={styles.iconButton1} onClick={() => setIsEditing(true)} />
                       <div className={styles.tooltipText}>Edit</div>
                     </div>
                     <div className={styles.tooltipContainer}>
-                      <img src="/icons/delete.svg" alt="Delete" className={styles.iconButton2} onClick={() => setShowDeleteConfirmModal(true)} />
+                      <img src="/LitLog/icons/delete.svg" alt="Delete" className={styles.iconButton2} onClick={() => setShowDeleteConfirmModal(true)} />
                       <div className={styles.tooltipText}>Delete</div>
                     </div>
                   </>

@@ -18,7 +18,7 @@ export default function ProfileSummary() {
     const [infoChange, setInfoChange] = useState(false);
 
     useEffect(() => {
-        fetch(`/api/members/profile-summary/${userId}`, {
+        fetch(`/LitLog/api/members/profile-summary/${userId}`, {
             method: 'GET',
             credentials: 'include'
         })
@@ -31,7 +31,7 @@ export default function ProfileSummary() {
 
 
     const handleFollow = () => {
-        fetch(`/api/members/${userId}/following`, {
+        fetch(`/LitLog/api/members/${userId}/following`, {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -45,7 +45,7 @@ export default function ProfileSummary() {
         })
     }
     const handleUnfollow = () => {
-        fetch(`/api/members/${userId}/following`, {
+        fetch(`/LitLog/api/members/${userId}/following`, {
             method: 'DELETE',
             credentials: 'include'
         }).then(res => res.json())
@@ -63,7 +63,7 @@ export default function ProfileSummary() {
             formData.append("profileImage", newProfileImage);
         }
 
-        fetch(`/api/members/${userId}/profile`, {
+        fetch(`/LitLog/api/members/${userId}/profile`, {
             method: 'PUT',
             credentials: 'include',
             body: formData
@@ -87,7 +87,7 @@ export default function ProfileSummary() {
                             src={profile.profileImage ? 
                                 (profile.profileImage.startsWith('http') 
                                 ? profile.profileImage
-                                : `/api/${profile.profileImage}`)
+                                : `/LitLog/api/${profile.profileImage}`)
                                 : defaultProfile}
                             alt="profile"
                             className={styles.profileImg}

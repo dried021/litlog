@@ -14,7 +14,7 @@ const CollectionPopularList = () => {
 
   const fetchPopularCollections = async (page = 1) => {
     try {
-      const res = await axios.get(`/api/collections/popular?page=${page}&size=${pageSize}`, {
+      const res = await axios.get(`/LitLog/api/collections/popular?page=${page}&size=${pageSize}`, {
         withCredentials: true,
       });
       setCollections(res.data.book_collections || []);
@@ -32,7 +32,7 @@ const CollectionPopularList = () => {
     <div className={styles.collectionWrapper}>
       <h2 className={styles.sectionTitle}>
         <img 
-          src= "/icons/hand-thumbs-up-fill.svg" 
+          src= "/LitLog/icons/hand-thumbs-up-fill.svg" 
           alt="Popular This Week" 
           style={{ width: '24px', height: '24px', verticalAlign: 'middle', marginRight: '6px', marginBottom: '6px'}} 
         />
@@ -92,12 +92,12 @@ const CollectionPopularList = () => {
                 <div className={styles.bottomRow}>
                   <span className={styles.author}>by {col.nickname}</span>
                   <span className={styles.meta}>
-                    <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1} />
+                    <img src="/LitLog/icons/heart_gray.svg" alt="likes" className={styles.icon1} />
                     <>
                         {col.likeCount}
                     </>
                     &nbsp;&nbsp;
-                    <img src="/icons/comment_gray.svg" alt="comments" className={styles.icon2} />
+                    <img src="/LitLog/icons/comment_gray.svg" alt="comments" className={styles.icon2} />
                     {col.commentCount ?? 0}
                   </span>
                 </div>

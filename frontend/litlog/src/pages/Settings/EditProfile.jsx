@@ -14,7 +14,7 @@ const EditProfile = () => {
 
     const getUserId = async () => {
         try {
-          const response = await axios.get(`/api/setting/user`, { withCredentials: true });
+          const response = await axios.get(`/LitLog/api/setting/user`, { withCredentials: true });
           const {id, isAdmin} = response.data;
           setUserId(id);
           setIsAdmin(isAdmin);

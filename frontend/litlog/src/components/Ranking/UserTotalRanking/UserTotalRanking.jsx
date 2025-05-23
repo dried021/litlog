@@ -27,7 +27,7 @@ const UserTotalRanking = () => {
     const loadRanking = async (startIndex) => {
         setLoading(true);
         try {
-            const response = await axios.get(`/api/readers/rank`, {
+            const response = await axios.get(`/LitLog/api/readers/rank`, {
                 params: {
                     startIndex,
                     itemsPerPage,

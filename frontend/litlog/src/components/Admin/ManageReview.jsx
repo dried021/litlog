@@ -29,7 +29,7 @@ function ManageReview() {
   const fetchReviews = async (page, sortOption) => {
     setLoading(true);
     try {
-      const response = await axios.get(`/api/admin/review`, {
+      const response = await axios.get(`/LitLog/api/admin/review`, {
         params: { pageNum: page, searchKeyword, sortOption },
       });
       setReviews(response.data.reviews || []);

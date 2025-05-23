@@ -11,7 +11,7 @@ export default function FavoriteBooks() {
     }));
 
     useEffect(()=>{
-        fetch(`/api/members/${userId}/books/favorite`)
+        fetch(`/LitLog/api/members/${userId}/books/favorite`)
             .then(res => res.json())
             .then(data => setFavoriteBooks(data))
             .catch(error => console.error(error))

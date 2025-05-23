@@ -29,7 +29,7 @@ function ManageUser() {
   const fetchUsers = async (page, sortOption) => {
     setLoading(true);
     try {
-      const response = await axios.get(`/api/admin`, {
+      const response = await axios.get(`/LitLog/api/admin`, {
         params: { pageNum: page, searchName, sortOption },
       });
       setUsers(response.data.users || []);
@@ -120,15 +120,15 @@ function ManageUser() {
                         
                         <div className={styles.userStats}>
                           <div className={styles.statItem} onClick={()=>{}}>
-                            <img className={styles.icon} src="/icons/bookshelf.svg" alt="reviews" />
+                            <img className={styles.icon} src="/LitLog/icons/bookshelf.svg" alt="reviews" />
                             <p className={styles.stat}>{user.reviews ?? 0}</p>
                           </div>
                           <div className={styles.statItem}>
-                            <img className={styles.icon} src="/icons/collections.svg" alt="collections" />
+                            <img className={styles.icon} src="/LitLog/icons/collections.svg" alt="collections" />
                             <p className={styles.stat}>{user.collections ?? 0}</p>
                           </div>
                           <div className={styles.statItem}>
-                            <img className={styles.icon} src="/icons/collections.svg" alt="comments" />
+                            <img className={styles.icon} src="/LitLog/icons/collections.svg" alt="comments" />
                             <p className={styles.stat}>{user.comments ?? 0}</p>
                           </div>
                         </div>
@@ -139,7 +139,7 @@ function ManageUser() {
                       <div className={styles.userProfile}>
                         <img
                           className={styles.userProfileImg}
-                          src={user.profile || "/icons/profile.svg"}
+                          src={user.profile || "/LitLog/icons/profile.svg"}
                           alt="profile"
                         />
                         <div className={styles.userToggleRow}>

@@ -15,7 +15,7 @@ const CollectionCommentSection = ({ collectionId }) => {
   const commentsPerPage = 5;
 
   const fetchComments = () => {
-    axios.get(`/api/collections/${collectionId}/comments`, {
+    axios.get(`/LitLog/api/collections/${collectionId}/comments`, {
       params: { page: commentPage, size: commentsPerPage },
       withCredentials: true
     })
@@ -31,7 +31,7 @@ const CollectionCommentSection = ({ collectionId }) => {
   }, [collectionId, commentPage]);
 
   const handleSubmitComment = (content) => {
-    axios.post(`/api/collections/${collectionId}/comments`, { content }, {
+    axios.post(`/LitLog/api/collections/${collectionId}/comments`, { content }, {
       withCredentials: true
     })
     .then(() => {

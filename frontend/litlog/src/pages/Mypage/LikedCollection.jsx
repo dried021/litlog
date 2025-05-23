@@ -35,7 +35,7 @@ const LikedCollection = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          `/api/members/${userId}/collections/liked`
+          `/LitLog/api/members/${userId}/collections/liked`
         );
         setCollections(res.data);
         setError(null);

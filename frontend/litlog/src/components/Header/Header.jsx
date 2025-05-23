@@ -53,7 +53,7 @@ const Header = () => {
           {user ? (
             <>
               <img
-                src="/icons/notif.svg"
+                src="/LitLog/icons/notif.svg"
                 alt="Notifications"
                 className={styles.notifIcon}
                 onClick={() => setShowNotif((prev) => !prev)}

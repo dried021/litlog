@@ -25,7 +25,7 @@ function AddRating({ onChange }) {
           <img
             className={styles['star']}
             key={starIndex}
-            src={starIndex <= rating ? "/icons/star.svg" : "/icons/star_gray.svg"}
+            src={starIndex <= rating ? "/LitLog/icons/star.svg" : "/LitLog/icons/star_gray.svg"}
             alt={`Star ${starIndex}`}
             onClick={() => handleStar(starIndex)}
           />
@@ -75,7 +75,7 @@ const handleSubmit = () => {
     "confirm",
     async () => {
       try {
-        const response = await axios.post(`/api/books/review`, {
+        const response = await axios.post(`/LitLog/api/books/review`, {
           bookApiId,
           content,
           rating,

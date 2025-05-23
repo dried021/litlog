@@ -12,7 +12,7 @@ function NextArrow(props) {
         style={{
           ...style,
           display: 'block',
-          background: `url('/arrows/arrow_forward_ios.svg') no-repeat center center`,
+          background: `url('/LitLog/arrows/arrow_forward_ios.svg') no-repeat center center`,
           backgroundSize: 'contain',
           width: '40px',
           height: '40px',
@@ -32,7 +32,7 @@ function NextArrow(props) {
         style={{
           ...style,
           display: 'block',
-          background: `url('/arrows/arrow_back_ios.svg') no-repeat center center`,
+          background: `url('/LitLog/arrows/arrow_back_ios.svg') no-repeat center center`,
           backgroundSize: 'contain',
           width: '40px',
           height: '40px',
@@ -67,18 +67,18 @@ function NextArrow(props) {
           {books.map((book) => (
             <div className="book-card" key={book.id}>
               <Link to={book.link}>
-                <img src={book.image ?? '/images/covernotavailable.png'}  alt={book.title} className="book-image" />
+                <img src={book.image ?? '/LitLog/images/covernotavailable.png'}  alt={book.title} className="book-image" />
                 <h5 className="bookslider-booktitle">
                     {book.title.length > 30
                       ? `${book.title.slice(0, 30)}...`
                       : book.title}
                 </h5>
                 <div className="book-stats">
-                  <img className="bookshelf" src="/icons/bookshelf.svg" alt="Bookshelf" />
+                  <img className="bookshelf" src="/LitLog/icons/bookshelf.svg" alt="Bookshelf" />
                   <p>{" " + book.bookshelves + " "}</p>
-                  <img className="like" src={"/icons/heart_filled.svg"} alt="Like"/>
+                  <img className="like" src={"/LitLog/icons/heart_filled.svg"} alt="Like"/>
                   <p>{" " + book.likes+ " "}</p>
-                  <img className="review" src="/icons/star.svg" alt="Review"/>
+                  <img className="review" src="/LitLog/icons/star.svg" alt="Review"/>
                   <p>{" " + book.reviews + " "}</p>
                 </div>
               </Link>

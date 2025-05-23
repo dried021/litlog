@@ -38,7 +38,7 @@ const SearchResult = () => {
             setLoading(true);
 
             try {
-                const response = await axios.get(`/api/books/search`, {
+                const response = await axios.get(`/LitLog/api/books/search`, {
                     params: {
                         keyword: trimmedKeyword,
                         startIndex: startIndex,

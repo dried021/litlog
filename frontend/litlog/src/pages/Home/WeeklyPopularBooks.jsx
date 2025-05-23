@@ -9,7 +9,7 @@ const WeeklyPopularBooks = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-  axios.get('/api/books/popularBookList')
+  axios.get('/LitLog/api/books/popularBookList')
     .then(res => {
       const sliced = res.data.slice(0, 6);
       setBooks(sliced);
@@ -35,11 +35,11 @@ const WeeklyPopularBooks = () => {
             />
             <div className={styles.title}>{book.title}</div>
             <div className={styles.bookStats}>
-              <img className={styles.icon1} src="/icons/bookshelf.svg" alt="Bookshelf" />
+              <img className={styles.icon1} src="/LitLog/icons/bookshelf.svg" alt="Bookshelf" />
               <p>{book.bookshelves ?? 0}</p>
-              <img className={styles.icon2} src="/icons/heart_filled.svg" alt="Like" />
+              <img className={styles.icon2} src="/LitLog/icons/heart_filled.svg" alt="Like" />
               <p>{book.likes ?? 0}</p>
-              <img className={styles.icon3} src="/icons/star.svg" alt="Review" />
+              <img className={styles.icon3} src="/LitLog/icons/star.svg" alt="Review" />
               <p>{book.reviews ?? 0}</p>
             </div>
           </div>

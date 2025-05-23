@@ -113,7 +113,7 @@ const NewCollection = ({
         title: item.volumeInfo.title || 'No Title',
         authors: item.volumeInfo.authors?.join(', ') || 'Unknown Author',
         publisher: item.volumeInfo.publisher || 'Unknown Publisher',
-        thumbnail: item.volumeInfo.imageLinks?.thumbnail || '/images/covernotavailable.png',
+        thumbnail: item.volumeInfo.imageLinks?.thumbnail || '/LitLog/images/covernotavailable.png',
       })) || [];
 
       setSearchResults(books);
@@ -138,7 +138,7 @@ const NewCollection = ({
         title: item.volumeInfo.title || 'No Title',
         authors: item.volumeInfo.authors?.join(', ') || 'Unknown Author',
         publisher: item.volumeInfo.publisher || 'Unknown Publisher',
-        thumbnail: item.volumeInfo.imageLinks?.thumbnail || '/images/covernotavailable.png',
+        thumbnail: item.volumeInfo.imageLinks?.thumbnail || '/LitLog/images/covernotavailable.png',
       }));
 
       setSearchResults(prev => [...prev, ...books]);

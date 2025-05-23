@@ -40,7 +40,7 @@ function DeleteCommentButton({ commentId, onDelete }) {
         "confirm",
         async () => {
       try {
-        await axios.post(`/api/admin/comment`,
+        await axios.post(`/LitLog/api/admin/comment`,
           { id: commentId },
         );
         if (onDelete) onDelete(commentId);

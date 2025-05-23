@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 1. 종료할 포트 설정
-PORTS=(9090 5173)
+PORTS=(8080 5173)
 echo "🔍 포트 점검 및 종료 중..."
 for PORT in "${PORTS[@]}"; do
   PID=$(netstat -ano | findstr ":$PORT" | awk '{print $NF}' | head -n 1)

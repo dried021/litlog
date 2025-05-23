@@ -30,7 +30,7 @@ const BookMenu = ({ book, shelfType, onUpdated }) => {
     const [progress, setProgress] = useState(0);
 
     function updateProgress(bookId) {
-        fetch(`/api/members/${user}/progress`, {
+        fetch(`/LitLog/api/members/${user}/progress`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ const BookMenu = ({ book, shelfType, onUpdated }) => {
     const [showRemoveModal, setShowRemoveModal] = useState(false);
 
     function removeBook(bookId) {
-        axios.delete(`/api/members/${user}/bookshelf/${bookId}`)
+        axios.delete(`/LitLog/api/members/${user}/bookshelf/${bookId}`)
             .then((response) => {
                 setShowRemoveModal(false);
                 onUpdated();
@@ -74,7 +74,7 @@ const BookMenu = ({ book, shelfType, onUpdated }) => {
     }
 
     function moveBookshelf(bookId, bookshelfType) {
-        axios.patch(`/api/members/${user}/bookshelf/${bookId}`, {
+        axios.patch(`/LitLog/api/members/${user}/bookshelf/${bookId}`, {
             bookshelfType: bookshelfType
         })
             .then((response) => {
@@ -88,7 +88,7 @@ const BookMenu = ({ book, shelfType, onUpdated }) => {
 
     const [showUnlikeModal, setShowUnlikeModal] = useState(false);
     function removeFavorite(bookId) {
-        axios.delete(`/api/members/${user}/books/${bookId}`)
+        axios.delete(`/LitLog/api/members/${user}/books/${bookId}`)
             .then((response) => {
                 onUpdated();
             })

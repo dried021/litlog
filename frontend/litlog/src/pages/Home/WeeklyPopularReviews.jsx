@@ -10,7 +10,7 @@ export function Rating({ rating }) {
         <img 
           className={styles['star']}
           key={`full-${index}`}
-          src="/icons/star.svg"
+          src="/LitLog/icons/star.svg"
           alt="별"
         />
       ))}
@@ -18,7 +18,7 @@ export function Rating({ rating }) {
         <img 
           className={styles['star']}
           key={`empty-${index}`}
-          src="/icons/star_gray.svg"
+          src="/LitLog/icons/star_gray.svg"
           alt="빈별"
         />
       ))}
@@ -36,7 +36,7 @@ const WeeklyPopularReviews = () => {
       let page = 1;
       while (all.length < 6) {
         try {
-          const res = await axios.get('/api/books/popularReviewList', {
+          const res = await axios.get('/LitLog/api/books/popularReviewList', {
             params: { currentPage: page }
           });
           const data = res.data || [];
@@ -88,7 +88,7 @@ const WeeklyPopularReviews = () => {
               <div className={styles["top-section"]}>
                 <div className={styles["book-thumbnail"]} onClick={() => navigate(`/books/${review.bookApiId}`)}>
                   <img
-                    src={review.thumbnail ?? '/images/covernotavailable.png'}
+                    src={review.thumbnail ?? '/LitLog/images/covernotavailable.png'}
                     alt={review.title}
                   />
                 </div>
@@ -117,7 +117,7 @@ const WeeklyPopularReviews = () => {
 
               {/* 하단: 좋아요 */}
               <div className={styles["review-like"]}>
-                <img src="/icons/heart_filled.svg" alt="like" />
+                <img src="/LitLog/icons/heart_filled.svg" alt="like" />
                 <p className={styles["review-like-count"]}>{review.likeCount}</p>Likes
               </div>
             </div>

@@ -50,8 +50,8 @@ const CollectionDetail = () => {
     const fetchMetaAndLike = async () => {
       try {
         const [metaRes, likedRes] = await Promise.all([
-          axios.get(`/api/collections/${collectionId}`, { withCredentials: true }),
-          axios.get(`/api/collections/${collectionId}/like-status`, { withCredentials: true })
+          axios.get(`/LitLog/api/collections/${collectionId}`, { withCredentials: true }),
+          axios.get(`/LitLog/api/collections/${collectionId}/like-status`, { withCredentials: true })
         ]);
 
         setCollection(metaRes.data);
@@ -67,7 +67,7 @@ const CollectionDetail = () => {
   }, [collectionId]);
 
   useEffect(() => {
-    axios.get(`/api/collections/${collectionId}/books`, {
+    axios.get(`/LitLog/api/collections/${collectionId}/books`, {
       params: {
         page: currentPage,
         size: booksPerPage
@@ -116,7 +116,7 @@ const CollectionDetail = () => {
     }
 
     try {
-      const res = await axios.post(`/api/collections/${collectionId}/like`, {}, {
+      const res = await axios.post(`/LitLog/api/collections/${collectionId}/like`, {}, {
         withCredentials: true
       });
 
@@ -154,7 +154,7 @@ const CollectionDetail = () => {
                     collection.profileImage
                       ? (collection.profileImage.startsWith('http')
                           ? collection.profileImage
-                          : `http://localhost:9090${collection.profileImage}`)
+                          : `/LitLog/api/${collection.profileImage}`)
                       : defaultProfile
                   }
                   alt="profile"
@@ -167,20 +167,20 @@ const CollectionDetail = () => {
             <div className={styles.topRight}>
               <div className={styles.metaInfoRow}>
                 <p className={styles.collectionDate}>
-                  <img src="/icons/calendar-check.svg" alt="Date" className={styles.icon} /> 
+                  <img src="/LitLog/icons/calendar-check.svg" alt="Date" className={styles.icon} /> 
                   {formatDate(creationDate)}
                 </p>
                 <div className={styles.likeComment}>
                   <span className={styles.like} onClick={handleLikeToggle} style={{ cursor: 'pointer' }}>
                     <img 
-                      src={liked ? '/icons/heart_filled.svg' : '/icons/heart_gray.svg'} 
+                      src={liked ? '/LitLog/icons/heart_filled.svg' : '/LitLog/icons/heart_gray.svg'} 
                       alt="heart"
                       className="heart-icon"
                     />
                     {likeCount}
                   </span>
                   <span className={styles.comment}>
-                    <img src="/icons/comment_gray.svg" alt="Comment" className={styles.icon} /> 
+                    <img src="/LitLog/icons/comment_gray.svg" alt="Comment" className={styles.icon} /> 
                     {collection.commentCount}
                   </span>
                 </div>
@@ -205,7 +205,7 @@ const CollectionDetail = () => {
           <br />
           <div className={styles.bookInfoRow}>
           <p className={styles.bookCount}>
-            <img src="/icons/book.svg" alt="Book" className={styles.icon} />  
+            <img src="/LitLog/icons/book.svg" alt="Book" className={styles.icon} />  
             {totalBooks} book(s)
           </p>
 
@@ -225,7 +225,7 @@ const CollectionDetail = () => {
                         resultValue: '1',
                         callbackOnSuccess: async () => {
                           try {
-                            await axios.delete(`/api/collections/${collection.id}`, {
+                            await axios.delete(`/LitLog/api/collections/${collection.id}`, {
                               withCredentials: true,
                             });
 
@@ -281,7 +281,7 @@ const CollectionDetail = () => {
                 collection.profileImage
                   ? (collection.profileImage.startsWith('http')
                       ? collection.profileImage
-                      : `/api/${collection.profileImage}`)
+                      : `/LitLog/api/${collection.profileImage}`)
                   : defaultProfile
               }
               alt="profile"
@@ -289,7 +289,7 @@ const CollectionDetail = () => {
             />{collection.nickname}
         </Link>
           <p className={styles.bookCount}>
-            <img src="/icons/book.svg" alt="Book" className={styles.icon} />  
+            <img src="/LitLog/icons/book.svg" alt="Book" className={styles.icon} />  
             {totalBooks} book(s)
           </p>
         </div>
@@ -321,7 +321,6 @@ const CollectionDetail = () => {
             <CollectionCommentSection collectionId={collectionId} />
           </div>
         </div>
-      </div>
       <CustomModal
         show={modalData.show}
         onHide={handleCloseModal}

@@ -66,10 +66,10 @@ const CollectionEntry = ({ collection }) => {
         <div className={styles.bottomRow}>
           <span className={styles.author}>by {collection.nickname}</span>
           <span className={styles.meta}>
-            <img src="/icons/heart_gray.svg" alt="likes" className={styles.icon1}/>
+            <img src="/LitLog/icons/heart_gray.svg" alt="likes" className={styles.icon1}/>
             {collection.likeCount ?? 0}
             &nbsp;&nbsp;
-            <img src="/icons/comment_gray.svg" alt="comments" className={styles.icon2}/>
+            <img src="/LitLog/icons/comment_gray.svg" alt="comments" className={styles.icon2}/>
             {collection.commentCount ?? 0}
           </span>
         </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 
-const fallback = "/images/covernotavailable.png";
+const fallback = "/LitLog/images/covernotavailable.png";
 
 const HighThumbnail = ({ src, alt = "표지 이미지", className = "" }) => {
   const [imgSrc, setImgSrc] = useState("");
