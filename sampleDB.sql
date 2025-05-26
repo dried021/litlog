@@ -69,12 +69,12 @@ INSERT INTO follow_list (user_id, follow_user_id) VALUES
 
 
 INSERT INTO book VALUES 
-(1,'1HbVmUsuGiYC','Siddhartha',NULL,NULL,NULL,'2005-11-15',NULL,50,'https://sterling-us.imgix.net/covers/9781435166929.jpg?auto=format&h=648',NULL),
+(1,'1HbVmUsuGiYC','Siddhartha',NULL,NULL,NULL,NULL,NULL,50,'https://sterling-us.imgix.net/covers/9781435166929.jpg?auto=format&h=648',NULL),
 (2,'BwCQaeYMUfIC',"Ender's Game",NULL,NULL,NULL,NULL,NULL,120,'https://prodimage.images-bn.com/pimages/9781250773029_p0_v3_s1200x630.jpg',NULL),
 (3,'rSno88UwfywC','The Hunger Games',NULL,NULL,NULL,'2008-11-15',NULL,NULL,'https://m.media-amazon.com/images/I/71un2hI4mcL.jpg',NULL),
 (4,'mXqAEAAAQBAJ','Interstellar',NULL,NULL,NULL,NULL,NULL,NULL,'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1583516578i/21488063.jpg',NULL),
 (5,'jyjJDwAAQBAJ','In Defense of Anarchism',NULL,NULL,NULL,NULL,NULL,NULL,'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1386924654i/61003.jpg',NULL),
-(6,'-sVdQ32rW0QC','1984',NULL,NULL,NULL,'2005-11-15',NULL,200,'https://tankmuseumshop.org/cdn/shop/products/1984.jpg?v=1588779384&width=640',NULL),
+(6,'-sVdQ32rW0QC','1984',NULL,NULL,NULL,NULL,NULL,200,'https://tankmuseumshop.org/cdn/shop/products/1984.jpg?v=1588779384&width=640',NULL),
 (7,'ua1RSmAQmDAC','The English Patient',NULL,NULL,NULL,NULL,NULL,NULL,'http://books.google.com/books/content?id=fVjXBN9edXYC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',NULL),
 (8,'6Y7uBQAAQBAJ','Little Women',NULL,NULL,NULL,NULL,NULL,110,'https://cdn.britannica.com/04/126004-050-EC4DF54F/Dustcover-Louisa-May-Alcott-Little-Women-novel.jpg',NULL),
 (9,'EvqJCGeqKhsC','Pride and Prejudice',NULL,NULL,NULL,NULL,NULL,460,'https://dynamic.indigoimages.ca/v1/books/books/1441341706/1.jpg?width=810&maxHeight=810&quality=85',NULL),
